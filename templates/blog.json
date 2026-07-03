@@ -1,0 +1,88 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "example": {
+      "type": "example",
+      "disabled": true,
+      "settings": {}
+    },
+    "featured_blogs_j8whNQ": {
+      "type": "featured-blogs",
+      "blocks": {
+        "article_Eqhgaz": {
+          "type": "article",
+          "settings": {
+            "article": "articles/how-to-support-scalp-health-with-hydrafacial"
+          }
+        },
+        "article_LfnCyg": {
+          "type": "article",
+          "settings": {
+            "article": "articles/what-to-know-about-your-skin-type"
+          }
+        },
+        "article_fFFUgj": {
+          "type": "article",
+          "settings": {
+            "article": "articles/all-you-need-to-know-about-skin-cycling"
+          }
+        }
+      },
+      "block_order": [
+        "article_Eqhgaz",
+        "article_LfnCyg",
+        "article_fFFUgj"
+      ],
+      "name": "Blogs",
+      "settings": {
+        "heading": "Hydrafacial Blog",
+        "subheading": "Skin Care & Skin Health <|Resources|>",
+        "display-filters": false,
+        "filter-title": "",
+        "title": "Featured Stories",
+        "featured-article": "articles/hydrafacial-for-anti-aging"
+      }
+    },
+    "text_with_cta_yDYP8Y": {
+      "type": "text-with-cta",
+      "disabled": true,
+      "name": "Text With CTA",
+      "settings": {
+        "heading": "<p>Need &lt;|More Information?|&gt;</p>",
+        "body": "",
+        "top_cta_text": "FInd A Hydrafacialist",
+        "top_cta_url": "#",
+        "wide_button_on_mobile": false,
+        "bottom_cta_text": "Become a Hydrafacialist",
+        "bottom_cta_url": "shopify://pages/connect-with-sales"
+      }
+    },
+    "text_with_cta_WPkdNw": {
+      "type": "text-with-cta",
+      "name": "Text With CTA",
+      "settings": {
+        "heading": "<p>Learn More About &lt;|Hydrafacial|&gt;</p>",
+        "body": "<p>Only Hydrafacial uses Vortex-Fusion™ technology to gently but thoroughly refresh any skin type.</p>",
+        "top_cta_text": "Find a hydrafacialist",
+        "top_cta_url": "shopify://pages/find-a-hydrafacialist",
+        "wide_button_on_mobile": false,
+        "bottom_cta_text": "Become a Provider",
+        "bottom_cta_url": "shopify://pages/connect-with-sales"
+      }
+    }
+  },
+  "order": [
+    "example",
+    "featured_blogs_j8whNQ",
+    "text_with_cta_yDYP8Y",
+    "text_with_cta_WPkdNw"
+  ]
+}

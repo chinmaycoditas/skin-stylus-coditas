@@ -1,0 +1,41 @@
+{%- liquid 
+  assign icons = ''
+
+  if settings.social_instagram_url != blank
+    assign icons = icons | append: 'instagram,'
+  endif
+
+  if settings.social_facebook_url != blank
+    assign icons = icons | append: 'facebook,'
+  endif
+
+  if settings.social_twitter_url != blank
+    assign icons = icons | append: 'twitter,'
+  endif
+
+  if settings.social_linkedin_url != blank
+    assign icons = icons | append: 'linkedin,'
+  endif
+
+  assign icons = icons | split: ','
+
+  assign li_class = li_class
+  assign a_class = a_class
+
+-%}
+
+
+
+<ul class="flex {{ class }}">
+  {%- for icon in icons -%}
+    {%- assign _link = 'social_' | append: icon | append: '_url' -%}
+    {%- assign _t = 'general.social.' | append: icon -%}
+
+    <li class="{{ li_class }}{% unless forloop.last %} mr-3{% endunless %}">
+      <a href="{{ settings[_link] }}" class="{{ a_class }}">
+        {%- render 'icons', icon: icon, color: color, class: '[&_svg]:h-[18px] text-white' -%}
+        <span class="hidden">{{ _t | t }}</span>
+      </a>
+    </li>
+  {%- endfor -%}
+</ul>

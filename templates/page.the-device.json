@@ -1,0 +1,371 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "page_hero_aqDMYG": {
+      "type": "page-hero",
+      "name": "Page Hero",
+      "settings": {
+        "image": "shopify://shop_images/Treatment_pro_desktop_image.png",
+        "image_mobile": "shopify://shop_images/Frame_4794_1.png",
+        "heading": "<p>More Than a Device.</p><p>It’s Your Business Builder. </p>",
+        "use_h1": true,
+        "heading_color": "#ffffff",
+        "body": "<p>7 skin therapies in 1 Hydrafacial treatment. Clinically proven results. A proven growth driver for your practice.</p>",
+        "cta_text": "Become a Provider",
+        "cta_url": "shopify://pages/connect-with-sales",
+        "content_position": "items-start",
+        "desktop_heading_max_w": 500,
+        "content_block_type": "pills",
+        "show_nav": false,
+        "dropdown_text": "",
+        "id_number": 1,
+        "popup_form_override": false
+      }
+    },
+    "boosters_EDCbjA": {
+      "type": "boosters",
+      "blocks": {
+        "textbox_QUMynt": {
+          "type": "textbox",
+          "settings": {
+            "icon_select": "none",
+            "heading": "Cloud Powered Intelligence",
+            "body": "<p>Real-time treatment insights support data-driven decision making, helping tailor treatments for patient needs.</p>",
+            "content_box_background": "light_cream",
+            "text_size": "16px",
+            "text_size_desktop": "18px"
+          }
+        },
+        "textbox_QnrQHQ": {
+          "type": "textbox",
+          "settings": {
+            "icon_select": "none",
+            "heading": "Patient Loyalty & Engagement",
+            "body": "<p>The connected experience extends to our loyalty program, designed to reinforce patient trust and encourage ongoing care.</p>",
+            "content_box_background": "light_cream",
+            "text_size": "16px",
+            "text_size_desktop": "18px"
+          }
+        },
+        "textbox_dKn3PU": {
+          "type": "textbox",
+          "settings": {
+            "icon_select": "none",
+            "heading": "Future-Proof Investment",
+            "body": "<p>Built to evolve with your practice, integrating new treatment modalities and software updates to effortlessly keep your device up to date.</p>",
+            "content_box_background": "light_cream",
+            "text_size": "16px",
+            "text_size_desktop": "18px"
+          }
+        },
+        "textbox_eTJcgH": {
+          "type": "textbox",
+          "settings": {
+            "icon_select": "none",
+            "heading": "Frictionless Experience in the Treatment Room",
+            "body": "<p>Gesture controls and on-screen treatment prompts</p>",
+            "content_box_background": "light_cream",
+            "text_size": "16px",
+            "text_size_desktop": "18px"
+          }
+        }
+      },
+      "block_order": [
+        "textbox_QUMynt",
+        "textbox_QnrQHQ",
+        "textbox_dKn3PU",
+        "textbox_eTJcgH"
+      ],
+      "name": "t:settings_schema.sections.boosters.name",
+      "settings": {
+        "gradient": "none",
+        "image_layout": "fullscreen_background",
+        "image_position": "right",
+        "mobile_heading_position": "low",
+        "desktop_image": "shopify://shop_images/image_2_0845ea5b-e71f-49da-b3b6-02d6a3cf213e.png",
+        "mobile_image": "shopify://shop_images/Active_Hydrafacial_Treatment.png",
+        "mobile_image_aspect": "square",
+        "mobile_text_align": "text-center",
+        "desktop_text_align": "lg:text-left",
+        "text_color": "text-white",
+        "text_yellow": false,
+        "heading": "Technology Built for Your Practice",
+        "subheading": "",
+        "body": "",
+        "cta_button_url": "",
+        "cta_button_text": "",
+        "id_number": 1,
+        "popup_form_override": false
+      }
+    },
+    "side_by_side_fjVE33": {
+      "type": "side-by-side",
+      "blocks": {
+        "item_fmcJLi": {
+          "type": "item",
+          "settings": {
+            "title_1": "Featuring Vortex-Fusion Technology",
+            "description_1": "<ul><li>Vortex-Fusion Technology combined with spiral dermabrasion tips gently remove impurities</li><li>Disposable, customizable dermabrasion tips allow for control over desired exfoliation level </li><li>Maximizes absorption of active ingredients, enhancing treatment effectiveness</li></ul>",
+            "cta_label_1": "CTA Label",
+            "cta_link_1": "",
+            "title_2": "",
+            "description_2": "",
+            "cta_label_2": "CTA Label",
+            "cta_link_2": "",
+            "image": "shopify://shop_images/HF_Tip_Grp_Assort_3_HP_Macro_S_RGB.jpg",
+            "image_first": false
+          }
+        },
+        "item_txUpR8": {
+          "type": "item",
+          "settings": {
+            "title_1": "Results You Can See",
+            "description_1": "<p>Clinically proven to improve skin’s overall appearance, Hydrafacial’s cutting-edge and patented Vortex-Fusion Technology cleanses, extracts, and hydrates for instantly visible results.</p><ul><li>Unmatched glow your clients will love.</li><li>Personalized treatments for any skin type and concern.</li><li>Client satisfaction from start to finish.</li></ul>",
+            "cta_label_1": "CTA Label",
+            "cta_link_1": "",
+            "title_2": "",
+            "description_2": "<p>Item Description</p>",
+            "cta_label_2": "CTA Label",
+            "cta_link_2": "",
+            "image": "shopify://shop_images/Model_Looking_At_Gunkie.png",
+            "image_first": true
+          }
+        }
+      },
+      "block_order": [
+        "item_fmcJLi",
+        "item_txUpR8"
+      ],
+      "name": "t:settings_schema.sections.side_by_side.name",
+      "settings": {
+        "title": "",
+        "description": "",
+        "id_number": 1
+      }
+    },
+    "basic_image_slider_3H6nb8": {
+      "type": "basic-image-slider",
+      "blocks": {
+        "slide_HknmMg": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/7_Steps_-_Lymphatic_Image_Close_up_1_Desktop.png",
+            "title": "Lymphatic Drainage",
+            "description": "Optional Add-On to Enhance Results & ROI"
+          }
+        },
+        "slide_rdgQQL": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/7_Steps_Microderm_Large_Right_Image_3f4421f0-102b-4b3c-80d1-2da71d705aef.png",
+            "title": "Microdermabrasion",
+            "description": "Core Hydrafacial Treatment Step"
+          }
+        },
+        "slide_GnR6Gt": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/7_Steps_Peel_Image_Left_Side_Test.png",
+            "title": "Peel",
+            "description": "Core Hydrafacial Treatment Step"
+          }
+        },
+        "slide_piBMzd": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/Step_4_Extract_02.jpg",
+            "title": "Extract",
+            "description": "Core Hydrafacial Treatment Step"
+          }
+        },
+        "slide_jbRdpz": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/Step_5_Boost_01.jpg",
+            "title": "Boost",
+            "description": "Optional Add-On to Enhance Results & ROI"
+          }
+        },
+        "slide_nryKKA": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/LEd.png",
+            "title": "LED Therapy",
+            "description": "Optional Add-On to Enhance Results & ROI"
+          }
+        },
+        "slide_6wFYK7": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/7_Steps_Hydrate_Large_4e336c1f-46dd-4fd2-936b-2682e83c0c11.png",
+            "title": "Hydrate",
+            "description": "Core Hydrafacial Treatment Step"
+          }
+        }
+      },
+      "block_order": [
+        "slide_HknmMg",
+        "slide_rdgQQL",
+        "slide_GnR6Gt",
+        "slide_piBMzd",
+        "slide_jbRdpz",
+        "slide_nryKKA",
+        "slide_6wFYK7"
+      ],
+      "name": "t:settings_schema.sections.basic_image_slider.name",
+      "settings": {
+        "title": "<p>Customize Your Treatment to Increase ROI Potential</p>",
+        "id_number": 1
+      }
+    },
+    "textblock_slider_h3eNiY": {
+      "type": "textblock-slider",
+      "blocks": {
+        "text_slide_mHyWTb": {
+          "type": "text_slide",
+          "settings": {
+            "badge_text": "Brand Awareness",
+            "heading": "#1 Client-Requested",
+            "body": "skincare treatment by name¹",
+            "button_text": "",
+            "button_url": ""
+          }
+        },
+        "text_slide_HcpQJq": {
+          "type": "text_slide",
+          "settings": {
+            "badge_text": "Revenue",
+            "heading": "Up To $227k",
+            "body": "annual revenue increase by performing just 2 Hydrafacial treatments per day¹",
+            "button_text": "",
+            "button_url": ""
+          }
+        },
+        "text_slide_TRyNkE": {
+          "type": "text_slide",
+          "settings": {
+            "badge_text": "New Client Acquisition",
+            "heading": "95% of Providers",
+            "body": "say Hydrafacial helps attract new clients¹",
+            "button_text": "",
+            "button_url": ""
+          }
+        },
+        "text_slide_zEQx98": {
+          "type": "text_slide",
+          "settings": {
+            "badge_text": "Client Retention",
+            "heading": "100% of Clients",
+            "body": "would recommend Hydrafacial to family and friends²",
+            "button_text": "",
+            "button_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "text_slide_mHyWTb",
+        "text_slide_HcpQJq",
+        "text_slide_TRyNkE",
+        "text_slide_zEQx98"
+      ],
+      "name": "TextBlock Slider",
+      "settings": {
+        "heading": "<|The benefits|> are clear",
+        "heading_color": "",
+        "show_bg_img": false,
+        "id_number": 1
+      }
+    },
+    "revenue_tracker_LX9GyN": {
+      "type": "revenue-tracker",
+      "blocks": {
+        "card_8RX9Rd": {
+          "type": "card",
+          "settings": {
+            "heading": "Platinum Treatment",
+            "subheading": "$162,500 - $227,500/year*"
+          }
+        },
+        "card_qHFFKf": {
+          "type": "card",
+          "settings": {
+            "heading": "Deluxe Treatment",
+            "subheading": "$125,500 – $175,000/year*"
+          }
+        },
+        "card_FArf4A": {
+          "type": "card",
+          "disabled": true,
+          "settings": {
+            "heading": "Signature Treatment",
+            "subheading": "$175,500 - $325,500/year²"
+          }
+        }
+      },
+      "block_order": [
+        "card_8RX9Rd",
+        "card_qHFFKf",
+        "card_FArf4A"
+      ],
+      "name": "Revenue Tracker",
+      "settings": {
+        "heading": "More Glow, <|More Revenue|>",
+        "subheading": "Just 2 Hydrafacial treatments per day can generate impactful revenue. Include treatment add-ons and build out Deluxe or Platinum treatment plans to maximize your ROI potential.",
+        "show_bottom_border": false,
+        "id_number": 1
+      }
+    },
+    "text_with_cta_FAJqgL": {
+      "type": "text-with-cta",
+      "name": "Text With CTA",
+      "settings": {
+        "heading": "<p>Ready To &lt;|Become A Provider?|&gt;</p>",
+        "body": "<p>Discover how Hydrafacial can help grow your practice with proven technology, award-winning treatments and dedicated provider support.</p>",
+        "top_cta_text": "Become a Provider",
+        "top_cta_url": "shopify://pages/connect-with-sales",
+        "popup_form_override": false,
+        "wide_button_on_mobile": false,
+        "bottom_cta_text": "Find an event",
+        "bottom_cta_url": "shopify://pages/events",
+        "id_number": 1
+      }
+    },
+    "disclaimer_box_temgFB": {
+      "type": "disclaimer-box",
+      "blocks": {
+        "disclaimer_G4f9mT": {
+          "type": "disclaimer",
+          "settings": {
+            "disclaimer": "<p>¹ Data on file. HydraFacial, LLC</p><p>²<em>Aribi M, Salti G, Anhido J. Efficacy in Facial Hydration of Dermabrasion Technique. 2018</em></p><p><em>*</em>Based on a 5-7 day work week, 50 weeks/ year, $250 Deluxe SRP, $325 Platinum SRP</p><p></p>"
+          }
+        }
+      },
+      "block_order": [
+        "disclaimer_G4f9mT"
+      ],
+      "name": "Disclaimer Box",
+      "settings": {
+        "bottom_border": false,
+        "id_number": 1
+      }
+    }
+  },
+  "order": [
+    "page_hero_aqDMYG",
+    "boosters_EDCbjA",
+    "side_by_side_fjVE33",
+    "basic_image_slider_3H6nb8",
+    "textblock_slider_h3eNiY",
+    "revenue_tracker_LX9GyN",
+    "text_with_cta_FAJqgL",
+    "disclaimer_box_temgFB"
+  ]
+}

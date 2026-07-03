@@ -1,0 +1,80 @@
+{% assign b = block.settings %}
+<div 
+  class="flex items-center gap-4 lg:gap-6 pl-[15px] py-2.5 pr-5 rounded-[90px] bg-[#ffffff33] backdrop-blur-[22.5px] {% if b.use_autowidth %}w-fit{% endif %}" 
+  style="{% unless b.use_autowidth %}width: {{ b.pill_width }}px;{% endunless %} margin-left: {{ b.margin_left }}px; margin-right: {{ b.margin_right }}px;"
+>
+  {% if b.show_icon %}
+    {% render 'icons', icon: b.icon_select %}
+  {% endif %}
+  <span class="text-white text-body-small/normal font-medium tracking-[-0.028px] {% unless settings.remove_capitalize %}capitalize{% endunless %}">{{ b.text }}</span>
+</div>
+
+{%  schema  %}
+  {
+    "name": "Pills for Tab Slider",
+    "class": "tab-slider-pill",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_icon",
+        "label": "t:settings_schema.sections.blocks.pills_for_tab_slider.show_icon",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "icon_select",
+        "label": "t:settings_schema.general.icon",
+        "options": [
+          {
+            "value": "face-magic",
+            "label": "t:settings_schema.sections.blocks.pills_for_tab_slider.icon_face_magic"
+          },
+          {
+            "value": "sparkle",
+            "label": "t:settings_schema.sections.blocks.pills_for_tab_slider.sparkle"
+          },
+          {
+            "value": "face",
+            "label": "t:settings_schema.sections.blocks.pills_for_tab_slider.face"
+          },
+          {
+            "value": "clock",
+            "label": "t:settings_schema.sections.blocks.pills_for_tab_slider.clock"
+          }
+        ],
+        "default": "face-magic"
+      },
+      {
+        "type": "text",
+        "id": "text",
+        "label": "t:settings_schema.general.text"
+      },
+      {
+        "type": "number",
+        "id": "margin_left",
+        "label": "t:settings_schema.sections.blocks.pills_for_tab_slider.margin_left",
+        "default": 0
+      },
+      {
+        "type": "number",
+        "id": "margin_right",
+        "label": "t:settings_schema.sections.blocks.pills_for_tab_slider.margin_right",
+        "default": 0
+      },
+      {
+        "type": "number",
+        "id": "pill_width",
+        "label": "t:settings_schema.sections.blocks.pills_for_tab_slider.pill_width",
+        "default": 220
+      },
+      {
+        "type": "checkbox",
+        "id": "use_autowidth",
+        "label": "Use Auto-Width"
+      }
+    ],
+    "presets": [
+      {"name": "Pill"}
+    ]
+  }
+{% endschema %}

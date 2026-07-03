@@ -1,0 +1,58 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "example": {
+      "type": "example",
+      "disabled": true,
+      "settings": {}
+    },
+    "article_GigMD3": {
+      "type": "article",
+      "blocks": {
+        "article_AteiJU": {
+          "type": "article",
+          "settings": {
+            "article": "articles/how-to-support-scalp-health-with-hydrafacial"
+          }
+        },
+        "article_MxfaNA": {
+          "type": "article",
+          "settings": {
+            "article": "articles/what-to-know-about-your-skin-type"
+          }
+        },
+        "article_zDhpTz": {
+          "type": "article",
+          "settings": {
+            "article": "articles/hydrafacial-for-anti-aging"
+          }
+        }
+      },
+      "block_order": [
+        "article_AteiJU",
+        "article_MxfaNA",
+        "article_zDhpTz"
+      ],
+      "name": "Article",
+      "settings": {
+        "title": "Related Stories",
+        "connect_text": "Connect to stay up to date with everything that’s happening at Hydrafacial",
+        "locations_text": "Want to see Hydrafacialists near you?",
+        "cta_text": "Find A Hydrafacialist",
+        "cta_url": "shopify://pages/find-a-hydrafacialist"
+      }
+    }
+  },
+  "order": [
+    "example",
+    "article_GigMD3"
+  ]
+}

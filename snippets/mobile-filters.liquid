@@ -1,0 +1,68 @@
+{% assign cta_class = 'text-[14px] tracking-[-0.028px] font-medium border border-solid border-black rounded-[70px] overflow-hidden px-5 py-[15px] flex justify-center items-center' %}
+<input
+  type="radio"
+  id="mobile-filters-close"
+  class="hidden"
+  name="filters"
+>
+<input
+  type="radio"
+  id="mobile-filters"
+  class="hidden peer/mobile-filters"
+  name="filters"
+  data-mobile-filters
+  data-scroll-lock
+>
+<label 
+  class="flex gap-4"
+  for="mobile-filters"
+>
+  <span>{{ 'collection.filter_button' | t | default: 'Filter' }}</span>
+  <div class="flex items-center">
+    {% render 'icons', 
+      icon: 'chevron-down', 
+      class: 'block h-2.5 w-4' 
+    %}
+  </div>
+</label>
+<aside class="fixed top-0 bg-grey w-full h-full -right-full peer-checked/mobile-filters:right-0 transition-all pointer-events-auto overflow-scroll no-scrollbar">
+  <div class="flex justify-between w-full py-[10px] px-[18px] items-center">
+    <span class="text-[18px]/[25px] tracking-[-0.036px] font-medium h-[48px] flex items-center">
+      {{ 'collection.filters' | t | default: 'Filters' }}
+    </span>
+    <label
+      for="mobile-filters-close"
+    >
+      {% render 'icons', icon: 'x' %}
+    </label>
+  </div>
+  <div class="mb-11 h-[.5px] bg-[#C6C6C6] w-full"></div>
+  <form 
+    method="get" 
+    id="collection-sort-form" 
+    class="flex flex-col justify-between h-[calc(100%-128px)] overflow-scroll"
+    data-ajax-form="#collection-list"
+  >
+    <ul class="grid grid-cols-1 px-[15px] gap-10">
+      {%- for filter in collection.filters -%}
+        {% render 'filter', filter: filter, mobile: true, label_class: label_class %}
+      {%- endfor -%}
+    </ul>
+
+    <div class="grid grid-cols-2 gap-4 pt-4 border-t-grey-medium border-t mx-[15px]">
+      <button 
+        type="submit"
+        class="{{ cta_class }}{% unless settings.remove_capitalize %}capitalize{% endunless %} bg-black text-white hover:bg-white hover:text-black"
+      >
+        <span>{{ 'collection.apply' | t | default: 'Apply' }}</span>
+      </button>
+      <a
+        data-clear 
+        class="{{ cta_class }}{% unless settings.remove_capitalize %}capitalize{% endunless %} text-black hover:bg-black hover:text-white mobile-clear"
+        href="{{ collection.url }}"
+      >
+        <span>{{ 'collection.clear' | t | default: 'Clear' }}</span>
+      </a>
+    </div>
+  </form>
+</aside>

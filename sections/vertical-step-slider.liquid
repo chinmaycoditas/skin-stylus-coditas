@@ -1,0 +1,201 @@
+{%- liquid
+  assign s = section.settings 
+
+  assign text_slides = ""
+  assign image_video_slides = ""
+-%}
+
+{% for block in section.blocks %}
+  {%- assign b = block.settings -%}
+
+  {% capture text_slide %}
+    <li class="splide__slide relative my-2 flex flex-col lg:grid grid-cols-[auto_1fr] gap-6 group text-dark-grey">
+      {%- assign line_position = "absolute lg:top-[46px] left-12" -%}
+      <div class="border lg:border-2 border-dark-grey border-dashed lg:h-[calc(100%-16px)] w-[calc(100%-16px)] lg:w-[unset] {{ line_position }} lg:left-[22px] top-[22px]"></div>
+      <div class="h-1 lg:h-9/10 w-9/10 lg:w-2 bg-linear-to-r lg:bg-linear-to-b from-blue-cta to-transparent {{ line_position }} hidden group-[&.is-active]:block lg:left-[20px] top-[21px]"></div>
+
+      <div class="h-12 w-12 rounded-full text-h3-mob/[100%] border border-gray group-[&.is-active]:border-blue-cta bg-transparent group-[&.is-active]:bg-blue-cta group-[&.is-active]:text-white flex justify-center items-center font-light">
+        <span>{{ forloop.index }}</span>
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <h3 class="group-[&.is-active]:text-blue-cta text-section-2-mob lg:text-section-3">{{ b.title }}</h3>
+
+        <span class="text-body group-[&.is-active]:text-black font-light [&_ul]:list-[circle] [&_li]:pb-1.5">
+          {{ b.description }}
+        </span>
+      </div>
+    </li>
+  {% endcapture %}
+
+  {% capture image_video_slide %}
+    {%- liquid 
+      assign autoplay = false
+      if forloop.first
+        assign autoplay = true
+      endif
+    -%}
+
+    <li class="splide__slide">
+      {%- assign class = "rounded-image overflow-hidden h-full" -%}
+      {% if b.video %}
+        {% render 'video', video: b.video, container_class: class, class: "h-full w-full block", muted: true, autoplay: autoplay, change_slide: true %}
+      {% else %}
+        {% render 'responsive-image', image: b.image, class: class, cover: true %}
+      {% endif %}
+    </li>
+  {% endcapture %}
+
+  {%- liquid
+    assign text_slides = text_slides | append: text_slide
+    assign image_video_slides = image_video_slides | append: image_video_slide
+
+    assign text_slide = ""
+    assign image_video_slide = "" 
+  -%}
+{% endfor %}
+
+<div 
+  id="vertical-step-slider-{{ s.id_number }}"
+  class="lg:px-[150px] lg:py-18 pt-[60px]" 
+  data-scroll-trigger
+>
+  <div class="text-center mb-12 px-4">
+    <h2 class="text-h1-mob lg:text-h2 leading-[100%] mb-4">{% render 'blue', text: s.title %}</h2>
+    <span class="text-body font-light">{{ s.subtitle }}</span>
+  </div>
+
+  <div class="flex flex-col-reverse lg:grid grid-cols-2 items-center gap-4 [&_.splide]:max-w-screen">
+    {% capture connected_slider_options %}
+      {
+        "direction": "ltr",
+        "gap": "2rem",
+        "heightRatio": 1,
+        "fixedHeight": "fit-content",
+        "pagination": false,
+        "arrows": false,
+        "changeOnClick": true,
+        "mediaQuery": "min",
+        "perPage": 1,
+        "padding": {
+          "left": "2rem",
+          "right": "20%"
+        },
+        "breakpoints": {
+          "1024": {
+            "direction": "ttb",
+            "padding": {"bottom": "50px"}
+          }
+        }
+      }
+    {% endcapture %}
+
+    <div class="splide py-14" data-connected-slider='{{ connected_slider_options }}'>
+      <div class="splide__track">
+        <ul class="splide__list">
+          {{ text_slides }}
+        </ul>
+      </div>
+    </div>
+
+    {% capture slider_options %}
+      {
+        "type": "loop",
+        "fixedHeight": 455,
+        "pagination": false,
+        "arrows": false,
+        "mediaQuery": "min",
+        "padding": "1rem",
+        "gap": "1rem",
+        "breakpoints": {
+          "1200": {
+            "fixedHeight": 700
+          }
+        }
+      }
+    {% endcapture %}
+
+    <div class="splide" data-slider='{{ slider_options }}'>
+      <div class="splide__track">
+        <ul class="splide__list">
+          {{ image_video_slides }}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<span class="mx-4.5 lg:mx-[38px] max-w-screen block">
+  <span class="block w-full"></span>
+</span>
+
+{% schema %}
+{
+  "name": "t:settings_schema.sections.vertical_step_slider.name",
+  "tag": "section",
+  "class": "vertical-step-slider",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "t:settings_schema.general.heading",
+      "info": "t:settings_schema.general.blue_info"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "t:settings_schema.general.subheading"
+    },
+    {
+      "type": "header",
+      "content": "Unique Section ID"
+    },
+    {
+      "type": "paragraph",
+      "content": "The ID for this section will be 'vertical-step-slider-#' based on the number chosen below. The default is 'vertical-step-slider-1'"
+    },
+    {
+      "type": "range",
+      "id": "id_number",
+      "label": "ID Number",
+      "max": 5,
+      "min": 1,
+      "step": 1,
+      "default": 1,
+      "info": "If using this section multiple times on the same page, assign a different number to each one."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "t:settings_schema.sections.vertical_step_slider.step",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "t:settings_schema.general.title"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "t:settings_schema.general.description"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:settings_schema.general.image"
+        },
+        {
+          "type": "video",
+          "id": "video",
+          "label": "t:settings_schema.general.video"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:settings_schema.sections.vertical_step_slider.name"
+    }
+  ]
+}
+{% endschema %}

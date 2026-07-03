@@ -1,0 +1,232 @@
+{% liquid 
+  assign s = section.settings
+%}
+
+{% if s.bg_gradient %}<div class="long-page-gradient max-w-[unset]">{% endif %}
+  <div class="max-w-maxscreen mx-auto z-10">
+    <div 
+      id="sales-form-{{ s.id_number }}"
+      class="relative flex flex-col pb-7 lg:pb-0 lg:px-[38px] pt-20 lg:pt-[110px]"
+    >
+      {% if s.use_exit_intent %}
+        <div 
+          class="fixed w-screen inset-0 z-10 h-[100dvh] bg-[#0000008c] backdrop-blur-[10px] opacity-0 pointer-events-none has-[input[data-modal-toggle]:checked]:opacity-100 has-[input[data-modal-toggle]:checked]:pointer-events-auto transition-all duration-500" 
+          data-exit-intent
+        >
+          <div class="absolute lg:w-[362px] lg:h-[528px] bottom-0 lg:top-1/2 lg:left-1/2 lg:-translate-y-1/2 lg:-translate-x-1/2 bg-white lg:rounded-image px-[18px] pt-[30px] pb-10 lg:pt-9 lg:px-[30px]">
+            <label class="absolute top-4 right-4">
+              <input type="checkbox" class="peer hidden" data-modal-toggle/>
+              {% render 'icons', icon: 'thick-x', class: "h-10 [&_svg]:text-black hover:cursor-pointer" %}
+            </label>
+            
+
+            <div class="pb-5 border-b border-b-grey-medium">
+              <h2 class="text-section-1/8 font-light tracking-[-0.056px] {% unless settings.remove_capitalize %}capitalize{% endunless %} w-[85%]">{% render 'blue', text: s.modal_heading %}</h2>
+            </div>
+            <p class="text-body-[23px] font-light tracking-[-0.032px] pt-[22px] pb-[30px]">{% render 'blue', text: s.modal_subheading %}</p>
+
+            {% form 'contact' %}
+              <div class="flex flex-col items-center gap-3 pb-[22px]">
+                <input 
+                  type="email" 
+                  id="business_email" 
+                  name="contact[business_email]" 
+                  placeholder="Business Email *"
+                  class="w-full p-[15px] border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  required 
+                />
+                <button type="submit" class="button-primary-black {% if settings.remove_capitalize %}!normal-case{% endif %} w-full">
+                  {{ s.modal_form_cta_text }}
+                </button>
+              </div>
+            {% endform %}
+
+            <div class="relative py-2 pb-[30px]">
+              <hr class="bg-grey-medium h-[1px] scale-y-[18%]" />
+
+              <span class="bg-white absolute -top-[2px] left-1/2 -translate-x-1/2 w-fit px-2">Or</span>
+            </div>
+
+            <button type="button" class="button-primary-blue {% if settings.remove_capitalize %}!normal-case{% endif %} w-full">
+              <a href="{{ s.modal_bottom_cta_url }}">
+                {{ s.modal_bottom_cta_text }}
+              </a>
+            </button>
+          </div>
+        </div>
+      {% endif %}
+
+      <div class="header lg:flex lg:justify-between lg:gap-20 lg:pb-[38px] pt-5 px-[18px] lg:px-0">
+        <span class="lg:text-h3 text-h2-mob lg:max-w-[700px] lg:flex lg:flex-col lg:justify-end lg:items-baseline-last font-light lg:leading-[60px] leading-[60px] lg:-tracking-[.11px] -tracking-[.09px] {% unless settings.remove_capitalize %}capitalize{% endunless %}">
+          {% render 'blue', text: s.title %}
+        </span>
+        {% if s.description != blank %}
+          <span class="lg:max-w-[539px] flex items-baseline-last mt-4 lg:mt-0">
+            {% render 'blue', text: s.description %}
+          </span>
+        {% endif %}
+      </div>
+      <div class="lg:flex lg:justify-between lg:gap-[52px]">
+        <div class="hidden lg:flex flex-col items-start lg:gap-[22px] lg:w-[411px] h-fit bg-white rounded-[20px] p-[30px]">
+          <ul class="flex flex-col gap-6">
+            {% for block in section.blocks %}
+              {% assign b = block.settings %}
+              <li class="flex gap-6">
+                {% render 'icons', icon: 'blue-check' %}
+                <span class="text-section-1-mob font-light leading-6 tracking-[-0.036px] [&_.blue-text]:font-medium">
+                  {% render 'blue', text: b.info_text %}
+                </span>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+
+        {% capture slider_options %}
+          '{
+            "perPage": 1,
+            "pagination": true,
+            "focus": "center",
+            "gap": "19px",
+            "padding": {"left": "18px", "right": "18px"},
+            "arrows": false
+          }'
+        {% endcapture %}
+
+        <div class="splide lg:hidden max-w-screen py-[30px] [&_.splide\_\_pagination\_\_page:not(.is-active)]:!bg-black [&_.splide\_\_pagination]:!bottom-0" data-slider={{ slider_options }}>
+          <div class="splide__track">
+            <ul class="splide__list">
+              {% for block in section.blocks %}
+                {% assign b = block.settings %}
+                <li class="splide__slide rounded-image bg-white">
+                  <div class="flex gap-6 p-5">
+                    {% render 'icons', icon: 'blue-check' %}
+                    <span class="text-section-1-mob font-light leading-6 tracking-[-0.036px] [&_.blue-text]:font-medium">
+                      {% render 'blue', text: b.info_text %}
+                    </span>
+                  </div>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      
+        <div class="info_form lg:w-full lg:max-w-[900px] pb-0 px-[18px] pt-[30px] max-lg:mt-[30px] max-lg:mx-[18px] lg:p-8 rounded-image bg-white">
+          {{ s.form_embed_code }}
+        </div>
+      </div>
+    </div>
+  </div>
+{% if s.bg_gradient %}</div>{% endif %}
+
+{% schema %}
+  {
+    "name": "t:settings_schema.sections.connect_w_sales_form.name",
+    "tag": "section",
+    "class": "connect-with-sales",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "use_exit_intent",
+        "label": "t:settings_schema.sections.connect_w_sales_form.use_exit_modal"
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "t:settings_schema.general.title",
+        "info": "t:settings_schema.general.blue_info"
+      },
+      {
+        "type": "richtext",
+        "id": "description",
+        "label": "t:settings_schema.general.description",
+        "info": "t:settings_schema.general.blue_info"
+      },
+      {
+        "type": "header",
+        "content": "t:settings_schema.sections.connect_w_sales_form.modal_content"
+      },
+      {
+        "type": "text",
+        "id": "modal_heading",
+        "label": "t:settings_schema.general.heading",
+        "info": "t:settings_schema.general.blue_info"
+      },
+      {
+        "type": "text",
+        "id": "modal_subheading",
+        "label": "t:settings_schema.general.subheading",
+        "info": "t:settings_schema.general.blue_info"
+      },
+      {
+        "type": "text",
+        "id": "modal_form_cta_text",
+        "label": "t:settings_schema.general.cta_text",
+        "default": "Request More Info"
+      },
+      {
+        "type": "text",
+        "id": "modal_bottom_cta_text",
+        "label" :"t:settings_schema.general.cta_text",
+        "default": "Take The Quiz"
+      },
+      {
+        "type": "url",
+        "id": "modal_bottom_cta_url",
+        "label": "t:settings_schema.general.cta_url",
+        "default" :"/"
+      },
+      {
+        "type": "header",
+        "content": "Form Embed"
+      },
+      {
+        "type": "liquid",
+        "id": "form_embed_code",
+        "label": "Form Embed Code",
+        "default": "<script src=\"https://js.hsforms.net/forms/embed/9253844.js\" defer></script><div class=\"hs-form-frame\" data-region=\"na1\" data-form-id=\"f5173a73-7bdd-42a2-b874-265c85ce010b\" data-portal-id=\"9253844\"></div>"
+      },
+      {
+        "type": "header",
+        "content": "Unique Section ID"
+      },
+      {
+        "type": "paragraph",
+        "content": "The ID for this section will be 'sales-form-#' based on the number chosen below. The default is 'sales-form-1'"
+      },
+      {
+        "type": "range",
+        "id": "id_number",
+        "label": "ID Number",
+        "max": 5,
+        "min": 1,
+        "step": 1,
+        "default": 1,
+        "info": "If using this section multiple times on the same page, assign a different number to each one."
+      },
+      {
+        "type": "checkbox",
+        "id": "bg_gradient",
+        "label": "Enable Background Gradient"
+      }
+    ],
+    "blocks": [
+      {
+        "name": "t:settings_schema.sections.connect_w_sales_form.info_text",
+        "type": "info_text",
+        "settings": [
+          {
+            "type": "text",
+            "id": "info_text",
+            "label": "t:settings_schema.sections.connect_w_sales_form.info_text",
+            "info": "t:settings_schema.general.blue_info"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "t:settings_schema.sections.connect_w_sales_form.name"
+      }
+    ]
+  }
+{% endschema %}

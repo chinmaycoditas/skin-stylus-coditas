@@ -1,0 +1,111 @@
+{%-liquid
+  assign b = block.settings
+
+  assign is_video = false
+  assign is_image = false
+  
+  if b.desktop_image and b.mobile_image
+    assign is_image = true
+  endif
+
+  if b.desktop_video and b.mobile_video
+    assign is_video = true
+  endif
+
+
+  assign mobile_pb_hack = "165.28%"
+  assign desktop_pb_hack = "61.56%"
+-%}
+
+{%- if is_image or is_video -%}
+  <div class="relative">
+      {%- if is_video -%}
+        {%- render 'video', 
+          video: b.desktop_video,
+          class: "rounded-image", 
+          container_class: "hidden lg:block", 
+          pb_hack: desktop_pb_hack, 
+          in_view: true, 
+          change_slide: true 
+        -%}
+        {%- render 'video', 
+          video: b.mobile_video,
+          class: "rounded-image",
+          container_class: "lg:hidden", 
+          pb_hack: mobile_pb_hack, 
+          in_view: true, 
+          change_slide: true 
+        -%}
+      {%- else if is_image -%}
+        {%- render 'responsive-image', 
+          image: b.desktop_image, 
+          class: "rounded-image hidden lg:block", 
+          pb_hack: desktop_pb_hack 
+        -%} 
+        {%- render 'responsive-image', 
+          image: b.mobile_image, 
+          class: "rounded-image lg:hidden", 
+          pb_hack: mobile_pb_hack 
+        -%}
+      {%- endif -%}
+
+      <div class="absolute w-[90%] lg:w-[50%] top-[3%] left-[3%] pr-5 text-white pointer-events-none">
+        <div class="flex flex-col gap-2.5 lg:gap-[22px] lg:pb-2.5">
+          <h3 class="text-h3-mob/10 lg:text-h3/[60px] font-light tracking-[-0.07px] lg:tracking-[-0.11px] {% unless settings.remove_capitalize %}capitalize{% endunless %}">{% render 'blue', text: b.img_heading %}</h3>
+          <div class="text-body-mob/[23px] tracking-[-0.032px]">{% render 'blue', text: b.img_description %}</div>
+        </div>
+      </div>
+    
+      <div class="absolute bottom-5 left-5 lg:bottom-10 flex flex-col gap-4 [&_.pill\_\_container]:justify-end">
+        {% content_for 'blocks' %}
+      </div>
+    </div>
+  {% endif %}
+
+{%  schema  %}
+  {
+    "name": "Homepage Tab Slide",
+    "class": "splide__slide",
+    "settings": [
+      {
+        "type": "header",
+        "content": "t:settings_schema.sections.blocks.full_image_video_with_overlay_content.image_header",
+        "info": "t:settings_schema.sections.blocks.full_image_video_with_overlay_content.image_header_info"
+      },
+      {
+        "type": "image_picker",
+        "id": "desktop_image",
+        "label": "t:settings_schema.general.image_desktop"
+      },
+      {
+        "type": "image_picker",
+        "id": "mobile_image",
+        "label": "t:settings_schema.general.image_mobile"
+      },
+      {
+        "type": "video",
+        "id": "desktop_video",
+        "label": "t:settings_schema.general.video_desktop"
+      },
+      {
+        "type": "video",
+        "id": "mobile_video",
+        "label": "t:settings_schema.general.video_mobile"
+      },
+      {
+        "type": "text",
+        "id": "img_heading",
+        "label": "t:settings_schema.general.heading",
+        "info": "t:settings_schema.general.blue_info"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "pills-for-tab-slider"
+      }
+    ],
+    "presets": [
+      {"name": "Full Image/Video with Pills"}
+    ]
+  }
+{% endschema %}

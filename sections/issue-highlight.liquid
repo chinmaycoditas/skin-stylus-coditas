@@ -1,0 +1,68 @@
+{%- assign s = section.settings -%}
+
+<div 
+  id="issue-highlight-{{ s.id_number }}"
+  class="px-[18px] pt-2.5 lg:pt-5 lg:px-[38px] mt-[30px]"
+>
+  <div class="flex flex-col items-center w-full gap-[30px] bg-white rounded-header-menu py-[55px] px-[30px]">
+    <h2 class="text-h3-mob/10 lg:text-h4/[50px] text-center font-light tracking-[-0.07px] lg:tracking-[-0.09px] {% unless settings.remove_capitalize %}capitalize{% endunless %}">{% render 'blue', text: s.heading %}</h2>
+    <ul class="flex flex-col items-center justify-center lg:grid lg:grid-flow-col lg:auto-cols-auto gap-[30px] lg:gap-[22px]">
+      {% for block in section.blocks %}
+        <li class=" flex justify-center items-center p-[25px] bg-toggle rounded-[90px] w-full lg:min-w-max">
+          <span class="text-section-1/8 font-light tracking-[-0.056px] {% unless settings.remove_capitalize %}capitalize{% endunless %}">{{ block.settings.issue }}</span>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:settings_schema.sections.issue_highlight.issue_block_name_label",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:settings_schema.general.heading"
+    },
+    {
+      "type": "header",
+      "content": "Unique Section ID"
+    },
+    {
+      "type": "paragraph",
+      "content": "The ID for this section will be 'issue-highlight-#' based on the number chosen below. The default is 'issue-highlight-1'"
+    },
+    {
+      "type": "range",
+      "id": "id_number",
+      "label": "ID Number",
+      "max": 5,
+      "min": 1,
+      "step": 1,
+      "default": 1,
+      "info": "If using this section multiple times on the same page, assign a different number to each one."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "issue",
+      "name": "t:settings_schema.sections.issue_highlight.issue_block_name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "issue",
+          "label": "t:settings_schema.sections.issue_highlight.issue_block_name_label"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 3,
+  "presets": [
+    {
+      "name": "t:settings_schema.sections.issue_highlight.name"
+    }
+  ]
+}
+{% endschema %}

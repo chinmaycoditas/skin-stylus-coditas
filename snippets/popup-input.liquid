@@ -1,0 +1,27 @@
+{% comment %}
+  Usage:
+
+  {% render 'popup-input'
+    class: string
+    text: string
+    style: string #optional
+    block_id: id #optional
+  %}
+
+{% endcomment %}
+
+<input
+  type="radio"
+  id="popup-form-mob--{{ section.id }}{%- if block_id -%}--{{ block_id }}{%- endif -%}"
+  name="popup-form"
+  class="hidden"
+  data-form-popup
+  data-scroll-lock
+>
+<label
+  for="popup-form-mob--{{ section.id }}{%- if block_id -%}--{{ block_id }}{%- endif -%}"
+  class="{{ class }}"
+  {%- if style %} style="{{ style }}"{% endif %}
+>
+  {{ text }}
+</label>

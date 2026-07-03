@@ -1,0 +1,126 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "example": {
+      "type": "example",
+      "disabled": true,
+      "settings": {}
+    },
+    "page_hero_zRrLAB": {
+      "type": "page-hero",
+      "blocks": {
+        "icon_and_text_JyMpj9": {
+          "type": "icon_and_text",
+          "disabled": true,
+          "settings": {
+            "icon_select": "check",
+            "text": "TARGET specific skin concerns and full-face treatment."
+          }
+        },
+        "icon_and_text_WazHdV": {
+          "type": "icon_and_text",
+          "disabled": true,
+          "settings": {
+            "icon_select": "check",
+            "text": "INFUSE clinical-grade ingredients via our proprietary delivery system."
+          }
+        },
+        "icon_and_text_Gke78K": {
+          "type": "icon_and_text",
+          "disabled": true,
+          "settings": {
+            "icon_select": "check",
+            "text": "MAXIMIZE results through fully customized Hydrafacial treatments"
+          }
+        }
+      },
+      "block_order": [
+        "icon_and_text_JyMpj9",
+        "icon_and_text_WazHdV",
+        "icon_and_text_Gke78K"
+      ],
+      "name": "Page Hero",
+      "settings": {
+        "image": "shopify://shop_images/Pro_boosters_hero_desktop.png",
+        "image_mobile": "shopify://shop_images/page_hero_28e9ba56-92d8-48c9-a2d6-8748da54e12b.png",
+        "heading": "<p>Personalize, Optimize & Boost Every Treatment</p>",
+        "use_h1": true,
+        "heading_color": "#ffffff",
+        "body": "<p>Boosters are highly concentrated super serums that personalize and amplify every Hydrafacial treatment.</p>",
+        "cta_text": "Become a Provider",
+        "cta_url": "shopify://pages/connect-with-sales",
+        "content_position": "items-start",
+        "desktop_heading_max_w": 400,
+        "content_block_type": "icons_and_text",
+        "show_nav": false,
+        "dropdown_text": "",
+        "id_number": 1,
+        "popup_form_override": false
+      }
+    },
+    "collection_grid_BXGeJw": {
+      "type": "collection-grid",
+      "blocks": {
+        "disruptor_qi7KjX": {
+          "type": "disruptor",
+          "settings": {
+            "image": "shopify://shop_images/Untitled_design_4.png",
+            "heading": "Complete Client Customization",
+            "body": "Personalize each treatment with solutions for every client concern, including boosters that brighten, calm, hydrate, firm, and restore. ",
+            "disruptor_index": 1,
+            "mobile_disruptor_index": 1
+          }
+        },
+        "disruptor_zLA88T": {
+          "type": "disruptor",
+          "settings": {
+            "video": "shopify://files/videos/7 Steps Booster Test Video.mp4",
+            "heading": "Boost Client Results + Referrals",
+            "body": "Clients who receive a treatment with a Booster are more likely to recommend Hydrafacial.",
+            "disruptor_index": 9,
+            "mobile_disruptor_index": 8
+          }
+        }
+      },
+      "block_order": [
+        "disruptor_qi7KjX",
+        "disruptor_zLA88T"
+      ],
+      "name": "Collection Grid",
+      "settings": {
+        "prod_card_cta_text": "Become A Provider",
+        "prod_card_cta_url": "shopify://pages/professional",
+        "id_number": 1
+      }
+    },
+    "text_with_cta_Mte8zU": {
+      "type": "text-with-cta",
+      "name": "Text With CTA",
+      "settings": {
+        "heading": "<p>Ready To &lt;|Become A Provider|&gt;?</p>",
+        "body": "<p>Discover more about our devices, treatments, and training–plus, all the ways Hydrafacial can transform your business.</p>",
+        "top_cta_text": "Become a Provider",
+        "top_cta_url": "shopify://pages/connect-with-sales",
+        "popup_form_override": false,
+        "wide_button_on_mobile": false,
+        "bottom_cta_text": "Find An Event",
+        "bottom_cta_url": "shopify://pages/events",
+        "id_number": 1
+      }
+    }
+  },
+  "order": [
+    "example",
+    "page_hero_zRrLAB",
+    "collection_grid_BXGeJw",
+    "text_with_cta_Mte8zU"
+  ]
+}

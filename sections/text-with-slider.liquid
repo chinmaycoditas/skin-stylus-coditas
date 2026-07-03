@@ -1,0 +1,201 @@
+{%- assign s = section.settings -%}
+
+<div 
+  id="text-with-slider-{{ s.id_number }}"
+  class="relative {% if s.use_top_padding %}lg:pt-[60px]{% endif %} overflow-x-hidden">
+  <div class="{{ faux_border }} top-0"></div>
+
+  <div class="flex flex-col gap-1.5 lg:grid lg:grid-rows-1 lg:grid-cols-[30%_70%] lg:gap-[52px] lg:px-[38px] pt-[60px] lg:pb-[60px]">
+    <div class="flex flex-col gap-[22px] px-[18px] lg:px-0">
+      {% if s.title != blank %}
+        <h3 class="w-[70%] lg:w-full text-h3-mob/10 lg:text-h3/[60px] font-light tracking-[-0.07px] lg:tracking-[-0.11px] {% unless settings.remove_capitalize %}capitalize{% endunless %}">{% render 'blue', text: s.title %}</h3>
+      {% endif %}
+      {% if s.description != blank %}
+        <div class="text-body/[23px] font-light tracking-[-0.032px]">{% render 'blue', text: s.description %}</div>
+      {% endif %}
+      {% if s.cta-url != blank and s.cta_text != blank %}
+        <a class="button-primary-black {% if settings.remove_capitalize %}!normal-case{% endif %} mt-2 w-fit" href="{{ s.cta-url }}">{% render 'blue', text: s.cta_text %}</a>
+      {% endif %}
+    </div>
+
+    {% capture slider_options %}
+      '{
+        "perPage": 1,
+        "focus": "center",
+        "start": 0,
+        "pagination": false,
+        "gap": "18px",
+        "arrows": false,
+        "padding": {"right": "60px", "left": "18px"},
+        "mediaQuery": "min",
+        "breakpoints": {
+          "1024": {
+            "perPage": 2,
+            "gap": "22px",
+            "padding": {"right": "30%"},
+            "arrows": true
+          }
+        }
+      }'
+    {% endcapture %}
+
+    <div class="splide py-10 lg:py-0" data-slider={{ slider_options }}>
+      <div class="splide__arrows [&_button]:!opacity-100 [&_button]:!h-[3em] [&_button]:!w-[3em] [&_button]:!bg-[#FFFFFF40] [&_button]:!backdrop-blur-[17.5px]">
+        <button class="splide__arrow splide__arrow--prev [&[disabled]]:!hidden">
+          {% render 'icons', icon: "chevron-right", class: "text-white -translate-x-[2px] [&_svg]:!fill-none p-[7px]" %}
+        </button>
+        <button class="splide__arrow splide__arrow--next">
+          {% render 'icons', icon: "chevron-right", class: "text-white [&_svg]:!fill-none" %}
+        </button>
+      </div>
+      <div class="splide__track">
+        <ul class="splide__list">
+          {% for block in section.blocks %}
+            {% if block.type == "slider_image" %}
+              {%-liquid
+                assign b = block.settings
+
+                assign autoplay = false
+                if forloop.first and b.video != blank
+                  assign autoplay = true
+                endif
+              -%}
+
+              {% if b.video != blank or b.image != blank %}
+                <li class="splide__slide">
+                  {% if b.video != blank %}
+                    {% render 'video', 
+                      video: b.video, 
+                      pb_hack: "104.09%",
+                      class: "rounded-image",
+                      muted: true, 
+                      autoplay: autoplay,
+                      change_slide: true  
+                    %}
+                  {% else %}
+                    {% render 'responsive-image', 
+                      image: b.image, 
+                      pb_hack: "104.09%",
+                      class: "rounded-image" 
+                    %}
+                  {% endif %}
+                </li>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% if s.use_gradient_overlay %}
+  <style>
+    #shopify-section-{{ section.id }} {
+      position: relative;
+    }
+    #shopify-section-{{ section.id }}::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(to bottom, #F3F0EE 0%, transparent 100%);
+      pointer-events: none;
+      z-index: 1;
+    }
+    #shopify-section-{{ section.id }} > * {
+      position: relative;
+      z-index: 2;
+    }
+  </style>
+{% endif %}
+
+
+{% schema %}
+{
+  "name": "t:settings_schema.sections.text_with_slider.name",
+  "tag": "section",
+  "class": "no-max",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "t:settings_schema.general.heading",
+      "info": "t:settings_schema.general.blue_info"
+    },
+    {
+      "type": "text",
+      "id": "description",
+      "label": "t:settings_schema.general.description",
+      "info": "t:settings_schema.general.blue_info"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "t:settings_schema.general.cta_text"
+    },
+    {
+      "type": "url",
+      "id": "cta-url",
+      "label": "t:settings_schema.general.cta_url"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_gradient_overlay",
+      "label": "Use Gradient Overlay",
+      "info": "Adds a tan to transparent gradient overlay"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_top_padding",
+      "label": "Use Top Padding",
+      "info": "Adds 60px top margin on desktop",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Unique Section ID"
+    },
+    {
+      "type": "paragraph",
+      "content": "The ID for this section will be 'text-with-slider-#' based on the number chosen below. The default is 'text-with-slider-1'"
+    },
+    {
+      "type": "range",
+      "id": "id_number",
+      "label": "ID Number",
+      "max": 5,
+      "min": 1,
+      "step": 1,
+      "default": 1,
+      "info": "If using this section multiple times on the same page, assign a different number to each one."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slider_image",
+      "name": "t:settings_schema.sections.text_with_slider.slider_image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:settings_schema.general.image",
+          "info": "t:settings_schema.sections.text_with_slider.image_info"
+        },
+        {
+          "type": "video",
+          "id": "video",
+          "label": "t:settings_schema.general.video"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:settings_schema.sections.text_with_slider.name"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,212 @@
+{% assign b = block.settings %}
+<div class="flex flex-col gap-[22px] lg:flex-row items-start lg:h-full">
+  <div class="lg:w-[56%] h-full w-full">
+    {% if b.video_desktop != blank %}
+      {% render 'video'
+        video: b.video_desktop,
+        class: "hidden lg:block h-full w-full rounded-image",
+        container_class: "hidden lg:block",
+        pb_hack: "87.05%",
+        play_layout: "bottom",
+        play_size: "medium",
+        pause_size: "medium",
+      %}
+    {% else %}
+      {% render 'responsive-image',
+        image: b.image_desktop,
+        class: "hidden lg:block h-full w-full",
+        pb_hack: "87.05%"
+      %}
+    {% endif %}
+
+    {% if b.video_mobile != blank %}
+      {% render 'video'
+          video: b.video_mobile,
+          class: "rounded-image",
+          container_class: "lg:hidden"
+          play_layout: "bottom",
+          play_size: "medium",
+          pause_size: "medium",
+          pb_hack: "114.88%"
+        %}
+      {% else %}
+        {% render 'responsive-image',
+          image: b.image_mobile,
+          class: "lg:hidden",
+          cover: true,
+          pb_hack: "114.88%"
+        %}
+    {% endif %}
+  </div>
+
+  <div class="lg:w-[44%] flex flex-col bg-white rounded-image backdrop-blur-[32.5px] p-[30px] lg:px-[50px] lg:min-h-[529px]">
+    <h3 class="text-h3-mob/10 font-light tracking-[-0.07px] {% unless settings.remove_capitalize %}capitalize{% endunless %} lg:pt-2.5 pb-[15px]">{% render 'blue', text: b.heading %}</h3>
+    <hr class="h-[1px] scale-y-50 my-[9px] text-grey-medium" />
+    <div class="flex flex-col gap-[22px] pt-[15px] lg:pt-[25px]">
+      {% for i in (1..3) %}
+        {%- liquid
+          assign text = "feature_" | append: i | append: "_text"
+          assign icon = "feature_" | append: i | append: "_icon"
+        -%}
+
+        {% if b[text] != blank %}
+          <div class="grid grid-cols-[22px_1fr] gap-4">
+            {% render 'icons', icon: b[icon] %}
+            <p class="text-section-2-mob/[25px] font-light tracking-[-0.036px]">{% render 'blue', text: b[text] %}</p>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{%  schema  %}
+{
+  "name": "Product with Tabs",
+  "class": "splide__slide product-with-tabs",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image_desktop",
+      "label": "t:settings_schema.general.image_desktop"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "t:settings_schema.general.image_mobile"
+    },
+    {
+      "type": "video",
+      "id": "video_desktop",
+      "label": "t:settings_schema.general.video_desktop"
+    },
+    {
+      "type": "video",
+      "id": "video_mobile",
+      "label": "t:settings_schema.general.video_mobile"
+    },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "t:settings_schema.general.heading"
+    },
+    {
+      "type": "header",
+      "content": "Feature/Details 1"
+    },
+    {
+      "type": "text",
+      "id": "feature_1_text",
+      "label": "t:settings_schema.general.text",
+      "info": "t:settings_schema.general.blue_info"
+    },
+    {
+      "type": "select",
+      "id": "feature_1_icon",
+      "label": "t:settings_schema.general.icon",
+      "options": [
+        {
+          "value": "blue-check",
+          "label": "t:settings_schema.general.icons.blue-check"
+        },
+        {
+          "value": "face-magic",
+          "label": "t:settings_schema.sections.blocks.pills_for_tab_slider.icon_face_magic"
+        },
+        {
+          "value": "sparkle",
+          "label": "t:settings_schema.sections.blocks.pills_for_tab_slider.sparkle"
+        },
+        {
+          "value": "face",
+          "label": "t:settings_schema.sections.blocks.pills_for_tab_slider.face"
+        },
+        {
+          "value": "clock",
+          "label": "t:settings_schema.sections.blocks.pills_for_tab_slider.clock"
+        }
+      ],
+      "default": "blue-check"
+    },
+            {
+      "type": "header",
+      "content": "Feature/Details 2"
+    },
+    {
+      "type": "text",
+      "id": "feature_2_text",
+      "label": "t:settings_schema.general.text",
+      "info": "t:settings_schema.general.blue_info"
+    },
+    {
+      "type": "select",
+      "id": "feature_2_icon",
+      "label": "t:settings_schema.general.icon",
+      "options": [
+        {
+          "value": "blue-check",
+          "label": "t:settings_schema.general.icons.blue-check"
+        },
+        {
+          "value": "face-magic",
+          "label": "t:settings_schema.sections.blocks.pills_for_tab_slider.icon_face_magic"
+        },
+        {
+          "value": "sparkle",
+          "label": "t:settings_schema.sections.blocks.pills_for_tab_slider.sparkle"
+        },
+        {
+          "value": "face",
+          "label": "t:settings_schema.sections.blocks.pills_for_tab_slider.face"
+        },
+        {
+          "value": "clock",
+          "label": "t:settings_schema.sections.blocks.pills_for_tab_slider.clock"
+        }
+      ],
+      "default": "blue-check"
+    },
+            {
+      "type": "header",
+      "content": "Feature/Details 3"
+    },
+    {
+      "type": "text",
+      "id": "feature_3_text",
+      "label": "t:settings_schema.general.text",
+      "info": "t:settings_schema.general.blue_info"
+    },
+    {
+      "type": "select",
+      "id": "feature_3_icon",
+      "label": "t:settings_schema.general.icon",
+      "options": [
+        {
+          "value": "blue-check",
+          "label": "t:settings_schema.general.icons.blue-check"
+        },
+        {
+          "value": "face-magic",
+          "label": "t:settings_schema.sections.blocks.pills_for_tab_slider.icon_face_magic"
+        },
+        {
+          "value": "sparkle",
+          "label": "t:settings_schema.sections.blocks.pills_for_tab_slider.sparkle"
+        },
+        {
+          "value": "face",
+          "label": "t:settings_schema.sections.blocks.pills_for_tab_slider.face"
+        },
+        {
+          "value": "clock",
+          "label": "t:settings_schema.sections.blocks.pills_for_tab_slider.clock"
+        }
+      ],
+      "default": "blue-check"
+    }
+  ],
+  "presets": [
+    {"name": "Product with Tabs"}
+  ]
+}
+{% endschema %}

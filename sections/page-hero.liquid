@@ -1,0 +1,317 @@
+{%- assign s = section.settings -%}
+
+<div 
+  id="page-hero-{{ s.id_number }}"
+  class="px-[15px] lg:px-[38px] relative z-[97] pt-20 lg:pt-[110px] mt-4">
+  <div class="relative w-full">
+    {%- if s.image_mobile -%}
+      {% render 'responsive-image', 
+        image: s.image_mobile, 
+        class: 'lg:hidden', 
+        cover: true, 
+        image_class: "rounded-image" 
+        pb_hack: "166.67%" 
+      %}
+    {%- endif -%}
+    {%- if s.image -%}
+      {% render 'responsive-image',
+        image: s.image, 
+        class: "hidden lg:block w-full rounded-image", 
+        cover: true,
+        pb_hack: "36.36%" 
+      %}
+      <div class="absolute top-0 left-0 h-full w-full p-5 flex flex-col justify-between {{ s.content_position }}">
+        <div class="flex flex-col justify-between h-full {{ s.content_position }} min-[1141px]:max-w-[var(--max-width)]" style="--max-width: {{ s.desktop_heading_max_w }}px">
+          <div 
+            class="flex flex-col gap-2.5 min-[1170px]:gap-[22px]">
+            <{% if s.use_h1 %}h1{% else %}h2{% endif %} 
+              class="text-[45px]/[50px] lg:leading-[109%] lg:text-h4 min-[1385px]:!text-[55px] font-light tracking-[-0.11px]{% unless settings.remove_capitalize %}capitalize{% endunless %}w-full" 
+              style="color: {% if s.heading_color %}{{ s.heading_color }}{% else %}black{% endif %}"
+            >
+              {% render 'blue', text: s.heading %}
+              </{% if s.use_h1 %}h1{% else %}h2{% endif %}>
+            <span class="text-[16px]/[23px] tracking-[-0.032px] text-white w-full lg:max-w-[500px]">
+              {% render 'blue', text: s.body %}
+            </span>
+          </div>
+
+          {% if s.cta_text != blank and s.cta_url != blank %}
+            {%- assign cta_class = 'text-body-small/normal tracking-[-0.028px]' -%}
+            {% unless settings.remove_capitalize %}
+              {% assign cta_class = cta_class | append: ' capitalize' %} 
+            {% endunless %}
+
+            {%- if s.popup_form_override -%}
+              {% render 'popup-input', class: cta_class, text: s.cta_text %}
+            {%- else -%}
+              <a class="button-primary-white {% if settings.remove_capitalize %}!normal-case{% endif %} w-full lg:w-fit" href="{{ s.cta_url }}">
+                <span class="{{ cta_class }}">{{ s.cta_text }}</span>
+              </a>
+            {%- endif -%}
+          {% endif %}
+        </div>
+
+        {%- assign icon_and_text_blocks = section.blocks | where: "type", "icon_and_text" -%}
+        {% if icon_and_text_blocks.size > 0 %}
+          <ul class="flex flex-col gap-4 rounded-image self-end items-end {% if s.content_block_type == 'icons_and_text' %}items-start self-start bg-[#ffffff33] backdrop-blur-[22.5px] min-[1270px]:w-[343px] p-5{% endif %}">
+            {% for block in icon_and_text_blocks %}
+              {% assign b = block.settings %}
+              <li class="flex gap-4 items-start">
+                {% if s.content_block_type == 'icons_and_text' %}
+                  {% render 'icons', icon: b.icon_select, class: "text-white [&_svg]:h-[30px] [&_svg]:w-[30px]" %}
+                {% endif %}
+
+                <span class="text-white text-body-small/normal font-medium{% unless settings.remove_capitalize %}capitalize{% endunless %}tracking-[-0.028px] {% if s.content_block_type == 'pills' %}rounded-[70px] py-[15px] px-5 bg-[#ffffff33] backdrop-blur-[22.5px]{% endif %}">
+                  {{ b.text }}
+                </span>
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </div>
+    {%- endif -%}
+  </div>
+
+  {% if s.show_nav %}
+    {% comment %} mobile nav {% endcomment %}
+    <div class="lg:hidden absolute bottom-[5%] w-[calc(100vw-30px)] h-full flex justify-center items-end">
+      <input type="checkbox" id="concern-menu-toggle" class="hidden peer" data-scroll-lock />
+      <label for="concern-menu-toggle" class="flex items-center gap-4 justify-center w-full p-5 mx-5 mb-[5%] bg-white rounded-[47px] backdrop-blur-[22.5px]">
+        <span class="text-body/normal{% unless settings.remove_capitalize %}capitalize{% endunless %}tracking-[-0.032px]">{{ s.dropdown_text }}</span>
+        {% render 'icons', icon: "chevron-down", class: "h-4 w-4 translate-y-[2px]" %}
+      </label>
+      <label for="concern-menu-toggle" class="fixed inset-0 bg-[#0000008c] backdrop-blur-[10px] z-10 pointer-events-none opacity-0 peer-checked:pointer-events-auto peer-checked:opacity-100 trasition-all"></label>
+
+      <div class="fixed bottom-0 grid grid-rows-[0fr] peer-checked:grid-rows-[1fr] transition-all w-full bg-white z-20">
+        <div class="flex flex-col overflow-hidden">
+          <label for="concern-menu-toggle" class="flex items-center justify-between px-[18px] py-2.5 h-[75px] border-b-[1px] border-b-grey-medium">
+            <span class="text-section-1-mob/[25px] font-medium tracking-[-0.036px]">{{ s.dropdown_text }}</span>
+            {% render 'icons', icon: "x" %}
+          </label>
+
+          <ul class="flex flex-col gap-3 px-[15px] pb-14 pt-11" data-page-hero-nav>
+            {% for block in section.blocks %}
+              {% assign b = block.settings %}
+              <li class="active:underline">
+                <a href="#{{ b.nav_link }}" class="text-body-small/normal{% unless settings.remove_capitalize %}capitalize{% endunless %}tracking-[-0.028px]" onclick="document.querySelector('#concern-menu-toggle').checked = false">{{ b.nav_text }}</a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+    {% comment %} desktop nav {% endcomment %}
+    <div class="hidden lg:flex absolute bottom-[65px] left-0 right-0 px-[38px] w-full">
+      <ul class="flex justify-center lg:gap-4 w-full flex-wrap">
+        {% for block in section.blocks %}
+          {% assign b = block.settings %}
+          <li class="h-[50px] pt-[13px] lg:bg-[#ffffff33] backdrop-blur-[22.5px] rounded-[70px]">
+            <a href="#{{ b.nav_link }}" class="button-secondary {% if settings.remove_capitalize %}!normal-case{% endif %} text-white border-0 hover:bg-white hover:text-black whitespace-nowrap">
+              {{ b.nav_text }}
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+
+  {% render 'breadcrumbs' %}
+</div>
+
+
+{% schema %}
+  {
+    "name": "t:settings_schema.sections.page_hero.name",
+    "tag": "section",
+    "class": "no-max z-10",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "t:settings_schema.general.image_desktop"
+      },
+      {
+        "type": "image_picker",
+        "id": "image_mobile",
+        "label": "t:settings_schema.general.image_mobile",
+        "info": "t:settings_schema.sections.page-hero.mobile_image_info"
+      },
+      {
+        "type": "richtext",
+        "id": "heading",
+        "label": "t:settings_schema.general.heading",
+        "info": "t:settings_schema.general.blue_info"
+      },
+      {
+        "type": "checkbox",
+        "id": "use_h1",
+        "label": "t:settings_schema.general.use_h1"
+      },
+      {
+        "type": "color",
+        "id": "heading_color",
+        "label": "t:settings_schema.general.heading_color"
+      },
+      {
+        "type": "richtext",
+        "id": "body",
+        "label": "t:settings_schema.general.body",
+        "info": "t:settings_schema.general.blue_info"
+      },
+      {
+        "type": "text",
+        "id": "cta_text",
+        "label": "t:settings_schema.general.cta_text"
+      },
+      {
+        "type": "url",
+        "id": "cta_url",
+        "label": "t:settings_schema.general.cta_url"
+      },
+      {
+        "type": "select",
+        "id": "content_position",
+        "label": "t:settings_schema.sections.page-hero.desktop_content_position",
+        "options": [
+          {
+            "label": "t:settings_schema.general.position.left",
+            "value": "items-start"
+          },
+          {
+            "label": "t:settings_schema.general.position.center",
+            "value": "items-center"
+          },
+          {
+            "label": "t:settings_schema.general.position.right",
+            "value": "items-end"
+          }
+        ],
+        "default": "items-start"
+      },
+      {
+        "type": "number",
+        "id": "desktop_heading_max_w",
+        "label": "t:settings_schema.sections.page-hero.desktop_heading_max_width",
+        "default": 415
+      },
+      {
+        "type": "select",
+        "id": "content_block_type",
+        "label": "t:settings_schema.sections.page-hero.content_block_type",
+        "options": [
+          {
+            "value": "pills",
+            "label": "t:settings_schema.sections.page-hero.pills"
+          },
+          {
+            "value": "icons_and_text",
+            "label": "t:settings_schema.sections.page-hero.icons_and_text"
+          }
+        ],
+        "default": "pills"
+      },
+      {
+        "type": "header",
+        "content": "t:settings_schema.sections.page-hero.navigation_buttons"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_nav",
+        "label": "t:settings_schema.sections.page-hero.show_navigation"
+      },
+      {
+        "type": "text",
+        "id": "dropdown_text",
+        "label": "t:settings_schema.sections.page-hero.mobile_nav_label"
+      },
+      {
+        "type": "header",
+        "content": "Unique Section ID"
+      },
+      {
+        "type": "paragraph",
+        "content": "The ID for this section will be 'page-hero-#' based on the number chosen below. The default is 'page-hero-1'"
+      },
+      {
+        "type": "range",
+        "id": "id_number",
+        "label": "ID Number",
+        "max": 5,
+        "min": 1,
+        "step": 1,
+        "default": 1,
+        "info": "If using this section multiple times on the same page, assign a different number to each one."
+      },
+      {
+        "type": "checkbox",
+        "id": "popup_form_override",
+        "label": "Override CTA links with Popup Form",
+        "info": "Requires the Form Popup section to be on the template to work."
+      }
+    ],
+    "blocks": [
+      {
+        "type": "navigation",
+        "name": "t:settings_schema.sections.page-hero.nav_item",
+        "settings": [
+          {
+            "type": "text",
+            "id": "nav_text",
+            "label": "t:settings_schema.sections.navigation_for_page_hero.navigation_text"
+          },
+          {
+            "type": "text",
+            "id": "nav_link",
+            "label": "t:settings_schema.sections.navigation_for_page_hero.navigation_link",
+            "info": "t:settings_schema.sections.navigation_for_page_hero.nav_link_info"
+          }
+        ]
+      },
+      {
+        "type": "icon_and_text",
+        "name": "t:settings_schema.sections.page-hero.icon_and_text",
+        "limit": 3,
+        "settings": [
+          {
+            "type": "select",
+            "id": "icon_select",
+            "label": "t:settings_schema.general.icon",
+            "options": [
+              {
+                "value": "check",
+                "label": "t:settings_schema.general.icons.check"
+              },
+              {
+                "value": "face-magic",
+                "label": "t:settings_schema.general.icons.face_magic"
+              },
+              {
+                "value": "sparkle",
+                "label": "t:settings_schema.general.icons.sparkle"
+              },
+              {
+                "value": "face",
+                "label": "t:settings_schema.general.icons.face"
+              },
+              {
+                "value": "clock",
+                "label": "t:settings_schema.general.icons.clock"
+              }
+            ],
+            "default": "check"
+          },
+          {
+            "type": "text",
+            "id": "text",
+            "label": "t:settings_schema.general.text"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "t:settings_schema.sections.page_hero.name"
+      }
+    ]
+  }
+{% endschema %}

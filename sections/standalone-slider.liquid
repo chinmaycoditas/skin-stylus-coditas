@@ -1,0 +1,247 @@
+{%- assign s = section.settings -%}
+
+<div 
+  id="standalone-slider-{{ s.id_number }}"
+  class="flex flex-col-reverse lg:flex-row gap-10 pt-10 pb-[59px] lg:gap-[50px] lg:py-[60px] mx-[18px] lg:mx-[38px]">
+  <div class="lg:w-[55%]">
+    {%- capture slider_options %}
+      '{
+        "perPage": 1,
+        "pagination": false,
+        "arrows": false,
+        "isNavigation": true,
+        "type": "loop",
+        "gap": "19px",
+        {% unless section.blocks.size > 1 %}
+          "destroy": true,
+        {% endunless %}
+        "mediaQuery": "min",
+        "breakpoints": {
+          "1024": {
+            "gap": "0px",
+            "padding": "0px"
+          }
+        }
+      }'
+    {% endcapture -%}
+
+    {%- capture connected_slider_options %}
+      '{
+        "perPage": 1,
+        "type": "fade",
+        "arrows": {% if section.blocks.size > 1 %}true{% else %}false{% endif %},
+        "pagination": false,
+        "gap": "19px",
+        "mediaQuery": "min",
+        "breakpoints": {
+          "1024": {
+            "gap": "0px",
+            "padding": "0px"
+          }
+        }
+      }'
+    {% endcapture -%}
+
+    <div class="splide relative max-w-screen" data-slider={{ slider_options }}>
+      <div class="splide__track">
+        <ul class="splide__list">
+          {% for block in section.blocks %}
+            {% assign b = block.settings %}
+            <li class="splide__slide !border-0 relative">
+              {%- liquid
+                assign stitch_images = false
+
+                if b.image_1 and b.image_2
+                  assign stitch_images = true
+                endif
+              -%}
+              {% if b.image_1 != blank or b.image_2 != blank %}
+                {% if stitch_images %}
+                  {%# stitch both images together %}
+                  <div class="relative w-full h-0 pb-[71.32%]">
+                    <div class="grid grid-cols-2 absolute inset-0">
+                      {% render 'responsive-image'
+                        image: b.image_1,
+                        cover: true
+                        class: "rounded-l-image"
+                      %}
+                      {% render 'responsive-image'
+                        image: b.image_2,
+                        cover: true
+                        class: "rounded-r-image"
+                      %}
+                    </div>
+                  </div>
+                {% elsif b.image_2 == blank %}
+                  {%# display only image 1 %}
+                  {%- render 'responsive-image', 
+                    image: b.image_1, 
+                    class: "rounded-image", 
+                    pb_hack: "71.32%" 
+                  -%}
+                {% elsif b.image_1 == blank %}
+                  {%# display only image 2 %}
+                  {%- render 'responsive-image', 
+                    image: b.image_2, 
+                    class: "rounded-image", 
+                    pb_hack: "71.32%" 
+                  -%}
+                {% endif %}
+              {% endif %}
+
+              {% if b.image_1_text or b.image_2_text %}
+                <div class="flex justify-between absolute bottom-4 w-full px-[26px]">
+                  {% if b.image_1_text %}
+                    <span class="text-body/[23px] text-white font-medium tracking-[-0.032px]">{{ b.image_1_text }}</span>
+                  {% endif %}
+
+                  {% if b.image_2_text %}
+                    <span class="text-body/[23px] text-white font-medium tracking-[-0.032px]">{{ b.image_2_text }}</span>
+                  {% endif %}
+                </div>
+              {% endif %}
+
+              {%- if b.badge_text -%}
+                <div class="absolute top-[13px] left-3 px-5 py-[15px] rounded-[70px] bg-white/20 backdrop-blur-[22.5px] text-[14px] tracking-[-0.028px] {% unless settings.remove_capitalize %}capitalize{% endunless %} font-medium text-white">
+                  {{ b.badge_text }}
+                </div>
+              {%- endif -%}
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+
+    <div class="splide relative pb-[30px] lg:pb-0" data-connected-slider={{ connected_slider_options }}>
+      <div class="splide__track pb-[30px] lg:pb-0">
+        <ul class="splide__list">
+          {% for block in section.blocks %}
+            {% assign b = block.settings %}
+            <li class="splide__slide !border-0">
+              <div class="flex flex-col gap-1 pt-2.5 lg:pt-[30px] lg:max-w-[60%]">
+                <h4 class="text-body/[23px] font-medium {% unless settings.remove_capitalize %}capitalize{% endunless %} tracking-[-0.032px] lg:tracking-[-0.352px]">{% render 'blue', text: b.heading %}</h4>
+                <h5 class="text-caption-small/4 lg:text-body/[23px] font-light tracking-[-0.2px]">{% render 'blue', text: b.subheading %}</h5>
+              </div>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+        <div class="splide__arrows flex gap-3 w-[100px] absolute bottom-[-20px] lg:bottom-0 left-[18px] lg:left-auto lg:right-0">
+          <button class="splide__arrow splide__arrow--prev !relative !left-0 !rounded-none !h-[44px] !w-[44px] !bg-none" style="background: none; transform: translateY(0);">
+            {% render 'icons', icon: 'chevron-right-circle', class: "block h-full w-full [&_svg]:block [&_svg]:!h-full [&_svg]:!w-full" %}
+          </button>
+          <button class="splide__arrow splide__arrow--next !relative !right-0 !rounded-none !h-[44px] !w-[44px] !bg-none" style="background: none; transform: translateY(0);">
+            {% render 'icons', icon: 'chevron-right-circle', class: "block h-full w-full [&_svg]:block [&_svg]:!h-full [&_svg]:!w-full" %}
+          </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="lg:w-[45%] flex flex-col gap-[30px] items-start px-[18px] lg:px-0">
+    <div class="flex flex-col gap-[22px]">
+      <h2 class="text-h3-mob/10 font-light {% unless settings.remove_capitalize %}capitalize{% endunless %} tracking-[-0.07px] lg:text-h3/[60px] lg:tracking-[-0.11px]">{% render 'blue', text: s.heading %}</h2>
+      <h3 class="text-body/[23px] font-light tracking-[-0.032px]">{% render 'blue', text: s.subheading %}</h3>
+    </div>
+    <a href="{{ s.cta_url }}" class="button-primary-black {% if settings.remove_capitalize %}!normal-case{% endif %} w-[174px] lg:w-[190px]">{{ s.cta_text }}</a>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:settings_schema.sections.standalone_slider.name",
+  "class": "no-max",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:settings_schema.general.heading",
+      "info": "t:settings_schema.general.blue_info"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "t:settings_schema.general.subheading",
+      "info": "t:settings_schema.general.blue_info"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "t:settings_schema.general.cta_button_text"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "t:settings_schema.general.cta_button_url"
+    },
+    {
+      "type": "header",
+      "content": "Unique Section ID"
+    },
+    {
+      "type": "paragraph",
+      "content": "The ID for this section will be 'standalone-slider-#' based on the number chosen below. The default is 'standalone-slider-1'"
+    },
+    {
+      "type": "range",
+      "id": "id_number",
+      "label": "ID Number",
+      "max": 5,
+      "min": 1,
+      "step": 1,
+      "default": 1,
+      "info": "If using this section multiple times on the same page, assign a different number to each one."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "t:settings_schema.sections.standalone_slider.slide",
+      "settings": [
+        {
+          "type": "text",
+          "id": "badge_text",
+          "label": "t:settings_schema.general.badge_text"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_1",
+          "label": "t:settings_schema.general.image_1"
+        },
+        {
+          "type": "text",
+          "id": "image_1_text",
+          "label": "t:settings_schema.general.image_1_text"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_2",
+          "label": "t:settings_schema.general.image_2"
+        },
+        {
+          "type": "text",
+          "id": "image_2_text",
+          "label": "t:settings_schema.general.image_2_text"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "t:settings_schema.general.heading",
+          "info": "t:settings_schema.general.blue_info"
+        },
+        {
+          "type": "text",
+          "id": "subheading",
+          "label": "t:settings_schema.general.subheading",
+          "info": "t:settings_schema.general.blue_info"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:settings_schema.sections.standalone_slider.name"
+    }
+  ]
+}
+{% endschema %}

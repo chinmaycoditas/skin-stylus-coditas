@@ -1,0 +1,191 @@
+{%- assign s = section.settings -%}
+
+<div 
+  id="textblock-slider-{{ s.id_number }}"
+  class="relative h-full px-[18px] lg:px-[0px] pb-10 lg:pb-[60px]"
+>
+  {% if s.show_bg_img %}
+    {%- if s.background_image_mobile != blank -%}
+      {%- render 'responsive-image', image: s.background_image_mobile, class: "lg:hidden h-[848px] rounded-t-image", cover: true -%}
+    {%- else -%}
+      <div class="lg:hidden h-[848px] rounded-t-image bg-gray-100 flex items-center justify-center">
+        {{ 'lifestyle-1' | placeholder_svg_tag }}
+      </div>
+    {%- endif -%}
+
+    {%- if s.background_image_desktop != blank -%}
+      {%- assign desktop_image_class = "h-[1024px] rounded-t-image hidden lg:block" -%}
+
+      {%- if s.background_image_mobile != blank -%}
+        {%- assign desktop_image_class = desktop_image_class | append: " hidden lg:block" -%}
+      {%- endif -%}
+
+      {%- render 'responsive-image', image: s.background_image_desktop, class: desktop_image_class, cover: true -%}
+    {%- else -%}
+      <div class="placeholder-svg lg:h-[800px] w-full h-full hidden lg:block">
+        {{ 'lifestyle-1' | placeholder_svg_tag }}
+      </div>
+    {%- endif -%}
+  {% endif %}
+
+  <div class="{% if s.show_bg_img %}absolute inset-0 h-[848px] pb-[30px] lg:h-[1024px] lg:pb-[50px]{% endif %} flex flex-col items-center justify-between gap-10 lg:gap-[60px] pt-10 lg:pt-[60px]">
+    {%- if s.heading != blank -%}
+      <h2 
+        class="text-center px-[18px] text-[45px]/[50px] lg:text-[65px]/[70px] max-w-[323px] lg:max-w-[774px] tracking-[-0.09px] lg:tracking-[-0.13px] {% unless settings.remove_capitalize %}capitalize{% endunless %}" 
+        style="color: {{ s.heading_color }}"
+      >
+        {%  render 'blue', text: s.heading %}
+      </h2>
+    {%- endif -%}
+
+    {% capture slider_options %}
+      '{
+        "perPage": 1,
+        "focus": "center",
+        "start": 0,
+        "pagination": false,
+        "gap": "20px",
+        "arrows": false,
+        "fixedWidth": "252px",
+        "padding": {"left": "18px", "right": "18px"},
+        "mediaQuery": "min",
+        "breakpoints": {
+          "1024": {
+          "perPage": {{ section.blocks.size }},
+            "fixedWidth": false,
+            "padding": {"right": "38px", "left": "38px"}
+          }
+        }
+      }'
+    {% endcapture %}
+
+    <div class="splide" data-slider={{ slider_options }}>
+      <div class="splide__track max-w-screen">
+        <ul class="splide__list">
+          {% for block in section.blocks %}
+            {% if block.type == "text_slide" %}
+              {%- liquid 
+                assign b = block.settings
+                assign show_cta = false
+
+                if b.button_text != blank and b.button_url != blank
+                  assign show_cta = true
+                endif
+              -%}
+              
+              <li class="splide__slide">
+                <div class="flex flex-col items-start justify-between bg-background-grey rounded-image lg:min-h-[258px] h-full p-[25px]">
+                  <div class="grid grid-rows-[auto_auto_1fr] items-start gap-[6px] pt-2 lg:w-[90%]">
+                    <span class="text-body-small/[18px] tracking-[-0.2px] text-blue-cta bg-white rounded-[110px] py-[3px] px-3 mb-[6px] w-fit">{{ b.badge_text }}</span>
+                    <h4 class="text-blue-cta {% if s.background_image_desktop == blank %}text-[35px]/[40px]{% else %}text-section-1/10{% endif %} font-light tracking-[-0.07px] {% unless settings.remove_capitalize %}capitalize{% endunless %}">{{ b.heading }}</h4>
+                    <div class="text-[18px]/7 lg:text-[21px]/7 font-light tracking-[-0.036px] lg:tracking-[-0.042px]">{% render 'blue', text: b.body %}</div>
+                  </div>
+
+                  {% if show_cta %}
+                    <a class="button-primary-black {% if settings.remove_capitalize %}!normal-case{% endif %} mt-8 lg:mt-3 w-[134px]" href="{{ b.button_url }}">
+                      <span>{{ b.button_text }}</span>
+                    </a>
+                  {% else %}
+                    <div></div>
+                  {% endif %}
+                </div>
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:settings_schema.sections.textblock_slider.name",
+  "tag": "section",
+  "class": "no-max",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:settings_schema.general.heading"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "t:settings_schema.general.heading_color"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_bg_img",
+      "label": "t:settings_schema.sections.textblock_slider.show__bg_img"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image_desktop",
+      "label": "t:settings_schema.general.background_image_desktop"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image_mobile",
+      "label": "t:settings_schema.general.background_image_mobile"
+    },
+    {
+      "type": "header",
+      "content": "Unique Section ID"
+    },
+    {
+      "type": "paragraph",
+      "content": "The ID for this section will be 'textblock-slider-#' based on the number chosen below. The default is 'textblock-slider-1'"
+    },
+    {
+      "type": "range",
+      "id": "id_number",
+      "label": "ID Number",
+      "max": 5,
+      "min": 1,
+      "step": 1,
+      "default": 1,
+      "info": "If using this section multiple times on the same page, assign a different number to each one."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "text_slide",
+      "name": "t:settings_schema.sections.textblock_slider.text_block",
+      "settings": [
+        {
+          "type": "text",
+          "id": "badge_text",
+          "label": "t:settings_schema.general.badge_text"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "t:settings_schema.general.heading"
+        },
+        {
+          "type": "text",
+          "id": "body",
+          "label": "t:settings_schema.general.body",
+          "info": "t:settings_schema.general.blue_info"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "t:settings_schema.general.cta_button_text"
+        },
+        {
+          "type": "url",
+          "id": "button_url",
+          "label": "t:settings_schema.general.cta_button_url"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:settings_schema.sections.textblock_slider.name"
+    }
+  ]
+}
+{% endschema %}

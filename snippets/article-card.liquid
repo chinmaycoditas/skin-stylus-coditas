@@ -1,0 +1,13 @@
+<div class="flex flex-col justify-between h-full gap-5.5 relative">
+  <div class="flex flex-col gap-5.5">
+    <div class="relative rounded-image overflow-hidden">
+      {% render 'responsive-image', image: article.image, class: image_class, cover: true %}
+    </div>
+    <div class="flex flex-col gap-1">
+      <span class="font-medium text-caption-small leading-4 tracking-[-0.2px]">{{ article.published_at | date: '%m . %d . %y' }}</span>
+      <h3 class="font-light text-h3-mob leading-10 tracking-[-0.07px] {% unless settings.remove_capitalize %}capitalize{% endunless %}">{{ article.title }}</h3>
+      <p class="font-light text-body leading-[23px] tracking-[-0.032px]">{{ article.excerpt }}</p>
+    </div>
+  </div>
+  <a href="{{ article.url }}" class="font-medium text-body-small tracking-[-0.028px] underline text-black">{{ 'blog.see_more' | t }}</a>
+</div>

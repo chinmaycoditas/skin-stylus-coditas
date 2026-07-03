@@ -1,0 +1,46 @@
+{% assign s = section.settings %}
+<div class="404 flex flex-col items-center justify-center w-full h-[100lvh]">
+  <h1 class="text-[100px]/[125px] lg:text-[255px]/[250px] font-light">{% render 'blue', text: s.title %}</h1>
+  <h2 class="text-h3-mob/[45px] lg:text-h1-mob/[61px] pt-5 pb-10 font-light">{% render 'blue', text: s.body %}</h2>
+  <a class="button-primary-black {% if settings.remove_capitalize %}!normal-case{% endif %} w-[220px]" href="{{ s.cta_url }}">{{ s.cta_text }}</a>
+</div>
+
+{% schema %}
+{
+  "name": "t:settings_schema.sections.404.name",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "t:settings_schema.general.title",
+      "info": "t:settings_schema.general.blue_info",
+      "default": "404"
+    },
+    {
+      "type": "text",
+      "id": "body",
+      "label": "t:settings_schema.general.body",
+      "info": "t:settings_schema.general.blue_info",
+      "default": "Page not found"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "t:settings_schema.general.cta_text",
+      "default": "Back to Homepage"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "t:settings_schema.general.cta_url",
+      "default": "/"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:settings_schema.sections.404.name"
+    }
+  ]
+}
+{% endschema %}

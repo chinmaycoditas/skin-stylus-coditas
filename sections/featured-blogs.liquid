@@ -1,0 +1,186 @@
+{%- liquid
+  assign s = section.settings 
+  assign used_featured_blogs = s.featured-article.id
+-%}
+
+{% capture slider_options %}
+  '
+    {
+      "type": "loop",
+      "perPage": 1,
+      "pagination": false,
+      "focus": "center",
+      "arrows": false,
+      "gap": "22px",
+      "padding": {"left": "12px", "right": "54px"},
+      "mediaQuery": "min",
+      "breakpoints": {
+        "1024": {
+          "padding": false
+        }
+      }
+    }
+  '
+{% endcapture %}
+<div 
+  id="featured-blogs-{{ s.id_number }}"
+  class="headings flex flex-col justify-center items-center lg:pt-[120px] pt-[100px] lg:pb-5 pb-12.5 text-center">
+  <h3 class="text-body-small leading-4.5 tracking-[-0.2px]">{{ s.heading }}</h3>
+  <h1 class="lg:text-h2 text-h2-mob lg:leading-[70px] leading-[50px] lg:tracking-[-0.13px] tracking-[-0.09px] lg:w-[596px] {% unless settings.remove_capitalize %}capitalize{% endunless %}">{% render 'blue', text: s.subheading %}</h1>
+</div>
+<div class="lg:mx-9.5 mx-4.5 lg:mt-10 bg-white rounded-t-image">
+  {% if s.display-filters %}
+    <div class="filter lg:py-6 py-5 border-b border-b-grey-medium flex justify-center">
+      <span class="text-body {% unless settings.remove_capitalize %}capitalize{% endunless %} text-blue-cta">{{ s.filter-title }}</span>
+    </div> 
+  {% endif %}
+  {% if section.blocks.size > 0 %}
+    <div class="lg:pt-12.5 pt-10 lg:pb-14.5 pb-7.5 lg:px-9.5 pl-3 flex flex-col lg:gap-7.5 gap-4.5 border-b border-b-grey-medium">
+      <span class="lg:text-section-1 text-section-3 lg:leading-8 leading-7 lg:tracking-[-0.056px] tracking-[-0.042px] {% unless settings.remove_capitalize %}capitalize{% endunless %}">{{ s.title }}</span>
+      <div class="blogs-wrapper lg:grid grid-cols-3 gap-5.5">
+        {% for block in section.blocks %}
+          {% assign b = block.settings %}
+          {% assign used_featured_blogs = used_featured_blogs | append: b.article.id | append: ", " %}
+          <div class="hidden lg:block">
+            {% render 'article-card', article: b.article, image_class: 'lg:aspect-[103/70] aspect-[325/207] w-full rounded-image' %} 
+          </div>
+        {% endfor %}
+        <div class="splide lg:hidden w-[calc(100vw-18px)] -translate-x-3" data-slider={{ slider_options }}>
+          <div class="splide__track">
+            <ul class="splide__list">
+              {% for block in section.blocks %}
+                {% assign b = block.settings %}
+                <li class="splide__slide">
+                  {% render 'article-card', 
+                    article: b.article, 
+                    image_class: 'lg:aspect-[103/70] aspect-[325/207] w-full rounded-image' 
+                  %}
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div> 
+      </div>
+    </div>  
+  {% endif %}
+  {% if s.featured-article != blank %}
+    <div class="featured-article-wrapper flex flex-col justify-between lg:grid grid-cols-[60%_40%] bg-white px-3 lg:px-9.5 lg:py-14.5 py-10 gap-5.5 border-b border-b-grey-medium">
+      {% render 'responsive-image', image: s.featured-article.image, class: 'aspect-[1.4/1] rounded-image lg:h-[536px] w-full', cover: true %}
+      <div class="flex flex-col">
+        <span class="text-caption-small leading-4 tracking-[-0.2px]">{{ s.featured-article.published_at | date: '%m . %d . %y' }}</span>
+        <h3 class="font-light text-h3-mob lg:text-h3 leading-[100%] tracking-[-0.07px] {% unless settings.remove_capitalize %}capitalize{% endunless %} mb-4">{{ s.featured-article.title }}</h3>
+        <p class="font-light text-body leading-[23px] tracking-[-0.032px] mb-5">{{ s.featured-article.excerpt }}</p>
+        <a href="{{ s.featured-article.url }}" class="text-body-small tracking-[-0.028px] underline text-black">{{ 'blog.see_more' | t }}</a>
+      </div>
+    </div>
+  {% endif %}
+  <div id="article-list" class="px-3 lg:px-0">
+    <ul data-ajaxinate class="grid lg:grid-cols-3 grid-cols-1 lg:gap-x-5.5 lg:gap-y-14.5 gap-y-7.5 lg:pt-[60px] py-7.5 bg-white">
+      {% assign paginate_count = 9 %}
+      {% paginate blog.articles by paginate_count %}
+        {% for article in blog.articles %}
+          {% unless used_featured_blogs contains article.id %}
+            <li>
+              {% render 'article-card', article: article, image_class: 'lg:aspect-[103/70] lg:h-[280px] h-[215.727px] rounded-image' %}
+            </li> 
+          {% endunless %}
+        {% endfor %}
+        <li data-pagination class="lg:col-span-3 col-span-1 w-full">
+          {% if paginate.next %}
+            <a href="{{ paginate.next.url }}">{{ 'general.loading_more' | t }}</a> 
+          {% endif %}
+        </li>
+      {% endpaginate %}
+    </ul>
+    <div class="w-full flex justify-center lg:justify-end py-2">
+      {% render 'scroll-to-top-button' %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "t:settings_schema.sections.featured_blogs.name",
+    "class": "blogs no-max blog-article-gradient",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "text",
+        "label": "t:settings_schema.general.heading",
+        "id": "heading",
+        "info": "t:settings_schema.general.blue_info"
+      },
+      {
+        "type": "textarea",
+        "label": "t:settings_schema.general.subheading",
+        "id": "subheading",
+        "info": "t:settings_schema.general.blue_info"
+      },
+      {
+        "type": "checkbox",
+        "label": "t:settings_schema.sections.featured_blogs.display_filters",
+        "id": "display-filters"
+      },
+      {
+        "type": "text",
+        "label": "t:settings_schema.sections.featured_blogs.filter_title",
+        "id": "filter-title"
+      },
+      {
+      "type": "header",
+      "content": "t:settings_schema.sections.featured_blogs.featured_blogs_settings"
+      },
+      {
+        "type": "text",
+        "label": "t:settings_schema.general.title",
+        "id": "title"
+      },
+      {
+      "type": "header",
+      "content": "t:settings_schema.sections.featured_blogs.featured_article_settings"
+      },
+      {
+        "type": "article",
+        "label": "t:settings_schema.sections.featured_blogs.featured_article",
+        "id": "featured-article"
+      },
+      {
+        "type": "header",
+        "content": "Unique Section ID"
+      },
+      {
+        "type": "paragraph",
+        "content": "The ID for this section will be 'featured-blogs-#' based on the number chosen below. The default is 'featured-blogs-1'"
+      },
+      {
+        "type": "range",
+        "id": "id_number",
+        "label": "ID Number",
+        "max": 5,
+        "min": 1,
+        "step": 1,
+        "default": 1,
+        "info": "If using this section multiple times on the same page, assign a different number to each one."
+      }
+    ],
+    "blocks": [
+      {
+        "type": "article",
+        "name": "t:settings_schema.sections.featured_blogs.featured_stories",
+        "settings": [
+          {
+            "type": "article",
+            "label": "t:settings_schema.sections.featured_blogs.article",
+            "id": "article"
+          }
+        ],
+        "limit": 3
+      } 
+    ],
+    "presets": [
+      {
+        "name": "t:settings_schema.sections.featured_blogs.name"
+      }
+    ]
+  }
+{% endschema %}

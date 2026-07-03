@@ -1,0 +1,277 @@
+{%- assign b = block.settings -%}
+{% assign s = section.settings %}
+<div class="relative flex flex-col-reverse lg:grid lg:grid-rows-1 lg:grid-cols-3 image-right-content-left lg:gap-[60px]">
+  {%- if b.heading != blank -%}
+    <div class="flex flex-col lg:col-span-1 lg:gap-10 lg:pr-10 pt-10 lg:pt-0 lg:min-w-[400px]">
+      <h3 class="hidden lg:block text-h3-mob/10 lg:text-[35px]/[40px] font-light tracking-[-0.07px] lg:tracking-[-0.07px] {% unless settings.remove_capitalize %}capitalize{% endunless %}">
+        {% assign heading = b.heading | replace: ',', ', <br>' %}
+        {% render 'blue', text: heading %}</h3>
+      <ul class="flex flex-col gap-[22px]">
+        {% for i in (1..3) %}
+          {%- liquid
+            assign percentage = "percentage_" | append: i
+            assign description = "description_" | append: i
+            assign disclaimer = "disclaimer_" | append: i
+          -%}
+          {% if b[percentage] != blank and b[description] != blank %}
+            <li class="flex flex-col gap-[2px] pt-2 border-t-[1px] border-t-grey-medium">
+              {% unless b[percentage] == blank or b[percentage] < 0 %} 
+                <span class="{% if s.accent_yellow %}text-yellow{% else %}text-blue-cta{% endif %} text-h3-mob/10 font-light tracking-[-0.07px]{% unless settings.remove_capitalize %}capitalize{% endunless %}">{{ b[percentage] }}%</span>
+              {% endunless %}
+              <h4 class="inline">
+                <span class="text-section-3/7 font-light tracking-[-0.042px] {% if s.accent_yellow %}[&_.yellow-text]:font-normal{% else %}[&_.blue-text]:font-normal{% endif %}">
+                  {% if s.accent_yellow %}
+                    {% render 'yellow', text: b[description] %}
+                  {% else %}
+                    {% render 'blue', text: b[description] %}
+                  {% endif %}
+                </span>
+                <sup class="align-super text-[11px] font-light">{{ b[disclaimer] }}</sup>
+              </h4>
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+      
+    </div>
+  {%- endif -%}
+  
+  <div class="lg:col-span-2 relative flex flex-col">
+    <div class="lg:hidden flex flex-col gap-[22px] pb-5">
+      <h3 class="text-h3-mob/10 lg:text-h4/[50px] font-light tracking-[-0.07px] lg:tracking-[-0.09px]{% unless settings.remove_capitalize %}capitalize{% endunless %}">{% render 'blue', text: b.heading %}</h3>
+      <h4 class="text-body/[23px] font-light tracking-[-0.032px]">{% render 'blue', text: b.subheading %}</h4>
+    </div>
+     
+    <div class="flex flex-col">
+      {%- liquid
+        assign image_1 = false
+        assign image_2 = false
+
+        if b.desktop_image_1 and b.mobile_image_1
+          assign image_1 = true
+        endif
+
+        if b.desktop_image_2 and b.mobile_image_2
+          assign image_2 = true
+        endif
+      -%}
+      {% if image_1 or image_2 %}
+        {% if image_1 and image_2 %}
+          {%# stitch both images together %}
+          <div class="hidden relative lg:flex w-full h-[500px] aspect-[71.32/100]">
+              {% render 'responsive-image'
+                image: b.desktop_image_1,
+                cover: true
+                class: "rounded-l-image"
+              %}
+              {% render 'responsive-image'
+                image: b.desktop_image_2,
+                cover: true
+                class: "rounded-r-image"
+              %}
+              {% if b.image_1_caption and b.image_2_caption %}
+                <div class="flex justify-between absolute bottom-0 w-full px-3">
+                  <span class="text-body/[23px] text-white font-medium tracking-[-0.032px]">{{ b.image_1_caption }}</span>
+                  <span class="text-body/[23px] text-white font-medium tracking-[-0.032px]">{{ b.image_2_caption }}</span>
+                </div>
+              {% endif %}
+          </div>
+
+          <div class="flex lg:hidden relative w-full h-[272.55px] aspect-[71.32/100]">
+              {% render 'responsive-image'
+                image: b.desktop_image_1,
+                cover: true
+                class: "rounded-l-image"
+              %}
+              {% render 'responsive-image'
+                image: b.desktop_image_2,
+                cover: true
+                class: "rounded-r-image"
+              %}
+
+              <div class="flex justify-between absolute bottom-0 w-full px-3">
+                <span class="text-body/[23px] text-white font-medium tracking-[-0.032px]">{{ b.image_1_caption }}</span>
+                <span class="text-body/[23px] text-white font-medium tracking-[-0.032px]">{{ b.image_2_caption }}</span>
+              </div>
+          </div>
+
+        {% elsif image_2 == false %}
+          {%# display only image 1 %}
+          {%- render 'responsive-image', 
+            image: b.desktop_image_1, 
+            class: "rounded-image hidden lg:block", 
+            pb_hack: "71.32%" 
+          -%}
+
+          {%- render 'responsive-image', 
+            image: b.mobile_image_1, 
+            class: "rounded-image lg:hidden", 
+            pb_hack: "71.35%" 
+          -%}
+
+        {% elsif image_1 == false %}
+          {%# display only image 2 %}
+          {%- render 'responsive-image', 
+            image: b.desktop_image_2, 
+            class: "rounded-image hidden lg:block", 
+            pb_hack: "71.32%" 
+          -%}
+
+          {%- render 'responsive-image', 
+            image: b.mobile_image_2, 
+            class: "rounded-image lg:hidden", 
+            pb_hack: "71.35%" 
+          -%}
+        {% endif %}
+      {% endif %}
+
+      <div class="lg:w-[60%] lg:absolute lg:-bottom-[110px] lg:left-0 pt-2.5 lg:pt-0">
+        <div class="flex flex-col gap-1">
+          <h3 class="text-body/[23px] font-medium tracking-[-0.032px]{% unless settings.remove_capitalize %}capitalize{% endunless %}">{% render 'blue', text: b.under_img_top_text %}</h3>
+          <div class="text-[12px]/4 font-light tracking-[-0.2px]">{% render 'blue', text: b.under_img_bottom_text %}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Homepage Tab Slide",
+    "class": "splide__slide",
+    "settings": [
+      {
+        "type": "header",
+        "content": "t:settings_schema.sections.blocks.image_left_content_right_with_background.image_header",
+        "info": "t:settings_schema.sections.blocks.image_left_content_right_with_background.image_header_info"
+      },
+      {
+        "type": "image_picker",
+        "id": "desktop_image_1",
+        "label": "t:settings_schema.general.image_1_desktop"
+      },
+      {
+        "type": "image_picker",
+        "id": "desktop_image_2",
+        "label": "t:settings_schema.general.image_2_desktop"
+      },
+      {
+        "type": "image_picker",
+        "id": "mobile_image_1",
+        "label": "t:settings_schema.general.image_1_mobile"
+      },
+      {
+        "type": "image_picker",
+        "id": "mobile_image_2",
+        "label": "t:settings_schema.general.image_2_mobile"
+      },
+      {
+        "type": "text",
+        "id": "image_1_caption",
+        "label": "t:settings_schema.general.image_1_caption",
+        "info": "t:settings_schema.sections.blocks.image_left_content_right_with_background.image_caption_info"
+      },
+      {
+        "type": "text",
+        "id": "image_2_caption",
+        "label": "t:settings_schema.general.image_2_caption",
+        "info": "t:settings_schema.sections.blocks.image_left_content_right_with_background.image_caption_info"
+      },
+      {
+        "type": "header",
+        "content": "Text under Image"
+      },
+      {
+        "type": "text",
+        "id": "under_img_top_text",
+        "label": "t:settings_schema.sections.blocks.image_right_content_left.under_img_top_text",
+        "info": "t:settings_schema.general.blue_info"
+      },
+      {
+        "type": "text",
+        "id": "under_img_bottom_text",
+        "label": "t:settings_schema.sections.blocks.image_right_content_left.under_img_bottom_text",
+        "info": "t:settings_schema.general.blue_info"
+      },
+      {
+        "type": "header",
+        "content": "t:settings_schema.sections.blocks.image_right_content_left.content_block_header"
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "t:settings_schema.general.heading",
+        "info": "t:settings_schema.general.blue_info"
+      },
+      {
+        "type": "text",
+        "id": "subheading",
+        "label": "Subheading (Mobile)",
+        "info": "t:settings_schema.general.blue_info"
+      },
+      {
+        "type": "header",
+        "content": "t:settings_schema.sections.blocks.image_right_content_left.stat_1_header"
+      },
+      {
+        "type": "number",
+        "id": "percentage_1",
+        "label": "t:settings_schema.sections.clinicals.percentange"
+      },
+      {
+        "type": "text",
+        "id": "description_1",
+        "label": "t:settings_schema.general.description",
+        "info": "t:settings_schema.general.blue_info"
+      },
+      {
+        "type": "text",
+        "id": "disclaimer_1",
+        "label": "t:settings_schema.general.disclaimer_reference"
+      },
+      {
+        "type": "header",
+        "content": "t:settings_schema.sections.blocks.image_right_content_left.stat_2_header"
+      },
+      {
+        "type": "number",
+        "id": "percentage_2",
+        "label": "t:settings_schema.sections.clinicals.percentange"
+      },
+      {
+        "type": "text",
+        "id": "description_2",
+        "label": "Description",
+        "info": "t:settings_schema.general.blue_info"
+      },
+      {
+        "type": "text",
+        "id": "disclaimer_2",
+        "label": "t:settings_schema.general.disclaimer_reference"
+      },
+      {
+        "type": "header",
+        "content": "t:settings_schema.sections.blocks.image_right_content_left.stat_3_header"
+      },
+      {
+        "type": "number",
+        "id": "percentage_3",
+        "label": "t:settings_schema.sections.clinicals.percentange"
+      },
+      {
+        "type": "text",
+        "id": "description_3",
+        "label": "Description",
+        "info": "t:settings_schema.general.blue_info"
+      },
+      {
+        "type": "text",
+        "id": "disclaimer_3",
+        "label": "t:settings_schema.general.disclaimer_reference"
+      }
+    ],
+    "presets": [
+      {"name": "Image Right, Content Left"}
+    ]
+  }
+{% endschema %}

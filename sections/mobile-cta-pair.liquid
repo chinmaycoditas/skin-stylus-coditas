@@ -1,0 +1,108 @@
+{%- assign s = section.settings -%}
+
+<div 
+  id="mobile-cta-pair-{{ s.id_number }}"
+  class="header-override__inner [&.header-override\_\_visible]:translate-y-[74px] transition-all duration-300 lg:hidden w-full grid grid-cols-2 gap-2.5 pt-3 px-4">
+  {% for block in section.blocks %}
+    {%- assign b = block.settings -%}
+
+    {% if b.cta_text != blank and b.cta_url != blank or b.popup_form_override %}
+      {%- assign cta_class = 'w-full whitespace-nowrap !px-0 ' | append: b.button_type -%}
+      {% if settings.remove_capitalize %}
+        {% assign cta_class = cta_class | append: ' !normal-case' %}
+      {% endif %}
+
+      {%- if b.popup_form_override -%}
+        {% render 'popup-input', class: cta_class, text: b.cta_text, block_id: block.id %}
+      {%- else -%}
+        <a href="{{ b.cta_url }}" class="{{ cta_class }}">{{ b.cta_text }}</a>
+      {%- endif -%}
+    {% endif %}
+  {% endfor %}
+</div>
+
+{% schema %}
+{
+  "name": "t:settings_schema.sections.mobile_cta_pair.name",
+  "tag": "section",
+  "class": "sticky top-0 header-override",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Unique Section ID"
+    },
+    {
+      "type": "paragraph",
+      "content": "The ID for this section will be 'mobile-cta-pair-#' based on the number chosen below. The default is 'mobile-cta-pair-1'"
+    },
+    {
+      "type": "range",
+      "id": "id_number",
+      "label": "ID Number",
+      "max": 5,
+      "min": 1,
+      "step": 1,
+      "default": 1,
+      "info": "If using this section multiple times on the same page, assign a different number to each one."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "cta_block",
+      "name": "t:settings_schema.sections.mobile_cta_pair.cta_block",
+      "settings": [
+        {
+          "type": "text",
+          "id": "cta_text",
+          "label": "t:settings_schema.general.cta_text"
+        },
+        {
+          "type": "url",
+          "id": "cta_url",
+          "label": "t:settings_schema.general.cta_url"
+        },
+        {
+          "type": "select",
+          "id": "button_type",
+          "label": "t:settings_schema.general.navigation.mobile_button_type_label",
+          "options": [
+            {
+              "value": "button-primary-blue",
+              "label": "t:settings_schema.general.buttons.types.primary_blue"
+            },
+            {
+              "value": "button-primary-black",
+              "label": "t:settings_schema.general.buttons.types.primary_black"
+            },
+            {
+              "value": "button-primary-white",
+              "label": "t:settings_schema.general.buttons.types.primary_white"
+            },
+            {
+              "value": "button-secondary",
+              "label": "t:settings_schema.general.buttons.types.secondary"
+            },
+            {
+              "value": "button-tertiary",
+              "label": "t:settings_schema.general.buttons.types.tertiary"
+            }
+          ],
+          "default": "button-primary-black"
+        },
+        {
+          "type": "checkbox",
+          "id": "popup_form_override",
+          "label": "Override CTA links with Popup Form",
+          "info": "Requires the Form Popup section to be on the template to work."
+        }
+      ]
+    }
+  ],
+  "max_blocks": 2,
+  "presets": [
+    {
+      "name": "t:settings_schema.sections.mobile_cta_pair.name"
+    }
+  ]
+}
+{% endschema %}

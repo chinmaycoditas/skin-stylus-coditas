@@ -1,0 +1,451 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "current": {
+    "social_facebook_url": "https://www.facebook.com/hydrafacial/",
+    "social_instagram_url": "https://www.instagram.com/hydrafacial/?hl=en",
+    "favicon": "shopify://shop_images/Group_847.png",
+    "sections": {
+      "header": {
+        "type": "header",
+        "blocks": {
+          "nav_menu_img_content_xg346R": {
+            "type": "nav_menu_img_content",
+            "settings": {
+              "link_title_ref": "skin concerns",
+              "image": "shopify://shop_images/ec2319052f0a683bceff4f4ee15aa0dc862cfb59.jpg",
+              "title": "<|Discover|> The Treatment",
+              "description": "Seven personalized skin treatments in one.",
+              "button_text": "Learn More",
+              "button_url": "shopify://pages/the-treatment"
+            }
+          },
+          "header_cta_DEUWDb": {
+            "type": "header_cta",
+            "settings": {
+              "label": "Find A Provider",
+              "link": "shopify://pages/find-a-hydrafacialist",
+              "button_type_desktop": "button-primary-blue",
+              "button_type_mobile": "button-primary-blue"
+            }
+          },
+          "header_cta_9jNztm": {
+            "type": "header_cta",
+            "settings": {
+              "label": "Become A Provider",
+              "link": "shopify://pages/connect-with-sales",
+              "button_type_desktop": "button-primary-white",
+              "button_type_mobile": "button-primary-black"
+            }
+          },
+          "nav_menu_img_content_VJVhUL": {
+            "type": "nav_menu_img_content",
+            "settings": {
+              "link_title_ref": "for professionals",
+              "image": "shopify://shop_images/LHP_Hydrafacial_Syndeo_Screen_Upward_03-FNL-Silo_1.jpg",
+              "title": "",
+              "description": "",
+              "button_text": "Become A Provider",
+              "button_url": "shopify://pages/connect-with-sales"
+            }
+          }
+        },
+        "block_order": [
+          "nav_menu_img_content_xg346R",
+          "header_cta_DEUWDb",
+          "header_cta_9jNztm",
+          "nav_menu_img_content_VJVhUL"
+        ],
+        "settings": {
+          "main_menu": "main-menu",
+          "region_menu": "regions",
+          "show_search_bar": false,
+          "id_number": 1
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "blocks": {
+          "policy_nav_link_7caQn8": {
+            "type": "policy_nav_link",
+            "settings": {
+              "text": "Privacy Policy",
+              "url": "shopify://pages/privacy-policy-en"
+            }
+          },
+          "policy_nav_link_CmFGt8": {
+            "type": "policy_nav_link",
+            "settings": {
+              "text": "Cookie Settings",
+              "url": "https://cdn.shopify.com/s/files/1/0764/1304/2923/files/cookie_policy_70f0e0821a.pdf?v=1756312634"
+            }
+          },
+          "policy_nav_link_8FUUeg": {
+            "type": "policy_nav_link",
+            "settings": {
+              "text": "Terms Of Use",
+              "url": "shopify://pages/terms-of-use"
+            }
+          }
+        },
+        "block_order": [
+          "policy_nav_link_7caQn8",
+          "policy_nav_link_CmFGt8",
+          "policy_nav_link_8FUUeg"
+        ],
+        "settings": {
+          "footer_links": "footer",
+          "app_store_link": "https://apps.apple.com/us/app/mybeautyhealth/id6463192431",
+          "google_play_link": "https://play.google.com/store/apps/details?id=com.mybeautyhealth.app&hl=en_US",
+          "copyright_text": "Copyright © 2025. Hydrafacial LLC. All Rights Reserved",
+          "contact_phone": "1-800-603-4996",
+          "contact_email": "orders@hydrafacial.com",
+          "form_embed_script": "<div class=\"hubspot-form\">\n<script>\n  const hsScript = document.createElement(\"script\");\n  hsScript.src = \"//js.hsforms.net/forms/embed/v2.js\";\n  hsScript.charset = \"utf-8\";\n  hsScript.onload = function () {\n    hbspt.forms.create({\n      portalId: \"9253844\",\n      formId: \"a95f37a3-b4b1-469a-9971-25a50e1be515\",\n      region: \"na1\",\n      onFormReady: function ($form) {\n        const style = $form.ownerDocument.createElement(\"style\");\n        style.textContent = `\n          .hs-richtext.hs-main-font-element h5 span {\n            font-size: 16px;\n            line-height: 23px;\n          }\n          .hs-richtext.hs-main-font-element p span * {\n            font-size: 16px !important;\n            line-height: 23px;\n            font-weight: 300;\n            margin-bottom: 4px;\n          }\n          .hs-richtext.hs-main-font-element p {\n            margin-top: 4px;\n          }\n          .hs-richtext.hs-main-font-element h5 {\n            margin-bottom: 0px;\n          }\n          div.hs-customer_or_provider label:first-of-type:has(.hs-form-required) {\n            display: none;\n          }\n          div.hs-customer_or_provider .input ul {\n            display: flex;\n            align-items: center;\n            gap: 25px;\n            height: 30px;\n          }\n          .hs-form-radio label.hs-form-radio-display {\n            display: flex;\n            align-items: center;\n          }\n          li.hs-form-radio {\n            width: fit-content;\n          }\n          .input .hs-input {\n            color: white;\n            border-radius: 4px;\n            border: 0.5px solid #C6C6C6;\n            background-color: #73737333;\n            height: 51px;\n          }\n          .input .hs-input::placeholder {\n            color: #f5f5f5;\n            font-size: 14px;\n            line-height: 18px;\n          } \n        `;\n        $form.ownerDocument.head.appendChild(style);\n      }\n    });\n  };\n  document.querySelector('.hubspot-form').appendChild(hsScript);\n</script>\n</div>",
+          "id_number": 1
+        }
+      },
+      "app-optimization": {
+        "type": "app-optimization",
+        "settings": {
+          "enable": true,
+          "debug_enable": false
+        }
+      },
+      "privacy-nav": {
+        "type": "privacy-nav",
+        "blocks": {
+          "language_JCwqRe": {
+            "type": "language",
+            "settings": {
+              "language_code": "en",
+              "language_name": "English",
+              "url": "https://hydrafacial-north-america-marketing.myshopify.com/pages/privacy-policy-en"
+            }
+          },
+          "language_RiCgKH": {
+            "type": "language",
+            "settings": {
+              "language_code": "fr",
+              "language_name": "Français",
+              "url": "https://hydrafacial-north-america-marketing.myshopify.com/pages/privacy-policy-fr"
+            }
+          },
+          "language_Xga6zQ": {
+            "type": "language",
+            "settings": {
+              "language_code": "de",
+              "language_name": "Deutsch",
+              "url": "https://hydrafacial-north-america-marketing.myshopify.com/pages/privacy-policy-de"
+            }
+          },
+          "language_qNQ93k": {
+            "type": "language",
+            "settings": {
+              "language_code": "es",
+              "language_name": "Español",
+              "url": "https://hydrafacial-north-america-marketing.myshopify.com/pages/privacy-policy-es"
+            }
+          },
+          "language_Gtkerm": {
+            "type": "language",
+            "settings": {
+              "language_code": "ja",
+              "language_name": "日本語",
+              "url": "https://hydrafacial-north-america-marketing.myshopify.com/pages/privacy-policy-ja"
+            }
+          },
+          "language_4ULgqh": {
+            "type": "language",
+            "settings": {
+              "language_code": "zh-cn",
+              "language_name": "中文 (简体)",
+              "url": "https://hydrafacial-north-america-marketing.myshopify.com/pages/privacy-policy-zh-cn"
+            }
+          },
+          "language_mqBUCa": {
+            "type": "language",
+            "settings": {
+              "language_code": "zh-tw",
+              "language_name": "中文 (繁體)",
+              "url": "https://hydrafacial-north-america-marketing.myshopify.com/pages/privacy-policy-zh-tw"
+            }
+          },
+          "language_7Jj3RR": {
+            "type": "language",
+            "settings": {
+              "language_code": "it",
+              "language_name": "Italiano",
+              "url": "https://hydrafacial-north-america-marketing.myshopify.com/pages/privacy-policy-it"
+            }
+          },
+          "language_ByYHrR": {
+            "type": "language",
+            "settings": {
+              "language_code": "pt",
+              "language_name": "Português",
+              "url": "https://hydrafacial-north-america-marketing.myshopify.com/pages/privacy-policy-pt"
+            }
+          },
+          "language_9WLcT6": {
+            "type": "language",
+            "settings": {
+              "language_code": "ar",
+              "language_name": "عربي",
+              "url": "https://hydrafacial-north-america-marketing.myshopify.com/pages/privacy-policy-ar"
+            }
+          },
+          "language_qPjTAG": {
+            "type": "language",
+            "settings": {
+              "language_code": "bg",
+              "language_name": "български",
+              "url": "https://hydrafacial-north-america-marketing.myshopify.com/pages/privacy-policy-bg"
+            }
+          },
+          "language_MwNDTL": {
+            "type": "language",
+            "settings": {
+              "language_code": "hr",
+              "language_name": "Hrvatski",
+              "url": "https://hydrafacial-north-america-marketing.myshopify.com/pages/privacy-policy-hr"
+            }
+          },
+          "language_jaJqmN": {
+            "type": "language",
+            "settings": {
+              "language_code": "cs",
+              "language_name": "čeština",
+              "url": "https://hydrafacial-north-america-marketing.myshopify.com/pages/privacy-policy-cs"
+            }
+          },
+          "language_ARQdTc": {
+            "type": "language",
+            "settings": {
+              "language_code": "da",
+              "language_name": "dansk",
+              "url": "https://hydrafacial-north-america-marketing.myshopify.com/pages/privacy-policy-da"
+            }
+          },
+          "language_WN3GbN": {
+            "type": "language",
+            "settings": {
+              "language_code": "nl",
+              "language_name": "Nederlands",
+              "url": "https://hydrafacial-north-america-marketing.myshopify.com/pages/privacy-policy-nl"
+            }
+          },
+          "language_P84KnN": {
+            "type": "language",
+            "settings": {
+              "language_code": "et",
+              "language_name": "eesti keel",
+              "url": "https://hydrafacial-north-america-marketing.myshopify.com/pages/privacy-policy-et"
+            }
+          },
+          "language_VFjrb6": {
+            "type": "language",
+            "settings": {
+              "language_code": "fi",
+              "language_name": "Suomalainen",
+              "url": "https://hydrafacial-north-america-marketing.myshopify.com/pages/privacy-policy-fi"
+            }
+          },
+          "language_yTaByA": {
+            "type": "language",
+            "settings": {
+              "language_code": "el",
+              "language_name": "Ελληνικά",
+              "url": "https://hydrafacial-north-america-marketing.myshopify.com/pages/privacy-policy-el"
+            }
+          },
+          "language_TcT9pU": {
+            "type": "language",
+            "settings": {
+              "language_code": "hu",
+              "language_name": "Magyar",
+              "url": "https://hydrafacial-north-america-marketing.myshopify.com/pages/privacy-policy-hu"
+            }
+          },
+          "language_87trUc": {
+            "type": "language",
+            "settings": {
+              "language_code": "lv",
+              "language_name": "latviski",
+              "url": "https://hydrafacial-north-america-marketing.myshopify.com/pages/privacy-policy-lv"
+            }
+          },
+          "language_LFtNLw": {
+            "type": "language",
+            "settings": {
+              "language_code": "lt",
+              "language_name": "lietuvių",
+              "url": "https://hydrafacial-north-america-marketing.myshopify.com/pages/privacy-policy-lt"
+            }
+          },
+          "language_TETe8x": {
+            "type": "language",
+            "settings": {
+              "language_code": "no",
+              "language_name": "norsk",
+              "url": "https://hydrafacial-north-america-marketing.myshopify.com/pages/privacy-policy-no"
+            }
+          },
+          "language_dDRyPj": {
+            "type": "language",
+            "settings": {
+              "language_code": "pl",
+              "language_name": "Polski",
+              "url": "https://hydrafacial-north-america-marketing.myshopify.com/pages/privacy-policy-pl"
+            }
+          },
+          "language_kbTmYb": {
+            "type": "language",
+            "settings": {
+              "language_code": "ro",
+              "language_name": "Română",
+              "url": "https://hydrafacial-north-america-marketing.myshopify.com/pages/privacy-policy-ro"
+            }
+          },
+          "language_EcNeVn": {
+            "type": "language",
+            "settings": {
+              "language_code": "ru",
+              "language_name": "Русский",
+              "url": "https://hydrafacial-north-america-marketing.myshopify.com/pages/privacy-policy-ru"
+            }
+          },
+          "language_zEtQHP": {
+            "type": "language",
+            "settings": {
+              "language_code": "sk",
+              "language_name": "slovenský",
+              "url": "https://hydrafacial-north-america-marketing.myshopify.com/pages/privacy-policy-sk"
+            }
+          },
+          "language_tL3Ugt": {
+            "type": "language",
+            "settings": {
+              "language_code": "sl",
+              "language_name": "Slovenščina",
+              "url": "https://hydrafacial-north-america-marketing.myshopify.com/pages/privacy-policy-sl"
+            }
+          },
+          "language_cHxyzi": {
+            "type": "language",
+            "settings": {
+              "language_code": "sv",
+              "language_name": "svenska",
+              "url": "https://hydrafacial-north-america-marketing.myshopify.com/pages/privacy-policy-sv"
+            }
+          },
+          "language_JV6673": {
+            "type": "language",
+            "settings": {
+              "language_code": "uk",
+              "language_name": "українська",
+              "url": "https://hydrafacial-north-america-marketing.myshopify.com/pages/privacy-policy-uk"
+            }
+          }
+        },
+        "block_order": [
+          "language_JCwqRe",
+          "language_RiCgKH",
+          "language_Xga6zQ",
+          "language_qNQ93k",
+          "language_Gtkerm",
+          "language_4ULgqh",
+          "language_mqBUCa",
+          "language_7Jj3RR",
+          "language_ByYHrR",
+          "language_9WLcT6",
+          "language_qPjTAG",
+          "language_MwNDTL",
+          "language_jaJqmN",
+          "language_ARQdTc",
+          "language_WN3GbN",
+          "language_P84KnN",
+          "language_VFjrb6",
+          "language_yTaByA",
+          "language_TcT9pU",
+          "language_87trUc",
+          "language_LFtNLw",
+          "language_TETe8x",
+          "language_dDRyPj",
+          "language_kbTmYb",
+          "language_EcNeVn",
+          "language_zEtQHP",
+          "language_tL3Ugt",
+          "language_cHxyzi",
+          "language_JV6673"
+        ],
+        "settings": {
+          "current_language": "English",
+          "current_language_code": "en"
+        }
+      },
+      "header-alt": {
+        "type": "header-alt",
+        "blocks": {
+          "header_cta_yfEtBV": {
+            "type": "header_cta",
+            "settings": {
+              "label": "Become A Provider",
+              "link": "shopify://pages/connect-with-sales",
+              "button_type_desktop": "button-primary-blue",
+              "button_type_mobile": "button-primary-blue"
+            }
+          },
+          "header_cta_XaAHcq": {
+            "type": "header_cta",
+            "disabled": true,
+            "settings": {
+              "label": "Existing Provider Resources",
+              "link": "shopify://pages/professional-resources",
+              "button_type_desktop": "button-primary-white",
+              "button_type_mobile": "button-primary-black"
+            }
+          },
+          "nav_menu_img_content_FppAye": {
+            "type": "nav_menu_img_content",
+            "settings": {
+              "link_title_ref": "",
+              "title": "",
+              "description": "",
+              "button_text": "",
+              "button_url": ""
+            }
+          }
+        },
+        "block_order": [
+          "header_cta_yfEtBV",
+          "header_cta_XaAHcq",
+          "nav_menu_img_content_FppAye"
+        ],
+        "name": "Header Alt",
+        "settings": {
+          "main_menu": "main-menu-alt",
+          "region_menu": "regions",
+          "show_search_bar": false
+        }
+      }
+    },
+    "content_for_index": [],
+    "blocks": {
+      "15621005432394230896": {
+        "type": "shopify://apps/onetrust-consent-management/blocks/consent_management/a0f47f36-e440-438e-946e-6f1b3963b606",
+        "disabled": false,
+        "settings": {}
+      }
+    }
+  },
+  "presets": {
+    "Default": {}
+  }
+}

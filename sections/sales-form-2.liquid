@@ -1,0 +1,122 @@
+{%- assign s = section.settings -%}
+
+<div 
+  id="sales-form-two-{{ s.id_number }}"
+  class="px-[18px] lg:px-[38px] pt-5 lg:pt-[58px] {% if s.margin_top %}mt-[79px]{% endif %}">
+  <div class="light-blue-gradient-2 w-screen h-full absolute left-0 top-0 z-[-1]"></div>
+
+  <div class="max-w-maxscreen mx-auto">
+    <div class="flex flex-col lg:grid grid-cols-[358px_1fr] gap-8">
+      <div class="max-lg:pt-5">
+        <h1 class="font-light leading-[100%] text-h2-mob lg:text-h3">{% render 'blue', text: s.title %}</h1>
+      </div>
+
+      <div class="bg-white rounded-t-image [&_form]:!w-full p-8">
+        {% capture on_form_ready %}
+          onFormReady: function ($form) {
+            const s=$form.ownerDocument.createElement("style");
+            s.textContent = `
+              @media (max-width: 505px) {
+                .hs-button {
+                  width: 100%;
+                }
+              }
+              .hs-richtext.hs-main-font-element {
+                font-size: 28px;
+                line-height: 32px;
+                font-weight: 300;
+                text-transform: capitalize;
+              }
+              .hs-button {
+                border-radius: 70px;
+                padding-block: 15px;
+                width: 250px;
+              }
+              input[type="submit"].hs-button {
+                font-size: 14px !important;
+                line-height: 150% !important;
+              }
+              .input .hs-input {
+                background-color: white;
+                height: 60px;
+                border-radius: 4px;
+                color: black;
+              }
+              .input .hs-input::placeholder {
+                color: black;
+              }
+              .input select.is-placeholder {
+                color: black;
+              }
+              .hs-form-booleancheckbox-display {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+              }
+              .hs-form-booleancheckbox-display span {
+                font-size: 12px;
+                line-height: 16px;
+              }
+              .hs-form-booleancheckbox-display input[type="checkbox"] {
+                align-self: start;
+                height: fit-content;
+              }              
+            `;
+            $form.ownerDocument.head.appendChild(s);
+          },
+          portalId
+        {% endcapture %}
+
+        {{ s.embed_code | replace: "portalId", on_form_ready }}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:settings_schema.sections.sales_form_2.name",
+  "tag": "section",
+  "class": "sales-form-2 no-max w-full z-0",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "margin_top",
+      "label": "t:settings_schema.sections.sales_form_2.margin_top"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "t:settings_schema.sections.sales_form_2.title"
+    },
+    {
+      "type": "liquid",
+      "id": "embed_code",
+      "label": "t:settings_schema.sections.sales_form_2.form_embed_code"
+    },
+    {
+      "type": "header",
+      "content": "Unique Section ID"
+    },
+    {
+      "type": "paragraph",
+      "content": "The ID for this section will be 'sales-form-two-#' based on the number chosen below. The default is 'sales-form-two-1'"
+    },
+    {
+      "type": "range",
+      "id": "id_number",
+      "label": "ID Number",
+      "max": 5,
+      "min": 1,
+      "step": 1,
+      "default": 1,
+      "info": "If using this section multiple times on the same page, assign a different number to each one."
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:settings_schema.sections.sales_form_2.name"
+    }
+  ]
+}
+{% endschema %}

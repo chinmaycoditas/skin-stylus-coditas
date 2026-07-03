@@ -1,0 +1,64 @@
+{%- assign s = section.settings -%}
+
+<div
+  id="disclaimer-{{ s.id_number }}"
+   class="flex flex-col w-full py-4 px-5 lg:px-[30px] xl:px-[10%] {% if s.bottom_border %}lg:border-b-[1px] border-b-grey-medium{% endif %}">
+  <ul class="pt-4 px-2 border-t-[1px] border-t-grey-medium">
+    {% for block in section.blocks %}
+      {% assign b = block.settings %}
+      <li>
+        <h4 class="text-[11.25px]/[19.5px] text-[#7e7e7e] font-light">{{ b.disclaimer }}</h4>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+
+{% schema %}
+{
+  "name": "t:settings_schema.sections.disclaimer_box.name",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "bottom_border",
+      "label": "t:settings_schema.sections.disclaimer_box.bottom_border"
+    },
+    {
+      "type": "header",
+      "content": "Unique Section ID"
+    },
+    {
+      "type": "paragraph",
+      "content": "The ID for this section will be 'disclaimer-#' based on the number chosen below. The default is 'disclaimer-1'"
+    },
+    {
+      "type": "range",
+      "id": "id_number",
+      "label": "ID Number",
+      "max": 5,
+      "min": 1,
+      "step": 1,
+      "default": 1,
+      "info": "If using this section multiple times on the same page, assign a different number to each one."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "disclaimer",
+      "name": "t:settings_schema.sections.disclaimer_box.disclaimer",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "disclaimer",
+          "label": "t:settings_schema.general.disclaimer"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:settings_schema.sections.disclaimer_box.name"
+    }
+  ]
+}
+{% endschema %}

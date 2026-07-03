@@ -1,0 +1,108 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "side_by_side_GbeCQd": {
+      "type": "side-by-side",
+      "blocks": {
+        "item_QfiQw8": {
+          "type": "item",
+          "settings": {
+            "title_1": "Hydrafacial® Syndeo™",
+            "description_1": "<p>U.S. Pat. 9,550,052<br/>U.S. Pat. 11,241,357<br/>U.S. Pat. 11,213,321<br/>U.S. Pat. 9,566,088<br/>U.S. Pat. 11,202,657<br/>US Pat.  9,550,052<br/>US Pat. 11,446,477<br/>US Pat. 11,865,287<br/>US Pat. 12,053,607<br/>US Pat. 11,202,657<br/>US Pat. 11,213,321<br/><br/>Additional patent applications pending</p>",
+            "cta_label_1": "",
+            "cta_link_1": "",
+            "title_2": "",
+            "description_2": "",
+            "cta_label_2": "",
+            "cta_link_2": "",
+            "image": "shopify://shop_images/c90dc79280d64e8f1430e0ad41ee3dbaa49d3c2e_37e3c8f9-3fbb-4dd1-8361-678df923601d.png",
+            "image_first": true
+          }
+        },
+        "item_bXcxaF": {
+          "type": "item",
+          "settings": {
+            "title_1": "Hydrafacial® Tower™",
+            "description_1": "<p>U.S. Pat. 9,550,052<br/>U.S. Pat. 11,241,357<br/>U.S. Pat. 11,213,321<br/>U.S. Pat. 9,566,088<br/>U.S. Pat. 11,202,657<br/>US Pat.  9,550,052<br/>US Pat. 11,446,477<br/>US Pat. 11,865,287<br/>US Pat. 12,053,607<br/>US Pat. 11,202,657<br/>US Pat. 11,213,321<br/><br/>Additional patent applications pending</p>",
+            "cta_label_1": "",
+            "cta_link_1": "",
+            "title_2": "",
+            "description_2": "",
+            "cta_label_2": "",
+            "cta_link_2": "",
+            "image": "shopify://shop_images/3eb095f26b03805e31af74893f8b4f080781e9ec.png",
+            "image_first": false
+          }
+        },
+        "item_xA4Vbe": {
+          "type": "item",
+          "settings": {
+            "title_1": "Hydrafacial® Allegro™",
+            "description_1": "<p>U.S. Pat. 9,550,052<br/>U.S. Pat. 11,241,357<br/>U.S. Pat. 11,213,321<br/>U.S. Pat. 9,566,088<br/>U.S. Pat. 11,202,657<br/>US Pat.  9,550,052<br/>US Pat. 11,446,477<br/>US Pat. 11,865,287<br/>US Pat. 12,053,607<br/>US Pat. 11,202,657<br/>US Pat. 11,213,321<br/><br/>Additional patent applications pending</p>",
+            "cta_label_1": "",
+            "cta_link_1": "",
+            "title_2": "",
+            "description_2": "",
+            "cta_label_2": "",
+            "cta_link_2": "",
+            "image": "shopify://shop_images/532db32cefde9fc92163cfd9e10cbc1144861ddd.png",
+            "image_first": true
+          }
+        },
+        "item_6rYKLA": {
+          "type": "item",
+          "settings": {
+            "title_1": "Hydrafacial® Handpieces",
+            "description_1": "<p>U.S. Pat. 9,550,052<br/>U.S. Pat. 11,241,357<br/>U.S. Pat. 11,213,321<br/>U.S. Pat. 9,566,088<br/>U.S. Pat. 11,202,657<br/>US Pat.  9,550,052<br/>US Pat. 11,446,477<br/>US Pat. 11,865,287<br/>US Pat. 12,053,607<br/>US Pat. 11,202,657<br/>US Pat. 11,213,321<br/><br/>Additional patent applications pending</p>",
+            "cta_label_1": "",
+            "cta_link_1": "",
+            "title_2": "Hydrafacial® Hydropeel® Tips",
+            "description_2": "<p>US Pat. 8,048,089<br/>US Pat. 9,474,886<br/>US Pat. 9,662,482<br/>US Pat. 10,357,641<br/>US Pat.  10,357,642<br/>US Pat. 11,547,840<br/>US Pat. 11,612,726<br/><br/>Additional patent applications pending</p>",
+            "cta_label_2": "",
+            "cta_link_2": "",
+            "image_first": false
+          }
+        },
+        "item_jWBfFY": {
+          "type": "item",
+          "settings": {
+            "title_1": "Trademarks",
+            "description_1": "<h1><strong>What should I know if I am planing on buying a used/second hand Hydrafacial system?</strong></h1><p><br/>The trademark license that accompanies every Hydrafacial system that is sold by The Hydrafacial Company is non-transferable. If you buy a used/second hand Hydrafacial system, you will need to purchase a new trademark license from the Company. If you do not have a license, you will not be able to buy consumables from the Company and using third party consumables will void the warranty. For more information on purchasing a license, please contact us.</p>",
+            "cta_label_1": "Learn More",
+            "cta_link_1": "shopify://pages/device-authenticity",
+            "title_2": "",
+            "description_2": "",
+            "cta_label_2": "",
+            "cta_link_2": "",
+            "image": "shopify://shop_images/fa2bb63e6d8ecdbdf411d13e8a96ee35735240fe.png",
+            "image_first": true
+          }
+        }
+      },
+      "block_order": [
+        "item_QfiQw8",
+        "item_bXcxaF",
+        "item_xA4Vbe",
+        "item_6rYKLA",
+        "item_jWBfFY"
+      ],
+      "name": "Side by Side",
+      "settings": {
+        "title": "Patents",
+        "description": "Pursuant to 35 USC §287(a), the visitor of this website is hereby placed on notice of the patent rights assigned or licensed to Hydrafacial LLC (formerly Edge Systems LLC), as listed below.",
+        "id_number": 1
+      }
+    }
+  },
+  "order": [
+    "side_by_side_GbeCQd"
+  ]
+}

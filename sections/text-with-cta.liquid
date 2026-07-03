@@ -1,0 +1,161 @@
+{%- assign s = section.settings -%}
+{% liquid
+  assign background-color = 'bg-soft-blue'
+  if s.hide_background_color
+    
+  endif
+%}
+
+<div 
+  id="text-with-cta-{{ s.id_number }}"
+  class="px-[18px] lg:px-[38px]"
+>
+<div class="lg:my-[60px] my-10 text-black flex flex-col text-center rounded-[30px] overflow-hidden {% unless s.hide_background_color %}bg-soft-blue{% endunless %}">
+    {% if s.banner_image_desktop != blank %}
+      {% render 'responsive-image', image: s.banner_image_desktop, class: 'hidden lg:block w-full h-[242px] rounded-t-header-menu', cover: true %}
+    {% endif %}
+    {% if s.banner_image_mobile != blank %}
+      {% render 'responsive-image', image: s.banner_image_mobile, class: 'lg:hidden w-full h-[242px] rounded-t-header-menu', cover: true %}
+    {% endif %}
+
+    <div class="px-[30px] py-[35px] lg:py-[55px] flex flex-col items-center">
+      {%- if s.heading -%}
+        <h3 class="text-h3-mob lg:text-h4 pb-3 leading-10 lg:leading-[50px] tracking-[-0.07px] lg:tracking-[-0.09px] font-light w-[95%] lg:w-[auto]">
+          {% render 'blue', text: s.heading %}
+        </h3>
+      {%- endif -%}
+
+      {%- if s.body -%}
+        <span class="pb-[30px] text-section-1-mob lg:w-[44%] font-light">
+          {% render 'blue', text: s.body %}
+        </span>
+      {%- endif -%}
+
+      {%- if s.top_cta_url or s.bottom_cta_url -%}
+        <div class="flex flex-col lg:flex-row gap-4">
+          {%- if s.top_cta_url or s.popup_form_override -%}
+            {%- liquid
+              assign cta_class = 'button-primary-white lg:!px-[30px] w-[279px]' 
+              if settings.remove_capitalize
+                assign cta_class = cta_class | append: ' !normal-case'
+              endif
+
+              if s.banner_image_mobile
+                assign cta_class = cta_class | append: ' lg:w-[auto]'
+              endif
+
+              if s.hide_background_color
+              assign cta_class = cta_class | append: ' !border-black hover:!border-[var(--color-blue-cta)]'
+              endif
+            -%}
+
+            {%- if s.popup_form_override -%}
+              {% render 'popup-input', class: cta_class, text: s.top_cta_text %}
+            {%- else -%}
+              <a class="{{ cta_class }}" href="{{ s.top_cta_url }}">
+                  {{ s.top_cta_text }}
+              </a>
+            {%- endif -%}
+          {%- endif -%}
+
+          {%- if s.bottom_cta_url -%}
+            <a class="button-secondary {% if settings.remove_capitalize %}!normal-case{% endif %} lg:!px-[30px] {% if s.banner_image_mobile %}w-[279px] lg:w-[auto]{% endif %}" href="{{ s.bottom_cta_url }}">
+              {{ s.bottom_cta_text }}
+            </a>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:settings_schema.sections.text_with_cta.name",
+  "class": "text-with-cta no-max",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "banner_image_desktop",
+      "label": "t:settings_schema.sections.text_with_cta.banner_image_desktop"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_image_mobile",
+      "label": "t:settings_schema.sections.text_with_cta.banner_image_mobile"
+    },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "t:settings_schema.general.heading",
+      "info": "t:settings_schema.general.blue_info"
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "t:settings_schema.general.body",
+      "info": "t:settings_schema.general.blue_info"
+    },
+    {
+      "type": "text",
+      "id": "top_cta_text",
+      "label": "t:settings_schema.sections.text_with_cta.top_cta_text"
+    },
+    {
+      "type": "url",
+      "id": "top_cta_url",
+      "label": "t:settings_schema.sections.text_with_cta.top_cta_url"
+    },
+    {
+      "type": "checkbox",
+      "id": "popup_form_override",
+      "label": "Override Top CTA link with Popup Form",
+      "info": "Requires the Form Popup section to be on the template to work."
+    },
+    {
+      "type": "checkbox",
+      "label": "t:settings_schema.sections.text_with_cta.wide_button_on_mobile",
+      "id": "wide_button_on_mobile"
+    },
+    {
+      "type": "checkbox",
+      "label": "Hide Background Color",
+      "id": "hide_background_color"
+    },
+    {
+      "type": "text",
+      "id": "bottom_cta_text",
+      "label": "t:settings_schema.sections.text_with_cta.bottom_cta_text"
+    },
+    {
+      "type": "url",
+      "id": "bottom_cta_url",
+      "label": "t:settings_schema.sections.text_with_cta.bottom_cta_url"
+    },
+    {
+      "type": "header",
+      "content": "Unique Section ID"
+    },
+    {
+      "type": "paragraph",
+      "content": "The ID for this section will be 'text-with-cta-#' based on the number chosen below. The default is 'text-with-cta-1'"
+    },
+    {
+      "type": "range",
+      "id": "id_number",
+      "label": "ID Number",
+      "max": 5,
+      "min": 1,
+      "step": 1,
+      "default": 1,
+      "info": "If using this section multiple times on the same page, assign a different number to each one."
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:settings_schema.sections.text_with_cta.name"
+    }
+  ]
+}
+{% endschema %}

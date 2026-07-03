@@ -1,0 +1,339 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "page_hero_9jwzhR": {
+      "type": "page-hero",
+      "name": "Page Hero",
+      "settings": {
+        "image": "shopify://shop_images/how_it_works_2_desktop.png",
+        "image_mobile": "shopify://shop_images/Frame_4865.png",
+        "heading": "<p>How A &lt;|Hydrafacial Treatment|&gt; Works</p>",
+        "use_h1": true,
+        "heading_color": "#ffffff",
+        "body": "<p>Hydrafacial offers 7 personalized therapies in each treatment, addressing a full spectrum of skin concerns and revealing the best skin of your life after just one visit.</p>",
+        "cta_text": "",
+        "cta_url": "",
+        "content_position": "items-start",
+        "desktop_heading_max_w": 500,
+        "content_block_type": "pills",
+        "show_nav": false,
+        "dropdown_text": "",
+        "id_number": 1,
+        "popup_form_override": false
+      }
+    },
+    "page_hero_HX43pm": {
+      "type": "page-hero",
+      "disabled": true,
+      "name": "Page Hero",
+      "settings": {
+        "image": "shopify://shop_images/df9b2f721f6229f2bb996f792dbf2485d6855b08.jpg",
+        "image_mobile": "shopify://shop_images/Frame_4865.png",
+        "heading": "<p>Hydrafacial &lt;|Multi-Effect|&gt; Glow</p>",
+        "use_h1": false,
+        "heading_color": "#ffffff",
+        "body": "<p>Hydrafacial offers 7 personalized therapies in each treatment, addressing a full spectrum of skin concerns and revealing the best skin of your life after just one visit.</p>",
+        "cta_text": "",
+        "cta_url": "",
+        "content_position": "items-start",
+        "desktop_heading_max_w": 415,
+        "content_block_type": "pills",
+        "show_nav": false,
+        "dropdown_text": "",
+        "id_number": 1,
+        "popup_form_override": false
+      }
+    },
+    "7_treatments_in_1_fqmCXJ": {
+      "type": "7-treatments-in-1",
+      "blocks": {
+        "treatment_CDeLc7": {
+          "type": "treatment",
+          "settings": {
+            "image": "shopify://shop_images/baf4626b145ba0d54ddd7641cfe3d9dcc525e286.jpg",
+            "title": "Lymphatic Drainage",
+            "body": "Supports skin detoxification and helps reduce puffiness for a more sculpted, lifted look."
+          }
+        },
+        "treatment_kneneB": {
+          "type": "treatment",
+          "settings": {
+            "image": "shopify://shop_images/202b7b2999816ad205f9e6dedb3d29e7e9491c54.jpg",
+            "title": "Microdermabrasion",
+            "body": "Cleanses and gently lifts away dead skin cells, revealing smoother, brighter looking skin."
+          }
+        },
+        "treatment_dy6hzN": {
+          "type": "treatment",
+          "settings": {
+            "image": "shopify://shop_images/8fbae3b68126c2b7734e846d435c150b1e2007cb.jpg",
+            "title": "Customized Peel",
+            "body": "Assist in unclogging pores and improving the appearance of blemishes, enhancing skin texture and radiance"
+          }
+        },
+        "treatment_z9qJGj": {
+          "type": "treatment",
+          "settings": {
+            "image": "shopify://shop_images/9b2594eeaad7bfc37356b8cefe617e032d8f563e.jpg",
+            "title": "Extraction",
+            "body": "Deeply clean pores and exfoliate the skin without discomfort, redness or harsh squeezing."
+          }
+        },
+        "treatment_HCFQUM": {
+          "type": "treatment",
+          "settings": {
+            "image": "shopify://shop_images/88a77a0773b66378bc24b28ef557ef5343e4f4b2.jpg",
+            "title": "Target Skin Concerns",
+            "body": "Specialized serums infuse effective dynamic ingredients based on skin type and concern."
+          }
+        },
+        "treatment_khbeDp": {
+          "type": "treatment",
+          "settings": {
+            "image": "shopify://shop_images/32078e563c833b0d95fed366f123fcfa68ecd6a6.jpg",
+            "title": "LED Light Therapy​",
+            "body": "Choose between Red Light or Blue Light Therapy."
+          }
+        },
+        "treatment_g6A6XG": {
+          "type": "treatment",
+          "settings": {
+            "image": "shopify://shop_images/1c046e154a9e8aaccee54920d6b0cd5f383a7a18.jpg",
+            "title": "Hydration Infusion",
+            "body": "Our antioxidant-rich formula leaves you with our signature luminous Hydrafacial glow. "
+          }
+        }
+      },
+      "block_order": [
+        "treatment_CDeLc7",
+        "treatment_kneneB",
+        "treatment_dy6hzN",
+        "treatment_z9qJGj",
+        "treatment_HCFQUM",
+        "treatment_khbeDp",
+        "treatment_g6A6XG"
+      ],
+      "name": "7 Treatments In 1",
+      "settings": {
+        "use_gradient": true,
+        "heading": "<|7 Therapies|> in 1 platinum hydrafacial treatment",
+        "subheading": "",
+        "style": "carousel",
+        "id_number": 1
+      }
+    },
+    "standalone_slider_68e94g": {
+      "type": "standalone-slider",
+      "blocks": {
+        "slide_4JREAJ": {
+          "type": "slide",
+          "settings": {
+            "badge_text": "Dull/Dehydrated Skin",
+            "image_1": "shopify://shop_images/IMG.png",
+            "image_1_text": "",
+            "image_2_text": "",
+            "heading": "After <|1 Hydrafacial Deluxe Treatment|>",
+            "subheading": "Courtesy of SkinPerfected. One Deluxe treatment with Red LED. Individual results may vary.   "
+          }
+        },
+        "slide_bd7Jah": {
+          "type": "slide",
+          "settings": {
+            "badge_text": "Dull/Dehydrated Skin",
+            "image_1": "shopify://shop_images/Before_After_Desktop_CloggedPores.jpg",
+            "image_1_text": "",
+            "image_2_text": "",
+            "heading": "After <|1 Hydrafacial Deluxe Treatment|>",
+            "subheading": "Courtesy of SkinPerfected. One Deluxe treatment with Red LED. Individual results may vary.   "
+          }
+        }
+      },
+      "block_order": [
+        "slide_4JREAJ",
+        "slide_bd7Jah"
+      ],
+      "name": "Standalone Slider",
+      "settings": {
+        "heading": "Immediate Radiance With <|Long-Term Results|>",
+        "subheading": "From the moment you walk out of your Hydrafacial Treatment, your skin looks dewy, plump, and glowing. But the true power of Hydrafacial treatments is what happens over time. Each session builds on the last, and because it’s customizable, you can update your skin ritual as your needs change.",
+        "cta_text": "Hydrafacial Near Me",
+        "cta_url": "shopify://pages/find-a-hydrafacialist",
+        "id_number": 1
+      }
+    },
+    "fullscreen_video_testimonials_E6zwjz": {
+      "type": "fullscreen-video-testimonials",
+      "blocks": {
+        "testimonial_izLhRc": {
+          "type": "testimonial",
+          "settings": {
+            "video_desktop": "shopify://files/videos/HydrafacialVideo_HowitWorksPage_4320x2700_optimized.mp4",
+            "video_mobile": "shopify://files/videos/Hydrafacial Video_HowitWorksPage_1086x591 (1).mp4",
+            "heading": "",
+            "source_name": "",
+            "source_occupation": ""
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_izLhRc"
+      ],
+      "name": "t:settings_schema.sections.fullscreen_video_testimonials.name",
+      "settings": {
+        "id_number": 1
+      }
+    },
+    "expandable_media_slider_aB6GbA": {
+      "type": "expandable-media-slider",
+      "blocks": {
+        "media_slide_pGAnFX": {
+          "type": "media_slide",
+          "settings": {
+            "desktop_image": "shopify://shop_images/treatmenttypesdetails_v2_client-treatment-finelines.jpg",
+            "mobile_image": "shopify://shop_images/treatmenttypesdetails_v2_client-treatment-finelines.jpg",
+            "title": "Fine Lines & Wrinkles",
+            "caption": "Achieve plump, more youthful-looking skin",
+            "heading": "A curated selection of anti-aging boosters helps skin turn back time.",
+            "feature_1_icon": "check",
+            "feature_1_text": "Visibly soften fine lines and wrinkles",
+            "feature_2_icon": "check",
+            "feature_2_text": "Features appear more sculpted, with more fullness",
+            "feature_3_icon": "check",
+            "feature_3_text": "Visibly plump, hydrated, and more resilient skin.",
+            "content_box_cta_text": "",
+            "content_box_cta_url": "",
+            "popup_form_override": false
+          }
+        },
+        "media_slide_atVbgm": {
+          "type": "media_slide",
+          "settings": {
+            "desktop_image": "shopify://shop_images/7f588e0124b1a0172fb9f2b2dd3d4da07d252396.jpg",
+            "mobile_image": "shopify://shop_images/7f588e0124b1a0172fb9f2b2dd3d4da07d252396.jpg",
+            "title": "Elasticity & Firmness",
+            "caption": "Complexion appears firmer and more resilient",
+            "heading": "A curated selection of boosters offers skin-smoothing results.",
+            "feature_1_icon": "check",
+            "feature_1_text": "Skin is able to bounce back more easily",
+            "feature_2_icon": "check",
+            "feature_2_text": "Improved hydration and radiance",
+            "feature_3_icon": "check",
+            "feature_3_text": "Helps visibly increase skin firmness and volume",
+            "content_box_cta_text": "",
+            "content_box_cta_url": "",
+            "popup_form_override": false
+          }
+        },
+        "media_slide_HJKkp8": {
+          "type": "media_slide",
+          "settings": {
+            "desktop_image": "shopify://shop_images/017375dc2a83b2fb1253111546199e3cdc549285.jpg",
+            "mobile_image": "shopify://shop_images/017375dc2a83b2fb1253111546199e3cdc549285.jpg",
+            "title": "Dull/Dehydrated Skin",
+            "caption": "The ultimate hydrating treatment for a radiant glow",
+            "heading": "A curated selection of nourishing boosters helps improve the skin barrier.",
+            "feature_1_icon": "check",
+            "feature_1_text": "Optimized hydration for your skin’s needs",
+            "feature_2_icon": "check",
+            "feature_2_text": "Improved skin texture and radiance",
+            "feature_3_icon": "check",
+            "feature_3_text": "Helps protect from free radical damage",
+            "content_box_cta_text": "",
+            "content_box_cta_url": "",
+            "popup_form_override": false
+          }
+        },
+        "media_slide_HLe93w": {
+          "type": "media_slide",
+          "settings": {
+            "desktop_image": "shopify://shop_images/6bb5267f142cb45bfbde2f9c88af61b0a28186de.jpg",
+            "mobile_image": "shopify://shop_images/6bb5267f142cb45bfbde2f9c88af61b0a28186de.jpg",
+            "title": "Clogged Pores",
+            "caption": "Clarify and revitalize your complexion",
+            "heading": "Clinically proven to visibly improve mild-to-moderate acne.",
+            "feature_1_icon": "check",
+            "feature_1_text": "Fewer breakouts and less excess oil",
+            "feature_2_icon": "check",
+            "feature_2_text": "Pores are deeply cleaned and decongested",
+            "feature_3_icon": "check",
+            "feature_3_text": "Less facial redness for more even skin tone",
+            "content_box_cta_text": "",
+            "content_box_cta_url": "",
+            "popup_form_override": false
+          }
+        }
+      },
+      "block_order": [
+        "media_slide_pGAnFX",
+        "media_slide_atVbgm",
+        "media_slide_HJKkp8",
+        "media_slide_HLe93w"
+      ],
+      "name": "Expandable Media Slider",
+      "settings": {
+        "show_gradient": false,
+        "heading": "Hydrafacial Is Personalized to <|Your Skin’s Needs|>",
+        "subheading": "",
+        "cta_text": "",
+        "cta_url": "",
+        "popup_form_override": false,
+        "id_number": 1
+      }
+    },
+    "text_with_cta_dtzWJJ": {
+      "type": "text-with-cta",
+      "name": "Text With CTA",
+      "settings": {
+        "banner_image_desktop": "shopify://shop_images/Frame_4082.png",
+        "banner_image_mobile": "shopify://shop_images/Frame_4082.png",
+        "heading": "<p>Find A &lt;|Hydrafacialist|&gt; Near Me</p>",
+        "body": "<p>We are in thousands of treatment rooms across the globe, making it easy to get your Hydrafacial Glow wherever you may be.</p>",
+        "top_cta_text": "Hydrafacial Near Me",
+        "top_cta_url": "shopify://pages/find-a-hydrafacialist",
+        "popup_form_override": false,
+        "wide_button_on_mobile": false,
+        "bottom_cta_text": "Connect With Sales",
+        "bottom_cta_url": "",
+        "id_number": 1
+      }
+    },
+    "disclaimer_box_FbPmKV": {
+      "type": "disclaimer-box",
+      "blocks": {
+        "disclaimer_wTUH3z": {
+          "type": "disclaimer",
+          "settings": {
+            "disclaimer": "<p>abcdefg</p>"
+          }
+        }
+      },
+      "block_order": [
+        "disclaimer_wTUH3z"
+      ],
+      "disabled": true,
+      "name": "Disclaimer Box",
+      "settings": {
+        "bottom_border": false,
+        "id_number": 1
+      }
+    }
+  },
+  "order": [
+    "page_hero_9jwzhR",
+    "page_hero_HX43pm",
+    "7_treatments_in_1_fqmCXJ",
+    "standalone_slider_68e94g",
+    "fullscreen_video_testimonials_E6zwjz",
+    "expandable_media_slider_aB6GbA",
+    "text_with_cta_dtzWJJ",
+    "disclaimer_box_FbPmKV"
+  ]
+}

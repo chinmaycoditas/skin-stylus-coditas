@@ -1,0 +1,121 @@
+{%- assign s = section.settings -%}
+
+<div 
+  id="press-features-{{ s.id_number }}"
+  class="flex flex-col gap-4.5 lg:gap-7.5 items-center w-full py-10 lg:py-12.5"
+>
+  <div class="heading">
+    <h2 class="lg:text-section-1 text-section-3 lg:leading-8 leading-7 lg:tracking-[-0.056px] tracking-[-0.042px] {% unless settings.remove_capitalize %}capitalize{% endunless %}">{% render 'blue', text: s.heading %}</h2>
+  </div>
+  {% if section.blocks.size > 0 %}
+    <div class="lg:py-12.5 py-10 lg:px-9.5 mx-3 flex flex-col lg:gap-7.5 gap-4.5 border-b border-b-grey-medium">
+      <div class="flex flex-col lg:grid grid-cols-3 gap-10">
+        {% for block in section.blocks %}
+          {% assign b = block.settings %}
+          <div class="cards">
+            <div class="flex flex-col justify-between h-full gap-5.5 relative">
+              <div class="flex flex-col gap-5.5">
+                <div class="relative rounded-image overflow-hidden">
+                  {% if b.main_image %}
+                    {% render 'responsive-image', image: b.main_image, class: image_class, cover: true %}
+                  {% endif %}
+                </div>
+                {% if b.press_logo %}
+                  {% render 'responsive-image', image: b.press_logo, class: logo_class %}
+                {% endif %}
+                <div class="flex flex-col gap-1">
+                  <span class="font-medium text-caption-small leading-4 tracking-[-0.2px]">{{ b.date }}</span>
+                  <h3 class="font-light text-h3-mob leading-10 tracking-[-0.07px] {% unless settings.remove_capitalize %}capitalize{% endunless %}">{{ b.card_heading }}</h3>
+                  <p class="font-light text-body leading-[23px] tracking-[-0.032px]">{{ b.card_content }}</p>
+                </div>
+              </div>
+              <a href="{{ b.link_url }}" class="font-medium text-body-small tracking-[-0.028px] underline text-black">{{ b.link_text }}</a>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>  
+  {% endif %}
+</div>
+
+{% schema %}
+  {
+    "name": "t:settings_schema.sections.press_features.name",
+    "class": "press-features",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "text",
+        "label": "t:settings_schema.general.heading",
+        "id": "heading",
+        "info": "t:settings_schema.general.blue_info"
+      },
+      {
+        "type": "header",
+        "content": "Unique Section ID"
+      },
+      {
+        "type": "paragraph",
+        "content": "The ID for this section will be 'press-features-#' based on the number chosen below. The default is 'press-features-1'"
+      },
+      {
+        "type": "range",
+        "id": "id_number",
+        "label": "ID Number",
+        "max": 5,
+        "min": 1,
+        "step": 1,
+        "default": 1,
+        "info": "If using this section multiple times on the same page, assign a different number to each one."
+      }
+    ],
+    "blocks": [
+      {
+        "type": "card",
+        "name": "t:settings_schema.sections.press_features.press_card",
+        "settings": [
+          {
+            "type": "image_picker",
+            "label": "t:settings_schema.sections.press_features.main_image",
+            "id": "main_image"
+          },
+          {
+            "type": "image_picker",
+            "label": "t:settings_schema.sections.press_features.press_logo",
+            "id": "press_logo"
+          },
+          {
+            "type": "text",
+            "label": "t:settings_schema.sections.press_features.date",
+            "id": "date"
+          },
+          {
+            "type": "text",
+            "label": "t:settings_schema.sections.press_features.card_heading",
+            "id": "card_heading"
+          },
+          {
+            "type": "richtext",
+            "label": "t:settings_schema.sections.press_features.card_content",
+            "id": "card_content"
+          },
+          {
+            "type": "text",
+            "label": "t:settings_schema.sections.press_features.link_text",
+            "id": "link_text"
+          },
+          {
+            "type": "url",
+            "label": "t:settings_schema.sections.press_features.link_url",
+            "id": "link_url"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "t:settings_schema.sections.press_features.name"
+      }
+    ]
+  }
+{% endschema %}

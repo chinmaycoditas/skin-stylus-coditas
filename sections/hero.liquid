@@ -1,0 +1,862 @@
+{%- assign s = section.settings -%}
+
+{%- if section.blocks.size > 1 -%}
+  {%- capture slider_options -%}
+    '{
+      "type": "loop",
+      "autoplay": false,
+      "arrows": false,
+      "pagination": true
+    }'
+  {%- endcapture -%}
+
+  <div class="splide [&_.splide\_\_pagination]:!max-w-screen [&_.splide\_\_pagination]:lg:!justify-start [&_.splide\_\_pagination]:lg:!pl-8 [&_.splide\_\_pagination]:!pb-4 [&_.splide\_\_pagination]:lg:!pb-8 [&_.splide\_\_pagination]:!bottom-0" data-slider={{ slider_options }}>
+    <div class="splide__track">
+      <ul class="splide__list">
+{%- endif -%}
+
+{%- for block in section.blocks -%}
+  {%- liquid
+    assign b = block.settings
+    assign base_desktop_image_classes = "h-full w-full [&_img]:object-top [&_img]:absolute [&_img]:top-0" 
+
+    assign container_height = 'h-[100lvh]'
+    if s.reduce_height
+      assign container_height = 'h-[75lvh]'
+    endif
+  -%}
+
+  {%- if section.blocks.size > 1 or b.side_by_side -%}
+    <li class="splide__slide">
+  {%- endif -%}
+
+  <div class="{{ container_height }} w-full relative flex items-end text-white lg:p-8 overflow-hidden">
+    <div class="absolute top-1/2 -translate-y-1/2 left-0 h-full w-screen">
+      {%- if b.video2_desktop != blank or b.image2_desktop != blank -%}
+        {%- if b.side_by_side -%}
+          <div class="pointer-events-auto w-full overflow-x-auto snap-x snap-mandatory !overflow-y-hidden flex [&>*]:flex-none lg:grid grid-cols-2 h-full no-scrollbar">
+            <div class="snap-center w-full h-full">
+        {%- endif -%}
+      {%- endif -%}
+
+      {%- if b.video1_desktop != blank -%}
+        {%- liquid
+          assign desktop_class = "h-full"
+
+          if b.video1_mobile != blank
+            assign desktop_class = desktop_class | append: " hidden lg:block"
+          endif
+        -%}
+
+        {%- render 'video', video: b.video1_desktop, container_class: desktop_class, class: "h-full w-full", autoplay: true, muted: true, loop: true, play_button: true, priority: true -%}
+
+        {%- if b.video1_mobile != blank -%}
+          {%- render 'video', video: b.video1_mobile, container_class: "h-full lg:hidden", class: "h-full w-full", autoplay: true, muted: true, loop: true, play_button: true, priority: true -%}
+        {%- endif -%}
+      {%- else -%}
+        {%- if b.image1_desktop -%}
+          {%- assign desktop_image_class = base_desktop_image_classes -%}
+
+          {%- if b.image1_mobile != blank -%}
+            {%- render 'responsive-image', image: b.image1_mobile, cover: true, class: "h-full w-full lg:hidden [&_img]:object-top [&_img]:absolute [&_img]:top-0" -%}
+
+            {%- assign desktop_image_class = desktop_image_class | append: " hidden lg:block" -%}
+          {%- endif -%}
+
+          {%- render 'responsive-image', image: b.image1_desktop, cover: true, class: desktop_image_class -%}
+        {%- else -%}
+          <div class="placeholder-svg">
+            {{ 'lifestyle-1' | placeholder_svg_tag }}
+          </div>
+        {%- endif -%}
+      {%- endif -%}
+
+      {%- if b.video2_desktop != blank or b.image2_desktop != blank -%}
+        {%- if b.side_by_side -%}
+            </div>
+
+            <div class="snap-center w-full h-full">
+              {%- if b.video2_desktop != blank -%}
+                {%- render 'video', video: b.video2_desktop, container_class: "h-full", class: "h-full w-full", autoplay: true, muted: true, loop: true, play_button: true -%}
+              {%- else -%}
+                {%- render 'responsive-image', container_class: "h-full", image: b.image2_desktop, cover: true, class: base_desktop_image_classes -%}
+              {%- endif -%}
+            </div>
+          </div>
+        {%- endif -%}
+      {%- endif -%}
+    </div>
+
+    {% # mobile, desktop placement too complex to handle in one element %}
+    <div class="lg:hidden relative h-full mx-auto lg:m-[unset] pointer-events-none">
+      {%- liquid
+        assign mobile_grid_class = "flex flex-col gap-8"
+
+        if b.mobile_content_layout == "top"
+          assign mobile_grid_class = mobile_grid_class | append: " justify-start"
+        endif
+
+        if b.mobile_content_layout == "middle"
+          assign mobile_grid_class = mobile_grid_class | append: " justify-center"
+        endif
+
+        if b.mobile_content_layout == "bottom"
+          assign mobile_grid_class = mobile_grid_class | append: " justify-end"
+        endif
+
+        if b.mobile_content_layout == "top-bottom" or b.mobile_content_layout == "middle-bottom"
+          assign mobile_grid_class = mobile_grid_class | append: " justify-between"
+        endif
+
+        assign button_placement = "items-start"
+
+        if b.mobile_horizontal_placement contains "text-center"
+          assign button_placement = "items-center"
+        endif
+
+        if b.mobile_horizontal_placement contains "text-right"
+          assign button_placement = "items-end"
+        endif
+      -%}
+
+      <div class="{{ mobile_grid_class }} {{ b.mobile_horizontal_placement }} h-full pb-12 px-4 pt-[28%]">
+        {%- if b.mobile_content_layout == "middle-bottom" -%}
+          <div class="h-[170px]"></div> {% # empty spacer div %}
+        {%- endif -%}
+
+        <div class="{{ b.main_text_placement_mobile }}">
+          <div 
+            class="flex flex-col {{ button_placement }} gap-2 max-w-[var(--mobile-max-width)]"
+            style="--mobile-max-width: {{ b.mobile_text_max_width | append: 'px' }};"
+          >
+
+            <{% if b.use_h1 and forloop.index == 1 %}h1{% else %}h2{% endif %}  
+              class="text-h1-mob/[50px] font-light"
+            >
+              {%- render: 'blue', text: b.title -%}
+            </{% if b.use_h1 and forloop.index == 1 %}h1{% else %}h2{% endif %}>
+
+            <p class="text-body-mob">{%- render: 'blue', text: b.description -%}</p>
+
+            {%- if b.main_text_url != blank and b.main_text_label != blank -%}
+              {%- assign cta_class = 'button-primary-white mt-2 px-10 pointer-events-auto' -%}
+              {% if settings.remove_capitalize %}
+                {% assign cta_class = cta_class | append: ' !normal-case' %}
+              {% endif %}
+
+
+              {%- if b.popup_form_override -%}
+                {% render 'popup-input', class: cta_class, text: b.main_text_label, block_id: block.id %}
+              {%- else -%}
+                <a href="{{ b.main_text_url }}" class="{{ cta_class }}">{{ b.main_text_label }}</a>
+              {%- endif -%}
+            {%- endif -%}
+          </div>
+        </div>
+        
+        {% if b.show_card_mobile %}
+          <div class="{{ b.card_content_placement_mobile }}">
+            <div class="w-full grid grid-cols-[40%_60%] gap-4 rounded-image background-blur p-5">
+              <div data-video-no-change class="relative pointer-events-auto">
+                {%- if b.card_video_mobile -%}
+                  {%- render 'video', video: b.card_video, pb_hack: "96.23%", class: "rounded-xl", autoplay: true, muted: true, play_button: true -%}
+                {%- else -%}
+                  {%- if b.card_image -%}
+                    {%- render 'responsive-image', image: b.card_image, pb_hack: "100%", class: "rounded-image-inner" -%}
+                  {%- endif -%}
+                {%- endif -%}
+              </div>
+
+              {%- if b.card_text != blank -%}
+                <div class="flex flex-col items-start justify-between">
+                  <p class="text-white text-body-small-mob text-start">{%- render: 'blue', text: b.card_text -%}</p>
+
+                  {%- if b.card_content_url != blank and b.card_content_label != blank -%}
+                    <a href="{{ b.card_content_url }}" class="button-primary-blue {% if settings.remove_capitalize %}!normal-case{% endif %} w-fit mt-4 pointer-events-auto">{{ b.card_content_label }}</a>
+                  {%- endif -%}
+                </div>
+              {%- endif -%}
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="hidden lg:block w-full">
+      {%- liquid
+        # both content blocks in same cell, styles for container
+        assign hero_grid_class = "hero-grid"
+
+        if b.main_text_placement == b.card_content_placement
+          assign use_container = true
+          assign container_placement = b.main_text_placement
+
+          assign container_class = "flex flex-col gap-8"
+
+          if container_placement contains "row-start-2"
+            assign container_class = container_class | append: " justify-center"
+          endif
+
+          if container_placement contains "col-start-2"
+            assign container_class = container_class | append: " items-center"
+          endif
+
+          if container_placement contains "row-start-3"
+            assign container_class = container_class | append: " justify-end"
+          endif
+
+          if container_placement contains "col-start-3"
+            assign container_class = container_class | append: " items-end"
+          endif
+        endif
+
+        # center content blocks in the middle row
+        if b.main_text_placement contains "row-start-2"
+          assign main_text_vertical = "items-center"
+        endif
+
+        if b.card_content_placement contains "row-start-2"
+          assign card_content_vertical = "items-center"
+        endif
+
+        # center content blocks in the middle row
+        if b.main_text_placement contains "col-start-2"
+          assign main_text_horizontal = "justify-center"
+        endif
+
+        if b.card_content_placement contains "col-start-2"
+          assign card_content_horizontal = "justify-center"
+        endif
+
+        # move content blocks in the last row to the bottom
+        if b.main_text_placement contains "row-start-3"
+          assign main_text_vertical = "items-end"
+        endif
+
+        if b.card_content_placement contains "row-start-3"
+          assign card_content_vertical = "items-end"
+        endif
+
+        # move content blocks in the last column to the left edge
+        if b.main_text_placement contains "col-start-3"
+          assign main_text_horizontal = "justify-end"
+        endif
+
+        if b.card_content_placement contains "col-start-3"
+        # assign card_content_horizontal = "justify-end"
+        endif
+
+        # grid cell sizing
+        assign grid_cells_check = b.main_text_placement | append: " " | append: b.card_content_placement
+
+        # check which rows and columns are occupied
+        if grid_cells_check contains "row-start-1"
+          assign row_1_occupied = true
+        endif
+
+        if grid_cells_check contains "row-start-2"
+          assign row_2_occupied = true
+        endif
+
+        if grid_cells_check contains "row-start-3"
+          assign row_3_occupied = true
+        endif
+
+        if grid_cells_check contains "col-start-1"
+          assign col_1_occupied = true
+        endif
+
+        if grid_cells_check contains "col-start-2"
+          assign col_2_occupied = true
+        endif
+
+        if grid_cells_check contains "col-start-3"
+          assign col_3_occupied = true
+        endif
+
+        # algo: 
+        # if a column or row is occupied, grid cell size is "auto"
+        # if it's not occupied, cell is 1fr
+
+        # explanation: content should dictate the size of the cells, 
+        # but if there's no content the cells should fill the remaining space
+
+        #    v------ auto so this column is Y's width
+        #  - - -
+        # |X| | | <- auto so this row is X's height
+        #  - - -
+        # | | | | <- 1fr so this row has space
+        #  - - -
+        # | |Y| | <- auto so this row is Y's height
+        #  - - -
+        #      ^---- 1fr so this column has space
+        #
+        # `grid-rows-[auto_1fr_auto] grid-cols-[auto_auto_1fr]`
+
+        if use_container
+          if col_1_occupied
+            assign hero_grid_class = hero_grid_class | append: " hero-grid-col-1"
+          endif
+
+          if col_2_occupied
+            assign hero_grid_class = hero_grid_class | append: " hero-grid-col-2"
+          endif
+
+          if col_3_occupied
+            assign hero_grid_class = hero_grid_class | append: " hero-grid-col-3"
+          endif
+
+          if row_1_occupied
+            assign hero_grid_class = hero_grid_class | append: " hero-grid-row-1"
+          endif
+
+          if row_2_occupied
+            assign hero_grid_class = hero_grid_class | append: " hero-grid-row-2"
+          endif
+
+          if row_3_occupied
+            assign hero_grid_class = hero_grid_class | append: " hero-grid-row-3"
+          endif
+        else
+          if col_1_occupied
+            assign hero_grid_class = hero_grid_class | append: " hero-grid-col-1"
+
+            if col_2_occupied
+              assign hero_grid_class = hero_grid_class | append: "-2"
+            endif
+
+            if col_3_occupied
+              assign hero_grid_class = hero_grid_class | append: "-3"
+            endif
+          else
+            if col_2_occupied
+              assign hero_grid_class = hero_grid_class | append: " hero-grid-col-2"
+
+              if col_3_occupied
+                assign hero_grid_class = hero_grid_class | append: "-3"
+              endif
+            endif
+          endif
+
+          if row_1_occupied
+            assign hero_grid_class = hero_grid_class | append: " hero-grid-row-1"
+
+            if row_2_occupied
+              assign hero_grid_class = hero_grid_class | append: "-2"
+            endif
+
+            if row_3_occupied
+              assign hero_grid_class = hero_grid_class | append: "-3"
+            endif
+          else
+            if row_2_occupied
+              assign hero_grid_class = hero_grid_class | append: " hero-grid-row-2"
+
+              if row_3_occupied
+                assign hero_grid_class = hero_grid_class | append: "-3"
+              endif
+            endif
+          endif
+        endif
+
+        # leave room on the lower right side for pagination
+        if section.blocks.size > 1
+          if b.container_placement == "row-start-3 col-start-1"
+            assign container_offset = "translate-y-[-50px]"
+          endif
+
+          if b.main_text_placement == "row-start-3 col-start-1"
+            assign main_text_offset = "translate-y-[-50px]"
+          endif
+
+          if b.card_content_placement == "row-start-3 col-start-1"
+            assign card_content_offset = "translate-y-[-50px]"
+          endif
+        endif
+
+        assign desk_button_placement = "items-start"
+
+        if b.main_text_alignment contains "text-center"
+          assign desk_button_placement = "items-center"
+        endif
+
+        if b.main_text_alignment contains "text-right"
+          assign desk_button_placement = "items-end"
+        endif
+      -%}
+
+      <div class="{{ hero_grid_class }}">
+        {%- if use_container -%}
+          <div class="{{ container_placement }} {{ container_class }} {{ container_offset }}">
+        {%- endif -%}
+
+        <div 
+          class="relative w-[var(--max-width)] max-w-screen flex {{ main_text_horizontal }} {{ main_text_vertical }} {% unless use_container %}{{ b.main_text_placement }}{% endunless %} {{ b.main_text_alignment }} {{ main_text_offset }}"
+          style=" --max-width: {{ b.text_max_width | append: 'px' }};"
+        >
+          <div class="flex flex-col {{ desk_button_placement }} gap-2">
+            
+              <{% if b.use_h1 and forloop.index == 1 %}h1{% else %}h2{% endif %} 
+                class="{% if b.desktop_title_size == "larger" %}text-h1/[75px]{% else %}text-h4/[50px]{% endif %} font-light">{%- render: 'blue', text: b.title -%}
+              </{% if b.use_h1 %}h1{% else %}h2{% endif %}>
+            
+            <p class="text-section-3">{%- render: 'blue', text: b.description -%}</p>
+
+            {%- if b.main_text_url != blank and b.main_text_label != blank -%}
+              {%- assign cta_class = 'button-primary-white mt-2 px-10 pointer-events-auto normal-case' -%}
+              {% if settings.remove_capitalize %}
+                {% assign cta_class = cta_class | append: ' !normal-case' %}
+              {% endif %}
+
+
+              {%- if b.popup_form_override -%}
+                {% render 'popup-input', class: cta_class, text: b.main_text_label, block_id: block.id %}
+              {%- else -%}
+                <a href="{{ b.main_text_url }}" class="{{ cta_class }}">{{ b.main_text_label }}</a>
+              {%- endif -%}
+            {%- endif -%}
+          </div>
+        </div>
+        {% if b.show_card_desktop %}
+          <div class="flex {{ card_content_horizontal }} {{ card_content_vertical }} {% unless use_container %}{{ b.card_content_placement }}{% endunless %} {{ b.card_text_alignment }} {{ card_content_offset }}">
+            <div class="w-full max-w-[500px] grid grid-cols-[180px_1fr] gap-8 rounded-image background-blur p-5">
+              <div data-video-no-change class="relative">
+                {%- if b.card_video -%}
+                  {%- render 'video', video: b.card_video, pb_hack: "96.23%", class: "rounded-xl", autoplay: true, muted: true, loop: true, pause_layout: "bottom" -%}
+                {%- else -%}
+                  {%- if b.card_image -%}
+                    {%- render 'responsive-image', image: b.card_image, pb_hack: "100%", class: "rounded-image-inner" -%}
+                  {%- endif -%}
+                {%- endif -%}
+              </div>
+          
+              {%- if b.card_text != blank -%}
+                <div class="flex flex-col items-start justify-between">
+                  <p class="text-white">{%- render: 'blue', text: b.card_text -%}</p>
+
+                  {%- if b.card_content_url != blank and b.card_content_label != blank -%}
+                    <a href="{{ b.card_content_url }}" class="button-primary-blue {% if settings.remove_capitalize %}!normal-case{% endif %} w-fit">{{ b.card_content_label }}</a>
+                  {%- endif -%}
+                </div>
+              {%- endif -%}
+            </div>
+          </div>
+        {% endif %}
+
+        {%- if use_container -%}
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+
+  {%- if section.blocks.size > 1 -%}
+    </li>
+  {%- endif -%}
+{%- endfor -%}
+
+{%- if section.blocks.size > 1 -%}
+      </ul>
+    </div>
+  </div>
+{%- endif -%}
+
+<div class="pl-[18px] lg:pl-[38px]">
+  {% render 'breadcrumbs' %}
+</div>
+
+{%- schema -%}
+  {
+    "name": "t:settings_schema.sections.hero.name",
+    "tag": "section",
+    "class": "hero no-max main-hero",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "reduce_height",
+        "label": "Reduce Height",
+        "info": "Reduces height to 75%"
+      }
+    ],
+    "blocks": [
+      {
+        "name": "t:settings_schema.sections.hero.slide",
+        "type": "slide",
+        "settings": [
+          {
+            "type": "header",
+            "content": "Images/Videos",
+            "info": "If side-by-side, add an image or video in both slots. Videos take precedent if both are filled out."
+          },
+          {
+            "type": "header",
+            "content": "Slot 1"
+          },
+          {
+            "type": "image_picker",
+            "id": "image1_desktop",
+            "label": "t:settings_schema.media.image_desktop"
+          },
+          {
+            "type": "image_picker",
+            "id": "image1_mobile",
+            "label": "t:settings_schema.media.image_mobile",
+            "info": "Leave blank to use desktop image"
+          },
+          {
+            "type": "video",
+            "id": "video1_desktop",
+            "label": "t:settings_schema.media.video_desktop"
+          },
+          {
+            "type": "video",
+            "id": "video1_mobile",
+            "label": "t:settings_schema.media.video_mobile"
+          },
+          {
+            "type": "header",
+            "content": "Slot 2"
+          },
+          {
+            "type": "image_picker",
+            "id": "image2_desktop",
+            "label": "t:settings_schema.media.image_desktop"
+          },
+          {
+            "type": "image_picker",
+            "id": "image2_mobile",
+            "label": "t:settings_schema.media.image_mobile",
+            "info": "Leave blank to use desktop image"
+          },
+          {
+            "type": "video",
+            "id": "video2_desktop",
+            "label": "t:settings_schema.media.video_desktop"
+          },
+          {
+            "type": "video",
+            "id": "video2_mobile",
+            "label": "t:settings_schema.media.video_mobile"
+          },
+          {
+            "type": "checkbox",
+            "id": "side_by_side",
+            "label": "t:settings_schema.layout.side_by_side",
+            "info": "If checked, image and video will be side-by-side on desktop and turn into 2 slides on mobile",
+            "default": true
+          },
+          {
+            "type": "header",
+            "content": "Main Text Content"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "t:settings_schema.general.title",
+            "default": "The |Best Skin| Of Your Life",
+            "info": "wrap text in <||> to make it blue"
+          },
+          {
+            "type": "checkbox",
+            "id": "use_h1",
+            "label": "t:settings_schema.general.use_h1"
+          },
+          {
+            "type": "radio",
+            "id": "desktop_title_size",
+            "label": "t:settings_schema.sections.hero.desktop_title_size",
+            "options": [
+              {
+                "value": "larger",
+                "label": "t:settings_schema.sections.hero.title_size_larger"
+              },
+              {
+                "value": "smaller",
+                "label": "t:settings_schema.sections.hero.title_size_smaller"
+              }
+            ],
+            "default": "larger"
+          },
+          {
+            "type": "text",
+            "id": "description",
+            "label": "t:settings_schema.general.description",
+            "default": "The ultimate solution for achieving glowing, hydrated and healthy skin!"
+          },
+          {
+            "type": "header",
+            "content": "CTA in main content area"
+          },
+          {
+            "type": "url",
+            "id": "main_text_url",
+            "label": "t:settings_schema.general.url",
+            "default": "/"
+          },
+          {
+            "type": "text",
+            "id": "main_text_label",
+            "label": "Label",
+            "default": "Learn More"
+          },
+          {
+            "type": "select",
+            "id": "main_text_placement",
+            "label": "Placement on Image",
+            "default": "row-start-3 col-start-1",
+            "options": [
+              {
+                "value": "row-start-1 col-start-1",
+                "label": "Top Left"
+              },
+              {
+                "value": "row-start-1 col-start-2",
+                "label": "Top Center"
+              },
+              {
+                "value": "row-start-1 col-start-3",
+                "label": "Top Right"
+              },
+              {
+                "value": "row-start-2 col-start-1",
+                "label": "Middle Left"
+              },
+              {
+                "value": "row-start-2 col-start-2",
+                "label": "Center"
+              },
+              {
+                "value": "row-start-2 col-start-3",
+                "label": "Middle Right"
+              },
+              {
+                "value": "row-start-3 col-start-1",
+                "label": "Bottom Left"
+              },
+              {
+                "value": "row-start-3 col-start-2",
+                "label": "Bottom Center"
+              },
+              {
+                "value": "row-start-3 col-start-3",
+                "label": "Bottom Right"
+              }
+            ]
+          },
+          {
+            "type": "select",
+            "id": "main_text_alignment",
+            "label": "Text Alignment",
+            "default": "text-left",
+            "options": [
+              {
+                "value": "text-left",
+                "label": "Left"
+              },
+              {
+                "value": "text-center",
+                "label": "Center"
+              },
+              {
+                "value": "text-right",
+                "label": "Right"
+              }
+            ]
+          },
+          {
+            "type": "header",
+            "content": "Card Content"
+          },
+          {
+            "type": "checkbox",
+            "id": "show_card_desktop",
+            "label": "Show Card - Desktop"
+          },
+          {
+            "type": "checkbox",
+            "id": "show_card_mobile",
+            "label": "Show Card - Mobile"
+          },
+          {
+            "type": "image_picker",
+            "id": "card_image",
+            "label": "Image"
+          },
+          {
+            "type": "video",
+            "id": "card_video",
+            "label": "Video",
+            "info": "Leave blank to use image"
+          },
+          {
+            "type": "video",
+            "id": "card_video_mobile",
+            "label": "Video - Mobile",
+            "info": "Leave blank to use image"
+          },
+          {
+            "type": "text",
+            "id": "card_text",
+            "label": "Text",
+            "default": "Experience brighter, smoother, healthier and more youthful-looking skin"
+          },
+          {
+            "type": "header",
+            "content": "CTA"
+          },
+          {
+            "type": "url",
+            "id": "card_content_url",
+            "label": "URL",
+            "default": "/"
+          },
+          {
+            "type": "text",
+            "id": "card_content_label",
+            "label": "Label",
+            "default": "Hydrafacial Near Me"
+          },
+          {
+            "type": "select",
+            "id": "card_content_placement",
+            "label": "Placement on Image",
+            "default": "row-start-3 col-start-3",
+            "options": [
+              {
+                "value": "row-start-1 col-start-1",
+                "label": "Top Left"
+              },
+              {
+                "value": "row-start-1 col-start-2",
+                "label": "Top Center"
+              },
+              {
+                "value": "row-start-1 col-start-3",
+                "label": "Top Right"
+              },
+              {
+                "value": "row-start-2 col-start-1",
+                "label": "Middle Left"
+              },
+              {
+                "value": "row-start-2 col-start-2",
+                "label": "Center"
+              },
+              {
+                "value": "row-start-2 col-start-3",
+                "label": "Middle Right"
+              },
+              {
+                "value": "row-start-3 col-start-1",
+                "label": "Bottom Left"
+              },
+              {
+                "value": "row-start-3 col-start-2",
+                "label": "Bottom Center"
+              },
+              {
+                "value": "row-start-3 col-start-3",
+                "label": "Bottom Right"
+              }
+            ]
+          },
+          {
+            "type": "select",
+            "id": "card_text_alignment",
+            "label": "Card Text Alignment",
+            "default": "text-left",
+            "options": [
+              {
+                "value": "text-left",
+                "label": "Left"
+              },
+              {
+                "value": "text-center",
+                "label": "Center"
+              },
+              {
+                "value": "text-right",
+                "label": "Right"
+              }
+            ]
+          },
+          {
+            "type": "number",
+            "id": "text_max_width",
+            "label": "Text Max Width",
+            "default": 528
+          },
+          {
+            "type": "header",
+            "content": "Mobile Layout"
+          },
+          {
+            "type": "select",
+            "id": "mobile_content_layout",
+            "label": "Layout",
+            "default": "middle-bottom",
+            "options": [
+              {
+                "value": "top",
+                "label": "Top"
+              },
+              {
+                "value": "middle",
+                "label": "Middle"
+              },
+              {
+                "value": "bottom",
+                "label": "Bottom"
+              },
+              {
+                "value": "top-bottom",
+                "label": "Top and Bottom"
+              },
+              {
+                "value": "middle-bottom",
+                "label": "Middle and Bottom"
+              }
+            ]
+          },
+          {
+            "type": "select",
+            "id": "mobile_horizontal_placement",
+            "label": "Layout",
+            "default": "text-center",
+            "options": [
+              {
+                "value": "text-right",
+                "label": "Right"
+              },
+              {
+                "value": "text-center",
+                "label": "Center"
+              },
+              {
+                "value": "text-left",
+                "label": "Left"
+              }
+            ]
+          },
+          {
+            "type": "number",
+            "id": "mobile_text_max_width",
+            "label": "Text Max Width",
+            "default": 528
+          },
+          {
+            "type": "checkbox",
+            "id": "popup_form_override",
+            "label": "Override CTA links with Popup Form",
+            "info": "Requires the Form Popup section to be on the template to work."
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "t:settings_schema.sections.hero.name"
+      }
+    ]
+  }
+{%- endschema -%}

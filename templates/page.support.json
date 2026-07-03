@@ -1,0 +1,194 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "page_hero_bVDftk": {
+      "type": "page-hero",
+      "disabled": true,
+      "name": "Page Hero",
+      "settings": {
+        "image": "shopify://shop_images/Untitled_design_7.png",
+        "image_mobile": "shopify://shop_images/Untitled_design_7.png",
+        "heading": "<p>&lt;|Ongoing Support for Hydrafacial Providers|&gt;</p>",
+        "use_h1": true,
+        "heading_color": "#ffffff",
+        "body": "<p>When you become a Hydrafacial provider, your partnership doesn’t end after purchase. You get access to expert training, dedicated business guidance and resources designed to help your practice grow.</p>",
+        "cta_text": "Become A Provider",
+        "cta_url": "shopify://pages/connect-with-sales",
+        "content_position": "items-start",
+        "desktop_heading_max_w": 500,
+        "content_block_type": "pills",
+        "show_nav": true,
+        "dropdown_text": "Select Concern",
+        "id_number": 1,
+        "popup_form_override": false
+      }
+    },
+    "side_by_side_TcmqBH": {
+      "type": "side-by-side",
+      "blocks": {
+        "item_YFQqtT": {
+          "type": "item",
+          "settings": {
+            "title_1": "Giving You the Resources You Need to Succeed",
+            "description_1": "<p>Every Hydrafacial provider gets access to exclusive tools, education and personalized support that drive lasting success. From business strategy and marketing resources to hands-on training and more, we’re here to help you deliver results clients love, and keep them coming back.</p>",
+            "cta_label_1": "CTA Label",
+            "cta_link_1": "",
+            "title_2": "Item Title",
+            "description_2": "<p>Item Description</p>",
+            "cta_label_2": "CTA Label",
+            "cta_link_2": "",
+            "image": "shopify://shop_images/Active_Hydrafacial_Treatment.png",
+            "image_first": false
+          }
+        },
+        "item_YNYkLD": {
+          "type": "item",
+          "settings": {
+            "title_1": "Strategic Business Support for Your Practice",
+            "description_1": "<p>Every Hydrafacial provider gains access to ongoing business support designed to help maximize revenue, streamline operations, and drive long-term success. Whether through in-person or virtual guidance, Hydrafacial’s business team acts as an extension of your practice, helping you grow strategically and confidently.</p><p>Providers at qualifying loyalty tiers receive a dedicated business development manager (BDM) who offers personalized, in-person support. All other accounts benefit from an internal business development manager (iBDM) who provides continuous online support, helping optimize pricing, treatment menus and marketing initiatives tailored to your local market.</p>",
+            "cta_label_1": "CTA Label",
+            "cta_link_1": "",
+            "title_2": "Strategic Business Support for Your Practice",
+            "description_2": "<p>Every Hydrafacial provider gains access to ongoing business support designed to help maximize revenue, streamline operations, and drive long-term success. Whether through in-person or virtual guidance, Hydrafacial’s business team acts as an extension of your practice, helping you grow strategically and confidently.</p><p>Providers at qualifying loyalty tiers receive a dedicated business development manager (BDM) who offers personalized, in-person support. All other accounts benefit from an internal business development manager (iBDM) who provides continuous online support, helping optimize pricing, treatment menus and marketing initiatives tailored to your local market.</p>",
+            "cta_label_2": "CTA Label",
+            "cta_link_2": "",
+            "image": "shopify://shop_images/Professional_AboutUs_Community_BeverlyHills_799x706_1bf64729-dd89-477e-8c87-55f979512509.jpg",
+            "image_first": true
+          }
+        }
+      },
+      "block_order": [
+        "item_YFQqtT",
+        "item_YNYkLD"
+      ],
+      "name": "t:settings_schema.sections.side_by_side.name",
+      "settings": {
+        "title": "Ongoing Support for Hydrafacial Providers",
+        "description": "When you become a Hydrafacial provider, your partnership doesn’t end after purchase. You get access to expert training, dedicated business guidance and resources designed to help your practice grow.",
+        "id_number": 1
+      }
+    },
+    "boosters_Li94RH": {
+      "type": "boosters",
+      "blocks": {
+        "textbox_qGwdaX": {
+          "type": "textbox",
+          "settings": {
+            "icon_select": "none",
+            "heading": "The Hydrafacial Experience",
+            "body": "<p>Attend our two-day immersive workshop focused on business strategy, revenue growth and proven methods to accelerate profit.</p>",
+            "content_box_background": "transparent",
+            "text_size": "16px",
+            "text_size_desktop": "18px"
+          }
+        },
+        "textbox_APaUWM": {
+          "type": "textbox",
+          "settings": {
+            "icon_select": "none",
+            "heading": "Virtual Trainings",
+            "body": "<p>Join live and on-demand sessions that cover treatment protocols, business strategies and product knowledge.</p>",
+            "content_box_background": "transparent",
+            "text_size": "16px",
+            "text_size_desktop": "18px"
+          }
+        },
+        "textbox_FYG4nx": {
+          "type": "textbox",
+          "settings": {
+            "icon_select": "none",
+            "heading": "E-Learning Platform",
+            "body": "<p>Access self-paced courses through Hydrafacial CONNECT to strengthen your technique and expand business knowledge.</p>",
+            "content_box_background": "transparent",
+            "text_size": "16px",
+            "text_size_desktop": "18px"
+          }
+        }
+      },
+      "block_order": [
+        "textbox_qGwdaX",
+        "textbox_APaUWM",
+        "textbox_FYG4nx"
+      ],
+      "name": "t:settings_schema.sections.boosters.name",
+      "settings": {
+        "gradient": "none",
+        "image_layout": "fullscreen_background",
+        "image_position": "right",
+        "mobile_heading_position": "low",
+        "desktop_image": "shopify://shop_images/may-virtual-training-mockup.jpg",
+        "mobile_image": "shopify://shop_images/may-virtual-training-mockup.jpg",
+        "mobile_image_aspect": "square",
+        "mobile_text_align": "text-left",
+        "desktop_text_align": "lg:text-left",
+        "text_color": "text-black",
+        "text_yellow": false,
+        "heading": "Best-in-Class Training & Education",
+        "subheading": "",
+        "body": "<p>Hydrafacial is committed to being the global leader in education for beauty health professionals. Being a provider means having expert-led programs at your fingertips — each designed to strengthen both clinical technique and business growth strategies.</p><p>Providers can access a range of flexible learning options, including:</p>",
+        "cta_button_url": "shopify://pages/connect-with-sales",
+        "cta_button_text": "Become A Provider",
+        "id_number": 1,
+        "popup_form_override": false
+      }
+    },
+    "side_by_side_dhi7qi": {
+      "type": "side-by-side",
+      "blocks": {
+        "item_77Bime": {
+          "type": "item",
+          "settings": {
+            "title_1": "Marketing Support to Help You Attract and Retain More Clients",
+            "description_1": "<p>Hydrafacial helps providers grow their business through powerful marketing resources and client engagement programs.</p>",
+            "cta_label_1": "CTA Label",
+            "cta_link_1": "",
+            "title_2": "",
+            "description_2": "<ul><li><strong>Digital Assets & Marketing Materials</strong>: Access a library of co-branded digital assets, social content and ready-to-use campaigns that make promoting Hydrafacial simple and effective.</li><li><strong>Loyalty Programs</strong>: Participate in Hydrafacial’s Provider Loyalty Rewards Program and the MyBeautyHealth app ecosystem, offering cashback rewards, value pricing and tier-based perks to help drive repeat visits.</li></ul>",
+            "cta_label_2": "CTA Label",
+            "cta_link_2": "",
+            "image_first": false
+          }
+        }
+      },
+      "block_order": [
+        "item_77Bime"
+      ],
+      "name": "t:settings_schema.sections.side_by_side.name",
+      "settings": {
+        "title": "",
+        "description": "",
+        "id_number": 1
+      }
+    },
+    "text_with_cta_RCyrcW": {
+      "type": "text-with-cta",
+      "name": "Text With CTA",
+      "settings": {
+        "heading": "<p>Unlock the Full Potential of Your Practice</p>",
+        "body": "<p>Join our global network of providers and access the tools, education and support designed to help your practice thrive.</p>",
+        "top_cta_text": "Become a Provider",
+        "top_cta_url": "shopify://pages/connect-with-sales",
+        "popup_form_override": false,
+        "wide_button_on_mobile": false,
+        "bottom_cta_text": "Connect With Sales",
+        "bottom_cta_url": "",
+        "id_number": 1
+      }
+    }
+  },
+  "order": [
+    "page_hero_bVDftk",
+    "side_by_side_TcmqBH",
+    "boosters_Li94RH",
+    "side_by_side_dhi7qi",
+    "text_with_cta_RCyrcW"
+  ]
+}

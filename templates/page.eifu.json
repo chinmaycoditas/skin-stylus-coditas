@@ -1,0 +1,299 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "example": {
+      "type": "example",
+      "disabled": true,
+      "settings": {}
+    },
+    "full_page_faq_EXpYNc": {
+      "type": "full-page-faq",
+      "blocks": {
+        "faq_item_3ULCrp": {
+          "type": "faq_item",
+          "settings": {
+            "question": "English",
+            "answer": "eifi-english"
+          }
+        },
+        "faq_item_VtDdL9": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Arabic",
+            "answer": "eifi-arabic"
+          }
+        },
+        "faq_item_eg3aqe": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Brazil",
+            "answer": "eifi-brazil"
+          }
+        },
+        "faq_item_YmEDBb": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Bulgaria",
+            "answer": "eifi-bulgaria"
+          }
+        },
+        "faq_item_FbcGiT": {
+          "type": "faq_item",
+          "settings": {
+            "question": "China",
+            "answer": "eifi-china"
+          }
+        },
+        "faq_item_gCG9rA": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Croatia",
+            "answer": "eifi-croatia"
+          }
+        },
+        "faq_item_EFg39F": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Czech Republic",
+            "answer": "eifi-czech-republic"
+          }
+        },
+        "faq_item_PEWmiP": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Denmark",
+            "answer": "eifi-denmark"
+          }
+        },
+        "faq_item_qrmzKD": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Estonia",
+            "answer": "eifi-estonia"
+          }
+        },
+        "faq_item_zdHfKG": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Finland",
+            "answer": "eifi-finland"
+          }
+        },
+        "faq_item_DGcKkB": {
+          "type": "faq_item",
+          "settings": {
+            "question": "France",
+            "answer": "eifi-france"
+          }
+        },
+        "faq_item_xg7CQd": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Germany",
+            "answer": "eifi-germany"
+          }
+        },
+        "faq_item_nGCzhU": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Greece",
+            "answer": "eifi-greece"
+          }
+        },
+        "faq_item_C7Ujtf": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Hungaria",
+            "answer": "eifi-hungaria"
+          }
+        },
+        "faq_item_HYGb3N": {
+          "type": "faq_item",
+          "settings": {
+            "question": "India",
+            "answer": "eifi-india"
+          }
+        },
+        "faq_item_jayRCh": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Italy",
+            "answer": "eifi-italy"
+          }
+        },
+        "faq_item_eaLQXC": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Japan",
+            "answer": "eifi-japan"
+          }
+        },
+        "faq_item_hfxXtP": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Korea",
+            "answer": "eifi-korea"
+          }
+        },
+        "faq_item_zcHCn8": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Latvia",
+            "answer": "eifi-latvia"
+          }
+        },
+        "faq_item_j4m7FW": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Lithuania",
+            "answer": "eifi-lithuania"
+          }
+        },
+        "faq_item_RL8hwn": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Malaysia",
+            "answer": "eifi-malaysia"
+          }
+        },
+        "faq_item_pgyyiY": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Netherland",
+            "answer": "eifi-netherlands"
+          }
+        },
+        "faq_item_kJc9Gn": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Norway",
+            "answer": "eifi-norway"
+          }
+        },
+        "faq_item_DmqNJt": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Poland",
+            "answer": "eifi-poland"
+          }
+        },
+        "faq_item_mnGFMT": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Portugal",
+            "answer": "eifi-portugal"
+          }
+        },
+        "faq_item_YWjHwq": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Romania",
+            "answer": "eifi-romania"
+          }
+        },
+        "faq_item_3UyyPw": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Russia",
+            "answer": "eifi-russia"
+          }
+        },
+        "faq_item_gqCkdL": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Slovakia",
+            "answer": "eifi-slovakia"
+          }
+        },
+        "faq_item_EccFC6": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Slovenia",
+            "answer": "eifi-slovenia"
+          }
+        },
+        "faq_item_7qfV7E": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Spain",
+            "answer": "eifi-spain"
+          }
+        },
+        "faq_item_yYkc84": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Sweden",
+            "answer": "eifi-sweden"
+          }
+        }
+      },
+      "block_order": [
+        "faq_item_3ULCrp",
+        "faq_item_VtDdL9",
+        "faq_item_eg3aqe",
+        "faq_item_YmEDBb",
+        "faq_item_FbcGiT",
+        "faq_item_gCG9rA",
+        "faq_item_EFg39F",
+        "faq_item_PEWmiP",
+        "faq_item_qrmzKD",
+        "faq_item_zdHfKG",
+        "faq_item_DGcKkB",
+        "faq_item_xg7CQd",
+        "faq_item_nGCzhU",
+        "faq_item_C7Ujtf",
+        "faq_item_HYGb3N",
+        "faq_item_jayRCh",
+        "faq_item_eaLQXC",
+        "faq_item_hfxXtP",
+        "faq_item_zcHCn8",
+        "faq_item_j4m7FW",
+        "faq_item_RL8hwn",
+        "faq_item_pgyyiY",
+        "faq_item_kJc9Gn",
+        "faq_item_DmqNJt",
+        "faq_item_mnGFMT",
+        "faq_item_YWjHwq",
+        "faq_item_3UyyPw",
+        "faq_item_gqCkdL",
+        "faq_item_EccFC6",
+        "faq_item_7qfV7E",
+        "faq_item_yYkc84"
+      ],
+      "name": "Full Page FAQ",
+      "settings": {
+        "accent_yellow": false,
+        "title": "Electronic Instructions for Use (EIFU)",
+        "description": "<p>The Hydrafacial company provides product IFUs that can be downloaded, printed, reviewed, and readily available.<br/><br/>Hydrafacial<br/>3600 E. Burnett St<br/>Long Beach, CA 90815 USA<br/>(800) 603-4996 • (562) 597-0102<br/>contact@hydrafacial.com<br/>hydrafacial.com<br/><br/>For best results, use the<a href=\"https://get.adobe.com/uk/reader/\" target=\"_blank\" title=\"https://get.adobe.com/uk/reader/\"> free Adobe® Reader®</a> to view electronic manuals.</p>",
+        "id_number": 1
+      }
+    },
+    "text_with_cta_3AXUwR": {
+      "type": "text-with-cta",
+      "name": "Text With CTA",
+      "settings": {
+        "heading": "<p>Request a &lt;|Printed Brochure|&gt;</p>",
+        "body": "<p>If you have difficulties accessing documents or would like to request a printed copy at no extra cost, please contact us here and we will mail one out within 7 calendar days.</p>",
+        "top_cta_text": "Contact Us",
+        "top_cta_url": "#",
+        "wide_button_on_mobile": false,
+        "bottom_cta_text": "Connect With Sales",
+        "bottom_cta_url": "",
+        "id_number": 1
+      }
+    }
+  },
+  "order": [
+    "example",
+    "full_page_faq_EXpYNc",
+    "text_with_cta_3AXUwR"
+  ]
+}

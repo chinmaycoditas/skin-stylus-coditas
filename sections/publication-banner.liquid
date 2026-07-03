@@ -1,0 +1,102 @@
+{%- assign s = section.settings -%}
+
+<div 
+  id="publication-banner-{{ s.id_number }}"
+  class="w-full flex flex-col items-center gap-10 lg:gap-[60px] {% if s.padding_bottom %}pb-10 lg:pb-20{% endif %}"
+>
+  <div>
+    <h2 class="text-center text-h3-mob/10 lg:text-h3/[50px] font-light tracking-[-0.07px] lg:tracking-[-0.09px] {% unless settings.remove_capitalize %}capitalize{% endunless %} pt-10 lg:pt-[60px] px-[18px] lg:px-0">{% render 'blue', text: s.heading %}</h2>
+  </div>
+
+{% capture slider_options %}
+  '{
+    "perPage": 2,
+    "pagination": false,
+    "focus": 1,
+    "type": "loop",
+    "arrows": false,
+    "gap": "5px",
+    "padding": {"left": "70px", "right": "50px"},
+    "mediaQuery": "min",
+    "breakpoints": {
+      "1024": {
+        "perPage": 5,
+        "padding": { "left": "12%", "right": "5%" }
+      }
+    }
+  }'
+{% endcapture %}
+
+  <div class="splide" data-slider={{ slider_options }}>
+    <div class="splide__track max-w-screen">
+      <ul class="splide__list">
+        {% for block in section.blocks %}
+          <li class="splide__slide">
+            {% render 'responsive-image', 
+              image: block.settings.image, 
+              class: "w-[100px] h-[100px] lg:w-[125px] lg:h-[125px]"
+              no_width: true
+            %}
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:settings_schema.sections.publication_banner.name",
+  "tag": "section",
+  "class": "no-max",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:settings_schema.general.heading",
+      "info": "t:settings_schema.general.blue_info"
+    },
+    {
+      "type": "checkbox",
+      "id": "padding_bottom",
+      "label": "t:settings_schema.sections.publication_banner.padding_bottom"
+    },
+    {
+      "type": "header",
+      "content": "Unique Section ID"
+    },
+    {
+      "type": "paragraph",
+      "content": "The ID for this section will be 'publication-banner-#' based on the number chosen below. The default is 'publication-banner-1'"
+    },
+    {
+      "type": "range",
+      "id": "id_number",
+      "label": "ID Number",
+      "max": 5,
+      "min": 1,
+      "step": 1,
+      "default": 1,
+      "info": "If using this section multiple times on the same page, assign a different number to each one."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "publication_image",
+      "name": "t:settings_schema.general.media.image_block_name",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:settings_schema.general.image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:settings_schema.sections.publication_banner.name"
+    }
+  ]
+}
+{% endschema %}

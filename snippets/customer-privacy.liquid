@@ -1,0 +1,219 @@
+{% comment %}
+  OneTrust + Shopify Customer Privacy API Integration
+  Syncs OneTrust consent with Shopify's native consent system
+{% endcomment %}
+
+<script>
+  (function() {
+    'use strict';
+    
+    const CONFIG = {
+      gtmId: 'GTM-5XK4HZDK',
+      // debug: {{ settings.enable_privacy_debug | default: false }}
+      debug: true
+    };
+
+    let state = {
+      shopifyApiLoaded: false,
+      oneTrustReady: false,
+      gtmInitialized: false
+    };
+
+    /**
+     * Map OneTrust consent categories to Shopify consent purposes
+     * Based on your OneTrust output: ",C0001,C0003,0006,"
+     */
+    const ONETRUST_CATEGORIES = {
+      STRICTLY_NECESSARY: 'C0001',  // Always active (required)
+      FUNCTIONAL: 'C0003',          // Preferences/Functional
+      PERFORMANCE: '0006',          // Analytics/Performance (note: missing 'C' prefix)
+      TARGETING: 'C0004'            // Marketing/Targeting (if you have this)
+    };
+
+    /**
+     * Get consent status from OneTrust
+     */
+    function getOneTrustConsent() {
+      if (!window.OnetrustActiveGroups) {
+        return { analytics: false, marketing: false, preferences: false };
+      }
+
+      const activeGroups = window.OnetrustActiveGroups;
+      
+      // Helper to check if category is active (handles both "C0006" and "0006" formats)
+      const hasConsent = (category) => {
+        return activeGroups.includes(category) || 
+               activeGroups.includes('C' + category) ||
+               activeGroups.includes(category.replace('C', ''));
+      };
+      
+      return {
+        analytics: hasConsent(ONETRUST_CATEGORIES.PERFORMANCE),
+        marketing: hasConsent(ONETRUST_CATEGORIES.TARGETING),
+        preferences: hasConsent(ONETRUST_CATEGORIES.FUNCTIONAL)
+      };
+    }
+
+    /**
+     * Sync OneTrust consent to Shopify Customer Privacy API
+     */
+    function syncConsentToShopify() {
+      if (!state.shopifyApiLoaded) {
+        if (CONFIG.debug) console.warn('[Privacy] Shopify API not ready yet');
+        return;
+      }
+
+      const consent = getOneTrustConsent();
+      
+      if (CONFIG.debug) {
+        console.log('[Privacy] Syncing OneTrust consent to Shopify:', consent);
+      }
+
+      window.Shopify.customerPrivacy.setTrackingConsent(
+        consent,
+        function(error) {
+          if (error) {
+            console.error('[Privacy] Failed to sync consent:', error);
+            return;
+          }
+          
+          if (CONFIG.debug) {
+            console.log('[Privacy] Consent synced successfully');
+          }
+
+          // Initialize GTM after consent is synced
+          if (consent.analytics && !state.gtmInitialized) {
+            initializeGTM();
+          }
+        }
+      );
+    }
+
+    /**
+     * Initialize GTM
+     */
+    function initializeGTM() {
+      if (state.gtmInitialized) return;
+
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        'gtm.start': new Date().getTime(),
+        event: 'gtm.js'
+      });
+
+      const script = document.createElement('script');
+      script.async = true;
+      script.src = 'https://www.googletagmanager.com/gtm.js?id=' + CONFIG.gtmId;
+      document.head.appendChild(script);
+
+      state.gtmInitialized = true;
+      
+      if (CONFIG.debug) {
+        console.log('[Privacy] GTM initialized');
+      }
+    }
+
+    /**
+     * Load Shopify Customer Privacy API
+     */
+    function loadShopifyPrivacyAPI() {
+      if (!window.Shopify || !window.Shopify.loadFeatures) {
+        if (CONFIG.debug) console.error('[Privacy] Shopify.loadFeatures not available');
+        return;
+      }
+
+      window.Shopify.loadFeatures([
+        { name: 'consent-tracking-api', version: '0.1' }
+      ], function(error) {
+        if (error) {
+          console.error('[Privacy] Failed to load Shopify Privacy API:', error);
+          return;
+        }
+
+        state.shopifyApiLoaded = true;
+        
+        if (CONFIG.debug) {
+          console.log('[Privacy] Shopify Customer Privacy API loaded');
+        }
+
+        // Initial sync if OneTrust is already ready
+        if (state.oneTrustReady) {
+          syncConsentToShopify();
+        }
+      });
+    }
+
+    /**
+     * Listen for OneTrust consent changes
+     */
+    function setupOneTrustListeners() {
+      // OneTrust consent changed event
+      window.addEventListener('consent.onetrust', function() {
+        if (CONFIG.debug) {
+          console.log('[Privacy] OneTrust consent changed');
+        }
+        syncConsentToShopify();
+      });
+
+      // Check if OneTrust is already loaded
+      if (window.OneTrust && window.OneTrust.IsAlertBoxClosed) {
+        state.oneTrustReady = true;
+        if (CONFIG.debug) {
+          console.log('[Privacy] OneTrust already loaded');
+        }
+        syncConsentToShopify();
+      }
+
+      // OneTrust loaded event
+      window.addEventListener('OneTrustLoaded', function() {
+        state.oneTrustReady = true;
+        if (CONFIG.debug) {
+          console.log('[Privacy] OneTrust loaded');
+        }
+        syncConsentToShopify();
+      });
+    }
+
+    // Initialize
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function() {
+        loadShopifyPrivacyAPI();
+        setupOneTrustListeners();
+      });
+    } else {
+      loadShopifyPrivacyAPI();
+      setupOneTrustListeners();
+    }
+
+    // Debug utility
+    if (CONFIG.debug) {
+      window.debugPrivacy = function() {
+        const oneTrustConsent = getOneTrustConsent();
+        const shopifyConsent = (state.shopifyApiLoaded && window.Shopify?.customerPrivacy?.currentVisitorConsent) 
+          ? window.Shopify.customerPrivacy.currentVisitorConsent()
+          : null;
+
+        console.log('[Privacy Debug]', {
+          state: state,
+          oneTrustActiveGroups: window.OnetrustActiveGroups,
+          oneTrustConsent: oneTrustConsent,
+          shopifyConsent: shopifyConsent,
+          shopifyAllowed: state.shopifyApiLoaded ? {
+            analytics: window.Shopify.customerPrivacy.analyticsProcessingAllowed(),
+            marketing: window.Shopify.customerPrivacy.marketingAllowed(),
+            preferences: window.Shopify.customerPrivacy.preferencesProcessingAllowed()
+          } : null
+        });
+      };
+      console.log('[Privacy] Debug enabled. Run debugPrivacy() for status.');
+    }
+  })();
+</script>
+
+{% comment %}
+  GTM noscript fallback
+{% endcomment %}
+<noscript>
+  <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5XK4HZDK"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>

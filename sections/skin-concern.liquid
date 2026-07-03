@@ -1,0 +1,327 @@
+{%- assign s = section.settings -%}
+
+{% capture slider_options %}
+  '{
+    "perPage": 1,
+    "pagination": false,
+    "gap": "24px",
+    "arrows": {% if section.blocks.size > 1 %}true{% else %}false{% endif %},
+    "focus": "center",
+    "type": "loop",
+    {% unless section.blocks.size > 1 %}
+      "destroy": true,
+    {% endunless %}
+    "mediaQuery": "min",
+    "breakpoints": {
+      "1024": {
+        "padding": "18%"
+      }
+    }
+  }'
+{% endcapture %}
+
+<div id="{{ s.unique_id }}" class="pt-5 lg:pt-10 px-[15px] lg:px-[38px] flex flex-col">
+  <div class="w-full text-[35px]/[40px] lg:w-[580px] lg:text-[55px]/[60px] tracking-[-0.07px] font-light{% unless settings.remove_capitalize %}capitalize{% endunless %} pt-[30px] lg:pt-5">
+    {% render 'blue', text: s.heading %}
+  </div>
+  <div class="grid grid-cols-1 {% if s.flip_image %}lg:grid-cols-[59fr_41fr] {% else %}lg:grid-cols-[41fr_59fr]{% endif %} gap-[22px] pt-[30px] lg:py-[30px]">
+    <div class="relative lg:min-h-0 {% if s.flip_image %}lg:order-2{% else %}lg:order-1{% endif %}">
+      {%- if s.image_mobile -%}
+        {% render 'responsive-image', 
+          image: s.image_mobile, 
+          class: 'lg:hidden rounded-image',
+          pb_hack: "76.92%", 
+          cover: true 
+        %}
+      {%- endif -%}
+      {%- if s.image -%}
+        {% render 'responsive-image', 
+          image: s.image, 
+          class: "hidden lg:block h-full rounded-image w-full", 
+          cover: true,
+          absolute: true
+        %}
+
+        {% if s.image_pill != blank %}
+          <div class="absolute top-0 left-0 p-5 flex items-start justify-start">
+            <span class="py-[15px] px-5 backdrop-blur-[22.5px] bg-[#ffffff33] rounded-[70px] text-center text-[14px] text-white">{{ s.image_pill }}</span>
+          </div>
+        {% endif %}
+      {%- endif -%}
+    </div>
+
+    <div class="grid grid-cols-1 lg:flex lg:flex-col bg-toggle py-[30px] lg:pt-10 px-7 rounded-[20px] gap-[50px] overflow-hidden {% if s.flip_image %}lg:order-1{% else %}lg:order-2{% endif %}">
+      <div class="grid grid-cols-1 lg:grid-cols-[1.6fr_1fr] gap-[22px] lg:gap-y-[unset] lg:gap-x-[5%] lg:pt-[10px]">
+        <div class="flex flex-col gap-[22px]">
+          <span class="text-[28px]/[32px] font-light{% unless settings.remove_capitalize %}capitalize{% endunless %} tracking-[-0.056px]">
+            {{ s.top_left_text }}
+          </span>
+          <span class="text-[16px]/[23px] font-light tracking-[-0.032px]">
+            {{ s.middle_left_text }}
+          </span>
+          {% if s.bottom_left_text_top or s.bottom_left_text_bottom %}
+            <div class="flex flex-col gap-1 py-3 px-[18px] bg-cream-cards rounded-[10px]">
+              <span class="text-body/[23px] tracking-[-0.032px]">{% render 'blue', text: s.bottom_left_text_top %}</span>
+              <span class="text-caption-small/4 font-light tracking-[-0.2px]">{% render 'blue', text: s.bottom_left_text_bottom %}</span>
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="flex flex-col gap-3 lg:gap-[14px]">
+          <div class="flex flex-col gap-[2px]">
+            {% unless s.top_number == blank or s.top_number <= 0 %}
+              <span class="!text-blue-cta text-[35px]/[40px] lg:text-[45px]/[50px] tracking-[-0.09px] font-light">
+                {{ s.top_number | append: '%' }}
+              </span>
+            {% endunless %}
+            <span class="text-[16px]/[23px] lg:text-[21px]/[28px] font-light tracking-[-0.042px] [&_.blue-text]:font-normal">
+              {% render 'blue', text: s.top_right_text %}
+            </span>
+          </div>
+          <div class="flex flex-col gap-[2px]">
+            {% unless s.bottom_number == blank or s.bottom_number <= 0 %}
+              <span class="!text-blue-cta text-[35px]/[40px] lg:text-[45px]/[50px] tracking-[-0.09px] font-light">
+                {{ s.bottom_number | append: '%' }}
+              </span>
+            {% endunless %}
+            <span class="text-[16px]/[23px] lg:text-[21px]/[28px] font-light tracking-[-0.042px] [&_.blue-text]:font-normal">
+              {% render 'blue', text: s.bottom_right_text %}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="{% unless section.blocks.size > 1 %}lg:w-[66%] mx-auto{% endunless %}">
+        <div class="splide" data-slider={{ slider_options }}>
+          <div class="splide__track">
+            <ul class="splide__list {% if section.blocks.size > 1 %}max-lg:!pb-20 lg:!pb-[unset]{% endif %}">
+              {% for block in section.blocks %}
+                {%- assign b = block.settings -%}
+                <li class="splide__slide rounded-[20px] overflow-hidden relative group">
+                  <div class="relative lg:hidden h-full">
+                    {% if b.mobile_img_1 != blank and b.mobile_img_2 != blank %}
+                      <div class="grid grid-cols-2 group-[&.is-prev]:lg:opacity-50 group-[&.is-next]:lg:opacity-50 lg:transition-all aspect-[151/118]">
+                        {% render 'responsive-image', 
+                          image: b.mobile_img_1, 
+                          class: 'h-full', 
+                          cover: true 
+                        %}
+                        {% render 'responsive-image', 
+                          image: b.mobile_img_2, 
+                          class: 'h-full',
+                          cover: true 
+                        %}
+                      </div>
+                    {% elsif b.mobile_img_1 != blank %}
+                      {% render 'responsive-image', 
+                          image: b.mobile_img_1, 
+                          class: 'w-full aspect-[151/118]', 
+                          cover: true, 
+                        %}
+                    {% elsif b.mobile_img_2 != blank %}
+                      {% render 'responsive-image', 
+                          image: b.mobile_img_2, 
+                          class: 'w-full aspect-[151/118]', 
+                          cover: true,
+                        %}
+                    {% endif %}
+
+                    <div class="absolute bottom-[13px] w-full px-[22px]">
+                      <div class="flex justify-between w-full">
+                        <span class="text-body/[23px] text-white tracking-[-0.032px]">{{ b.mobile_before_text }}</span>
+                        <span class="text-body/[23px] text-white tracking-[-0.032px]">{{ b.mobile_after_text }}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="relative hidden lg:block h-full">
+                    {% if b.desktop_img_1 != blank and b.desktop_img_2 != blank %}
+                      <div class="grid grid-cols-2 group-[&.is-prev]:lg:opacity-50 group-[&.is-next]:lg:opacity-50 lg:transition-all aspect-[151/118]">
+                        {% render 'responsive-image', 
+                          image: b.desktop_img_1, 
+                          class: 'h-full', 
+                          cover: true 
+                        %}
+                        {% render 'responsive-image', 
+                          image: b.desktop_img_2, 
+                          class: 'h-full',
+                          cover: true 
+                        %}
+                      </div>
+                    {% elsif b.desktop_img_1 != blank %}
+                      {% render 'responsive-image', 
+                          image: b.desktop_img_1, 
+                          class: 'h-full group-[&.is-prev]:lg:opacity-50 group-[&.is-next]:lg:opacity-50 lg:transition-all', 
+                          pb_hack: "71.52%" 
+                        %}
+                    {% elsif b.desktop_img_2 != blank %}
+                      {% render 'responsive-image', 
+                          image: b.desktop_img_2, 
+                          class: 'h-full group-[&.is-prev]:lg:opacity-50 group-[&.is-next]:lg:opacity-50 lg:transition-all', 
+                          pb_hack: "71.52%"
+                        %}
+                    {% endif %}
+
+                    <div class="absolute bottom-[11px] w-full px-[22px]">
+                      <div class="hidden lg:flex justify-between w-full">
+                        <span class="text-body/[23px] text-white tracking-[-0.032px]">{{ b.desktop_before_text }}</span>
+                        <span class="text-body/[23px] text-white tracking-[-0.032px]">{{ b.desktop_after_text }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+          <div class="splide__arrows flex gap-3 w-full justify-start lg:justify-between absolute bottom-0 lg:bottom-[unset] lg:top-[43%] left-0 lg:right-0 pointer-events-none">
+            <button class="splide__arrow splide__arrow--prev !relative !left-0 !rounded-none !h-[44px] !w-[44px] !bg-none pointer-events-auto" style="background: none; transform: translateY(0);">
+              {% render 'icons', icon: 'chevron-right-circle', class: "text-black block h-full w-full [&_svg]:block [&_svg]:!h-full [&_svg]:!w-full" %}
+            </button>
+            <button class="splide__arrow splide__arrow--next !relative !right-0 !rounded-none !h-[44px] !w-[44px] !bg-none pointer-events-auto" style="background: none; transform: translateY(0);">
+              {% render 'icons', icon: 'chevron-right-circle', class: "text-black block h-full w-full [&_svg]:block [&_svg]:!h-full [&_svg]:!w-full" %}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "t:settings_schema.sections.skin_concern.name",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "text",
+        "id": "unique_id",
+        "label": "t:settings_schema.sections.skin_concern.unique_id",
+        "info": "t:settings_schema.sections.skin_concern.unique_id_info"
+      },
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "t:settings_schema.media.image"
+      },
+      {
+        "type": "image_picker",
+        "id": "image_mobile",
+        "label": "t:settings_schema.sections.skin_concern.mobile_image_label",
+        "info": "t:settings_schema.sections.skin_concern.mobile_image_info"
+      },
+      {
+        "type": "text",
+        "id": "image_pill",
+        "label": "t:settings_schema.general.image_pill"
+      },
+      {
+        "type": "richtext",
+        "id": "heading",
+        "label": "t:settings_schema.general.heading",
+        "info": "t:settings_schema.general.blue_info"
+      },
+      {
+        "type": "checkbox",
+        "id": "flip_image",
+        "label": "t:settings_schema.sections.skin_concern.flip_image"
+      },
+      {
+        "type": "richtext",
+        "id": "top_left_text",
+        "label": "t:settings_schema.sections.skin_concern.top_left_text",
+        "default": "<p>Nullam non nisi tellus quis pharetra</p>"
+      },
+      {
+        "type": "richtext",
+        "id": "middle_left_text",
+        "label": "t:settings_schema.sections.skin_concern.middle_left_text",
+        "default": "<p>Morbi rutrum justo sed cursus dapibus. Sed ut sollicitudin nulla. Nullam non nisi tellus maximus blandit quis elit.</p>"
+      },
+      {
+        "type": "text",
+        "id": "bottom_left_text_top",
+        "label": "t:settings_schema.sections.skin_concern.bottom_left_text_top",
+        "default": "After 1 Hydrafacial Deluxe Treatment"
+      },
+      {
+        "type": "text",
+        "id": "bottom_left_text_bottom",
+        "label": "t:settings_schema.sections.skin_concern.bottom_left_text_bottom",
+        "default": "Courtesty of SkinPerfected. One Deluxe treatment with Red LED. Individal results may vary."
+      },
+      {
+        "type": "number",
+        "id": "top_number",
+        "label": "t:settings_schema.sections.skin_concern.top_number"
+      },
+      {
+        "type": "richtext",
+        "id": "top_right_text",
+        "label": "t:settings_schema.sections.skin_concern.top_right_text"
+      },
+      {
+        "type": "number",
+        "id": "bottom_number",
+        "label": "t:settings_schema.sections.skin_concern.bottom_number"
+      },
+      {
+        "type": "richtext",
+        "id": "bottom_right_text",
+        "label": "t:settings_schema.sections.skin_concern.bottom_right_text"
+      }
+    ],
+    "blocks": [
+      {
+        "name": "t:settings_schema.sections.skin_concern.slide",
+        "type": "slide",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "mobile_img_1",
+            "label": "t:settings_schema.sections.skin_concern.mobile_image_1"
+          },
+          {
+            "type": "image_picker",
+            "id": "mobile_img_2",
+            "label": "t:settings_schema.sections.skin_concern.mobile_image_2"
+          },
+          {
+            "type": "image_picker",
+            "id": "desktop_img_1",
+            "label": "t:settings_schema.sections.skin_concern.desktop_image_1"
+          },
+          {
+            "type": "image_picker",
+            "id": "desktop_img_2",
+            "label": "t:settings_schema.sections.skin_concern.desktop_image_2"
+          },
+          {
+            "type": "text",
+            "id": "mobile_before_text",
+            "label": "t:settings_schema.sections.skin_concern.mobile_before_text"
+          },
+          {
+            "type": "text",
+            "id": "mobile_after_text",
+            "label": "t:settings_schema.sections.skin_concern.mobile_after_text"
+          },
+          {
+            "type": "text",
+            "id": "desktop_before_text",
+            "label": "t:settings_schema.sections.skin_concern.desktop_before_text"
+          },
+          {
+            "type": "text",
+            "id": "desktop_after_text",
+            "label": "t:settings_schema.sections.skin_concern.desktop_after_text"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "t:settings_schema.sections.skin_concern.name"
+      }
+    ]
+  }
+{% endschema %}

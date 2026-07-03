@@ -1,0 +1,236 @@
+{%- liquid
+  assign s = section.settings
+-%}
+
+<div 
+  data-sticky-header 
+  id="header-{{ s.id_number }}"
+  class="p-2 pointer-events-auto"
+>
+  <div class="text-white grid grid-cols-[1fr_auto] items-center relative px-2">
+    <div class="flex gap-12 items-stretch lg:pl-[22px]">
+      <a href="{{ routes.root_url }}" class="py-2.5">
+        {% render 'logo-svg', class: "translate-y-[3px] [&_svg]:w-full [&_svg]:max-w-[195px] lg:[&_svg]:max-w-[220px]" %}
+      </a>
+      <nav class="hidden lg:block">
+        <ul class="flex gap-12 mx-4 h-full font-primary text-white {% unless settings.remove_capitalize %}capitalize{% endunless %}">
+          {% for link in s.main_menu.links %}
+            <li class="group flex items-center">
+              <a href="{{ link.url }}" class="group-hover:underline">
+                {{ link.title }}
+              </a>
+              {% if link.links != blank %}
+                {% render 'megamenu-desktop', menu: link.links, parent_link: link, index: forloop.index %}
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      </nav>
+    </div>
+    <div class=" hidden lg:flex items-center gap-[26px] justify-end">
+      <div class="flex desktop buttons items-center gap-[14px]">
+        {% for block in section.blocks %}
+          {% if block.type == 'header_cta' %}
+            <a href="{{ block.settings.link }}" class="{{ block.settings.button_type_desktop }} {% if settings.remove_capitalize %}!normal-case{% endif %} py-3">
+              <span>{{ block.settings.label }}</span>
+            </a>
+          {% endif %}
+        {% endfor %}
+      </div>
+
+      <label class="flex gap-2.5 items-center cursor-pointer">
+        <input type="checkbox" class="hidden peer" data-close-on-scroll data-dropdown-input />
+
+        {% render 'icons', icon: 'globe' %}
+        {%- if request.host == 'www.hydrafacial.com' -%}
+          <span>US & Canada</span>
+        {% elsif request.host == 'hydrafacial-france-marketing.myshopify.com' %}
+          <span>France</span>
+        {% elsif request.host == 'hydrafacial-spain-marketing.myshopify.com' %}
+          <span>Spain</span>
+        {% elsif request.host == 'hydrafacial-united-kingdom-marketing.myshopify.com' %}
+          <span>United Kingdom</span>
+        {% elsif request.host == 'hydrafacial-germany-marketing.myshopify.com' %}
+          <span>Germany</span>
+        {%- endif -%}
+        {% render 'icons', icon: 'chevron-down', class: "w-4" %}
+        <div 
+          data-scroll-container
+          class="absolute top-full right-9 translate-y-2 max-h-0 peer-checked:max-h-[238px] transition-all overflow-y-scroll overflow-x-hidden bg-grey shadow-custom-large pr-1.5 rounded-[10px] scrollbar-custom" 
+          style="box-shadow: inset 0 -2px 4px rgba(0, 0, 0, 0.4)"
+        >
+          <ul class="flex flex-col gap-2 pt-4 min-h-48">
+            {% for region in s.region_menu.links %}
+              {% render 'region', context: 'header', region: region %}
+            {% endfor %}
+          </ul>
+        </div>
+      </label>
+    </div>
+
+    <label for="mobile-menu-toggle" class="lg:hidden py-[25px]">
+      {% render 'icons', icon: 'hamburger', class: "lg:hidden text-white w-6 h-4" %}
+    </label>
+  </div>
+</div>
+
+{% render 'mobile-menu' %}
+
+{% schema %}
+{
+  "name": "t:settings_schema.sections.header.name",
+  "tag": "header",
+  "class": "fixed top-0 z-99 w-full pointer-events-none",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "main_menu",
+      "label": "t:settings_schema.sections.header.main_menu"
+    },
+    {
+      "type": "link_list",
+      "id": "region_menu",
+      "label": "t:settings_schema.sections.header.region_menu"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_search_bar",
+      "label": "t:settings_schema.sections.header.display_mobile_search"
+    },
+    {
+      "type": "header",
+      "content": "Unique Section ID"
+    },
+    {
+      "type": "paragraph",
+      "content": "The ID for this section will be 'header-#' based on the number chosen below. The default is 'header-1'"
+    },
+    {
+      "type": "range",
+      "id": "id_number",
+      "label": "ID Number",
+      "max": 5,
+      "min": 1,
+      "step": 1,
+      "default": 1,
+      "info": "If using this section multiple times on the same page, assign a different number to each one."
+    }
+  ],
+  "blocks": [
+  {
+    "type": "nav_menu_img_content",
+    "name": "t:settings_schema.sections.header.nav_menu_image_content",
+    "settings": [
+      {
+        "type": "text",
+        "id": "link_title_ref",
+        "label": "t:settings_schema.sections.header.navigation_link_title_reference",
+        "info": "t:settings_schema.sections.header.navigation_link_title_reference_info"
+      },
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "t:settings_schema.general.image"
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "t:settings_schema.general.title",
+        "info": "t:settings_schema.general.blue_info"
+      },
+      {
+        "type": "textarea",
+        "id": "description",
+        "label": "t:settings_schema.general.description",
+        "info": "t:settings_schema.general.blue_info"
+      },
+      {
+        "type": "text",
+        "id": "button_text",
+        "label": "t:settings_schema.general.cta_button_text"
+      },
+      {
+        "type": "url",
+        "id": "button_url",
+        "label": "t:settings_schema.general.cta_button_url"
+      }
+    ]
+  },
+  {
+    "type": "header_cta",
+    "name": "t:settings_schema.sections.header.header_cta_buttons",
+    "settings": [
+      {
+        "type": "text",
+        "id": "label",
+        "label": "t:settings_schema.general.cta_label"
+      },
+      {
+        "type": "url",
+        "id": "link",
+        "label": "t:settings_schema.general.cta_link"
+      },
+      {
+        "type": "select",
+        "id": "button_type_desktop",
+        "label": "t:settings_schema.sections.header.desktop_button_type",
+        "options": [
+          {
+            "value": "button-primary-blue",
+            "label": "t:settings_schema.general.buttons.types.primary_blue"
+          },
+          {
+            "value": "button-primary-black",
+            "label": "t:settings_schema.general.buttons.types.primary_black"
+          },
+          {
+            "value": "button-primary-white",
+            "label": "t:settings_schema.general.buttons.types.primary_white"
+          },
+          {
+            "value": "button-secondary",
+            "label": "t:settings_schema.general.buttons.types.secondary"
+          },
+          {
+            "value": "button-tertiary",
+            "label": "t:settings_schema.general.buttons.types.tertiary"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "button_type_mobile",
+        "label": "t:settings_schema.sections.header.mobile_button_type",
+        "options": [
+          {
+            "value": "button-primary-blue",
+            "label": "t:settings_schema.general.buttons.types.primary_blue"
+          },
+          {
+            "value": "button-primary-black",
+            "label": "t:settings_schema.general.buttons.types.primary_black"
+          },
+          {
+            "value": "button-primary-white",
+            "label": "t:settings_schema.general.buttons.types.primary_white"
+          },
+          {
+            "value": "button-secondary",
+            "label": "t:settings_schema.general.buttons.types.secondary"
+          },
+          {
+            "value": "button-tertiary",
+            "label": "t:settings_schema.general.buttons.types.tertiary"
+          }
+        ]
+      }
+    ]
+  }
+],
+  "presets": [
+    {
+      "name": "t:settings_schema.sections.header.name"
+    }
+  ]
+}
+{% endschema %}

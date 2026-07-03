@@ -1,0 +1,226 @@
+{%- liquid
+  assign s = section.settings
+  assign label_class = "relative flex items-center gap-2 cursor-pointer before:w-[16px] before:h-[16px] before:text-[12px] before:rounded-sm before:border before:border-[#C6C6C6] peer-checked:before:border-black peer-checked:before:bg-black peer-checked:before:content-['✔'] before:text-white before:flex before:items-center before:justify-center text-[14px] tracking-[-0.028px] font-medium"
+-%}
+
+<div 
+  id="collection-grid-{{ s.id_number }}"
+  class="flex flex-col gap-[30px] px-[15px] lg:px-[38px] pt-[30px] lg:pt-5 !mx-0 w-full"
+>
+  <div class="flex flex-col lg:gap-2.5 bg-white px-[11.5px] lg:px-[3%] rounded-[30px] overflow-hidden lg:pt-[30px]">
+    <div class="filters hidden lg:grid grid-cols-2 py-6">
+      <div class="flex gap-[45px] justify-start">
+        <span class="text-blue-cta text-[16px] font-medium tracking-[-0.032px] {% unless settings.remove_capitalize %}capitalize{% endunless %}">
+          {{ 'collection.filter' | t }}
+        </span>
+        <form
+          data-ajax-form="#collection-list"
+          method="get"
+          id="collection-filters"
+          class="flex gap-[52px]"
+        >
+          {%- for filter in collection.filters -%}
+            {% render 'filter', filter: filter, label_class: label_class %}
+          {%- endfor -%}
+        </form>
+      </div>
+    </div>
+    <div class="mobile-filters lg:hidden mx-auto z-[100] py-5">
+      {% render 'mobile-filters', label_class: label_class %}
+    </div>
+
+    <div id="collection-list">
+      <ul data-ajaxinate class="grid grid-cols-2 lg:grid-cols-3 gap-x-2.5 lg:gap-x-[22px] gap-y-[60px]">
+        {% assign paginate_count = 12 %}
+        {% paginate collection.products by paginate_count %}
+          {% for product in collection.products %}
+            {% assign product_index = forloop.index %}
+            {% if paginate.current_page == 1 %}
+              {% for block in section.blocks %}
+                {%- liquid 
+                  assign b = block.settings
+                  assign disruptor_index = b.disruptor_index | minus: forloop.index0
+                  assign mobile_disruptor_index = b.mobile_disruptor_index | minus: forloop.index0
+                -%}
+                {% if disruptor_index == product_index %}
+                  <li 
+                    class="hidden lg:block relative overflow-hidden rounded-[20px] col-span-2 lg:col-span-1"
+                  >
+                    {% if b.video %}
+                      {% render 'video',
+                        video: b.video, 
+                        play_button: true, 
+                        class: 'h-full w-full', 
+                        container_class: 'h-full w-full aspect-[213/254]',
+                        play_layout: "bottom",
+                        autoplay: true,
+                        muted: true,
+                        play_size: "medium",
+                        pause_size: "medium" 
+                      %}
+                    {% else %}
+                      {% if b.image %}
+                        {% render 'responsive-image', 
+                          image: b.image, 
+                          class: 'h-full aspect-[213/254]', 
+                          cover: true 
+                        %}
+                      {% endif %}
+                    {% endif %}
+                    {%- if b.heading or b.body -%}
+                      <div class="absolute top-0 left-0 h-full w-full p-[15px] flex flex-col justify-end gap-[10px] pointer-events-none">
+                        {%- if b.heading -%}
+                          <span class="w-[68%] text-[35px]/[40px] font-light tracking-[-0.07px] text-white">{{ b.heading }}</span>
+                        {%- endif -%}
+                        {%- if b.body -%}
+                          <span class="w-[68%] text-[16px]/[23px] tracking-[-0.032px] text-white">{{ b.body }}</span>
+                        {%- endif -%}
+                      </div>
+                    {%- endif -%}
+                  </li>
+                {% endif %}
+
+                {% if mobile_disruptor_index == product_index %}
+                  <li 
+                    class="lg:hidden relative overflow-hidden rounded-[20px] col-span-2 lg:col-span-1" 
+                  >
+                    {% if b.video %}
+                      {% render 'video', 
+                        video: b.video, 
+                        play_button: true, 
+                        class: 'h-full w-full', 
+                        container_class: 'h-full w-full aspect-[85/107]',
+                        play_layout: "bottom",
+                        autoplay: true,
+                        muted: true,
+                        play_size: "medium",
+                        pause_size: "medium" 
+                      %}
+                    {% else %}
+                      {% if b.image %}
+                        {% render 'responsive-image', 
+                          image: b.image, 
+                          class: 'h-full aspect-[85/107]', 
+                          cover: true 
+                        %}
+                      {% endif %}
+                    {% endif %}
+                    {%- if b.heading or b.body -%}
+                      <div class="absolute top-0 left-0 h-full w-full p-[15px] flex flex-col justify-end gap-[10px] pointer-events-none">
+                        {%- if b.heading -%}
+                          <span class="w-[68%] text-[35px]/[40px] font-light tracking-[-0.07px] text-white">{{ b.heading }}</span>
+                        {%- endif -%}
+                        {%- if b.body -%}
+                          <span class="w-[68%] text-[16px]/[23px] tracking-[-0.032px] text-white">{{ b.body }}</span>
+                        {%- endif -%}
+                      </div>
+                    {%- endif -%}
+                  </li>
+                {% endif %}
+              {% endfor %}
+            {% endif %}
+
+            <li>
+              {% render 'product-card', product: product, index: forloop.index %}
+            </li>
+          {% endfor %}
+
+          <li data-pagination class="col-span-2 lg:col-span-3 flex items-center justify-center order-[var(--mobile-order)] lg:order-[var(--order)]" style="--order: 99999; --mobile-order: 99999;">
+            {% if paginate.next %}
+              <a href="{{ paginate.next.url }}">{{ 'general.loading_more' | t }}</a>
+            {% endif %}
+          </li>
+        {% endpaginate %}
+      </ul>
+    </div>
+    <div class="w-full flex justify-center lg:justify-end py-2">
+      {% render 'scroll-to-top-button' %}
+    </div>
+  </div>
+</div>
+
+
+
+{% schema %}
+  {
+    "name": "t:settings_schema.sections.collection_grid.name",
+    "class": "collection-grid no-max flex justify-center z-30",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "text",
+        "id": "prod_card_cta_text",
+        "label": "t:settings_schema.sections.collection_grid.product_card_cta_text"
+      },
+      {
+        "type": "url",
+        "id": "prod_card_cta_url",
+        "label": "t:settings_schema.sections.collection_grid.product_card_cta_url"
+      },
+      {
+        "type": "header",
+        "content": "Unique Section ID"
+      },
+      {
+        "type": "paragraph",
+        "content": "The ID for this section will be 'collection-grid-#' based on the number chosen below. The default is 'collection-grid-1'"
+      },
+      {
+        "type": "range",
+        "id": "id_number",
+        "label": "ID Number",
+        "max": 5,
+        "min": 1,
+        "step": 1,
+        "default": 1,
+        "info": "If using this section multiple times on the same page, assign a different number to each one."
+      }
+    ],
+    "blocks": [
+      {
+        "type": "disruptor",
+        "name": "t:settings_schema.sections.collection_grid.disruptor",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "t:settings_schema.general.image"
+          },
+          {
+            "type": "video",
+            "id": "video",
+            "label": "t:settings_schema.general.video",
+            "info": "t:settings_schema.sections.collection_grid.video_overtakes_image"
+          },
+          {
+            "type": "text",
+            "id": "heading",
+            "label": "t:settings_schema.general.heading"
+          },
+          {
+            "type": "text",
+            "id": "body",
+            "label": "t:settings_schema.general.body"
+          },
+          {
+            "type": "number",
+            "id": "disruptor_index",
+            "label": "t:settings_schema.sections.collection_grid.content_card_index",
+            "info": "t:settings_schema.sections.collection_grid.disruptor_card_info"
+          },
+          {
+            "type": "number",
+            "id": "mobile_disruptor_index",
+            "label": "t:settings_schema.sections.collection_grid.mobile_content_card_index",
+            "info": "t:settings_schema.sections.collection_grid.disruptor_card_info"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "t:settings_schema.sections.collection_grid.name"
+      }
+    ]
+  }
+{% endschema %}

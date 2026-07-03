@@ -1,0 +1,572 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin language editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "general": {
+    "buttons": {
+      "learn_more": "Learn More"
+    },
+    "search": "Search",
+    "loading_more": "Loading more...",
+    "language": "Language",
+    "breadcrumbs": {
+      "home": "Home",
+      "collections_all": "All collections",
+      "all_products": "All products",
+      "page": "Page {{ page }}",
+      "search_results": "Search results",
+      "cart": "Cart",
+      "not_found": "404",
+      "account": "Account"
+    },
+    "cart": {
+      "title": "Cart",
+      "subtotal": "Subtotal",
+      "checkout": "Checkout",
+      "drawer_toggle_aria": "cart drawer toggle",
+      "drawer_close_aria": "cart drawer close",
+      "free-ship-label": "You're REMAINING away from free shipping!",
+      "free-ship-achieved": "You've unlocked free shipping!"
+    },
+    "labels": {
+      "before": "Before",
+      "after": "After"
+    }
+  },
+  "footer": {
+    "download_app": "Download Our App",
+    "download_from_app_store": "On The App Store",
+    "download_from_google": "On Google Play",
+    "subscribe_title": "Subscribe for Updates",
+    "subscribe_text": "Stay up-to-date with Hydrafacial special offers and exciting updates.",
+    "email_input_placeholder": "Email Address",
+    "subscribe_customer": "Customer",
+    "subscribe_professional": "Professional",
+    "contact_us": "Contact us"
+  },
+  "menus": {
+    "CTA_see_all": "See All" 
+  },
+  "blog": {
+    "see_more": "See More",
+    "articles": {
+      "categories": "Categories",
+      "back_to_blog": "Back To Blog"
+    }
+  },
+  "connect_with_sales_form": {
+    "more_info_button_text": "Request More Info",
+    "business_type_options": {
+      "title": "Business Type",
+      "spa": "Spa",
+      "medical_spa": "Medical Spa",
+      "dermatology": "Dermatology",
+      "wellness_center": "Wellness Center",
+      "beauty_salon": "Beauty Salon",
+      "other": "Other"
+    }
+  },
+  "skin_concerns": {
+    "fine_lines_and_wrinkles": "Fine Lines \u0026 Wrinkles"
+  },
+  "page_hero": {
+    "breadcrumbs_start": "Hydrafacial /"
+  },
+  "collection": {
+    "handle": "Hydrafacial / Professional / ",
+    "filter": "Filter By:",
+    "sort": "Sort by:",
+    "apply": "Apply",
+    "clear": "Clear",
+    "benefits": "Benefits",
+    "ingredients": "Ingredients",
+    "filter_button": "Filter",
+    "filters": "Filters"
+  },
+  "product_card": {
+    "atb": "Add To Bag"
+  },
+  "defaults": {
+    "cta_label": "CTA Label",
+    "item_description": "Item Description",
+    "item_title": "Item Title",
+    "section_description": "Section Description",
+    "side_by_side_title": "Side by Side Title"
+  },
+  "design": {
+    "gradient": "Gradient"
+  },
+  "layout": {
+    "reverse_cta_arrows": "Reverse CTA Arrows",
+    "show_image_first": "Show Image First",
+    "side_by_side": "Side by Side"
+  },
+  "media": {
+    "icon": "Icon",
+    "image": "Image",
+    "image_desktop": "Image (Desktop)",
+    "image_mobile": "Image (Mobile)",
+    "video_desktop": "Video (Desktop)",
+    "video_mobile": "Video (Mobile)"
+  },
+  "settings_schema": {
+    "general": {
+      "heading": "Heading",
+      "subheading": "Subheading",
+      "title": "Title",
+      "description": "Description",
+      "body": "Body",
+      "text": "Text",
+      "badge_text": "Badge text",
+      "image": "Image",
+      "image_desktop": "Image (Desktop)",
+      "image_mobile": "Image (Mobile)",
+      "background_image_desktop": "Background Image (Desktop)",
+      "background_image_mobile": "Background Image (Mobile)",
+      "video": "Video",
+      "video_desktop": "Video (Desktop)",
+      "video_mobile": "Video (Mobile)",
+      "cta_text": "CTA text",
+      "cta_url": "CTA URL",
+      "cta_button_text": "CTA Button Text",
+      "cta_button_url": "CTA Button URL",
+      "heading_color": "Heading color",
+      "icon": "Icon",
+      "icons": {
+        "check": "Check",
+        "blue-check": "Blue Check"
+      },
+      "position": {
+        "left": "Left",
+        "center": "Center",
+        "right": "Right"
+      },
+      "image_pill": "Image pill",
+      "disclaimer_reference": "Disclaimer reference",
+      "yellow_accent_info": "Use yellow accent color in headings",
+      "blue_info": "Wrap text with <| |> to make color blue.",
+      "blue_yellow_info": "Wrap text with <||> to make text blue/yellow",
+      "caption": "Caption",
+      "eyebrow": "Eyebrow",
+      "cta": "CTA",
+      "cta_label": "CTA Label",
+      "cta_link": "CTA Link",
+      "disclaimer": "Disclaimer",
+      "image_1": "Image 1",
+      "image_2": "Image 2",
+      "image_1_text": "Image 1 Text",
+      "image_2_text": "Image 2 Text",
+      "image_1_caption": "Image 1 Caption",
+      "image_2_caption": "Image 2 Caption",
+      "image_1_desktop": "Image 1 (Desktop)",
+      "image_1_mobile": "Image 1 (Mobile)",
+      "image_2_desktop": "Image 2 (Desktop)",
+      "image_2_mobile": "Image 2 (Mobile)",
+      "url": "URL",
+      "tabs": "Tabs",
+      "comma_separated_values": "Comma-separated values",
+      "use_yellow_accent": "Use Yellow Accent",
+      "mandatory": "Mandatory",
+      "optional": "Optional",
+      "locations": {
+        "left": "Left",
+        "right": "Right",
+        "top": "Top",
+        "middle": "Middle",
+        "bottom": "Bottom",
+        "top_and_bottom": "Top and Bottom",
+        "middle_and_bottom": "Middle and Bottom",
+        "top_left": "Top Left",
+        "top_center": "Top Center",
+        "top_right": "Top Right",
+        "middle_left": "Middle Left",
+        "center": "Center",
+        "middle_right": "Middle Right",
+        "bottom_left": "Bottom Left",
+        "bottom_center": "Bottom Center",
+        "bottom_right": "Bottom Right",
+        "layout": "Layout"
+      },
+      "style": {
+        "label": "Style",
+        "options": {
+          "carousel": "Carousel",
+          "stacked": "Stacked"
+        }
+      }
+    },
+    "sections": {
+      "text_with_cta": {
+        "name": "Text With CTA",
+        "banner_image_desktop": "Banner Image (Desktop)",
+        "banner_image_mobile": "Banner Image (Mobile)",
+        "top_cta_text": "Top CTA Text",
+        "top_cta_url": "Top CTA URL",
+        "bottom_cta_text": "Bottom CTA Text",
+        "bottom_cta_url": "Bottom CTA URL",
+        "wide_button_on_mobile": "Wide Button On Mobile"
+      },
+      "quotes": {
+        "name": "Customer Quotes",
+        "upper_text": "Upper Text",
+        "bottom_text": "Bottom Text",
+        "show_gradient": "Show Gradient",
+        "bring_up_next": "Bring Up Next Section"
+      },
+      "revenue_tracker": {
+        "name": "Revenue Tracker",
+        "card": "Card"
+      },
+      "footer": {
+        "name": "Footer"
+      },
+      "video_with_text": {
+        "name": "Video with Text"
+      },
+      "publication_banner": {
+        "name": "Publication Banner"
+      },
+      "text_with_slider": {
+        "name": "Text with Slider"
+      },
+      "help_center": {
+        "name": "Help Center"
+      },
+      "ugc_video": {
+        "name": "UGC Video",
+        "ugc_content": "UGC Content"
+      },
+      "seven_treatments_in_1_alt": {
+        "name": "7 Treatments In 1",
+        "treatment": "Treatment"
+      },
+      "seven_treatments_in_1": {
+        "name": "7 Treatments In 1",
+        "treatment": "Treatment",
+        "use_gradient": "Use Gradient"
+      },
+      "large_content_cards": {
+        "name": "Large Content Cards",
+        "content_card": "Content Card"
+      },
+      "fullscreen_video_testimonials": {
+        "name": "Fullscreen Video Testimonials",
+        "quote_block": "Quote Block",
+        "video_block": "Video Block"
+      },
+      "video_testimonials": {
+        "name": "Video Testimonials",
+        "quote_block": "Quote Block",
+        "video_block": "Video Block"
+      },
+      "quote_slider": {
+        "name": "Quote Slider",
+        "quote_block": "Quote Block"
+      },
+      "full_page_faq": {
+        "name": "Full Page FAQ",
+        "faq_block": "FAQ Block"
+      },
+      "textblock_slider": {
+        "name": "Text Block Slider",
+        "text_block": "Text Block",
+        "slide_block": "Slide Block"
+      },
+      "article": {
+        "name": "Article",
+        "related_article": "Related Article",
+        "recommended_article": "Recommended Article",
+        "featured_blogs_settings": "Featured Blogs Settings",
+        "stay_up_to_date": "Stay up to date",
+        "connect_text": "Connect text",
+        "find_near_you": "Find near you",
+        "locations_text": "Locations text",
+        "featured_stories": "Featured Stories"
+      },
+      "basic_image_slider": {
+        "name": "Basic Image Slider",
+        "image_block": "Image Block"
+      },
+      "example": {
+        "name": "Example"
+      },
+      "side_by_side": {
+        "name": "Side by Side",
+        "side_by_side_item": "Side by Side Item"
+      },
+      "skin_concern": {
+        "name": "Skin Concern",
+        "slide": "Slide"
+      },
+      "round_carousel": {
+        "name": "Round Carousel",
+        "carousel_image": "Carousel Image",
+        "info_block": "Info Block"
+      },
+      "proven_results_slider": {
+        "name": "Proven Results Slider",
+        "slide": "Slide"
+      },
+      "machine_with_text": {
+        "name": "Machine with Text",
+        "slide": "Slide"
+      },
+      "tabs_with_sliders": {
+        "name": "Tabs with Sliders"
+      },
+      "collection_grid": {
+        "name": "Collection Grid",
+        "disruptor": "Disruptor"
+      },
+      "page_hero": {
+        "name": "Page Hero",
+        "navigation": "Navigation",
+        "icon_and_text": "Icon and Text"
+      },
+      "app_optimization": {
+        "name": "App Optimization",
+        "application": "Application"
+      },
+      "clinicals": {
+        "name": "Clinicals",
+        "slide": "Slide",
+        "tab_header": "Tab Header",
+        "content_box_1": "Content Box 1",
+        "content_box_2": "Content Box 2",
+        "content_box_3": "Content Box 3",
+        "content_box_4": "Content Box 4",
+        "content_box_5": "Content Box 5",
+        "content_box_6": "Content Box 6"
+      },
+      "border_with_gradient": {
+        "name": "Border with Gradient"
+      },
+      "expandable_media_slider": {
+        "name": "Expandable Media Slider",
+        "media_slide": "Media Slide"
+      },
+      "hero": {
+        "name": "Hero",
+        "slide": "Slide"
+      },
+      "boosters": {
+        "name": "Boosters",
+        "textbox": "Textbox"
+      },
+      "content_with_slider": {
+        "name": "Content With Slider",
+        "slide": "Slide"
+      },
+      "vertical_step_slider": {
+        "name": "Vertical Step Slider",
+        "step": "Step"
+      },
+      "image_with_text": {
+        "name": "Image With Text",
+        "image_and_text": "Image and Text"
+      },
+      "storefront_password": {
+        "name": "Storefront Password"
+      },
+      "header": {
+        "name": "Header",
+        "menu_item": "Menu Item",
+        "main_menu": "Main Menu",
+        "main_menu_alt": "Alternative Main Menu",
+        "alt_menu_pages": "Alternative Menu Pages",
+        "comma_separated_handles": "Comma separated page handles (e.g. about-us, contact, services)",
+        "region_menu": "Region Menu",
+        "display_mobile_search": "Display Mobile Search",
+        "nav_menu_image_content": "Nav Menu Image Content",
+        "navigation_link_title_reference": "Navigation Link Title Reference",
+        "navigation_link_title_reference_info": "Must match the title of one of the links in the main menu",
+        "header_cta_buttons": "Header CTA Buttons",
+        "desktop_button_type": "Desktop Button Type",
+        "mobile_button_type": "Mobile Button Type"
+      },
+      "connect_w_sales_form": {
+        "name": "Content W/ Info Form",
+        "form_field": "Form Field",
+        "info_text": "Info Text",
+        "connect_text": "Connect text",
+        "interest_text": "Interest text"
+      },
+      "cards_with_icons": {
+        "name": "Cards with Icons",
+        "card": "Card"
+      },
+      "standalone_slider": {
+        "name": "Standalone Slider",
+        "slide": "Slide"
+      },
+      "page-hero": {
+        "mobile_image_info": "Will default to desktop image if left blank.",
+        "desktop_content_position": "Desktop Content Position",
+        "content_block_type": "Content Block Type",
+        "pills": "Pills",
+        "icons_and_text": "Icons and Text",
+        "navigation_buttons": "Navigation Buttons",
+        "show_navigation": "Show Navigation",
+        "mobile_nav_label": "Mobile navigation label",
+        "nav_item": "Nav Item"
+      },
+      "navigation_for_page_hero": {
+        "navigation_text": "Navigation text",
+        "navigation_link": "Navigation link",
+        "nav_link_info": "Anchor link ID, e.g. #target"
+      },
+      "text_with_slider": {
+        "slider_image": "Slider Image",
+        "image_info": "Image will show unless a video is selected"
+      },
+      "footer": {
+        "footer_links": "Footer Links",
+        "apple_app_store_link": "Apple App Store Link",
+        "google_play_link": "Google Play Link",
+        "copyright_text": "Copyright Text",
+        "contact_phone": "Contact Phone",
+        "contact_email": "Contact Email",
+        "policy_nav_link": "Policy Navigation Link",
+        "policy_nav_text": "Policy Navigation Text",
+        "policy_nav_url": "Policy Navigation URL"
+      },
+      "boosters": {
+        "gradient": {
+          "label": "Gradient",
+          "none": "None",
+          "gray_to_white": "Gray to White",
+          "gray_to_light_gray": "Gray → Light Gray",
+          "white_to_transparent": "White to Transparent"
+        },
+        "desktop_image_layout": "Desktop Image layout",
+        "layout": {
+          "side_by_side": "Side by side",
+          "fullscreen_background": "Fullscreen background with overlay text"
+        },
+        "desktop_image_position": "Desktop Image position",
+        "mobile_image_aspect_ratio": "Mobile Image Aspect Ratio",
+        "mobile_heading_position": "Mobile Heading Position",
+        "use_yellow_accent_text": "Use Yellow Accent Text",
+        "text_size": "Text Size",
+        "text_size_desktop": "Text Size Desktop",
+        "content_box_background": "Content box background",
+        "background": {
+          "white": "White",
+          "transparent": "Transparent",
+          "light_cream": "Light Cream"
+        },
+        "aspect_ratio": {
+          "square": "Square",
+          "portrait": "Portrait"
+        },
+        "position": {
+          "high": "High",
+          "low": "Low"
+        }
+      },
+      "machine_with_text": {
+        "feature_details_1": "Feature/Details 1",
+        "feature_details_2": "Feature/Details 2",
+        "feature_details_3": "Feature/Details 3"
+      },
+      "full_page_faq": {
+        "section_title": "Section Title",
+        "section_description": "Section Description",
+        "faq_item": "FAQ Item"
+      },
+      "featured_blogs": {
+        "name": "Blog",
+        "display_filters": "Display Filters",
+        "filter_title": "Filter Title",
+        "featured_blogs_settings": "Featured Blogs Settings",
+        "featured_article_settings": "Featured Article Settings",
+        "featured_article": "Featured Article",
+        "featured_stories": "Featured Stories",
+        "article": "Article"
+      },
+      "issue_highlight": {
+        "name": "Issue Highlight",
+        "issue_block_name": "Issue",
+        "issue_block_name_label": "Issue"
+      },
+      "mobile_cta_pair": {
+        "name": "Mobile CTA Pair",
+        "cta_block": "CTA Block"
+      },
+      "collection_grid": {
+        "product_card_cta_text": "Product Card CTA Text",
+        "product_card_cta_url": "Product Card CTA URL",
+        "video_overtakes_image": "Video will overtake Image."
+      },
+      "quote_slider": {
+        "heading_max_width": "Use Heading Max Width",
+        "heading_max_width_info": "For desktop, constrains the width of heading and subheading",
+        "testimonials_per_page_desktop": "Testimonials Per Page (Desktop)",
+        "show_card_backgrounds": "Show card backgrounds",
+        "show_gradient": "Show gradient",
+        "quote_block": "Quote/Testimonial",
+        "quote": "Quote",
+        "author": "Author",
+        "author_details": "Author details"
+      },
+      "publication_banner": {
+        "padding_bottom": "Add bottom padding",
+        "image_block_name": "Publication image"
+      },
+      "textblock_slider": {
+        "show__bg_img": "Show Background Image"
+      },
+      "image_with_text": {
+        "first_image_position": "First image position",
+        "first_image_info": "If Right, the first block will place the image to the right."
+      },
+      "faq": {
+        "name": "FAQ's",
+        "question": "Question",
+        "answer": "Answer",
+        "faq_item": "FAQ"
+      },
+      "sections": {
+        "blocks": {
+          "pills_for_tab_slider": {
+            "icon_face_magic": "Face Magic",
+            "sparkle": "Sparkle",
+            "face": "Face",
+            "clock": "Clock"
+          },
+          "boosters": {
+            "textbox": "Textbox"
+          },
+          "publication_banner": {
+            "image_block_name": "Image"
+          },
+          "expandable_media_slider": {
+            "slide_name": "Media Slide",
+            "content_box": "Content Box",
+            "content_box_info": "Leave blank to hide the expandable content box",
+            "icon_text_1_header": "Icon and Text 1",
+            "icon_text_2_header": "Icon and Text 2",
+            "icon_text_3_header": "Icon and Text 3"
+          },
+          "image_left_content_right_with_background": {
+            "image_header": "Images",
+            "image_header_info": "If both images are provided, they will be stitched together side-by-side",
+            "image_caption_info": "Will display at the bottom of the image"
+          },
+          "proven-results-slider": {
+            "pill": "Pill",
+            "content_box": "Content Box",
+            "top_text": "Top Text",
+            "bottom_text": "Bottom Text"
+          }
+        }
+      }
+    }
+  }
+}

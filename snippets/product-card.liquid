@@ -1,0 +1,122 @@
+<div class="relative flex flex-col gap-4">
+  <div class="relative rounded-[20px] overflow-hidden">
+    {% render 'responsive-image', 
+      image: product.featured_image, 
+      class: 'lg:hidden', 
+      cover: true,
+      pb_hack: "109.09%"
+    %}
+    {% render 'responsive-image', 
+      image: product.featured_image, 
+      class: 'hidden lg:block', 
+      cover: true,
+      pb_hack: "106.45%"
+    %}
+    {% if product.metafields.custom.product_card_tags %}
+      <div class="absolute top-0 left-0 flex justify-start p-3 lg:p-[15px] gap-[10px] w-full h-full">
+        {% for tag in product.metafields.custom.product_card_tags.value %}
+          <span class="py-[3px] px-3 text-blue-cta bg-white text-[10px]/[14px] lg:text-[12px]/[16px] font-medium tracking-[-0.2px] text-center rounded-[110px] overflow-hidden h-min{% unless forloop.first %} hidden lg:block{% endunless %}">
+            {{ tag }}
+          </span>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+  <div class="flex flex-col justify-between gap-y-1">
+    <span class="text-caption-small/4 font-medium tracking-[-0.2px]">{{ product.type }} | {{ product.vendor }}</span>
+    <h3 class="text-[18px]/[25px] lg:text-[28px]/[32px] font-light {% unless settings.remove_capitalize %}capitalize{% endunless %} tracking-[-0.036px] lg:tracking-[-0.056px] col-start-1 row-start-1">
+      {{ product.title }}{% if product.metafields.custom.trademarked %}<span>&#8482;</span><span>&trade;</span>{% endif %}
+    </h3>
+    {% unless product.price == 0 %}
+      <div class="flex gap-3 col-start-1 row-start-2">
+        <span class="text-[14px]/[18px] font-medium tracking-[-0.2px] opacity-50 line-through">
+          {{ product.compare_at_price | money }}
+        </span>
+        <span class="text-[14px]/[18px] font-medium tracking-[-0.2px]">
+          {{ product.price | money }}
+        </span>
+      </div>
+    {% endunless %}
+    <div class="text-[12px]/[16px] font-light tracking-[0.024px] col-start-1 row-start-4">
+      <h3 class="text-caption-small/4 tracking-[-0.024px]">{{ product.metafields.custom.description.value["text"] }}</h3>
+    </div>
+  </div>
+
+  <label class="absolute inset-0 w-full h-full" for="toggle-modal-{{ product.handle }}-{{ index }}"></label>
+    <input data-product-modal-trigger type="checkbox" class="hidden peer" id="toggle-modal-{{ product.handle }}-{{ index }}" data-scroll-lock />
+  {% comment %} input above is checked for testing {% endcomment %}
+  <div class="fixed inset-0 w-screen h-screen pointer-events-none opacity-0 peer-checked:pointer-events-auto peer-checked:opacity-100 transition-all z-[100]">
+    <div class="w-full h-full relative">
+      <label class="hidden lg:block absolute inset-0 w-full h-full bg-[#0000008c] backdrop-blur-[10px] z-[1]" for="toggle-modal-{{ product.handle }}-{{ index }}"></label>
+
+      <div class="product-modal absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[2] bg-white lg:rounded-image w-screen h-[100dvh] lg:w-[615px] lg:max-h-[73vh] overflow-scroll no-scrollbar">
+        <div class="relative flex flex-col gap-6">
+          <label for="toggle-modal-{{ product.handle }}-{{ index }}" class="absolute top-4 right-4 z-[2] h-[30px] w-[30px] cursor-pointer rounded-full bg-[#ffffff59] backdrop-blur-[17.5px]">
+            {% render 'icons', icon: 'x', class: "[&_svg]:h-[15px] [&_svg]:w-[15px] [&_svg]:translate-x-2 [&_svg]:translate-y-[7px] [&_svg]:text-black" %}
+          </label>
+
+          {% render 'responsive-image',
+            image: product.featured_image,
+            pb_hack: "58.54%",
+            cover: true
+          %}
+          <div class="flex flex-col px-[18px] pb-10">
+            <div class="flex flex-col gap-10 pb-5">
+              <div class="flex flex-col gap-1.5">
+                <span class="text-caption-small/4 font-medium tracking-[-0.2px]">{{ product.type }} | {{ product.vendor }}</span>
+                <h5 class="text-section-1/8 font-light {% unless settings.remove_capitalize %}capitalize{% endunless %} tracking-[-0.056px]">{{ product.title }}</h5>
+              </div>
+              <ul class="flex gap-2.5">
+                {% for tag in product.metafields.custom.product_card_tags.value %}
+                <span class="py-[3px] px-3 text-blue-cta bg-soft-blue text-[12px]/[16px] font-medium tracking-[-0.2px] text-center rounded-[110px] overflow-hidden h-min{% unless forloop.first %} hidden lg:block{% endunless %}">
+                  {{ tag }}
+                </span>
+              {% endfor %}
+              </ul>
+            </div>
+
+            <div class="flex flex-col items-start pt-[30px] border-t-[1px] border-t-grey-medium">
+              <span class="text-body-small/[18px] font-medium tracking-[-0.2px] pb-1.5">{{ 'collection.benefits' | t }}</span>
+              <ul class="flex flex-col gap-1.5 pb-5">
+                {%- liquid
+                  assign benefits_string = product.metafields.custom.benefits.value["list_item"]
+                  assign cleaned_benefits = benefits_string | remove: '[' | remove: ']' | remove: '"'
+                  assign benefits_list = cleaned_benefits | split: ','
+
+                  assign ingredients = product.metafields.custom.ingredients.value.list_items.value
+                  
+                -%}
+
+                {%- for benefit in benefits_list -%}
+                  <li class="flex items-start gap-2.5">
+                    {% render 'icons', icon: 'circle', class: "[&_svg]:w-2 [&_svg]:h-2 pt-[4.5px]" %}
+                    <h3 class="text-body/[23px] font-light tracking-[-0.032px] {% unless settings.remove_capitalize %}capitalize{% endunless %}">
+                      {{ benefit | strip }}
+                    </h3>
+                  </li>
+                {%- endfor -%}
+              </ul>
+
+              {% if ingredients != blank %}
+                <span class="text-body-small/[18px] font-medium tracking-[-0.2px] pb-2">{{ 'collection.ingredients' | t }}</span>
+                <ul class="ingredients-list flex flex-col gap-1.5 justify-start">
+                  {% for i in ingredients %}
+                    <div class="flex items-start gap-2.5">
+                      {% render 'icons', icon: 'circle', class: "[&_svg]:w-2 [&_svg]:h-2 pt-[4.5px]" %}
+                      <div class="flex flex-col">
+                        <h5 class="text-body-small/[18px] font-medium tracking-[-0.2px]">{{ i.title }}</h5>
+                        <p class="text-body/[23px] font-light tracking-[-0.032px]">{{ i.description }}</p>
+                      </div>
+                    </div>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+
+              <a href="{{ section.settings.prod_card_cta_url }}" class="button-primary-blue {% if settings.remove_capitalize %}!normal-case{% endif %} mt-[30px] px-[30px]">{{ section.settings.prod_card_cta_text }}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

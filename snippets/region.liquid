@@ -1,0 +1,31 @@
+{%- liquid
+  assign region_handle = ''
+
+  if context == 'mobile-menu'
+    assign flag_class = 'ml-6'
+    assign li_class = 'text-[14px]/[1.2] tracking-[-0.028px] active:bg-soft-blue active:text-blue-cta flex items-center gap-6'
+    assign a_class = 'flex w-5/6 py-2'
+  else
+    assign flag_class = 'ml-3'
+    assign li_class = 'text-black text-body-small/[1.2] tracking-[-0.028px] hover:bg-soft-blue hover:text-blue-cta flex items-center gap-3'
+    assign a_class = 'flex w-full py-2'
+  endif
+  
+  assign region_handle = region.title | handleize 
+  if region_handle == 'emea' or region_handle == 'mena' or region_handle == 'us-canada'
+    assign region_handle = 'hf-logo'
+    assign flag_class = flag_class | append: ' h-[15px] w-[21px]'
+  endif
+-%}
+
+<li class="{{ li_class }}{% unless settings.remove_capitalize %}capitalize{% endunless %}">
+  {% render 'country-flags', flag: region_handle, class: flag_class, unique_id: context %}
+  <a class="{{ a_class }} {{ region_handle }}" href="{{ region.url }}">{{ region.title }}</a>
+  {%- if context == 'mobile-menu' -%}
+    {% if forloop.first %}
+      <label for="regions-menu-toggle" class="absolute z-10 flex justify-end right-3 top-2 w-10">
+        {% render 'icons', icon: 'x', class: "[&_svg]:w-3" %}
+      </label>
+    {% endif %}
+  {%- endif -%}
+</li>

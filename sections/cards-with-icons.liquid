@@ -1,0 +1,130 @@
+{%- assign s = section.settings -%}
+
+<div 
+  id="cards-with-icons-{{ s.id_number }}"
+  class="flex flex-col items-center gap-[60px] pt-10 lg:pt-[60px] mt-[30px]"
+>
+  <h2 class="text-center text-h1-mob/[50px] lg:text-h2/[70px] {% unless settings.remove_capitalize %}capitalize{% endunless %} tracking-[-0.09px] lg:tracking-[-0.13px] px-[18px] lg:max-w-[810px]">
+    {% if s.text_yellow %}
+      {% render 'yellow', text: s.heading %}
+      {% comment %} TODO get yellow color from tailwind config from feature/image-and-textbox {% endcomment %}
+    {% else %}
+      {% render 'blue', text: s.heading %}
+    {% endif %}
+  </h2>
+
+  
+  {%- capture slider_options %}
+    '{
+      "perPage": 1,
+      "pagination": false,
+      "arrows": false,
+      "type": "loop",
+      "gap": "22px",
+      "padding": {"left": "18px", "right": "100px"},
+      "mediaQuery": "min",
+      "breakpoints": {
+        "1024": {
+          "perPage": 3,
+          "width": "1016px",
+          "padding": {"left": "21px", "right": "21px"}
+        }
+      }
+    }'
+  {% endcapture -%}
+
+  <div class="splide max-w-screen" data-slider={{ slider_options }}>
+    <div class="splide__track">
+      <ul class="splide__list">
+        {% for block in section.blocks %}
+          {% assign b = block.settings %}
+          <li class="splide__slide max-lg:max-w-[252px]">
+            <div class="flex flex-col items-center gap-3 p-[25px] rounded-image bg-white h-full">
+              {% render 'icons', icon: b.icon %}
+
+              <div class="flex flex-col gap-1.5 items-center">
+                <h4 class="text-center text-h3-mob/10 font-light {% unless settings.remove_capitalize %}capitalize{% endunless %} tracking-[-0.07px]">{{ b.title }}</h4>
+                <p class="text-center text-section-1-mob/[25px] lg:text-section-3/7 font-light tracking-[-0.036px] lg:tracking-[-0.042px]">{{ b.description }}</p>
+              </div>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+  <hr class="lg:hidden h-[1px] w-full mx-[18px] text-grey-medium" />
+</div>
+
+{% schema %}
+{
+  "name": "t:settings_schema.sections.cards_with_icons.name",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:settings_schema.general.heading",
+      "info": "t:settings_schema.general.blue_info"
+    },
+    {
+      "type": "checkbox",
+      "id": "text_yellow",
+      "label": "t:settings_schema.general.use_yellow_accent",
+      "info": "t:settings_schema.general.yellow_accent_info"
+    },
+    {
+      "type": "header",
+      "content": "Unique Section ID"
+    },
+    {
+      "type": "paragraph",
+      "content": "The ID for this section will be 'cards-with-icons-#' based on the number chosen below. The default is 'cards-with-icons-1'"
+    },
+    {
+      "type": "range",
+      "id": "id_number",
+      "label": "ID Number",
+      "max": 5,
+      "min": 1,
+      "step": 1,
+      "default": 1,
+      "info": "If using this section multiple times on the same page, assign a different number to each one."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "t:settings_schema.sections.cards_with_icons.card",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "t:settings_schema.media.icon",
+          "default": "purify",
+          "options": [
+            { "value": "purify", "label": "t:settings_schema.sections.cards_with_icons.icon_purify" },
+            { "value": "nourish", "label": "t:settings_schema.sections.cards_with_icons.icon_nourish" },
+            { "value": "boost", "label": "t:settings_schema.sections.cards_with_icons.icon_boost" }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "t:settings_schema.general.title"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "t:settings_schema.general.description"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:settings_schema.sections.cards_with_icons.name"
+    }
+  ]
+}
+{% endschema %}

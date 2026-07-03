@@ -1,0 +1,236 @@
+{%- assign s = section.settings -%}
+
+<div 
+  id="side-by-side-{{ s.id_number }}"
+  class="w-full max-w-screen lg:max-w-maxscreen px-4 lg:px-12 pt-20 lg:pt-[110px]"
+>
+  <h1 class="text-h4 font-light">{{ s.title }}</h1>
+  <p class="font-light">{{ s.description }}</p>
+
+  <ul class="mt-8 lg:mt-16">
+    {% for block in section.blocks %}
+      {%- assign b = block.settings -%}
+      
+      <li class="pb-12 mb-12 border-b border-dark-grey">
+        <div class="flex flex-col gap-4 lg:grid {% if b.image %}{% if b.image_first %}lg:grid-cols-[8fr_10fr]{% else %}lg:grid-cols-[10fr_8fr]{% endif %}{% else %}grid-cols-2{% endif %}">
+          {% if b.image != blank %}
+            {% render 'responsive-image', image: b.image, class: "rounded-image overflow-hidden", cover: true %}
+          {% endif %}
+
+          {%- if b.image != blank %}
+            <div class="order-last {% unless b.image_first %}lg:order-first{% endunless %}">
+          {% endif %}
+
+            <div class="bg-grey rounded-image p-8 lg:p-12 font-light lg:text-section-3 h-full flex flex-col">
+              <h2 class="text-h3-mob/[100%] mb-4">{{ b.title_1 }}</h2>
+              <div class="flex-grow side-by-side-rt [&>*:not(:last-child)]:mb-2">
+                {%- liquid
+                  assign open = '<span class="text-section-1/[32px]">'
+                  assign close = '</span>'
+                -%}
+
+                {{ b.description_1
+                  | replace: "<h1>", open
+                  | replace: "<h2>", open
+                  | replace: "<h3>", open
+                  | replace: "<h4>", open
+                  | replace: "<h5>", open
+                  | replace: "<h6>", open
+                  | replace: "</h1>", close
+                  | replace: "</h2>", close
+                  | replace: "</h3>", close
+                  | replace: "</h4>", close
+                  | replace: "</h5>", close
+                  | replace: "</h6>", close
+                }}
+              </div>
+
+              {% if b.cta_label_1 and b.cta_link_1 %}
+                <div class="mt-12">
+                  <a href="{{ b.cta_link_1 }}" class="button-primary-black {% if settings.remove_capitalize %}!normal-case{% endif %}">
+                    {{ b.cta_label_1 }}
+                  </a>
+                </div>
+              {% endif %}
+            </div>
+
+            {% if b.image == blank %}
+              <div class="rounded-image p-8 lg:p-12 font-light lg:text-section-3 h-full flex flex-col">
+                <h2 class="text-h3-mob/[100%] mb-4">{{ b.title_2 }}</h2>
+                <div class="flex-grow side-by-side-rt [&>*:not(:last-child)]:mb-2">
+                  {%- liquid
+                    assign open = '<span class="text-section-1/[32px]">'
+                    assign close = '</span>'
+                  -%}
+
+                  {{ b.description_2
+                    | replace: "<h1>", open
+                    | replace: "<h2>", open
+                    | replace: "<h3>", open
+                    | replace: "<h4>", open
+                    | replace: "<h5>", open
+                    | replace: "<h6>", open
+                    | replace: "</h1>", close
+                    | replace: "</h2>", close
+                    | replace: "</h3>", close
+                    | replace: "</h4>", close
+                    | replace: "</h5>", close
+                    | replace: "</h6>", close
+                  }}
+                </div>
+
+                {% if b.cta_label_2 and b.cta_link_2 %}
+                  <div class="mt-12">
+                    <a href="{{ b.cta_link_2 }}" class="inline-block bg-primary text-white px-6 py-3 rounded hover:bg-primary-dark transition-colors">
+                      {{ b.cta_label_2 }}
+                    </a>
+                  </div>
+                {% endif %}
+              </div>
+            {% endif %}
+
+          {% if b.image != blank %}
+            </div>
+          {% endif %}
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
+<div>
+
+{% schema %}
+{
+  "name": "t:settings_schema.sections.side_by_side.name",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "t:settings_schema.general.title",
+      "default": "t:settings_schema.defaults.side_by_side_title"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "t:settings_schema.general.description",
+      "default": "t:settings_schema.defaults.section_description"
+    },
+    {
+      "type": "header",
+      "content": "Unique Section ID"
+    },
+    {
+      "type": "paragraph",
+      "content": "The ID for this section will be 'side-by-side-#' based on the number chosen below. The default is 'side-by-side-1'"
+    },
+    {
+      "type": "range",
+      "id": "id_number",
+      "label": "ID Number",
+      "max": 5,
+      "min": 1,
+      "step": 1,
+      "default": 1,
+      "info": "If using this section multiple times on the same page, assign a different number to each one."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "t:settings_schema.sections.side_by_side.side_by_side_item",
+      "settings": [
+        {
+          "type": "header",
+          "content": "t:settings_schema.sections.side_by_side.content_card_1",
+          "info": "t:settings_schema.general.mandatory"
+        },
+        {
+          "type": "text",
+          "id": "title_1",
+          "label": "t:settings_schema.general.title",
+          "default": "t:settings_schema.defaults.item_title"
+        },
+        {
+          "type": "richtext",
+          "id": "description_1",
+          "label": "t:settings_schema.general.description",
+          "default": "t:settings_schema.defaults.item_description"
+        },
+        {
+          "type": "header",
+          "content": "t:settings_schema.general.cta"
+        },
+        {
+          "type": "text",
+          "id": "cta_label_1",
+          "label": "t:settings_schema.general.cta_label",
+          "default": "t:settings_schema.defaults.cta_label"
+        },
+        {
+          "type": "url",
+          "id": "cta_link_1",
+          "label": "t:settings_schema.general.cta_link"
+        },
+        {
+          "type": "header",
+          "content": "t:settings_schema.sections.side_by_side.content_card_2",
+          "info": "t:settings_schema.general.optional"
+        },
+        {
+          "type": "text",
+          "id": "title_2",
+          "label": "t:settings_schema.general.title",
+          "default": "t:settings_schema.defaults.item_title"
+        },
+        {
+          "type": "richtext",
+          "id": "description_2",
+          "label": "t:settings_schema.general.description",
+          "default": "t:settings_schema.defaults.item_description"
+        },
+        {
+          "type": "header",
+          "content": "t:settings_schema.media.image",
+          "info": "t:settings_schema.sections.side_by_side.image_optional_info"
+        },
+        {
+          "type": "header",
+          "content": "t:settings_schema.sections.side_by_side.cta_header"
+        },
+        {
+          "type": "text",
+          "id": "cta_label_2",
+          "label": "t:settings_schema.general.cta_label",
+          "default": "t:settings_schema.defaults.cta_label"
+        },
+        {
+          "type": "url",
+          "id": "cta_link_2",
+          "label": "t:settings_schema.general.cta_link"
+        },
+        {
+          "type": "header",
+          "content": "t:settings_schema.media.image"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:settings_schema.media.image"
+        },
+        {
+          "type": "checkbox",
+          "id": "image_first",
+          "label": "t:settings_schema.layout.show_image_first",
+          "info": "t:settings_schema.sections.side_by_side.image_position_info",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:settings_schema.sections.side_by_side.name"
+    }
+  ]
+}
+{% endschema %}

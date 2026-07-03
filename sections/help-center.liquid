@@ -1,0 +1,98 @@
+{%- assign s = section.settings -%}
+
+<div 
+  id="help-center-{{ s.id_number }}"
+  class="relative lg:mt-2.5 max-lg:transparent-greige-gradient"
+>
+  <div class="relative z-[2] flex flex-col max-lg:justify-between lg:gap-20 w-full h-full pt-10 pb-[60px] px-[18px] lg:px-[97px] lg:py-[90px]">
+    <h2 class="text-h1-mob/[50px] lg:text-h2/[70px] text-white {% unless settings.remove_capitalize %}capitalize{% endunless %} tracking-[-0.09px] lg:tracking-[-0.13px] mx-auto lg:max-w-[810px] text-center">{% render 'blue', text: s.heading %}</h2>
+    <div class="w-full h-[517px] lg:hidden"></div>
+    <ul class="flex flex-col items-start gap-[22px]">
+      {% for block in section.blocks %}
+        {% assign b = block.settings %}
+        <li class="flex flex-col items-start gap-1 py-4 px-5 bg-[#ffffff59] backdrop-blur-[17.5px] rounded-image lg:w-[414px]">
+          <h3 class="text-h3-mob/10 font-light {% unless settings.remove_capitalize %}capitalize{% endunless %} tracking-[-0.07px] text-blue-cta">{{ b.heading }}</h3>
+          <span class="text-section-3/7 font-light tracking-[-0.42px] [&_.blue-text]:font-normal">
+            {% render 'blue', text: b.body %}
+            <span class="align-super text-[9px]/3 text-blue-cta font-normal">{{ b.disclaimer_reference }}</span>
+          </span>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  {% render 'responsive-image', image: s.desktop_image, class: "hidden lg:block inset-0 w-full h-full z-[1] rounded-t-header-menu", absolute: true, cover: true %}
+  {% render 'responsive-image', image: s.mobile_image, class: "lg:hidden !h-[79%] inset-0 w-full h-full z-[1] rounded-t-header-menu", absolute: true, cover: true %}
+</div>
+
+{% schema %}
+{
+  "name": "t:settings_schema.sections.help_center.name",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "desktop_image",
+      "label": "t:settings_schema.general.background_image_desktop"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "t:settings_schema.general.background_image_mobile"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:settings_schema.general.heading",
+      "info": "t:settings_schema.general.blue_info"
+    },
+    {
+      "type": "header",
+      "content": "Unique Section ID"
+    },
+    {
+      "type": "paragraph",
+      "content": "The ID for this section will be 'help-center-#' based on the number chosen below. The default is 'help-center-1'"
+    },
+    {
+      "type": "range",
+      "id": "id_number",
+      "label": "ID Number",
+      "max": 5,
+      "min": 1,
+      "step": 1,
+      "default": 1,
+      "info": "If using this section multiple times on the same page, assign a different number to each one."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "textbox",
+      "name": "t:settings_schema.general.components.textbox",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "t:settings_schema.general.heading"
+        },
+        {
+          "type": "text",
+          "id": "body",
+          "label": "t:settings_schema.general.body"
+        },
+        {
+          "type": "text",
+          "id": "disclaimer_reference",
+          "label": "t:settings_schema.general.disclaimer_reference"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "t:settings_schema.sections.help_center.name"
+    }
+  ]
+}
+{% endschema %}

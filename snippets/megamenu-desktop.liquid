@@ -1,0 +1,69 @@
+{%-liquid
+  assign s = section.settings
+  # compare block reference text to parent link text to match image block to correct dropdown menu
+  assign content_block = null
+  assign nav_title = parent_link.title | downcase | strip
+
+  for block in section.blocks
+    if block.type == 'nav_menu_img_content' 
+      assign reference = block.settings.link_title_ref | downcase | strip
+      if reference == nav_title
+        assign content_block = block
+        break
+      endif
+    endif
+  endfor
+
+  assign b = content_block.settings
+-%}
+
+<div class="absolute left-0 top-full grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-all w-full">
+  <div class="overflow-hidden bg-white rounded-b-header-menu shadow-custom-large">
+    <div class="grid grid-cols-[70%_30%] p-[38px]">
+      <div class="grid grid-rows-2">
+        <div class="flex flex-col gap-[22px] row-span-1">
+          <h3 class="text-blue-cta text-[16px]/[23px] font-medium tracking-[-0.032px]">{{ parent_link.title }}</h3>
+          <ul class="grid grid-cols-3 gap-y-[22px]">
+            {% for link in menu %}
+              <li class="text-black text-[21px]/[28px] font-light tracking-[-0.042px] hover:underline underline-offset-[6px]">
+                <a 
+                  href="{{ link.url }}"
+                  aria-label="Learn more about{{ link.url | replace: '/pages/', ' ' | replace: '-', ' ' }}"
+                >
+                  {{ link.title }}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="row-span-1 flex items-end">
+          <a href="{{ parent_link.url }}" class="button-primary-black {% if settings.remove_capitalize %}!normal-case{% endif %} w-[174px]">
+            <span class="tracking-[-0.028px]">{{ 'menus.CTA_see_all' | t }}</span>
+          </a>
+        </div>
+      </div>
+      <div class="relative">
+        {% for block in section.blocks %}
+          {{ block.type }}
+        {% endfor %}
+        {{ content_block }}
+        {{ block.settings.link_title_ref | downcase }}
+        {% if b.image != blank %}
+          {% render 'responsive-image', image: b.image, pb_hack: "60%", class: "rounded-image max-[1444px]:hidden"%}
+          {% render 'responsive-image', image: b.image, pb_hack: "86%", class: "rounded-image hidden max-[1444px]:block" %}
+        {% endif %}
+        <div class="absolute bottom-5 left-5 grid grid-cols-2 items-end w-full font-primary">
+          <div class="flex flex-col gap-[22px]">
+            <span class="{% unless settings.remove_capitalize %}capitalize{% endunless %} text-[28px]/[32px] tracking-[-0.056px] font-light">{% render 'blue', text: b.title %}</span>
+            <div class="text-[12px]/[16px] tracking-[-0.2px]">{% render 'blue', text: b.description %}</div>
+          </div>
+          <div class="mb-3 max-[1111px]:pr-6 pr-10 text-end">
+            {% if b.button_text and b.button_url %}
+              <a href="{{ b.button_url }}" class="button-primary-white {% if settings.remove_capitalize %}!normal-case{% endif %}">{{ b.button_text }}</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

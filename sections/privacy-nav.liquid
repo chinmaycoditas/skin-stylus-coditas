@@ -1,0 +1,387 @@
+{%- assign s = section.settings -%}
+
+<div 
+  id="privacy-nav-{{ s.id_number }}"
+  class="w-screen max-w-maxscreen mx-auto mt-[80px] lg:mt-[100px] py-4 mb-4 lg:mb-0 px-6 flex flex-col lg:flex-row justify-center lg:justify-between items-center gap-4 overflow-visible">
+  <a class="text-blue-cta hover:underline" href="{{ page.metafields.custom.privacy_connected_url }}">
+    {{ page.metafields.custom.privacy_connected_label }}
+  </a>
+  
+  {% unless request.path contains 'request-form' or request.host != 'www.hydrafacial.com' %}
+    <div class="flex items-center gap-4">
+      <span>{{ 'general.language' | t }} :</span>
+      <div class="relative">
+        <label class="flex items-center cursor-pointer">
+          <input id="language-dropdown" type="checkbox" class="peer hidden" data-close-on-scroll />
+          
+          <label for="language-dropdown" class="
+            flex items-center justify-between gap-2 
+            px-4 py-2 
+            border border-gray-300 rounded 
+            bg-white hover:bg-gray-50 
+            min-w-[120px]
+            peer-checked:bg-gray-50
+            peer-checked:border-blue-500
+          ">
+            {% for block in section.blocks %}
+              {%- liquid
+                assign b = block.settings 
+
+                assign handle = b.url | split: ".com/pages/" | last | split: '?' | first | split: '/' | first
+                assign page_object = pages[handle]
+
+                if page_object.url == page.url
+                  assign page_match_found = true
+                endif
+              -%}
+
+              {% if page_match_found %}
+                <span>{{ b.language_name }}</span>
+                <svg class="w-4 h-4 transition-transform peer-checked:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+
+                {%- break -%}
+              {% endif %}
+            {% endfor %}
+          </label>
+          
+          <!-- Dropdown Menu -->
+          <div class="
+            absolute top-full right-0 mt-1 
+            w-48 max-h-64 overflow-y-auto
+            bg-white border border-gray-300 rounded shadow-lg
+            opacity-0 invisible peer-checked:opacity-100 peer-checked:visible
+            transition-all duration-200 ease-in-out
+            z-50
+          ">
+            {% for block in section.blocks %}
+              {% assign b = block.settings %}
+              {% if b.language_code and b.language_name %}
+                <a 
+                  href="{{ b.url | default: '#' }}" 
+                  class="
+                    block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-gray-900
+                    transition-colors duration-150
+                    {% if b.language_code == s.current_language_code %}bg-blue-50 text-blue-700{% endif %}
+                  "
+                  role="button"
+                  tabindex="0"
+                  data-language="{{ b.language_code }}"
+                  {% if b.language_code == s.current_language_code %}aria-selected="true"{% else %}aria-selected="false"{% endif %}
+                >
+                  {{ b.language_name }}
+                </a>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </label>
+      </div>
+    </div>
+  {% endunless %}
+</div>
+
+{% schema %}
+{
+  "name": "t:settings_schema.sections.privacy_nav.name",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "current_language",
+      "label": "t:settings_schema.sections.privacy_nav.current_language_display",
+      "default": "English"
+    },
+    {
+      "type": "text", 
+      "id": "current_language_code",
+      "label": "t:settings_schema.sections.privacy_nav.current_language_code",
+      "default": "en",
+      "info": "t:settings_schema.sections.privacy_nav.current_language_code_info"
+    },
+    {
+      "type": "header",
+      "content": "Unique Section ID"
+    },
+    {
+      "type": "paragraph",
+      "content": "The ID for this section will be 'privacy-nav-#' based on the number chosen below. The default is 'privacy-nav-1'"
+    },
+    {
+      "type": "range",
+      "id": "id_number",
+      "label": "ID Number",
+      "max": 5,
+      "min": 1,
+      "step": 1,
+      "default": 1,
+      "info": "If using this section multiple times on the same page, assign a different number to each one."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "language",
+      "name": "t:settings_schema.sections.privacy_nav.language_block",
+      "settings": [
+        {
+          "type": "text",
+          "id": "language_code",
+          "label": "t:settings_schema.sections.privacy_nav.language_code",
+          "info": "t:settings_schema.sections.privacy_nav.language_code_info"
+        },
+        {
+          "type": "text",
+          "id": "language_name", 
+          "label": "t:settings_schema.sections.privacy_nav.language_name",
+          "info": "t:settings_schema.sections.privacy_nav.language_name_info"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "t:settings_schema.sections.privacy_nav.url",
+          "info": "t:settings_schema.sections.privacy_nav.url_info"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:settings_schema.sections.privacy_nav.name",
+      "blocks": [
+        {
+          "type": "language",
+          "settings": {
+            "language_code": "en",
+            "language_name": "English",
+            "url": "/"
+          }
+        },
+        {
+          "type": "language",
+          "settings": {
+            "language_code": "fr",
+            "language_name": "Français",
+            "url": "/fr"
+          }
+        },
+        {
+          "type": "language",
+          "settings": {
+            "language_code": "de", 
+            "language_name": "Deutsch",
+            "url": "/de"
+          }
+        },
+        {
+          "type": "language",
+          "settings": {
+            "language_code": "es",
+            "language_name": "Español", 
+            "url": "/es"
+          }
+        },
+        {
+          "type": "language",
+          "settings": {
+            "language_code": "ja",
+            "language_name": "日本語",
+            "url": "/ja"
+          }
+        },
+        {
+          "type": "language",
+          "settings": {
+            "language_code": "pt",
+            "language_name": "Português",
+            "url": "/pt"
+          }
+        },
+        {
+          "type": "language",
+          "settings": {
+            "language_code": "zh-CN",
+            "language_name": "中文 (简体)",
+            "url": "/zh-cn"
+          }
+        },
+        {
+          "type": "language",
+          "settings": {
+            "language_code": "zh-TW",
+            "language_name": "中文 (繁體)",
+            "url": "/zh-tw"
+          }
+        },
+        {
+          "type": "language",
+          "settings": {
+            "language_code": "it",
+            "language_name": "Italiano",
+            "url": "/it"
+          }
+        },
+        {
+          "type": "language",
+          "settings": {
+            "language_code": "ar",
+            "language_name": "عربي",
+            "url": "/ar"
+          }
+        },
+        {
+          "type": "language",
+          "settings": {
+            "language_code": "bg",
+            "language_name": "български",
+            "url": "/bg"
+          }
+        },
+        {
+          "type": "language",
+          "settings": {
+            "language_code": "hr",
+            "language_name": "Hrvatski",
+            "url": "/hr"
+          }
+        },
+        {
+          "type": "language",
+          "settings": {
+            "language_code": "cs",
+            "language_name": "čeština",
+            "url": "/cs"
+          }
+        },
+        {
+          "type": "language",
+          "settings": {
+            "language_code": "da",
+            "language_name": "dansk",
+            "url": "/da"
+          }
+        },
+        {
+          "type": "language",
+          "settings": {
+            "language_code": "nl",
+            "language_name": "Nederlands",
+            "url": "/nl"
+          }
+        },
+        {
+          "type": "language",
+          "settings": {
+            "language_code": "et",
+            "language_name": "eesti keel",
+            "url": "/et"
+          }
+        },
+        {
+          "type": "language",
+          "settings": {
+            "language_code": "fi",
+            "language_name": "Suomalainen",
+            "url": "/fi"
+          }
+        },
+        {
+          "type": "language",
+          "settings": {
+            "language_code": "el",
+            "language_name": "Ελληνικά",
+            "url": "/el"
+          }
+        },
+        {
+          "type": "language",
+          "settings": {
+            "language_code": "hu",
+            "language_name": "Magyar",
+            "url": "/hu"
+          }
+        },
+        {
+          "type": "language",
+          "settings": {
+            "language_code": "lv",
+            "language_name": "latviski",
+            "url": "/lv"
+          }
+        },
+        {
+          "type": "language",
+          "settings": {
+            "language_code": "lt",
+            "language_name": "lietuvių",
+            "url": "/lt"
+          }
+        },
+        {
+          "type": "language",
+          "settings": {
+            "language_code": "no",
+            "language_name": "norsk",
+            "url": "/no"
+          }
+        },
+        {
+          "type": "language",
+          "settings": {
+            "language_code": "pl",
+            "language_name": "Polski",
+            "url": "/pl"
+          }
+        },
+        {
+          "type": "language",
+          "settings": {
+            "language_code": "ro",
+            "language_name": "Română",
+            "url": "/ro"
+          }
+        },
+        {
+          "type": "language",
+          "settings": {
+            "language_code": "ru",
+            "language_name": "Русский",
+            "url": "/ru"
+          }
+        },
+        {
+          "type": "language",
+          "settings": {
+            "language_code": "sk",
+            "language_name": "slovenský",
+            "url": "/sk"
+          }
+        },
+        {
+          "type": "language",
+          "settings": {
+            "language_code": "sl",
+            "language_name": "Slovenščina",
+            "url": "/sl"
+          }
+        },
+        {
+          "type": "language",
+          "settings": {
+            "language_code": "sv",
+            "language_name": "svenska",
+            "url": "/sv"
+          }
+        },
+        {
+          "type": "language",
+          "settings": {
+            "language_code": "uk",
+            "language_name": "українська",
+            "url": "/uk"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

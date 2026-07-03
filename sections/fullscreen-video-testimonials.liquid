@@ -1,0 +1,194 @@
+{%- assign s = section.settings -%}
+
+<div 
+  id="fullscreen-video-{{ s.id_number }}"
+  class="relative flex flex-col pt-[26px] lg:pt-[60px] lg:pb-0 {% if section.blocks.size > 1 %}gap-3 pb-20{% else %}pb-[26px]{% endif %}"
+>
+  {%- capture slider_options %}
+    '{
+      "perPage": 2,
+      "pagination": false,
+      "arrows": true,
+      "changeOnClick": true,
+      "type": "loop",
+      "start": 1,
+      "gap": "11px",
+      "padding": {"right": "100px"},
+      "mediaQuery": "min",
+      "breakpoints": {
+        "1024": {
+          "gap": "22px",
+          "padding": {"left": "21px", "right": "60px"}
+        }
+      }
+    }'
+  {% endcapture -%}
+
+  {%- capture connected_slider_options %}
+    '{
+      "perPage": 1,
+      "type": "fade",
+      "arrows": false,
+      "pagination": false,
+      "gap": "19px",
+      "padding": {"left": "18px", "right": "18px"},
+      "mediaQuery": "min",
+      "breakpoints": {
+        "1024": {
+          "padding": "38px"
+        }
+      }
+    }'
+  {% endcapture -%}
+
+  <div class="splide" data-connected-slider={{ connected_slider_options }} data-is-navigation>
+    <div class="splide__track">
+      <ul class="splide__list">
+        {% for block in section.blocks %}
+          {% assign b = block.settings %}
+          {% unless b.video_desktop == blank or b.video_mobile == blank %}
+            <li class="splide__slide !border-0 relative">
+              {% render 'video', 
+                video: b.video_desktop,
+                class: "rounded-image",
+                container_class: "hidden lg:block", 
+                pb_hack: "51.83%",
+                play_button: true,
+                play_size: "large",
+                play_button_class: "!p-6 [&_svg]:text-white [&_svg]:h-[31px]",
+                pause_button_class: "!p-6 [&_svg]:text-white [&_svg]:h-[31px] [&_svg]:mx-2.5",
+                muted: true, 
+                autoplay: true
+              %}
+
+              {% render 'video', 
+                video: b.video_mobile, 
+                class: "rounded-image",
+                container_class: "lg:hidden h-full [&_svg]:text-white",
+                pb_hack: "173.05%",
+                play_button: true,
+                play_button_class: "!p-6 [&_svg]:text-white [&_svg]:h-[25px] ",
+                pause_button_class: "!p-6 [&_svg]:text-white [&_svg]:h-[25px] [&_svg]:mx-2.5"
+                muted: true, 
+                autoplay: true
+              %}
+            
+              <div class="absolute bottom-0 lg:left-[55.5%] lg:top-[25%] flex flex-col gap-[22px] pl-[25px] pr-[18px] pb-[27px] lg:pl-0 lg:pb-0 lg:pr-0">
+                <h2 class="text-white text-section-3/7 lg:text-section-1/8 font-light tracking-[-0.042px] lg:tracking-[-0.056px] {% unless settings.remove_capitalize %}capitalize{% endunless %}">{% render, 'blue', text: b.heading %}</h2>
+                <div class="flex flex-col">
+                  <h3 class="text-white text-body-small/[18px] tracking-[-0.2px] uppercase">{{ b.source_name }}</h3>
+                  <h3 class="text-white text-body-small/[18px] tracking-[-0.2px]">{{ b.source_occupation }}</h3>
+                </div>
+              </div>
+            </li>
+          {% endunless %}
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+  <div 
+    class="splide relative max-w-screen pl-[18px] lg:pl-0 lg:w-[42%] lg:py-4 lg:!absolute lg:right-[38px] lg:top-[53%] lg:translate-y-0 lg:rounded-l-[15px] lg:bg-[#ffffff59] lg:backdrop-blur-[32.5px] {% unless section.blocks.size > 1 %}opacity-0 pointer-events-none h-0{% endunless %}" 
+    data-slider={{ slider_options }}
+    data-offset-slide-focus
+  >
+    <div class="splide__track">
+      <ul class="splide__list">
+        {% for block in section.blocks %}
+          {% assign b = block.settings %}
+          {% unless b.video_desktop == blank or b.video_mobile == blank %}
+            <li class="splide__slide !border-0 cursor-pointer">
+              {% render 'responsive-image', 
+                image: b.video_desktop.preview_image, 
+                class: "hidden lg:block rounded-image", 
+                pb_hack: "56.28%"
+              %}
+
+              {% render 'responsive-image', 
+                image: b.video_mobile.preview_image, 
+                class: "lg:hidden h-full rounded-image",
+                pb_hack: "56.28%"
+              %}
+            </li>
+          {% endunless %}
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="splide__arrows flex gap-3 w-[200px] absolute -bottom-16 lg:-bottom-[40%] left-[15px] lg:left-0 pointer-events-none [&_button:not(:disabled)]:pointer-events-auto">
+      <button class="splide__arrow splide__arrow--prev !relative !left-0 !rounded-none !h-[44px] !w-[44px] !bg-none" style="background: none; transform: translateY(0);">
+        {% render 'icons', icon: 'chevron-right-circle', class: "block h-full w-full [&_svg]:block [&_svg]:!h-full [&_svg]:!w-full lg:[&_svg]:text-white" %}
+      </button>
+      <button class="splide__arrow splide__arrow--next !relative !right-0 !rounded-none !h-[44px] !w-[44px] !bg-none" style="background: none; transform: translateY(0);">
+        {% render 'icons', icon: 'chevron-right-circle', class: "block h-full w-full [&_svg]:block [&_svg]:!h-full [&_svg]:!w-full lg:[&_svg]:text-white" %}
+      </button>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:settings_schema.sections.fullscreen_video_testimonials.name",
+  "tag": "section",
+  "class": "max-w-maxscreen mx-auto",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Unique Section ID"
+    },
+    {
+      "type": "paragraph",
+      "content": "The ID for this section will be 'fullscreen-video-#' based on the number chosen below. The default is 'fullscreen-video-1'"
+    },
+    {
+      "type": "range",
+      "id": "id_number",
+      "label": "ID Number",
+      "max": 5,
+      "min": 1,
+      "step": 1,
+      "default": 1,
+      "info": "If using this section multiple times on the same page, assign a different number to each one."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "t:settings_schema.sections.fullscreen_video_testimonials.quote_block",
+      "settings": [
+        {
+          "type": "video",
+          "id": "video_desktop",
+          "label": "t:settings_schema.general.video_desktop"
+        },
+        {
+          "type": "video",
+          "id": "video_mobile",
+          "label": "t:settings_schema.general.video_mobile"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "t:settings_schema.general.heading"
+        },
+        {
+          "type": "text",
+          "id": "source_name",
+          "label": "t:settings_schema.general.testimonials.source_name"
+        },
+        {
+          "type": "text",
+          "id": "source_occupation",
+          "label": "t:settings_schema.general.testimonials.source_occupation"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:settings_schema.sections.fullscreen_video_testimonials.name"
+    }
+  ]
+}
+{% endschema %}
+
+

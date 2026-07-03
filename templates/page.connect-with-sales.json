@@ -1,0 +1,571 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "connect_w_sales_form_iaqHcz": {
+      "type": "connect-w-sales-form",
+      "blocks": {
+        "info_text_kw4mg6": {
+          "type": "info_text",
+          "settings": {
+            "info_text": "<|#1 Client-Requested|> treatment globally, delivering personalized results that exceed client expectations¹"
+          }
+        },
+        "info_text_nmnp9i": {
+          "type": "info_text",
+          "settings": {
+            "info_text": "<|Earn up to $227k|>¹ annually by performing just 2 Hydrafacial treatments per day"
+          }
+        },
+        "info_text_Pmw7rm": {
+          "type": "info_text",
+          "settings": {
+            "info_text": "<|95% of Providers|>¹ say Hydrafacial helps attract new clients"
+          }
+        },
+        "info_text_aUaBaM": {
+          "type": "info_text",
+          "settings": {
+            "info_text": "<|100% of Clients|> would recommend a Hydrafacial treatment to family and friends"
+          }
+        }
+      },
+      "block_order": [
+        "info_text_kw4mg6",
+        "info_text_nmnp9i",
+        "info_text_Pmw7rm",
+        "info_text_aUaBaM"
+      ],
+      "name": "t:settings_schema.sections.connect_w_sales_form.name",
+      "settings": {
+        "use_exit_intent": false,
+        "title": "More Than a Device. <|​It’s Your Business Builder.|> ",
+        "description": "",
+        "modal_heading": "",
+        "modal_subheading": "",
+        "modal_form_cta_text": "Request More Info",
+        "modal_bottom_cta_text": "Take The Quiz",
+        "modal_bottom_cta_url": "/",
+        "form_embed_code": "<script charset=\"utf-8\" type=\"text/javascript\" src=\"//js.hsforms.net/forms/embed/v2.js\"></script>\n<script>\n  hbspt.forms.create({\n    portalId: \"9253844\",\n    formId: \"c0f3e227-44f5-4991-ae44-2a003ff85166\",\n    region: \"na1\"\n  });\n</script>",
+        "id_number": 1,
+        "bg_gradient": false
+      }
+    },
+    "connect_w_sales_form_F7cYU3": {
+      "type": "connect-w-sales-form",
+      "blocks": {
+        "info_text_TMGw66": {
+          "type": "info_text",
+          "settings": {
+            "info_text": "<|#1 Client-Requested|> treatment globally, delivering personalized results that exceed client expectations¹<|#1 Client-Requested|> treatment globally, delivering personalized results that exceed client expectations¹"
+          }
+        },
+        "info_text_nffx46": {
+          "type": "info_text",
+          "settings": {
+            "info_text": "<|Earn up to $227k|>¹ annually by performing just 2 Hydrafacial treatments per day"
+          }
+        },
+        "info_text_y9B3Bk": {
+          "type": "info_text",
+          "settings": {
+            "info_text": "<|95% of Providers|>¹ say Hydrafacial helps attract new clients"
+          }
+        },
+        "info_text_NhqgnU": {
+          "type": "info_text",
+          "settings": {
+            "info_text": "<|100% of Clients|> would recommend a Hydrafacial treatment to family and friends"
+          }
+        }
+      },
+      "block_order": [
+        "info_text_TMGw66",
+        "info_text_nffx46",
+        "info_text_y9B3Bk",
+        "info_text_NhqgnU"
+      ],
+      "disabled": true,
+      "custom_css": [],
+      "name": "t:settings_schema.sections.connect_w_sales_form.name",
+      "settings": {
+        "use_exit_intent": false,
+        "title": "More Bookings. More Revenue. More Results.",
+        "description": "",
+        "modal_heading": "",
+        "modal_subheading": "",
+        "modal_form_cta_text": "Request More Info",
+        "modal_bottom_cta_text": "Take The Quiz",
+        "modal_bottom_cta_url": "/",
+        "form_embed_code": "<script charset=\"utf-8\" type=\"text/javascript\" src=\"//js.hsforms.net/forms/embed/v2.js\"></script>\n<script>\n  hbspt.forms.create({\n    portalId: \"9253844\",\n    formId: \"c0f3e227-44f5-4991-ae44-2a003ff85166\",\n    region: \"na1\"\n  });\n</script>",
+        "id_number": 1,
+        "bg_gradient": false
+      }
+    },
+    "tabs_with_sliders_XpLtgi": {
+      "type": "tabs-with-sliders",
+      "blocks": {
+        "homepage-tab-slider-group": {
+          "type": "homepage-tab-slider-group",
+          "static": true,
+          "settings": {},
+          "blocks": {
+            "homepage_tab_slider_8DGVfK": {
+              "type": "homepage-tab-slider",
+              "name": "Homepage Tab Slider",
+              "settings": {
+                "connected_tab": "dull/dehydrated skin",
+                "under_img_top_text": "After <|1 Hydrafacial Deluxe Treatment|>",
+                "under_img_bottom_text": "*Courtesy of SkinPerfected. One Deluxe treatment with Red LED. Individual results may vary.",
+                "cta_top_border": false
+              },
+              "blocks": {
+                "image_right_content_left_WNhBGx": {
+                  "type": "image-right-content-left",
+                  "name": "Image Right, Content Left",
+                  "settings": {
+                    "desktop_image_1": "shopify://shop_images/Dull_Dehydrated_desktop_with_text.jpg",
+                    "mobile_image_1": "shopify://shop_images/Dull_Dehydrated_desktop_with_text.jpg",
+                    "image_1_caption": "",
+                    "image_2_caption": "",
+                    "under_img_top_text": "After 1 <|Hydrafacial Deluxe Treatment|>",
+                    "under_img_bottom_text": "*Courtesy of SkinPerfected. One Deluxe treatment with Red LED. Individual results may vary",
+                    "heading": "Dull/Dehydrated Skin",
+                    "subheading": "Boosted hydration and radiance with enhanced skin suppleness and glow.",
+                    "percentage_1": 338,
+                    "description_1": "Saw an increase in <|hydration|>",
+                    "disclaimer_1": "3",
+                    "percentage_2": 98,
+                    "description_2": "Maintained a <|glowing and brighter|> appearance",
+                    "disclaimer_2": "3*",
+                    "percentage_3": 0,
+                    "description_3": "",
+                    "disclaimer_3": ""
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "image_right_content_left_WNhBGx"
+              ]
+            },
+            "homepage_tab_slider_VjDVh9": {
+              "type": "homepage-tab-slider",
+              "name": "Homepage Tab Slider",
+              "settings": {
+                "connected_tab": "fine lines & wrinkles",
+                "under_img_top_text": "After <|2 Hydrafacial Treatments|>",
+                "under_img_bottom_text": "*After 6 Clarifying Hydrafacial Treatments over 12 weeks. Individual results may vary.",
+                "cta_top_border": false
+              },
+              "blocks": {
+                "image_right_content_left_YaKajh": {
+                  "type": "image-right-content-left",
+                  "name": "Image Right, Content Left",
+                  "settings": {
+                    "desktop_image_1": "shopify://shop_images/Fine_lines_and_wrinkles_desktop_w_text_f58bfc7c-fe60-4dd6-ae26-38503ea0b40e.png",
+                    "mobile_image_1": "shopify://shop_images/Fine_lines_and_wrinkles_desktop_w_text.png",
+                    "image_1_caption": "",
+                    "image_2_caption": "",
+                    "under_img_top_text": "After 1 <|Hydrafacial Deluxe Treatment|>",
+                    "under_img_bottom_text": "*Courtesy of Whisper Creek Spa. Deluxe treatment with RED LED and ReGen GF+ Booster. Individual results may vary.",
+                    "heading": "Fine Lines & Wrinkles",
+                    "subheading": "Visibly increased in skin plumpness and improved the appearance of fine lines and wrinkles.",
+                    "percentage_1": 90,
+                    "description_1": "Saw visibly  decreased <|fine lines|>",
+                    "disclaimer_1": "4",
+                    "percentage_2": 80,
+                    "description_2": "Saw visibly  improved <|texture|>",
+                    "disclaimer_2": "4",
+                    "percentage_3": 0,
+                    "description_3": "",
+                    "disclaimer_3": ""
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "image_right_content_left_YaKajh"
+              ]
+            },
+            "homepage_tab_slider_DkwBXk": {
+              "type": "homepage-tab-slider",
+              "name": "Homepage Tab Slider",
+              "settings": {
+                "connected_tab": "clogged pores",
+                "under_img_top_text": "After <|2 Hydrafacial Treatments|>",
+                "under_img_bottom_text": "*After 6 Clarifying Hydrafacial Treatments over 12 weeks. Individual results may vary.",
+                "cta_top_border": false
+              },
+              "blocks": {
+                "image_right_content_left_yaFAqn": {
+                  "type": "image-right-content-left",
+                  "name": "Image Right, Content Left",
+                  "settings": {
+                    "desktop_image_1": "shopify://shop_images/Clogged_pores_desktop_with_text.jpg",
+                    "mobile_image_1": "shopify://shop_images/Clogged_pores_desktop_with_text.jpg",
+                    "image_1_caption": "",
+                    "image_2_caption": "",
+                    "under_img_top_text": "After 1 <|Hydrafacial Deluxe Treatment|>",
+                    "under_img_bottom_text": "*One Hydrafacial Deluxe treatment with the ReGen GF+ booster and red LED. Individual results may vary.",
+                    "heading": "Clogged Pores",
+                    "subheading": "Refined pore appearance and reduced congestion for a clearer complexion.",
+                    "percentage_1": 100,
+                    "description_1": "Saw decreased <|pore size|>",
+                    "disclaimer_1": "4",
+                    "percentage_2": 0,
+                    "description_2": "",
+                    "disclaimer_2": "",
+                    "percentage_3": 0,
+                    "description_3": "",
+                    "disclaimer_3": ""
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "image_right_content_left_yaFAqn"
+              ]
+            },
+            "homepage_tab_slider_kKrbqz": {
+              "type": "homepage-tab-slider",
+              "name": "Homepage Tab Slider",
+              "settings": {
+                "connected_tab": "acne/blemish",
+                "under_img_top_text": "After <|2 Hydrafacial Treatments|>",
+                "under_img_bottom_text": "*After 6 Clarifying Hydrafacial Treatments over 12 weeks. Individual results may vary.",
+                "cta_top_border": false
+              },
+              "blocks": {
+                "image_right_content_left_JFgeeM": {
+                  "type": "image-right-content-left",
+                  "name": "Image Right, Content Left",
+                  "settings": {
+                    "desktop_image_1": "shopify://shop_images/Acne_Blemish_Desktop_with_text.png",
+                    "mobile_image_1": "shopify://shop_images/Acne_Blemish_Desktop_with_text.png",
+                    "image_1_caption": "",
+                    "image_2_caption": "",
+                    "under_img_top_text": "After 5 <|Clarifying hydrafacial treatments|>",
+                    "under_img_bottom_text": "*Courtesy of Glow Aesthetics. These Clarifying Hydrafacial Treatments include Murad Clarifying booster and blue LED. Individual results may vary.",
+                    "heading": "Acne/Blemishes",
+                    "subheading": "Lessened breakouts, calmed redness and reduced oiliness.",
+                    "percentage_1": 100,
+                    "description_1": "Saw <|clearer, healthier, more radiant-looking skin|>",
+                    "disclaimer_1": "5",
+                    "percentage_2": 95,
+                    "description_2": "Saw  skin looking <|less oily + congested|>",
+                    "disclaimer_2": "5",
+                    "percentage_3": 85,
+                    "description_3": "Saw <|fewer blemishes + less inflammation|>",
+                    "disclaimer_3": "5"
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "image_right_content_left_JFgeeM"
+              ]
+            },
+            "homepage_tab_slider_fgbegM": {
+              "type": "homepage-tab-slider",
+              "name": "Homepage Tab Slider",
+              "settings": {
+                "connected_tab": "signs of aging",
+                "under_img_top_text": "After <|2 Hydrafacial Treatments|>",
+                "under_img_bottom_text": "*After 6 Clarifying Hydrafacial Treatments over 12 weeks. Individual results may vary.",
+                "cta_top_border": false
+              },
+              "blocks": {
+                "image_right_content_left_TdA3Gx": {
+                  "type": "image-right-content-left",
+                  "name": "Image Right, Content Left",
+                  "settings": {
+                    "desktop_image_1": "shopify://shop_images/Signs_of_Aging_desktop_with_text.png",
+                    "mobile_image_1": "shopify://shop_images/Fine_Lines_BA.png",
+                    "image_1_caption": "",
+                    "image_2_caption": "",
+                    "under_img_top_text": "After 1 <|Hydrafacial Deluxe Treatment|>",
+                    "under_img_bottom_text": "*Courtesy of Remedy Skin Studio. Hydrafacial Deluxe Treatment with RED LED and Dermabuilder booster. Individual results may vary.",
+                    "heading": "Signs of Aging",
+                    "subheading": "Reduced visible signs of aging by enhancing skin volume, radiance and texture.",
+                    "percentage_1": 63,
+                    "description_1": "Saw reduction in the appearance of <|fine lines|>",
+                    "disclaimer_1": "4",
+                    "percentage_2": 0,
+                    "description_2": "",
+                    "disclaimer_2": "",
+                    "percentage_3": 0,
+                    "description_3": "",
+                    "disclaimer_3": "3"
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "image_right_content_left_TdA3Gx"
+              ]
+            },
+            "homepage_tab_slider_cAxrqT": {
+              "type": "homepage-tab-slider",
+              "name": "Homepage Tab Slider",
+              "settings": {
+                "connected_tab": "thinning hair",
+                "under_img_top_text": "After <|2 Hydrafacial Treatments|>",
+                "under_img_bottom_text": "*After 6 Clarifying Hydrafacial Treatments over 12 weeks. Individual results may vary.",
+                "cta_top_border": false
+              },
+              "blocks": {
+                "image_right_content_left_Tj9HCk": {
+                  "type": "image-right-content-left",
+                  "name": "Image Right, Content Left",
+                  "settings": {
+                    "desktop_image_1": "shopify://shop_images/Thinning_hair_desktop_with_text.jpg",
+                    "mobile_image_1": "shopify://shop_images/Thinning_hair_desktop_with_text.jpg",
+                    "image_1_caption": "",
+                    "image_2_caption": "",
+                    "under_img_top_text": "After 1 <|Hydrafacial Keravive Treatments|>",
+                    "under_img_bottom_text": "*Courtesy of Sikara Medspa. Includes daily use of take-home peptide spray. Individual results may vary.",
+                    "heading": "Thinning Hair",
+                    "subheading": "Restored hair thickness and overall health.",
+                    "percentage_1": 82,
+                    "description_1": "said their hair <|looked healthier|> & shinier",
+                    "disclaimer_1": "6",
+                    "percentage_2": 75,
+                    "description_2": "saw improved <|hair fullness|>",
+                    "disclaimer_2": "6",
+                    "percentage_3": 64,
+                    "description_3": "experienced <|reduced hair loss|>",
+                    "disclaimer_3": "6"
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "image_right_content_left_Tj9HCk"
+              ]
+            }
+          },
+          "block_order": [
+            "homepage_tab_slider_8DGVfK",
+            "homepage_tab_slider_VjDVh9",
+            "homepage_tab_slider_DkwBXk",
+            "homepage_tab_slider_kKrbqz",
+            "homepage_tab_slider_fgbegM",
+            "homepage_tab_slider_cAxrqT"
+          ]
+        }
+      },
+      "name": "Tabs with Sliders",
+      "settings": {
+        "use_border": false,
+        "accent_yellow": false,
+        "title": "<|The Proof:|> Glowing Skin",
+        "description": "<p>Hydrafacial treatments deliver personalized, glowing results. In as little as one treatment, you’ll see improvements in the appearance of skin quality, tone and texture¹</p>",
+        "tabs": "dull/dehydrated skin,fine lines & wrinkles,clogged pores,acne/blemish,signs of aging,thinning hair",
+        "cta_text": "",
+        "cta_url": "",
+        "reverse_arrows": true,
+        "gradient": "gray",
+        "use_second_gradient": false,
+        "id_number": 1,
+        "popup_form_override": false,
+        "dont_show_slider_arrows": true
+      }
+    },
+    "large_content_cards_TTkAxW": {
+      "type": "large-content-cards",
+      "blocks": {
+        "media_slide_jwFcFD": {
+          "type": "media_slide",
+          "settings": {
+            "desktop_image": "shopify://shop_images/Prodessional_home_desktop_Award_NB.jpg",
+            "mobile_image": "shopify://shop_images/Prodessional_home_mobile_Award_NB.jpg",
+            "title": "",
+            "caption": "",
+            "card_cta_text": "",
+            "card_cta_url": "",
+            "card_cta_new_window": false
+          }
+        },
+        "media_slide_qHEG4F": {
+          "type": "media_slide",
+          "settings": {
+            "desktop_image": "shopify://shop_images/Prodessional_home_desktop_Award_ELLE.jpg",
+            "mobile_image": "shopify://shop_images/Prodessional_home_mobile_Award_ELLE.jpg",
+            "title": "",
+            "caption": "",
+            "card_cta_text": "",
+            "card_cta_url": "",
+            "card_cta_new_window": false
+          }
+        },
+        "media_slide_8KmC6F": {
+          "type": "media_slide",
+          "settings": {
+            "desktop_image": "shopify://shop_images/Prodessional_home_desktop_Award_Shape.jpg",
+            "mobile_image": "shopify://shop_images/Prodessional_home_mobile_Award_Shape.jpg",
+            "title": "",
+            "caption": "",
+            "card_cta_text": "",
+            "card_cta_url": "",
+            "card_cta_new_window": false
+          }
+        },
+        "media_slide_9mpzjn": {
+          "type": "media_slide",
+          "settings": {
+            "desktop_image": "shopify://shop_images/Prodessional_home_desktop_Award_Cosmo_fb51292e-43cb-433d-ad93-a106d2215938.jpg",
+            "mobile_image": "shopify://shop_images/Prodessional_home_desktop_Award_Cosmo.jpg",
+            "title": "",
+            "caption": "",
+            "card_cta_text": "",
+            "card_cta_url": "",
+            "card_cta_new_window": false
+          }
+        }
+      },
+      "block_order": [
+        "media_slide_jwFcFD",
+        "media_slide_qHEG4F",
+        "media_slide_8KmC6F",
+        "media_slide_9mpzjn"
+      ],
+      "name": "t:settings_schema.sections.large_content_cards.name",
+      "settings": {
+        "heading": "The <|Award-Winning|> Treatment",
+        "id_number": 1
+      }
+    },
+    "quote_slider_GtyBTV": {
+      "type": "quote-slider",
+      "blocks": {
+        "quote_REnyCi": {
+          "type": "quote",
+          "settings": {
+            "image": "shopify://shop_images/Headshot_Dendy_Engelman_260x260_faca7516-9f6b-4044-8716-bf583c2abffc.jpg",
+            "quote": "As a dermatologist, I always recommend treatments backed by science and proven results. Hydrafacial is an excellent choice for younger consumers looking to invest in their skin health early. It combines advanced technology with clinically vetted techniques to <|deliver both immediate glow and longterm skin benefits|>, making it a <|trusted|> option in aesthetic skincare.",
+            "author": "Dr. Dendy Engelman",
+            "author_details": "Board Certified Cosmetic Dermatologist | New York, NY"
+          }
+        },
+        "quote_GpDDen": {
+          "type": "quote",
+          "settings": {
+            "image": "shopify://shop_images/prather-new.jpg",
+            "quote": "There is a big role that <|Hydrafacial treatments play in pretreating the skin in terms of cleansing before any laser, any peel|>, anything you do despite what your baseline skin is. You are cleansing the skin to create better penetration. <|Hydrafacial is an integral part of good skin health|> and feels good! ",
+            "author": "DR. HEIDI PRATHER",
+            "author_details": "Board-Certified Dermatologist | Austin, Texas "
+          }
+        },
+        "quote_PJRCnB": {
+          "type": "quote",
+          "settings": {
+            "image": "shopify://shop_images/Headshot_Tiffany_Liberian_260x260_95366b6c-0307-419c-8d49-d35dec3f64c3.jpg",
+            "quote": "When I started my business as a solo esthetician, I didn’t have a lot of money to invest in a device, but I knew my patients would <|love their results from Hydrafacial and Keravive|>. The company set me up for success with financing, and it turned out to be the <|best risk I took|>. Within a year, my business <|grew 200 percent!|> Now, approximately 70 percent of my services are Hydrafacial treatments thanks to its versatility and customizations. Hydrafacial delivers every single time!",
+            "author": "Tiffany Libiran",
+            "author_details": "Owner & Esthetician of MadisonCrown Skin | San Francisco, CA"
+          }
+        },
+        "quote_PMPnEN": {
+          "type": "quote",
+          "settings": {
+            "image": "shopify://shop_images/HeadShot_Abigail_Quinn_260x260_41a38e4a-0fad-4bd8-b415-9bc68c8816c2.jpg",
+            "quote": "Hydrafacial is a company that sticks with you and <|provides a variety of resources|>. The biggest of them being that they share their knowledge on other things happening in the industry as well. They truly want you to succeed and will help you get there. Their trainings will make sure you are staying up to date with trends in the industry, how to handle all skin types & how to grow your own confidence. With Hydrafacial by my side and guiding me through all of their in-depth trainings, I was able to <|increase my clientele by 62 percent|>. Hydrafacial will transform your business!",
+            "author": "Abigail Quinn",
+            "author_details": "Owner & Esthetician of WestFern Spa | McAllen, Texas"
+          }
+        }
+      },
+      "block_order": [
+        "quote_REnyCi",
+        "quote_GpDDen",
+        "quote_PJRCnB",
+        "quote_PMPnEN"
+      ],
+      "name": "Quote Slider",
+      "settings": {
+        "heading": "Don't Just <|Take Our Word For It|>",
+        "subheading": "See What Other Professionals Are Saying About the Hydrafacial Impact",
+        "heading_max_width": false,
+        "per_page_desktop": "2",
+        "show_background": false,
+        "show_gradient": false,
+        "id_number": 1
+      }
+    },
+    "revenue_tracker_haRWHK": {
+      "type": "revenue-tracker",
+      "blocks": {
+        "card_dTMDRa": {
+          "type": "card",
+          "settings": {
+            "heading": "Platinum Treatment",
+            "subheading": "$162,500 - $227,500/year²"
+          }
+        },
+        "card_3bQ6VB": {
+          "type": "card",
+          "settings": {
+            "heading": "Deluxe Treatment",
+            "subheading": "$125,500 – $175,000/year²"
+          }
+        },
+        "card_xfJi4n": {
+          "type": "card",
+          "disabled": true,
+          "settings": {
+            "heading": "Signature Treatment",
+            "subheading": "$175,500 - $325,500/year²"
+          }
+        }
+      },
+      "block_order": [
+        "card_dTMDRa",
+        "card_3bQ6VB",
+        "card_xfJi4n"
+      ],
+      "name": "Revenue Tracker",
+      "settings": {
+        "heading": "More Glow, <|More Revenue|>",
+        "subheading": "Just 2 Hydrafacial treatments per day can generate impactful revenue",
+        "show_bottom_border": false,
+        "id_number": 1
+      }
+    },
+    "disclaimer_box_dc8xL6": {
+      "type": "disclaimer-box",
+      "blocks": {
+        "disclaimer_gcdAUm": {
+          "type": "disclaimer",
+          "settings": {
+            "disclaimer": "<p>¹ Data on file. HydraFacial, LLC</p><p>²Based on a 5-7 day work week, 50 weeks/ year, $250 Deluxe SRP, $325 Platinum SRP</p><p>³In a clinical study 24 hours after 1 Hydrafacial treatment with Hydralock HA booster. Based on Corneometer measurements of 38 participants before and 24 hours after treatment in a clinical study. Individual results may vary.</p><p>³*Based on QuantifiCare skin analysis of 38 participants before, immediately after,<br/>and 24 hours post-treatment in a clinical study. Individual results may vary.</p><p>⁴Participant perception of 10 female patients receiving 1 Hydrafacial treatment. Data on file Hydrafacial, LLC.</p><p>⁵Based on Investigator assessment of 20 participants with mild to moderate acne who received 6 Clarifying Hydrafacial Treatments over 12 weeks. Individual results may vary.</p><p>⁶Based on perception of 44 participants receiving a series of 3 Hydrafacial Keravive treatments with daily application of take-home peptide spray in between treatments for 20 weeks.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "disclaimer_gcdAUm"
+      ],
+      "name": "t:settings_schema.sections.disclaimer_box.name",
+      "settings": {
+        "bottom_border": false,
+        "id_number": 1
+      }
+    }
+  },
+  "order": [
+    "connect_w_sales_form_iaqHcz",
+    "connect_w_sales_form_F7cYU3",
+    "tabs_with_sliders_XpLtgi",
+    "large_content_cards_TTkAxW",
+    "quote_slider_GtyBTV",
+    "revenue_tracker_haRWHK",
+    "disclaimer_box_dc8xL6"
+  ]
+}

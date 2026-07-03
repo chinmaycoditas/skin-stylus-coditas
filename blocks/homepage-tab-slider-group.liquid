@@ -1,0 +1,21 @@
+<div data-homepage-tab-slider-group class="group/homepage-tab relative [&>.shopify-block]:relative [&>.shopify-block]:z-20 [&>.shopify-block]:pointer-events-none">
+  {% content_for "blocks" %}
+
+  {%# tab arrows (top layer) %}
+  <div data-tab-arrows class="pointer-events-none absolute {% if section.settings.reverse_arrows %}lg:right-0 lg:left-[unset] left-0{% else %}left-0{% endif %} bottom-[18px] lg:bottom-[30px] z-20 flex gap-3 group-[&:has(.product-with-tabs)]/homepage-tab:max-lg:bottom-2 group-[&:has(.product-with-tabs)]/homepage-tab:lg:right-[33%] group-[&:has(.product-with-tabs)]/homepage-tab:lg:bottom-[17%] group-[&:has(.product-with-tabs)]/homepage-tab:lg:left-[unset]">
+    <button data-tab-prev-button>
+      {% render 'icons', icon: 'chevron-left-circle', class: "text-black [&_svg]:h-[44px]" %}
+    </button>
+    <button data-tab-next-button>
+      {% render 'icons', icon: 'chevron-right-circle', class: "text-black [&_svg]:h-[44px]" %}
+    </button>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Homepage Tab Slider Group",
+    "blocks": [{"type": "homepage-tab-slider"}]
+  }
+{% endschema %}
+

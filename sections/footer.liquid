@@ -1,0 +1,252 @@
+{%- assign s = section.settings -%}
+
+<div 
+  id="footer-{{ s.id_number }}"
+  class="flex flex-col bg-black text-white px-[18px] pt-10 lg:px-[38px] lg:pt-[60px] lg:gap-[120px] max-w-screen overflow-hidden {% if s.add_extra_padding_desktop %}lg:pb-[var(--padding_bottom)] lg:pr-[var(--padding_right)]{% endif %}"
+  style="--padding_bottom: {{ s.padding_bottom }}px; --padding_right: {{ s.padding_right }}px"
+>
+  <div class="flex flex-col gap-[22px] lg:gap-0 lg:grid lg:grid-cols-[auto_auto_auto]">
+    <div class="flex flex-col gap-[60px]">
+      {% unless s.hide-app-download %}
+        <div class="flex flex-col gap-6">
+          <h2 class="text-section-2/8 {% unless settings.remove_capitalize %}capitalize{% endunless %} font-light tracking-[-0.056px] w-1/2 lg:w-1/3">{{ 'footer.download_app' | t }}</h2>
+          <div class="flex gap-3">
+            {%-liquid
+            assign button_class = "flex items-center gap-2.5 button-primary-black border-white"
+            if settings.remove_capitalize
+              assign button_class = button_class | append: ' !normal-case'
+            endif
+            assign button_text_class = "max-[393px]:text-caption-small-mob pt-[3px] text-body-small/normal font-medium tracking-[-0.028px]"
+            -%}
+
+            <a href="{{ s.app_store_link |  default: "#" }}" class="{{ button_class }} whitespace-nowrap">
+              {%- render 'icons', icon: "apple-app-store", class: "w-4 h-5" -%}
+              <span class="{{ button_text_class }}{% unless settings.remove_capitalize %}capitalize{% endunless %}">{{ 'footer.download_from_app_store' | t }}</span>
+            </a>
+            <a href="{{ s.google_play_link | default: "#"}}" class="{{ button_class }} whitespace-nowrap">
+              {%- render 'icons', icon: 'google-play', class: 'w-4 h-5' -%}
+              <span class="{{ button_text_class }}{% unless settings.remove_capitalize %}capitalize{% endunless %}">{{ 'footer.download_from_google' | t }}</span>
+            </a>
+          </div>
+        </div>
+      {% endunless %}
+
+      <div class="submission_form">
+        {{ s.form_embed_script }}
+      </div>
+    </div>
+
+    <div class="grid-spacer hidden lg:block"></div>
+    
+    {% comment %} desktop footer links {% endcomment %}
+    <ul class="hidden lg:flex justify-between w-full pt-[90px]">
+      {%- for link in s.footer_links.links -%}
+        <li class="flex flex-col text-white gap-[30px]">
+          <a href="{{ link.url }}" class="text-section-3/7 font-light tracking-[-0.042px]" {% unless link.url contains shop.domain or link.type != 'http_link' %}target="_blank"{% endunless %}>{{ link.title }}</a>
+          {% if link.links %}
+            <ul>
+              {%- for child_link in link.links -%}
+                <li>
+                  <a href="{{ child_link.url }}" class="text-body-small/[44px] tracking-[-0.028px]" {% unless child_link.url contains shop.domain or child_link.type != 'http_link' %}target="_blank"{% endunless %}>{{ child_link.title }}</a>
+                </li>
+              {%- endfor -%}
+            </ul>
+          {% endif %}
+        </li>
+      {%- endfor -%}
+    </ul>
+
+    {% comment %} mobile footer links {% endcomment %}
+     <ul class="pt-10 lg:hidden">
+      {%- for link in s.footer_links.links -%}
+        <li class="py-7 group border-t-[#FFFFFF66] border-t">
+          <span data-hc-control="{{ link.title }}-footer" class="flex items-center justify-between pb-2">
+            <span class="text-section-2-mob/[25px] font-light tracking-[-0.036px]">{{ link.title }}</span>
+            {%- render 'icons', icon: "chevron-down", class: "text-white w-3 group-has-[.is-active]:rotate-180 transition-all" -%}
+          </span>
+          {% if link.links %}
+            <ul data-hc-content="{{ link.title }}-footer">
+              {%- for child_link in link.links -%}
+                <li>
+                  <a href="{{ child_link.url }}" class="text-body-small/[44px] lg:font-medium tracking-[-0.028px]">{{ child_link.title }}</a>
+                </li>
+              {%- endfor -%}
+            </ul>
+          {% endif %}
+        </li>
+      {%- endfor -%}
+     </ul>
+  </div>
+
+  <div class="flex flex-col">
+    {%- render 'social-icons', height: "18px" class: "pb-[19px] lg:pb-2" -%}
+    <div class="flex flex-col lg:flex-row lg:justify-between text-caption-small-mob/[22px] font-light tracking-[-0.2px] pb-[60px]">
+      <div class="flex flex-col lg:flex-row lg:gap-3">
+        <span>{{ s.copyright_text  | default: "Copyright &copy; 2025. Hydrafacial LLC. All Rights Reserved."}}</span>
+        <ul class="flex gap-2">
+          {%- for block in section.blocks -%}
+            {%- if block.type == "policy_nav_link" -%}
+              <li class="flex items-center gap-2">
+                <a href="{{ block.settings.url }}">{{ block.settings.text }}</a>
+                {%- unless forloop.last -%}
+                  <span>|</span>
+                {%- endunless -%}
+              </li>
+            {%- endif -%}
+          {%- endfor -%}
+        </ul>
+      </div>
+      
+      {% if s.contact_phone != blank or s.contact_email != blank %}
+        <span class="flex gap-0.5">
+          <span>{{ 'footer.contact_us' | t }}:</span>
+          <span>{{ s.contact_phone }}</span>
+          <span>&nbsp;|&nbsp;</span>
+          <a
+            href="mailto:{{ s.contact_email }}"
+            class="!underline"
+            >
+            {{ s.contact_email }}
+          </a>
+        </span>
+      {% endif %}
+    </div>
+
+    {%- render 'logo-svg', logo-width: s.logo_width -%}
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "t:settings_schema.sections.footer.name",
+    "tag": "footer",
+    "settings": [
+      {
+        "type": "link_list",
+        "id": "footer_links",
+        "label": "t:settings_schema.sections.footer.footer_links"
+      },
+      {
+        "type": "checkbox",
+        "id": "hide-app-download",
+        "label": "Hide App Download Section",
+        "default": false
+      },
+      {
+        "type": "url",
+        "id": "app_store_link",
+        "label": "t:settings_schema.sections.footer.apple_app_store_link"
+      },
+      {
+        "type": "url",
+        "id": "google_play_link",
+        "label": "t:settings_schema.sections.footer.google_play_link"
+      },
+      {
+        "type": "text",
+        "id": "copyright_text",
+        "label": "t:settings_schema.sections.footer.copyright_text"
+      },
+      {
+        "type": "text",
+        "id": "contact_phone",
+        "label": "t:settings_schema.sections.footer.contact_phone"
+      },
+      {
+        "type": "text",
+        "id": "contact_email",
+        "label": "t:settings_schema.sections.footer.contact_email"
+      },
+      {
+        "type": "header",
+        "content": "Form Embed"
+      },
+      {
+        "type": "liquid",
+        "id": "form_embed_script",
+        "label": "Form Embed Script",
+        "info": "Paste the HTML and script for your newsletter or contact form here.",
+        "default": "<div class=\"hubspot-form\">\n<script>\n  const hsScript = document.createElement(\"script\");\n  hsScript.src = \"//js.hsforms.net/forms/embed/v2.js\";\n  hsScript.charset = \"utf-8\";\n  hsScript.onload = function () {\n    hbspt.forms.create({\n      portalId: \"9253844\",\n      formId: \"a95f37a3-b4b1-469a-9971-25a50e1be515\",\n      region: \"na1\",\n      onFormReady: function ($form) {\n        const style = $form.ownerDocument.createElement(\"style\");\n        style.textContent = `\n          .hs-richtext.hs-main-font-element h5 span {\n            font-size: 16px;\n            line-height: 23px;\n          }\n          .hs-richtext.hs-main-font-element p span * {\n            font-size: 16px !important;\n            line-height: 23px;\n            font-weight: 300;\n            margin-bottom: 4px;\n          }\n          .hs-richtext.hs-main-font-element p {\n            margin-top: 4px;\n          }\n          .hs-richtext.hs-main-font-element h5 {\n            margin-bottom: 0px;\n          }\n          div.hs-customer_or_provider label:first-of-type:has(.hs-form-required) {\n            display: none;\n          }\n          div.hs-customer_or_provider .input ul {\n            display: flex;\n            align-items: center;\n            gap: 25px;\n            height: 30px;\n          }\n          .hs-form-radio label.hs-form-radio-display {\n            display: flex;\n            align-items: center;\n          }\n          li.hs-form-radio {\n            width: fit-content;\n          }\n          .input .hs-input {\n            color: white;\n            border-radius: 4px;\n            border: 0.5px solid #C6C6C6;\n            background-color: #73737333;\n            height: 51px;\n          }\n          .input .hs-input::placeholder {\n            color: #f5f5f5;\n            font-size: 14px;\n            line-height: 18px;\n          } \n        `;\n        $form.ownerDocument.head.appendChild(style);\n      }\n    });\n  };\n  document.querySelector('.hubspot-form').appendChild(hsScript);\n<\/script>\n</div>"
+      },
+      {
+        "type": "header",
+        "content": "Unique Section ID"
+      },
+      {
+        "type": "paragraph",
+        "content": "The ID for this section will be 'footer-#' based on the number chosen below. The default is 'footer-1'"
+      },
+      {
+        "type": "range",
+        "id": "id_number",
+        "label": "ID Number",
+        "max": 5,
+        "min": 1,
+        "step": 1,
+        "default": 1,
+        "info": "If using this section multiple times on the same page, assign a different number to each one."
+      },
+      {
+        "type": "header",
+        "content": "Footer Logo"
+      },
+      {
+        "type": "range",
+        "id": "logo_width",
+        "label": "Logo Width",
+        "min": 0,
+        "max": 100,
+        "default": 100,
+        "step": 1,
+        "unit": "%"
+      },
+      {
+        "type": "header",
+        "content": "Footer Spacing"
+      },
+      {
+        "type": "checkbox",
+        "label": "Add Extra Padding To Bottom & Right on Desktop",
+        "id": "add_extra_padding_desktop",
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom",
+        "label": "Add Bottom Padding",
+        "min": 0,
+        "max": 99,
+        "step": 1,
+        "unit": "px",
+        "default": 0
+      },
+      {
+        "type": "range",
+        "id": "padding_right",
+        "label": "Add Right Padding",
+        "min": 0,
+        "max": 99,
+        "step": 1,
+        "unit": "px",
+        "default": 0
+      }
+    ],
+    "blocks": [
+      {
+        "type": "policy_nav_link",
+        "name": "t:settings_schema.sections.footer.policy_nav_link",
+        "settings": [
+          {
+            "type": "text",
+            "id": "text",
+            "label": "t:settings_schema.sections.footer.policy_nav_text"
+          },
+          {
+            "type": "url",
+            "id": "url",
+            "label": "t:settings_schema.sections.footer.policy_nav_url"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

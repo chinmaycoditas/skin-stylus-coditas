@@ -1,0 +1,305 @@
+{%- assign s = section.settings -%}
+
+{% capture slider_options %}
+  '{
+    "perPage": 1,
+    "pagination": false,
+    "focus": "center",
+    "gap": "16px",
+    "arrows": {% if section.blocks.size > 1 %}true{% else %}false{% endif %}
+  }'
+{% endcapture %}
+
+{% capture connected_slider_options %}
+  '
+    {
+      "perPage": 1,
+      "type": "fade",
+      "arrows": false,
+      "pagination": false,
+      "gap": "19px",
+      "mediaQuery": "min",
+      "breakpoints": {
+        "1024": {
+          "gap": "0px",
+          "padding": "0px"
+        }
+      }
+    }
+  '
+{% endcapture %}
+
+<div 
+  id="content-with-slider-{{ s.id_number }}"
+  class="px-[2.5%] pt-[60px] pb-10 lg:pb-[60px] gap-[22px] flex flex-col lg:flex-row max-w-maxscreen mx-auto"
+>
+  <div class="lg:w-[90%] relative rounded-[20px] overflow-hidden text-white">
+    {%- if s.image -%}
+      {% render 'responsive-image', 
+        image: s.image,
+        class: 'w-full h-full',
+        cover: true
+      %}
+    {%- endif -%}
+    <div class="absolute top-0 left-0 flex flex-col h-full py-[30px] px-[20px] lg:px-[30px] items-start justify-end lg:w-[80%]">
+      {%- if s.heading -%}
+        <h3 class="text-h3-mob lg:text-h3 font-light leading-10 lg:leading-[60px] pb-[22px]">
+          {% render 'blue', text: s.heading %}
+        </h3>
+      {%- endif -%}
+      {%- if s.description -%}
+        <span class="text-body font-light pb-[30px]">
+          {% render 'blue', text: s.description %}
+        </span>
+      {%- endif -%}
+      {%- if s.cta_url -%}
+        <a class="button-primary-white {% if settings.remove_capitalize %}!normal-case{% endif %}" href="{{ s.cta_url }}">
+          {{ s.cta_text }}
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+
+  <div class="flex flex-col lg:w-full px-10 pt-[30px] pb-[99px] lg:pb-[50px] bg-soft-blue rounded-[20px] overflow-hidden gap-5 lg:gap-[unset] justify-between">
+    <div class="flex flex-col lg:grid grid-cols-2 grid-rows-2 gap-x-[17.5%] gap-y-4">
+      <div class="col-start-1 col-span-1 row-start-1 flex flex-col [&_span:nth-of-type(3)]:!font-light">
+        {% render 'richtext-styles', text: s.grid_top_left, style: 1 %}
+      </div>
+      <div class="col-start-1 col-span-1 row-start-2 flex flex-col">
+        {% render 'richtext-styles', text: s.grid_bottom_left, style: 2 %}
+      </div>
+      <div class="col-start-2 col-span-1 row-start-1 flex flex-col">
+        {% render 'richtext-styles', text: s.grid_top_right, style: 3 %}
+      </div>
+      <div class="col-start-2 col-span-1 row-start-2 flex flex-col">
+        {% render 'richtext-styles', text: s.grid_bottom_right, style: 3 %}
+      </div>
+    </div>
+
+    {%- if section.blocks.size != 0 -%}
+      <div class="grid grid-rows-[min_min] grid-cols-6 lg:flex lg:flex-col gap-[0px] text-black max-lg:items-center lg:w-[84%] lg:mx-auto">
+        <div class="splide col-span-6 row-start-1" data-slider={{ slider_options }}>
+          <div class="splide__track">
+            <ul class="splide__list text-white">
+              {% for block in section.blocks %}
+                {% assign b = block.settings %}
+                  {%- liquid
+                    assign b = block.settings
+
+                    assign single_image = false
+                    assign two_images = false
+                    assign three_images = false
+
+                    if b.image_1 != blank
+                      if b.image_2 != blank
+                        if b.image_3 != blank
+                          assign three_images = true
+                        else
+                          assign two_images = true
+                        endif
+                      else 
+                        assign single_image = true
+                      endif
+                    endif
+                  -%}
+                  {% comment %} TODO move image text outside  {% endcomment %}
+                  <li class="splide__slide">
+                    <div class="grid {% if two_images %}grid-cols-2{% else %}grid-cols-3{% endif %}{% unless single_image %} aspect-[21/10]{% endunless %}">
+                      {%- if single_image -%} 
+                        {% render 'responsive-image', image: b.image_1, class: "col-span-3 rounded-image", pb_hack: "47.65%" %}
+                        
+                      {% else %}
+                        <div class="relative col-start-1 col-span-1">
+                          {% render 'responsive-image', image: b.image_1, class: "h-full w-full rounded-l-image", cover: true %}
+                        </div>
+                        <div class="relative col-start-2 col-span-1">
+                          {%- liquid
+                            assign image_2_class = "h-full w-full"
+                            if b.image_3 == blank
+                              assign image_2_class = image_2_class | append: " rounded-r-image"
+                            endif
+                          -%}
+                          {% render 'responsive-image', image: b.image_2, class: image_2_class, cover: true %}
+                        </div>
+                        {% if three_images %}
+                          <div class="relative col-start-3 col-span-1">
+                            {% render 'responsive-image', image: b.image_3, class: "h-full w-full rounded-r-image", cover: true %}
+                          </div>
+                        {% endif %}
+                      {% endif %}
+                      {% if b.left_text != blank %}
+                        <span class="absolute left-3 bottom-2.5 text-left">{{ b.left_text }}</span>
+                      {% endif %}
+                      {% if b.center_text != blank %}
+                        <span class="absolute right-0 lg:right-3 bottom-2.5 w-full text-center">{{ b.center_text }}</span>
+                      {% endif %}
+                      {% if b.right_text != blank %}
+                        <span class="absolute right-3 bottom-2.5 text-right">{{ b.right_text }}</span>
+                      {% endif %}
+                    </div>
+                  </li>
+              {% endfor %}
+            </ul>
+          </div>
+          <div class="splide__arrows max-lg:flex max-lg:gap-[22px] max-lg:absolute max-lg:top-[145%] max-lg:[&_button]:!static">
+            <button class="splide__arrow splide__arrow--prev not-disabled:!opacity-100 !left-[-4em]" style="background: unset; transform: translateY(0px)">
+              {% render 'icons', icon: "arrow-right", class: "text-black [&_svg]:!h-11 [&_svg]:!w-11" %}
+            </button>
+            <button class="splide__arrow splide__arrow--next not-disabled:!opacity-100 !right-[-4em]" style="background: unset; transform: translateY(0px)">
+              {% render 'icons', icon: "arrow-right", class: "text-black [&_svg]:!h-11 [&_svg]:!w-11" %}
+            </button>
+          </div>
+        </div>
+        <div class="splide relative col-span-6 row-start-2" data-connected-slider={{ connected_slider_options }}>
+          <div class="splide__track">
+            <ul class="splide__list">
+              {% for block in section.blocks %}
+                {% assign b = block.settings %}
+                <li class="splide__slide">
+                  <span class="text-caption-small font-light tracking-[-0.2px]">{{ b.disclaimer }}</span>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:settings_schema.sections.content_with_slider.name",
+  "tag": "section",
+  "class": "light-blue-gradient-reverse",
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:settings_schema.sections.content_with_slider.media"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "t:settings_schema.general.image"
+    },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "t:settings_schema.general.heading",
+      "info": "t:settings_schema.general.blue_info"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "t:settings_schema.general.description",
+      "info": "t:settings_schema.general.blue_info"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "t:settings_schema.general.cta_button_text"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "t:settings_schema.general.cta_button_url"
+    },
+    {
+      "type": "header",
+      "content": "t:settings_schema.sections.content_with_slider.content_and_slider"
+    },
+    {
+      "type": "richtext",
+      "id": "grid_top_left",
+      "label": "t:settings_schema.sections.content_with_slider.content_top_left",
+      "info": "t:settings_schema.general.blue_info"
+    },
+    {
+      "type": "richtext",
+      "id": "grid_bottom_left",
+      "label": "t:settings_schema.sections.content_with_slider.content_bottom_left",
+      "info": "t:settings_schema.general.blue_info"
+    },
+    {
+      "type": "richtext",
+      "id": "grid_top_right",
+      "label": "t:settings_schema.sections.content_with_slider.content_top_right",
+      "info": "t:settings_schema.general.blue_info"
+    },
+    {
+      "type": "richtext",
+      "id": "grid_bottom_right",
+      "label": "t:settings_schema.sections.content_with_slider.content_bottom_right",
+      "info": "t:settings_schema.general.blue_info"
+    },
+    {
+      "type": "header",
+      "content": "Unique Section ID"
+    },
+    {
+      "type": "paragraph",
+      "content": "The ID for this section will be 'content-with-slider-#' based on the number chosen below. The default is 'content-with-slider-1'"
+    },
+    {
+      "type": "range",
+      "id": "id_number",
+      "label": "ID Number",
+      "max": 5,
+      "min": 1,
+      "step": 1,
+      "default": 1,
+      "info": "If using this section multiple times on the same page, assign a different number to each one."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "t:settings_schema.sections.content_with_slider.slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image_1",
+          "label": "t:settings_schema.sections.content_with_slider.image_1",
+          "info": "t:settings_schema.sections.content_with_slider.single_image_use_info"
+        },
+        {
+          "type": "text",
+          "id": "left_text",
+          "label": "t:settings_schema.sections.content_with_slider.left_text"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_2",
+          "label": "t:settings_schema.sections.content_with_slider.image_2",
+          "info": "t:settings_schema.sections.content_with_slider.stitch_images_info"
+        },
+        {
+          "type": "text",
+          "id": "center_text",
+          "label": "t:settings_schema.sections.content_with_slider.center_text"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_3",
+          "label": "t:settings_schema.sections.content_with_slider.image_3"
+        },
+        {
+          "type": "text",
+          "id": "right_text",
+          "label": "t:settings_schema.sections.content_with_slider.right_text"
+        },
+        {
+          "type": "text",
+          "id": "disclaimer",
+          "label": "t:settings_schema.general.disclaimer"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:settings_schema.sections.content_with_slider.name"
+    }
+  ]
+}
+{% endschema %}

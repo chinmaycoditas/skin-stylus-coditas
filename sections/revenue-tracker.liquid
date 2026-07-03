@@ -1,0 +1,110 @@
+{%- assign s = section.settings -%}
+
+<div 
+  id="revenue-tracker-{{ s.id_number }}"
+  class="pt-20 px-[18px] lg:pt-[90px] lg:px-[38px]"
+>
+  <div class="flex flex-col lg:px-[100px]">
+    <div class="flex flex-col gap-6 items-center">
+      {% if s.heading != blank %}
+        <h2 class="text-center text-h2-mob/[50px] lg:text-h2/[70px] {% unless settings.remove_capitalize %}capitalize{% endunless %} tracking-[-0.09px] lg:tracking-[-0.13px]">{% render 'blue', text: s.heading %}</h2>
+      {% endif %}
+      {% if s.subheading %}
+        <p class="text-center text-body/[23px] font-light tracking-[-0.032px]">{{ s.subheading }}</p>
+      {% endif %}
+    </div>
+
+    <ul class="flex flex-col items-center gap-5 lg:gap-[42px] my-10 lg:my-[60px] px-[5%] max-[390px]:px-[3%] py-10 lg:px-10 lg:py-[60px] rounded-image bg-background-grey">
+      {% for block in section.blocks %}
+        {% assign b = block.settings %}
+        <li class="flex flex-col lg:flex-row items-center lg:justify-center gap-5 lg:gap-10 lg:px-[50px] w-full">
+          <div class="flex justify-center relative bg-blue-cta text-white rounded-[100px] px-9 py-4 lg:p-9 w-full">
+            <span class="text-white text-section-3/7 lg:text-section-1/8 {% unless settings.remove_capitalize %}capitalize{% endunless %} tracking-[-0.042px]">
+              {{ b.heading | split: " " | first | append: "&nbsp;" }}
+            </span>
+            <span class="text-white text-section-3/7 lg:text-section-1/8 {% unless settings.remove_capitalize %}capitalize{% endunless %} tracking-[-0.042px] font-light">
+              {{ b.heading | split: " " | last }}
+            </span>
+            
+            {% render 'icons', icon: 'revenue-arrow-down', class: "lg:hidden absolute w-fit top-[87%] left-1/2 -translate-x-1/2" %}
+            {% render 'icons', icon: 'revenue-arrow-right', class: "hidden lg:block absolute w-fit top-1/2 left-[89%] -translate-y-[13px]" %}
+          </div>
+
+          <span class="flex justify-center text-section-3/7 lg:text-section-1/8 font-light tracking-[-0.042px] lg:tracking-[-0.056px] {% unless settings.remove_capitalize %}capitalize{% endunless %} bg-white px-9 py-4 lg:p-9 rounded-[100px] w-full">{{ b.subheading }}</span>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+
+{% if s.show_bottom_border %}
+  <div class="px-[18px] lg:px-[38px]">
+    <span class="block border-b border-b-grey-medium"></span>
+  </div>
+{% endif %}
+
+{% schema %}
+{
+  "name": "t:settings_schema.sections.revenue_tracker.name",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:settings_schema.general.heading",
+      "info": "t:settings_schema.general.blue_info"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "t:settings_schema.general.subheading"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_bottom_border",
+      "label": "t:settings_schema.sections.revenue_tracker.show_bottom_border"
+    },
+    {
+      "type": "header",
+      "content": "Unique Section ID"
+    },
+    {
+      "type": "paragraph",
+      "content": "The ID for this section will be 'revenue-tracker-#' based on the number chosen below. The default is 'revenue-tracker-1'"
+    },
+    {
+      "type": "range",
+      "id": "id_number",
+      "label": "ID Number",
+      "max": 5,
+      "min": 1,
+      "step": 1,
+      "default": 1,
+      "info": "If using this section multiple times on the same page, assign a different number to each one."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "t:settings_schema.sections.revenue_tracker.card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "t:settings_schema.general.heading"
+        },
+        {
+          "type": "text",
+          "id": "subheading",
+          "label": "t:settings_schema.general.subheading"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:settings_schema.sections.revenue_tracker.name"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,100 @@
+{%- liquid
+  assign show_desktop = section.settings.show_desktop
+  assign show_mobile = section.settings.show_mobile
+
+  assign visibility_classes = ""
+
+  if show_desktop and show_mobile == false
+    assign visibility_classes = "hidden lg:block"
+  elsif show_desktop == false and show_mobile
+    assign visibility_classes = "lg:hidden"
+  elsif show_desktop == false and show_mobile == false
+    assign visibility_classes = "hidden"
+  endif
+-%}
+
+<div
+  class="
+    {{ visibility_classes }}
+    pt-[var(--pt-mb)]
+    pb-[var(--pb-mb)]
+    lg:pt-[var(--pt-lg)]
+    lg:pb-[var(--pb-lg)]
+    bg-[var(--bg-color)]
+  "
+  style="
+    --pt-mb: {{ section.settings.padding_top_mobile }}px;
+    --pb-mb: {{ section.settings.padding_bottom_mobile }}px;
+    --pt-lg: {{ section.settings.padding_top_desktop }}px;
+    --pb-lg: {{ section.settings.padding_bottom_desktop }}px;
+    --bg-color: {{ section.settings.bg_color }};
+  "
+></div>
+
+{% schema %}
+{
+  "name": "t:settings_schema.sections.spacer.name",
+  "tag": "div",
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:settings_schema.sections.spacer.visibility_header"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_desktop",
+      "label": "t:settings_schema.sections.spacer.show_on_desktop_label",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_mobile",
+      "label": "t:settings_schema.sections.spacer.show_on_mobile_label",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "t:settings_schema.sections.spacer.desktop_header"
+    },
+    {
+      "type": "number",
+      "id": "padding_top_desktop",
+      "label": "t:settings_schema.sections.spacer.padding_top_desktop_label",
+      "default": 40
+    },
+    {
+      "type": "number",
+      "id": "padding_bottom_desktop",
+      "label": "t:settings_schema.sections.spacer.padding_bottom_desktop_label",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "t:settings_schema.sections.spacer.mobile_header"
+    },
+    {
+      "type": "number",
+      "id": "padding_top_mobile",
+      "label": "t:settings_schema.sections.spacer.padding_top_mobile_label",
+      "default": 20
+    },
+    {
+      "type": "number",
+      "id": "padding_bottom_mobile",
+      "label": "t:settings_schema.sections.spacer.padding_bottom_mobile_label",
+      "default": 20
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "t:settings_schema.sections.spacer.bg_color_label",
+      "default": "transparent"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:settings_schema.sections.spacer.name"
+    }
+  ]
+}
+{% endschema %}

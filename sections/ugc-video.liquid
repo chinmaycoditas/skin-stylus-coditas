@@ -1,0 +1,142 @@
+{%- assign s = section.settings -%}
+
+<div 
+  id="ugc-video-{{ s.id_number }}"
+  class="ugc-section lg:pt-20 lg:pb-[30px]"
+>
+  <div class="flex flex-col gap-10 lg:rounded-header-menu pt-[60px]">
+    <div class="flex flex-col items-center lg:flex-row lg:justify-between gap-[22px] lg:gap-0 px-[38px]">  
+      <h2 class="text-h3-mob/10 lg:text-h4/[50px] font-light {% unless settings.remove_capitalize %}capitalize{% endunless %} tracking-[-0.07px] lg:tracking-[-0.09px]">{% render 'blue', text: s.title %}</h2>
+      <a class="button-primary-black {% if settings.remove_capitalize %}!normal-case{% endif %}" href="{{ s.cta_url }}">{{ s.cta_text }}</a>
+    </div>
+
+    {% capture slider_options %}
+      '{
+        "perPage": 1,
+        "focus": "center",
+        "type": "loop",
+        "start": 0,
+        "pagination": false,
+        "gap": "16px",
+        "arrows": true,
+        "padding": "8%",
+        "mediaQuery": "min",
+        "fixedWidth": "276px",
+        "breakpoints": {
+          "1024": {
+            "perPage": 3,
+            "fixedWidth": "337px"
+          }
+        }
+      }'
+    {% endcapture %}
+
+    <div class="splide" data-slider={{ slider_options }}>
+      <div class="splide__arrows [&_button]:!opacity-100 [&_button]:!h-[3em] [&_button]:!w-[3em] [&_button]:!bg-[#FFFFFF40] [&_button]:!backdrop-blur-[17.5px]">
+        <button class="splide__arrow splide__arrow--prev">
+          {% render 'icons', icon: "chevron-right", class: "text-white -translate-x-[2px] [&_svg]:!fill-none p-[7px]" %}
+        </button>
+        <button class="splide__arrow splide__arrow--next">
+          {% render 'icons', icon: "chevron-right", class: "text-white [&_svg]:!fill-none" %}
+        </button>
+      </div>
+      <div class="splide__track">
+        <ul class="splide__list">
+          {% for block in section.blocks %}
+            {%-liquid
+              assign b = block.settings
+
+              assign autoplay = false
+              if forloop.first
+                assign autoplay = true
+              endif
+            -%}
+
+            {% if b.video != blank or b.image != blank %}
+              <li class="splide__slide">
+                {% if b.video != blank %}
+                  {% render 'video', 
+                    video: b.video, 
+                    class: "rounded-image h-full",
+                    container_class: "h-full",
+                    muted: true, 
+                    autoplay: autoplay,
+                    change_slide: true 
+                  %}
+                {% else %}
+                  {% render 'responsive-image', image: b.image, class: "rounded-image h-full", image_class: "h-full", cover: true %}
+                {% endif %}
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:settings_schema.sections.ugc_video.name",
+  "tag": "section",
+  "class": "ugc-video no-max",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "t:settings_schema.general.title"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "t:settings_schema.general.cta_text"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "t:settings_schema.general.cta_url"
+    },
+    {
+      "type": "header",
+      "content": "Unique Section ID"
+    },
+    {
+      "type": "paragraph",
+      "content": "The ID for this section will be 'ugc-video-#' based on the number chosen below. The default is 'ugc-video-1'"
+    },
+    {
+      "type": "range",
+      "id": "id_number",
+      "label": "ID Number",
+      "max": 5,
+      "min": 1,
+      "step": 1,
+      "default": 1,
+      "info": "If using this section multiple times on the same page, assign a different number to each one."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "ugc_content",
+      "name": "t:settings_schema.sections.ugc_video.ugc_content",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:settings_schema.general.image"
+        },
+        {
+          "type": "video",
+          "id": "video",
+          "label": "t:settings_schema.general.video"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:settings_schema.sections.ugc_video.name"
+    }
+  ]
+}
+{% endschema %}

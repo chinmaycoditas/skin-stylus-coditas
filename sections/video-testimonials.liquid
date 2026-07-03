@@ -1,0 +1,129 @@
+{%- liquid
+  assign s = section.settings
+-%}
+
+<div 
+  id="video-testimonials-{{ s.id_number }}"
+  class="flex flex-col items-center gap-5 lg:gap-[51px] pt-10 lg:pt-[60px] pb-[100px] lg:pb-10"
+>
+  <div class="flex flex-col items-center gap-[22px]">
+    <h2 class="text-h3-mob/10 lg:text-h3/[60px] font-light text-center {% unless settings.remove_capitalize %}capitalize{% endunless %} tracking-[-0.07px]">{% render 'blue', text: s.heading %}</h2>
+    <div class="text-body-mob/[23px] font-light tracking-[-0.032px] text-center">{% render 'blue', text: s.subheading %}</div>
+  </div>
+
+  {% capture slider_options %}
+    '{
+      "perPage": 1,
+      "type": "loop",
+      "pagination": true,
+      "gap": "18px",
+      "arrows": false,
+      "padding": "18px",
+      "mediaQuery": "min",
+      "breakpoints": {
+        "1024": {
+          "perPage": 3,
+          "gap": "22px",
+          "arrows": false,
+          "pagination": false,
+          "padding": {"left": "20px", "right": "20px"}
+        }
+      }
+    }'
+  {% endcapture %}
+
+  <div class="splide w-full max-w-screen [&_.splide\_\_pagination]:!-bottom-[16%] [&_.splide\_\_pagination\_\_page]:!opacity-100 [&_.splide\_\_pagination\_\_page:not(.is-active)]:!bg-black" data-slider={{ slider_options }}>
+    <div class="splide__track">
+      <ul class="splide__list">
+        {% for block in section.blocks %}
+          {% assign b = block.settings %}
+          <li class="splide__slide relative">
+            <div class="flex flex-col gap-[22px]">
+              {% render 'video',
+                video: b.video,
+                pb_hack: "54.41%",
+                class: "rounded-image w-full",
+                poster_image_class: "rounded-image"
+              %}
+              <h3 class="text-section-3/7 lg:text-section-1/8 font-light tracking-[-0.042px] lg:tracking-[-0.056px]">{% render 'blue', text: b.quote %}</h3>
+              <div class="flex flex-col">
+                <h4 class="uppercase text-body-small/[18px] font-medium tracking-[-0.2px]">{{ b.author }}</h4>
+                <h4 class="text-body-small/[18px] font-medium tracking-[-0.2px]">{{ b.author_details }}</h4>
+              </div>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:settings_schema.sections.video_testimonials.name",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:settings_schema.general.heading"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "t:settings_schema.general.subheading"
+    },
+    {
+      "type": "header",
+      "content": "Unique Section ID"
+    },
+    {
+      "type": "paragraph",
+      "content": "The ID for this section will be 'video-testimonials-#' based on the number chosen below. The default is 'video-testimonials-1'"
+    },
+    {
+      "type": "range",
+      "id": "id_number",
+      "label": "ID Number",
+      "max": 5,
+      "min": 1,
+      "step": 1,
+      "default": 1,
+      "info": "If using this section multiple times on the same page, assign a different number to each one."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "t:settings_schema.sections.video_testimonials.quote_block",
+      "settings": [
+        {
+          "type": "video",
+          "id": "video",
+          "label": "t:settings_schema.general.video"
+        },
+        {
+          "type": "text",
+          "id": "quote",
+          "label": "t:settings_schema.general.testimonials.quote"
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "t:settings_schema.general.testimonials.author"
+        },
+        {
+          "type": "text",
+          "id": "author_details",
+          "label": "t:settings_schema.general.testimonials.author_details"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:settings_schema.sections.video_testimonials.name"
+    }
+  ]
+}
+{% endschema %}

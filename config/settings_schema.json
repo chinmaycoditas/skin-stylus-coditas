@@ -1,0 +1,119 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "shopify-vite",
+    "theme_version": "0.0.0",
+    "theme_author": "Robin Simonklein",
+    "theme_documentation_url": "https:\/\/help.shopify.com\/manual\/online-store\/themes",
+    "theme_support_url": "https:\/\/support.shopify.com\/"
+  },
+  {
+    "name": "General",
+    "settings": [
+      {
+        "type": "checkbox",
+        "label": "Remove Forced Capitalization",
+        "id": "remove_capitalize"
+      }
+    ]
+  },
+  {
+    "name": "Social media",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Social sharing image"
+      },
+      {
+        "type": "text",
+        "id": "social_twitter_url",
+        "label": "Twitter",
+        "info": "https:\/\/twitter.com\/shopify"
+      },
+      {
+        "type": "text",
+        "id": "social_facebook_url",
+        "label": "Facebook",
+        "info": "https:\/\/facebook.com\/shopify"
+      },
+      {
+        "type": "text",
+        "id": "social_pinterest_url",
+        "label": "Pinterest",
+        "info": "https:\/\/pinterest.com\/shopify"
+      },
+      {
+        "type": "text",
+        "id": "social_vimeo_url",
+        "label": "Vimeo",
+        "info": "https:\/\/vimeo.com\/shopify"
+      },
+      {
+        "type": "text",
+        "id": "social_youtube_url",
+        "label": "Youtube",
+        "info": "https:\/\/youtube.com\/user\/shopify"
+      },
+      {
+        "type": "text",
+        "id": "social_instagram_url",
+        "label": "Instagram",
+        "info": "https:\/\/instagram.com\/shopify"
+      },
+      {
+        "type": "text",
+        "id": "social_tiktok_url",
+        "label": "TikTok",
+        "info": "https:\/\/tiktok.com\/@shopify?"
+      },
+      {
+        "type": "text",
+        "id": "social_linkedin",
+        "label": "Linkedin",
+        "info": "https:\/\/www.linkedin.com\/company\/@shopify"
+      }
+    ]
+  },
+  {
+    "name": "Favicon",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Image"
+      }
+    ]
+  },
+  {
+    "name": "Header",
+    "settings": [
+      {
+        "type": "textarea",
+        "id": "alt_menu_pages",
+        "label": "t:settings_schema.sections.header.alt_menu_pages",
+        "info": "t:settings_schema.sections.header.comma_separated_handles"
+      }
+    ]
+  },
+  {
+    "name": "t:settings_schema.global_theme_settings.logo.name",
+    "settings": [
+      {
+        "type": "select",
+        "id": "logo_type",
+        "options": [
+          {
+            "label": "t:settings_schema.global_theme_settings.logo.copyright",
+            "value": "copyright"
+          },
+          {
+            "label": "t:settings_schema.global_theme_settings.logo.trademark",
+            "value": "trademark"
+          }
+        ],
+        "default": "trademark",
+        "label": "t:settings_schema.global_theme_settings.logo.logo_type",
+      }
+    ]
+  }
+]

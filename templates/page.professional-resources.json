@@ -1,0 +1,229 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "example": {
+      "type": "example",
+      "disabled": true,
+      "settings": {}
+    },
+    "page_hero_a9WMpG": {
+      "type": "page-hero",
+      "name": "Page Hero",
+      "settings": {
+        "image": "shopify://shop_images/Model_4.png",
+        "image_mobile": "shopify://shop_images/99531da78a8c3444ec517430f6529c23773323b0.jpg",
+        "heading": "<p>&lt;|Everything You Need|&gt; for Your Hydrafacial Business</p>",
+        "use_h1": false,
+        "heading_color": "#ffffff",
+        "body": "",
+        "cta_text": "",
+        "cta_url": "",
+        "content_position": "items-start",
+        "desktop_heading_max_w": 415,
+        "content_block_type": "pills",
+        "show_nav": false,
+        "dropdown_text": "",
+        "id_number": 1,
+        "popup_form_override": false
+      }
+    },
+    "large_content_cards_M769Td": {
+      "type": "large-content-cards",
+      "blocks": {
+        "media_slide_R69CQW": {
+          "type": "media_slide",
+          "settings": {
+            "desktop_image": "shopify://shop_images/Untitled_design_2.jpg",
+            "mobile_image": "shopify://shop_images/Untitled_973_x_1263_px.jpg",
+            "title": "<|The Hydrafacial Store|>",
+            "caption": "<|Authenticated solutions, boosters, & more|>",
+            "card_cta_text": "Shop Supplies",
+            "card_cta_url": "https://www.hydrafacial.store/"
+          }
+        },
+        "media_slide_Ei9Q8m": {
+          "type": "media_slide",
+          "settings": {
+            "desktop_image": "shopify://shop_images/07b5b4ec1e4cf2b1f1f41cab2c2fec1e77c47451.png",
+            "mobile_image": "shopify://shop_images/07b5b4ec1e4cf2b1f1f41cab2c2fec1e77c47451.png",
+            "title": "Digital Resources",
+            "caption": "Digital Assets & Marketing Materials",
+            "card_cta_text": "Access Materials",
+            "card_cta_url": "https://thedrop.hydrafacial.com/portals/customer-portal"
+          }
+        },
+        "media_slide_VxYCit": {
+          "type": "media_slide",
+          "settings": {
+            "desktop_image": "shopify://shop_images/e81311b4bc39e7d92aee787149c4294cfd78f7f0.png",
+            "mobile_image": "shopify://shop_images/e81311b4bc39e7d92aee787149c4294cfd78f7f0.png",
+            "title": "Device & Support",
+            "caption": "User Guides, Maintenance, & More",
+            "card_cta_text": "See All Guides",
+            "card_cta_url": "https://thedrop.hydrafacial.com/hydrafacial/devices"
+          }
+        }
+      },
+      "block_order": [
+        "media_slide_R69CQW",
+        "media_slide_Ei9Q8m",
+        "media_slide_VxYCit"
+      ],
+      "name": "Large Content Cards",
+      "settings": {
+        "heading": "Provider Resources:",
+        "id_number": 1
+      }
+    },
+    "textblock_slider_EdW3T7": {
+      "type": "textblock-slider",
+      "blocks": {
+        "text_slide_HBHBzK": {
+          "type": "text_slide",
+          "settings": {
+            "badge_text": "Support",
+            "heading": "User Guides",
+            "body": "Become an expert at our device with our in-depth user guides.",
+            "button_text": "Read Guides",
+            "button_url": "shopify://pages/electronic-instructions-for-use-eifu"
+          }
+        },
+        "text_slide_rBpBKz": {
+          "type": "text_slide",
+          "settings": {
+            "badge_text": "Support",
+            "heading": "Maintenance Matters",
+            "body": "Protect your investment by treating your device right. Access protocols to keep it in tip-top shape.",
+            "button_text": "Maintenance",
+            "button_url": "https://thedrop.hydrafacial.com/hydrafacial/devices?digest=mjhhtmnvpq83jcxgvv79x3rn"
+          }
+        },
+        "text_slide_GgbdzK": {
+          "type": "text_slide",
+          "settings": {
+            "badge_text": "Support",
+            "heading": "Warranty Information",
+            "body": "Looking for information on warranty extensions and pricing options? You’ve come to the right place.",
+            "button_text": "Warranty Info",
+            "button_url": "https://thedrop.hydrafacial.com/hydrafacial/customer-collection?digest=p5t57whvsmskcgvj4qsfh449"
+          }
+        }
+      },
+      "block_order": [
+        "text_slide_HBHBzK",
+        "text_slide_rBpBKz",
+        "text_slide_GgbdzK"
+      ],
+      "name": "TextBlock Slider",
+      "settings": {
+        "heading": "",
+        "heading_color": "",
+        "show_bg_img": false,
+        "id_number": 1
+      }
+    },
+    "image_with_text_D8zrtG": {
+      "type": "image-with-text",
+      "blocks": {
+        "image_and_text_xCM3kN": {
+          "type": "image_and_text",
+          "settings": {
+            "desktop_image": "shopify://shop_images/Professional_ProviderResouces_NewTraining_753x536_79854c4a-1fce-4c54-8e97-1783cff806c1.jpg",
+            "mobile_image": "shopify://shop_images/Professional_ProviderResouces_Mobile_NewTraining_367x255_a1ed24e6-01cc-4654-bf5c-e4347a4d1709.jpg",
+            "heading": "Experience <|High-Impact Training|> with Hydrafacial",
+            "subheading": "We're dedicated to becoming the #1 global educator of beauty health professionals. We invest in exclusive training for our providers to help your career and business succeed. Browse our offerings and start your journey today. Don't have a login? Connect with your Hydrafacial Representative to get started.",
+            "button_text": "Hydrafacial CONNECT: Get Started",
+            "button_url": "https://connect.hydrafacial.com/Saba/Web_wdk/NA10P2PRD106/index/prelogin.rdf"
+          }
+        }
+      },
+      "block_order": [
+        "image_and_text_xCM3kN"
+      ],
+      "name": "Image With Text",
+      "settings": {
+        "first_image_position": "left",
+        "id_number": 1
+      }
+    },
+    "textblock_slider_aVCdAd": {
+      "type": "textblock-slider",
+      "blocks": {
+        "text_slide_VAGQiV": {
+          "type": "text_slide",
+          "settings": {
+            "badge_text": "Training",
+            "heading": "Virtual Training",
+            "body": "Explore training protocol videos and live education opportunities.",
+            "button_text": "Register",
+            "button_url": "https://event.on24.com/eventRegistration/EventLobbyServlet?target=reg20.jsp&eventid=4444634&sessionid=1&key=AB2B6C12868B7AEAF2BE984244BE77A7&groupId=4350240&sourcepage=register"
+          }
+        },
+        "text_slide_FEXrGx": {
+          "type": "text_slide",
+          "settings": {
+            "badge_text": "Training",
+            "heading": "The Hydrafacial Experience",
+            "body": "Attend our two day workshop where you can learn how to sharpen your pitch, protocol and personalization.",
+            "button_text": "Register",
+            "button_url": "shopify://pages/hfx-franchise"
+          }
+        },
+        "text_slide_GNimCw": {
+          "type": "text_slide",
+          "settings": {
+            "badge_text": "Training",
+            "heading": "The Hydrafacial Experience with Keravive",
+            "body": "A virtual deep dive into Hydrafacial Keravive, a scalp health treatment with big business opportunity.",
+            "button_text": "Register",
+            "button_url": "https://event.on24.com/eventRegistration/EventLobbyServlet?target=reg20.jsp&eventid=4444634&sessionid=1&key=AB2B6C12868B7AEAF2BE984244BE77A7&groupId=4350240&sourcepage=register"
+          }
+        }
+      },
+      "block_order": [
+        "text_slide_VAGQiV",
+        "text_slide_FEXrGx",
+        "text_slide_GNimCw"
+      ],
+      "name": "TextBlock Slider",
+      "settings": {
+        "heading": "",
+        "heading_color": "",
+        "show_bg_img": false,
+        "id_number": 1
+      }
+    },
+    "text_with_cta_G9FtYT": {
+      "type": "text-with-cta",
+      "name": "Text With CTA",
+      "settings": {
+        "heading": "<p>Not yet a &lt;|Hydrafacial Provider?|&gt;</p>",
+        "body": "<p>Learn more about how partnering with Hydrafacial will help elevate your service offerings and your bottom line. </p>",
+        "top_cta_text": "Become a Provider",
+        "top_cta_url": "shopify://pages/connect-with-sales",
+        "popup_form_override": false,
+        "wide_button_on_mobile": false,
+        "bottom_cta_text": "Connect With Sales",
+        "bottom_cta_url": "",
+        "id_number": 1
+      }
+    }
+  },
+  "order": [
+    "example",
+    "page_hero_a9WMpG",
+    "large_content_cards_M769Td",
+    "textblock_slider_EdW3T7",
+    "image_with_text_D8zrtG",
+    "textblock_slider_aVCdAd",
+    "text_with_cta_G9FtYT"
+  ]
+}

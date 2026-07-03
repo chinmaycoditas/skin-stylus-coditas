@@ -1,0 +1,192 @@
+{% comment %}
+  Usage:
+    {% render 'video', 
+      video: video object, 
+      class: string | null,
+      autoplay: boolean | null,
+      loop: boolean | null,
+      muted: boolean | null,
+      controls: boolean | null,
+      pb_hack: string,
+      change_slide: boolean | null,
+      in_view: boolean | null,
+      progress_bar: boolean | null,
+      container_class: string | null,
+      poster_image_class: string | null,
+      play_size: string | null,
+      pause_size: string | null,
+      play_layout: string | null,
+      pause_layout: string | null,
+      poster: image object | null,
+      mobile_poster_only: boolean | null,
+      lazy: boolean | null (default: true),
+      priority: boolean | null (for above-fold videos)
+    %}
+{% endcomment %}
+
+{%- liquid
+  assign loop = loop | default: false
+  if change_slide
+    assign loop = false
+  endif
+
+  assign autoplay = autoplay | default: false
+  if in_view
+    assign autoplay = false
+  endif
+
+  assign muted = muted | default: true
+  assign controls = controls | default: false
+  assign lazy = lazy | default: true
+  assign mobile_poster_only = mobile_poster_only | default: false
+  assign priority = priority | default: false
+  assign play_button = play_button | default: true
+
+  if pb_hack != blank
+    assign wrapper_style = "padding-bottom:" | append: pb_hack | append: ";"
+    assign video_class = class | append: " absolute top-0 left-0 w-full h-full"
+  else 
+    assign video_class = class
+  endif
+
+  assign video_id = video.id | append: '-' | append: 'video'
+-%}
+
+{%- capture video_options -%}
+  {
+    "lazy": {{ lazy }},
+    "priority": {{ priority }},
+    "mobilePosterOnly": {{ mobile_poster_only }},
+    "autoplay": {{ autoplay }},
+    "loop": {{ loop }},
+    "changeSlide": {{ change_slide | default: false }},
+    "inView": {{ in_view | default: false }}
+  }
+{%- endcapture -%}
+
+<div 
+  class="video-optimized relative w-full{% if pb_hack != blank %} h-0 {% endif %}{% if container_class %} {{ container_class }}{% endif %}" 
+  data-video='{{ video_options }}'
+  data-video-optimized='{{ video_options }}' 
+  data-video-id="{{ video_id }}"
+  style="{{ wrapper_style }}"
+>
+  {% if progress_bar %}
+    <div class="h-2 w-full bg-gray absolute top-0 left-0 z-20">
+      <div data-progress-bar class="h-full w-0 bg-primary transition-width"></div>
+    </div>
+  {% endif %}
+
+  {%- comment -%} Poster image - always load this first {%- endcomment -%}
+  {% if poster != blank %}
+    <div class="video-poster absolute inset-0 z-10" data-video-poster>
+      {% render 'responsive-image',
+        image: poster,
+        class: 'w-full h-full object-cover',
+        cover: true,
+        loading: priority == true ? 'eager' : 'lazy'
+      %}
+    </div>
+  {% elsif video.preview_image %}
+    <div class="video-poster absolute inset-0 z-10" data-video-poster>
+      {% render 'responsive-image',
+        image: video.preview_image,
+        class: 'w-full h-full object-cover {{ poster_image_class }}', 
+        cover: true,
+        loading: priority == true ? 'eager' : 'lazy'
+      %}
+    </div>
+  {% endif %}
+
+  {% if play_button %}
+    {%- liquid 
+      assign container_classes = "absolute pointer-events-none z-20"
+      assign base_classes = "hidden"
+
+      if play_layout == "center" or play_layout == blank
+        assign play_container_classes = container_classes | append: " top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+      else
+        assign play_container_classes = container_classes | append: " bottom-3 right-3"
+      endif
+
+      if pause_layout == "center"
+        assign pause_container_classes = container_classes | append: " top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+      elsif pause_layout == "bottom" or pause_layout == blank
+        assign pause_container_classes = container_classes | append: " bottom-3 right-3"
+      endif
+    -%}
+    
+    <div class="{{ play_container_classes }} {% if play_size == 'small' %}w-6 h-6{% elsif play_size == 'medium' %}w-9 h-9{% elsif play_size == 'large' %}w-12 h-12{% else %}w-12 h-12{% endif %}">
+      {% render 'icons', icon: 'play', class: base_classes, attribute: "data-play" %}
+    </div>
+
+    <div class="{{ pause_container_classes }} {% if pause_size == 'small' %}w-6 h-6{% elsif pause_size == 'medium' %}w-9 h-9{% elsif pause_size == 'large' %}w-12 h-12{% else %}w-6 h-6{% endif %}">
+      {% render 'icons', icon: 'pause', class: base_classes, attribute: "data-pause" %}
+    </div>
+  {% endif %}
+
+  <video 
+    id="{{ video_id }}"
+    class="{{ video_class }} opacity-0 transition-opacity duration-500"
+    playsinline="playsinline"
+    {%- if loop == true -%}loop=""{%- endif -%}
+    {%- if muted == true -%}muted=""{%- endif -%}
+    {%- if controls == true -%}controls=""{%- endif -%}
+    {%- if poster != blank -%}poster="{{ poster | image_url: width: 1066 }}"{%- elsif video.preview_image -%}poster="{{ video.preview_image | image_url: width: 1066 }}"{%- endif -%}
+    {% unless priority %}preload="none"{% else %}preload="auto"{% endunless %}
+    style="object-fit: cover;"
+    data-video-element
+  >
+    {%- comment -%} Only add sources if not using mobile poster only {%- endcomment -%}
+    {% unless mobile_poster_only %}
+      {% for source in video.sources %}
+        <source 
+          {% if lazy and priority == false %}data-{% endif %}src="{{ source.url }}" 
+          type="{{ source.mime_type }}"
+        >
+      {% endfor %}
+    {% endunless %}
+    
+    {%- comment -%} Fallback image {%- endcomment -%}
+    {% if video.preview_image %}
+      {% render 'responsive-image',
+        image: video.preview_image
+      %}
+    {% endif %}
+  </video>
+
+  {%- comment -%} Mobile-specific poster-only mode {%- endcomment -%}
+  {% if mobile_poster_only %}
+    <div class="lg:hidden absolute inset-0 z-30" data-mobile-poster-only>
+      {% if poster != blank %}
+        {% render 'responsive-image',
+          image: poster,
+          class: 'w-full h-full object-cover',
+          cover: true
+        %}
+      {% elsif video.preview_image %}
+        {% render 'responsive-image',
+          image: video.preview_image,
+          class: 'w-full h-full object-cover',
+          cover: true
+        %}
+      {% endif %}
+    </div>
+  {% endif %}
+
+</div>
+
+{%- comment -%} Inline styles for immediate loading states {%- endcomment -%}
+<style>
+  .video-optimized[data-loaded="true"] video {
+    opacity: 1;
+  }
+  .video-optimized[data-loaded="true"] .video-poster {
+    opacity: 0;
+    pointer-events: none;
+  }
+  .video-optimized[data-playing="true"] .video-play-button {
+    opacity: 0;
+    pointer-events: none;
+  }
+</style>

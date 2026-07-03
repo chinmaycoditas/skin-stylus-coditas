@@ -1,0 +1,75 @@
+{%- liquid
+  assign cta_class = 'text-[14px] tracking-[-0.028px] font-medium border border-solid border-black rounded-[70px] overflow-hidden px-5 py-[15px]' 
+
+  assign controls = filter.label | handleize
+  assign element = 'div'
+  assign desktop_or_mobile = "desktop"
+
+  if mobile
+    assign controls = controls | append: '--mobile'
+    assign element = 'li'
+    assign desktop_or_mobile = "mobile"
+  endif
+
+-%}
+
+<{{ element }} class="relative">
+  <button
+    data-hc-control="{{ controls }}"
+    class="flex flex-row justify-between lg:justify-start w-full lg:gap-[22px] group"
+  >
+    <span class="text-[16px] tracking-[-0.032px] font-medium {% unless settings.remove_capitalize %}capitalize{% endunless %}">
+      {{ filter.label }}
+    </span>
+    <div class="flex items-center">
+      {% render 'icons', 
+        icon: 'chevron-down', 
+        class: 'block h-2.5 w-4 group-[&.is-active]:rotate-180 transition-all duration-200' 
+      %}
+    </div>
+  </button>
+  <div 
+    data-hc-content="{{ controls }}"
+    class="lg:absolute top-[30px] left-[-52px] z-[999] lg:w-[730px] lg:bg-[rgba(255,255,255,0.86)] lg:backdrop-blur-[22.5px] lg:shadow-[0_4px_14px_-5px_rgba(0,0,0,0.25)] lg:rounded-b-[30px]"
+  >
+    <div class="overflow-hidden pt-[32px] pb-[10px] lg:py-[33px] lg:px-[52px]">
+      <ul class="grid grid-cols-2 lg:grid-cols-3 gap-y-[30px] lg:gap-y-[22px] pb-[42px]">
+        {% for value in filter.values %}
+          <li class="flex gap-[10px] items-center">
+            <input
+              type="checkbox"
+              id="option--{{ value.value | handleize }}--{{ desktop_or_mobile }}"
+              name="{{ filter.param_name }}"
+              value="{{ value.value }}"
+              {% if value.active %}checked{% endif %}
+              class="peer hidden"
+            >
+
+            <label 
+              for="option--{{ value.value | handleize }}--{{ desktop_or_mobile }}"
+              class="{{ label_class }}"
+            >
+              {{ value.label }}
+            </label>
+          </li>
+        {% endfor %}
+      </ul>
+
+      <div class="hidden lg:flex gap-4 pt-4 border-t-grey-medium border-t">
+        <button 
+          type="submit"
+          class="{{ cta_class }}{% unless settings.remove_capitalize %}capitalize{% endunless %} bg-black text-white hover:bg-white hover:text-black"
+        >
+          <span>{{ 'collection.apply' | t }}</span>
+        </button>
+        <a
+          data-clear 
+          class="{{ cta_class }}{% unless settings.remove_capitalize %}capitalize{% endunless %} text-black hover:bg-black hover:text-white"
+          href="{{ collection.url }}"
+        >
+          <span>{{ 'collection.clear' | t }}</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</{{ element }}>

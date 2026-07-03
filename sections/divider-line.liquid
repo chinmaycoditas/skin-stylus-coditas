@@ -1,0 +1,119 @@
+{%- liquid
+  assign show_desktop = section.settings.show_desktop
+  assign show_mobile = section.settings.show_mobile
+
+  assign visibility_classes = ""
+
+  if show_desktop and show_mobile == false
+    assign visibility_classes = "hidden lg:block"
+  elsif show_desktop == false and show_mobile
+    assign visibility_classes = "lg:hidden"
+  elsif show_desktop == false and show_mobile == false
+    assign visibility_classes = "hidden"
+  endif
+
+  assign s = section.settings
+-%}
+
+<div
+  class="
+    {{ visibility_classes }}
+    pt-[var(--pt-mb)]
+    pb-[var(--pb-mb)]
+    px-[var(--px-mb)]
+    lg:pt-[var(--pt-lg)]
+    lg:pb-[var(--pb-lg)]
+    lg:px-[var(--px-lg)]
+    bg-[var(--bg-color)]
+  "
+  style="
+    --pt-mb: {{ section.settings.padding_top_mobile }}px;
+    --pb-mb: {{ section.settings.padding_bottom_mobile }}px;
+    --px-mb: {{ section.settings.padding_left_right_mobile }}px;
+    --pt-lg: {{ section.settings.padding_top_desktop }}px;
+    --pb-lg: {{ section.settings.padding_bottom_desktop }}px;
+    --px-lg: {{ section.settings.padding_left_right_desktop }}px;
+    --bg-color: {{ s.bg_color }};
+  "
+>
+  <div class="h-[0.5px] w-full bg-grey-medium"></div>
+</div>
+
+{% schema %}
+{
+  "name": "t:settings_schema.sections.divider_line.name",
+  "tag": "div",
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:settings_schema.sections.divider_line.visibility_header"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_desktop",
+      "label": "t:settings_schema.sections.divider_line.show_on_desktop_label",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_mobile",
+      "label": "t:settings_schema.sections.divider_line.show_on_mobile_label",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "t:settings_schema.sections.divider_line.desktop_header"
+    },
+    {
+      "type": "number",
+      "id": "padding_left_right_desktop",
+      "label": "t:settings_schema.sections.divider_line.padding_left_right_desktop_label",
+      "default": 38
+    },
+    {
+      "type": "number",
+      "id": "padding_top_desktop",
+      "label": "t:settings_schema.sections.divider_line.padding_top_desktop_label",
+      "default": 30
+    },
+    {
+      "type": "number",
+      "id": "padding_bottom_desktop",
+      "label": "t:settings_schema.sections.divider_line.padding_bottom_desktop_label",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "t:settings_schema.sections.divider_line.mobile_header"
+    },
+    {
+      "type": "number",
+      "id": "padding_left_right_mobile",
+      "label": "t:settings_schema.sections.divider_line.padding_left_right_mobile_label",
+      "default": 18
+    },
+    {
+      "type": "number",
+      "id": "padding_top_mobile",
+      "label": "t:settings_schema.sections.divider_line.padding_top_mobile_label",
+      "default": 36
+    },
+    {
+      "type": "number",
+      "id": "padding_bottom_mobile",
+      "label": "t:settings_schema.sections.divider_line.padding_bottom_mobile_label",
+      "default": 20
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:settings_schema.sections.divider_line.name"
+    }
+  ]
+}
+{% endschema %}

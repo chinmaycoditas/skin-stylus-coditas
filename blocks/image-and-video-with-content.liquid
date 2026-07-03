@@ -1,0 +1,330 @@
+{% assign b = block.settings %}
+
+{%- case b.grid_layout -%}
+  {%- when "small_l_large_r" -%}
+    {%- assign left_size = 33.9 -%}
+    {%- assign right_size = 66.1 -%}
+  {%- when "large_l_small_r" -%}
+    {%- assign left_size = 58.8 -%}
+    {%- assign right_size = 41.2 -%}
+  {%- else -%}
+    {%- assign left_size = 50 -%}
+    {%- assign right_size = 50 -%}
+{%- endcase -%}
+
+{% capture text_content_block %}
+  <div class="flex flex-col gap-1 bg-soft-blue rounded-image backdrop-blur-[17.5px] p-6 pb-[35px] lg:py-[25px] lg:px-[30px]">
+    <h3 class="text-section-3/7 text-blue-cta font-medium tracking-[-0.042px]">{{ b.heading }}</h3>
+    <div class="text-body/[23px] font-light tracking-[-0.032px]">{% render 'blue', text: b.body_text %}</div>
+    <a class="button-tertiary {% if settings.remove_capitalize %}!normal-case{% endif %} mt-auto !underline" href="{{ b.button_url }}">{{ b.button_text }}</a>
+  </div>
+{% endcapture %}
+
+{% capture pill_blocks %}
+  <div class="absolute bottom-[24%] lg:bottom-10 right-5 flex flex-col gap-4 [&_.tab-slider-pill]:flex [&_.tab-slider-pill]:justify-end [&_.tab-slider-pill>div]:py-[15px] [&_.tab-slider-pill>div]:px-5">
+    {% content_for 'blocks' %}
+  </div>
+{% endcapture %}
+
+{% capture left_media %}
+  <div class="relative h-full">
+    {% if b.left_media_type == 'video' %}
+      {% if b.left_video != blank %}
+        {% render 'video',
+          video: b.left_video,
+          class: "rounded-image w-full h-full max-lg:!h-[63dvh]",
+          container_class: "h-full w-full",
+          play_layout: "bottom",
+          play_size: "medium",
+          pause_size: "medium",
+          muted: true,
+          autoplay: true
+        %}
+      {% endif %}
+    {% else %}
+      {% if b.left_image != blank %}
+        {% render 'responsive-image',
+          image: b.left_image,
+          class: "rounded-image w-full h-full [&_img]:max-lg:!h-[63dvh]",
+          cover: true
+        %}
+      {% endif %}
+    {% endif %}
+
+    {% if b.pills_display == 'left' %}
+      {{ pill_blocks }}
+    {% endif %}
+  </div>
+{% endcapture %}
+
+{% capture right_media %}
+  <div class="relative h-full">
+    {% if b.right_media_type == 'video' %}
+      {% if b.right_video != blank %}
+        {% render 'video',
+          video: b.right_video,
+          class: "rounded-image w-full h-full max-lg:!h-[63dvh]",
+          container_class: "h-full w-full",
+          play_layout: "bottom",
+          play_size: "medium",
+          pause_size: "medium",
+          muted: true,
+          autoplay: true
+        %}
+      {% endif %}
+    {% else %}
+      {% if b.right_image != blank %}
+        {% render 'responsive-image',
+          image: b.right_image,
+          class: "rounded-image w-full h-full [&_img]:max-lg:!h-[63dvh]",
+          cover: true
+        %}
+      {% endif %}
+    {% endif %}
+
+    {% if b.pills_display == 'right' %}
+      {{ pill_blocks }}
+    {% endif %}
+  </div>
+{% endcapture %}
+
+{% comment %} desktop {% endcomment %}
+<div class="hidden lg:flex lg:gap-[22px] items-stretch [&>*]:min-h-0 [&>*]:min-w-0 h-[655px]">
+  {% if b.text_position == 'right' %}
+    <div class="w-[var(--left-size)]" style="width: {{ left_size }}%;">
+      {{ left_media }}
+    </div>
+    <div class="flex flex-col gap-[22px] w-[var(--right-size)]" style="--right-size: {{ right_size }}%;">
+      {{ text_content_block }}
+      <div class="flex-grow min-h-0">
+        {{ right_media }}
+      </div>
+    </div>
+  {% else %}
+    <div class="flex flex-col gap-[22px] w-[var(--left-size)]" style="--left-size: {{ left_size }}%;">
+      {{ text_content_block }}
+      <div class="flex-grow min-h-0">
+        {{ left_media }}
+      </div>
+    </div>
+    <div class="w-[var(--right-size)]" style="width: {{ right_size }}%;">
+      {{ right_media }}
+    </div>
+  {% endif %}
+</div>
+
+{% comment %} mobile {% endcomment %}
+
+{%- liquid
+  if b.mobile_image_option == 'both'
+   assign both_class = ' mr-[18px]'
+  endif
+-%}
+
+<div class="w-full relative pb-[120px] lg:hidden h-full tab__block__image-and-video-with-content">
+  <div class="pointer-events-auto w-full h-full overflow-x-auto snap-x snap-mandatory !overflow-y-hidden flex [&>*]:flex-none no-scrollbar">
+    {%- unless b.mobile_image_option == 'second' -%}
+      <div class="snap-center w-full{{ both_class }}">
+        {{ left_media }}
+        <div class="absolute bottom-4 left-0 right-0 mx-[18px] pointer-events-none">
+          {{ text_content_block }}
+        </div>
+      </div>
+    {%- endunless -%}
+
+    {%- unless b.mobile_image_option == 'first' -%}
+      <div class="snap-center w-full">
+        {{ right_media }}
+        <div class="absolute bottom-4 left-0 right-0 mx-[18px] pointer-events-none">
+          {{ text_content_block }}
+        </div>
+      </div>
+    {%- endunless -%}
+  </div>
+</div>
+
+{%  schema  %}
+{
+  "name": "Homepage Tab Slide",
+  "class": "splide__slide image-and-video-with-content-block",
+  "settings": [
+    {
+      "type": "select",
+      "id": "grid_layout",
+      "label": "Image Layout Ratio",
+      "options": [
+        {
+          "value": "small_l_large_r",
+          "label": "Smaller left, larger right"
+        },
+        {
+          "value": "large_l_small_r",
+          "label": "Larger left, smaller right"
+        },
+        {
+          "value": "equal",
+          "label": "Equal size"
+        }
+      ],
+      "default": "large_l_small_r"
+    },
+    {
+      "type": "header",
+      "content": "Left Media"
+    },
+    {
+      "type": "radio",
+      "id": "left_media_type",
+      "label": "Media Type",
+      "options": [
+        { "value": "image", "label": "Image" },
+        { "value": "video", "label": "Video" }
+      ],
+      "default": "image"
+    },
+    {
+      "type": "image_picker",
+      "id": "left_image",
+      "label": "t:settings_schema.general.image_desktop"
+    },
+    {
+      "type": "video",
+      "id": "left_video",
+      "label": "t:settings_schema.general.video_desktop"
+    },
+    {
+      "type": "image_picker",
+      "id": "left_mobile_image",
+      "label": "t:settings_schema.general.image_mobile"
+    },
+    {
+      "type": "video",
+      "id": "left_mobile_video",
+      "label": "t:settings_schema.general.video_mobile"
+    },
+    {
+      "type": "header",
+      "content": "Right Media"
+    },
+    {
+      "type": "radio",
+      "id": "right_media_type",
+      "label": "Media Type",
+      "options": [
+        { "value": "image", "label": "Image" },
+        { "value": "video", "label": "Video" }
+      ],
+      "default": "video"
+    },
+    {
+      "type": "image_picker",
+      "id": "right_image",
+      "label": "t:settings_schema.general.image_desktop"
+    },
+    {
+      "type": "video",
+      "id": "right_video",
+      "label": "t:settings_schema.general.video_desktop"
+    },
+    {
+      "type": "image_picker",
+      "id": "right_mobile_image",
+      "label": "t:settings_schema.general.image_mobile"
+    },
+    {
+      "type": "video",
+      "id": "right_mobile_video",
+      "label": "t:settings_schema.general.video_mobile"
+    },
+    {
+      "type": "header",
+      "content": "t:settings_schema.sections.blocks.side_by_side_images_with_content.text_content_header"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:settings_schema.general.heading"
+    },
+    {
+      "type": "radio",
+      "id": "text_position",
+      "label": "Content Position",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "text",
+      "id": "body_text",
+      "label": "t:settings_schema.general.body",
+      "info": "t:settings_schema.general.blue_info"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "t:settings_schema.general.cta_button_text"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "t:settings_schema.general.cta_button_url"
+    },
+    {
+      "type": "select",
+      "id": "pills_display",
+      "label": "Pills Display",
+      "options": [
+        {
+          "value": "hidden",
+          "label": "Hidden"
+        },
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "hidden"
+    },
+    {
+      "type": "select",
+      "id": "mobile_image_option",
+      "label": "Mobile Image Option",
+      "options": [
+        {
+          "value": "both",
+          "label": "Both"
+        },
+        {
+          "label": "First",
+          "value": "first"
+        },
+        {
+          "label": "Second",
+          "value": "second"
+        }
+      ],
+      "default": "both"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "pills-for-tab-slider"
+    }
+  ],
+  "presets": [
+    {"name": "Image and Video with Content"}
+  ]
+}
+{% endschema %}

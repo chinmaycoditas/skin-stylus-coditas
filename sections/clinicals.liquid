@@ -1,0 +1,292 @@
+{% assign s = section.settings %}
+<div 
+  id="clinicals-{{ s.id_number }}"
+  class="grid grid-cols-1 grid-rows-1 lg:px-8"
+>
+  <div class="lg:relative flex flex-col gap-10 lg:grid lg:grid-cols-[40%_auto] py-10 {% if section.blocks.size > 1 %}pb-[100px]{% endif %}">
+    <div class="flex flex-col gap-[22px] px-[18px] lg:px-0">
+      <h3 class="text-h3-mob/10 lg:text-h3/[60px] font-light lg:tracking-[-0.11px] tracking-[-0.07px] {% unless settings.remove_capitalize %}capitalize{% endunless %}">
+        {% render 'blue', text: s.title %}
+      </h3>
+      <div class="font-light">{% render 'blue', text: s.description %}</div>
+      {% if s.cta_text_1 != blank or s.cta_text_2 != blank %}
+        <div class="mt-2 flex items-center gap-4">
+          {% if s.cta_text_1 != blank and s.cta_url_1 != blank %}
+            <a class="button-primary-black {% if settings.remove_capitalize %}!normal-case{% endif %} max-[405px]:text-caption-small-mob w-[173.5px] lg:w-[190px]" href="{{ s.cta_url_1 }}">{{ s.cta_text_1 }}</a>
+          {% endif %}
+          {% if s.cta_text_2 != blank and s.cta_url_2 != blank %}
+            {%- assign cta_class = 'button-secondary max-[405px]:text-caption-small-mob  w-[173.5px] lg:w-[190px]' -%}
+            {% if settings.remove_capitalize %}
+              {% assign cta_class = cta_class | append: ' !normal-case' %}
+            {% endif %}
+
+
+            {%- if s.popup_form_override -%}
+              {% render 'popup-input', class: cta_class, text: s.cta_text_2 %}
+            {%- else -%}
+              <a class="{{ cta_class }}" href="{{ s.cta_url_2 }}">{{ s.cta_text_2 }}</a>
+            {%- endif -%}          
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+    
+    {% capture slider_options %}
+      '{
+        "perPage": 1,
+        "pagination": false,
+        "autoHeight": true,
+        "focus": "center",
+        "gap": "19px",
+        "padding": {"left": "18px", "right": "18px"},
+        "arrows": {% if section.blocks.size > 1 %}true{% else %}false{% endif %}
+      }'
+    {% endcapture %}
+
+    <div class="splide relative lg:!static" data-slider={{ slider_options }}>
+      <div class="splide__track">
+        <ul class="splide__list">
+          {% for block in section.blocks %}
+            {% assign b = block.settings %}
+            {% assign slide_num = forloop.index %}
+            <li class="splide__slide rounded-image">
+              <div data-tabs class="flex flex-col gap-10 py-10 items-center bg-white rounded-image px-4">
+                <div data-tab-container class="relative bg-gradient-cream-1 rounded-[99px] flex gap-[5px] px-2.5 py-[5px] [&_.is-active]:text-black">
+                  {% assign tab_class = "text-dark-grey py-2.5 px-2 lg:px-[25px] text-body-small-mob/normal max-[411px]:text-caption-small/normal tracking-[-0.028px] cursor-pointer relative z-10" %}
+                  {% for i in (1..2) %}
+                    {% assign tab_label = "tab_label_" | append: i %}
+                    <span data-tab-toggle="{{ s[tab_label] | handleize }}--{{ section.id }}--{{ slide_num }}" class="{{ tab_class }} {% unless settings.remove_capitalize %}capitalize{% endunless %}">
+                      {{ s[tab_label] }}
+                    </span>
+                  {% endfor %}
+                  <div data-tab-indicator class="bg-white rounded-[126px] absolute top-1.5 bottom-1.5 right-0 left-0 transition-all z-0"></div>
+                </div>
+
+                {% for i in (1..2) %}
+                  {% assign tab_label = "tab_label_" | append: i %}
+                  <div data-tab-content="{{ s[tab_label] | handleize }}--{{ section.id }}--{{ slide_num }}" class="w-full h-full {% if i == 2 %}!hidden{% endif %}">
+                    <ul class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                      {% for t in (1..2) %}
+                        {% for c in (1..4) %}
+                          {%- liquid
+                              assign percentage = "t" | append: t | append: "_c" | append: c | append: "_percentage"
+                              assign description = "t" | append: t | append: "_c" | append: c | append: "_description"
+                              assign disclaimer = "t" | append: t | append: "_c" | append: c | append: "_disclaimer"
+                              assign image = "t" | append: t | append: "_c" | append: c | append: "_image"
+                              assign connected_tab = "t" | append: t | append: "_c" | append: c | append: "_connected_tab"
+                          -%}
+                          {% if b[connected_tab] == s[tab_label] %}
+                            <li class="grid grid-cols-[30%_70%] border-t border-t-dark-grey gap-4">
+                              {% render 'responsive-image', 
+                                image: b[image],
+                                pb_hack: "100%",
+                                class: "rounded-full border-2 border-white -translate-y-[6px]"
+                              %}
+                              <div class="flex flex-col pt-2 pr-4">
+                                {% unless b[percentage] == blank or b[percentage] < 0 %}
+                                  <span class="text-blue-cta text-h3-mob/10 font-light tracking-[-0.07px] {% unless settings.remove_capitalize %}capitalize{% endunless %}">{{ b[percentage] }}%</span>
+                                {% endunless %}
+                                <span class="inline text-section-3/7 font-light [&_.blue-text]:font-normal tracking-[-0.042px] lg:pr-4">
+                                  {%- render 'blue', text: b[description] %}<span class="align-super text-[12px]/3">{{ b[disclaimer] }}</span>
+                                </span>
+                              </div>
+                            </li>
+                          {% endif %}
+                        {% endfor %}
+                      {% endfor %}
+                    </ul>
+                  </div>
+                {% endfor %}
+              </div>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% if section.blocks.size > 1 %}
+        <div class="splide__arrows flex gap-3 w-[200px] absolute bottom-[-72px] left-[15px] lg:left-0 lg:bottom-[unset] lg:top-[65%] pointer-events-none [&_button:not(:disabled)]:pointer-events-auto">
+          <button class="splide__arrow splide__arrow--prev !relative !left-0 !rounded-none !h-[44px] !w-[44px] !bg-none" style="background: none; transform: translateY(0);">
+            {% render 'icons', icon: 'chevron-right-circle', class: "text-black block h-full w-full [&_svg]:block [&_svg]:!h-full [&_svg]:!w-full" %}
+          </button>
+          <button class="splide__arrow splide__arrow--next !relative !right-0 !rounded-none !h-[44px] !w-[44px] !bg-none" style="background: none; transform: translateY(0);">
+            {% render 'icons', icon: 'chevron-right-circle', class: "text-black block h-full w-full [&_svg]:block [&_svg]:!h-full [&_svg]:!w-full" %}
+          </button>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% if s.show_gradient %}
+  <style>
+    #shopify-section-{{ section.id }} {
+      position: relative;
+    }
+    #shopify-section-{{ section.id }}::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(to bottom, #F3F0EE 0%, transparent 100%);
+      pointer-events: none;
+      z-index: 1;
+    }
+    #shopify-section-{{ section.id }} > * {
+      position: relative;
+      z-index: 2;
+    }
+  </style>
+{% endif %}
+
+{% schema %}
+{
+  "name": "t:settings_schema.sections.clinicals.name",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_gradient",
+      "label": "t:settings_schema.general.display.show_gradient"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "t:settings_schema.general.title",
+      "info": "t:settings_schema.general.blue_info"
+    },
+    {
+      "type": "text",
+      "id": "description",
+      "label": "t:settings_schema.general.description",
+      "info": "t:settings_schema.general.blue_info"
+    },
+    {
+      "type": "text",
+      "id": "cta_text_1",
+      "label": "t:settings_schema.sections.clinicals.cta_text_1"
+    },
+    {
+      "type": "url",
+      "id": "cta_url_1",
+      "label": "t:settings_schema.sections.clinicals.cta_url_1"
+    },
+    {
+      "type": "text",
+      "id": "cta_text_2",
+      "label": "t:settings_schema.sections.clinicals.cta_text_2"
+    },
+    {
+      "type": "url",
+      "id": "cta_url_2",
+      "label": "t:settings_schema.sections.clinicals.cta_url_2"
+    },
+    {
+      "type": "checkbox",
+      "id": "popup_form_override",
+      "label": "Override CTA 2 link with Popup Form",
+      "info": "Requires the Form Popup section to be on the template to work."
+    },
+    {
+      "type": "text",
+      "id": "tab_label_1",
+      "label": "t:settings_schema.sections.clinicals.tab_label_1"
+    },
+    {
+      "type": "text",
+      "id": "tab_label_2",
+      "label": "t:settings_schema.sections.clinicals.tab_label_2"
+    },
+    {
+      "type": "header",
+      "content": "Unique Section ID"
+    },
+    {
+      "type": "paragraph",
+      "content": "The ID for this section will be 'clinicals-#' based on the number chosen below. The default is 'clinicals-1'"
+    },
+    {
+      "type": "range",
+      "id": "id_number",
+      "label": "ID Number",
+      "max": 5,
+      "min": 1,
+      "step": 1,
+      "default": 1,
+      "info": "If using this section multiple times on the same page, assign a different number to each one."
+    }
+  ],
+   "blocks": [
+    {
+      "type": "slide",
+      "name": "t:settings_schema.sections.clinicals.slide",
+      "settings": [
+        { "type": "header", "content": "t:settings_schema.sections.clinicals.tab_1_content" },
+
+        { "type": "header", "content": "t:settings_schema.sections.clinicals.content_box_1" },
+        { "type": "number", "id": "t1_c1_percentage", "label": "t:settings_schema.sections.clinicals.percentange" },
+        { "type": "text", "id": "t1_c1_description", "label": "t:settings_schema.general.description", "info": "t:settings_schema.general.blue_info" },
+        { "type": "text", "id": "t1_c1_disclaimer", "label": "t:settings_schema.general.disclaimer_reference" },
+        { "type": "image_picker", "id": "t1_c1_image", "label": "t:settings_schema.general.image" },
+        { "type": "text", "id": "t1_c1_connected_tab", "label": "t:settings_schema.sections.clinicals.connected_tab_label", "info": "t:settings_schema.sections.clinicals.connected_tab_info" },
+
+        { "type": "header", "content": "t:settings_schema.sections.clinicals.content_box_2" },
+        { "type": "number", "id": "t1_c2_percentage", "label": "t:settings_schema.sections.clinicals.percentange" },
+        { "type": "text", "id": "t1_c2_description", "label": "t:settings_schema.general.description", "info": "t:settings_schema.general.blue_info" },
+        { "type": "text", "id": "t1_c2_disclaimer", "label": "t:settings_schema.general.disclaimer_reference" },
+        { "type": "image_picker", "id": "t1_c2_image", "label": "t:settings_schema.general.image" },
+        { "type": "text", "id": "t1_c2_connected_tab", "label": "t:settings_schema.sections.clinicals.connected_tab_label", "info": "t:settings_schema.sections.clinicals.connected_tab_info" },
+
+        { "type": "header", "content": "t:settings_schema.sections.clinicals.content_box_3" },
+        { "type": "number", "id": "t1_c3_percentage", "label": "t:settings_schema.sections.clinicals.percentage" },
+        { "type": "text", "id": "t1_c3_description", "label": "t:settings_schema.sections.clinicals.description", "info": "t:settings_schema.general.blue_info" },
+        { "type": "text", "id": "t1_c3_disclaimer", "label": "t:settings_schema.sections.clinicals.disclaimer_reference" },
+        { "type": "image_picker", "id": "t1_c3_image", "label": "t:settings_schema.sections.clinicals.image" },
+        { "type": "text", "id": "t1_c3_connected_tab", "label": "t:settings_schema.sections.clinicals.connected_tab", "info": "t:settings_schema.sections.clinicals.connected_tab_info" },
+
+        { "type": "header", "content": "t:settings_schema.sections.clinicals.content_box_4" },
+        { "type": "number", "id": "t1_c4_percentage", "label": "t:settings_schema.sections.clinicals.percentage" },
+        { "type": "text", "id": "t1_c4_description", "label": "t:settings_schema.sections.clinicals.description", "info": "t:settings_schema.general.blue_info" },
+        { "type": "text", "id": "t1_c4_disclaimer", "label": "t:settings_schema.sections.clinicals.disclaimer_reference" },
+        { "type": "image_picker", "id": "t1_c4_image", "label": "t:settings_schema.sections.clinicals.image" },
+        { "type": "text", "id": "t1_c4_connected_tab", "label": "t:settings_schema.sections.clinicals.connected_tab", "info": "t:settings_schema.sections.clinicals.connected_tab_info" },
+
+        { "type": "header", "content": "t:settings_schema.sections.clinicals.tab_2_content" },
+
+        { "type": "header", "content": "t:settings_schema.sections.clinicals.content_box_1" },
+        { "type": "number", "id": "t2_c1_percentage", "label": "t:settings_schema.sections.clinicals.percentage" },
+        { "type": "text", "id": "t2_c1_description", "label": "t:settings_schema.sections.clinicals.description", "info": "t:settings_schema.general.blue_info" },
+        { "type": "text", "id": "t2_c1_disclaimer", "label": "t:settings_schema.sections.clinicals.disclaimer_reference" },
+        { "type": "image_picker", "id": "t2_c1_image", "label": "t:settings_schema.sections.clinicals.image" },
+        { "type": "text", "id": "t2_c1_connected_tab", "label": "t:settings_schema.sections.clinicals.connected_tab", "info": "t:settings_schema.sections.clinicals.connected_tab_info" },
+
+        { "type": "header", "content": "t:settings_schema.sections.clinicals.content_box_2" },
+        { "type": "number", "id": "t2_c2_percentage", "label": "t:settings_schema.sections.clinicals.percentage" },
+        { "type": "text", "id": "t2_c2_description", "label": "t:settings_schema.sections.clinicals.description", "info": "t:settings_schema.general.blue_info" },
+        { "type": "text", "id": "t2_c2_disclaimer", "label": "t:settings_schema.sections.clinicals.disclaimer_reference" },
+        { "type": "image_picker", "id": "t2_c2_image", "label": "t:settings_schema.sections.clinicals.image" },
+        { "type": "text", "id": "t2_c2_connected_tab", "label": "t:settings_schema.sections.clinicals.connected_tab", "info": "t:settings_schema.sections.clinicals.connected_tab_info" },
+
+        { "type": "header", "content": "t:settings_schema.sections.clinicals.content_box_3" },
+        { "type": "number", "id": "t2_c3_percentage", "label": "t:settings_schema.sections.clinicals.percentage" },
+        { "type": "text", "id": "t2_c3_description", "label": "t:settings_schema.sections.clinicals.description", "info": "t:settings_schema.general.blue_info" },
+        { "type": "text", "id": "t2_c3_disclaimer", "label": "t:settings_schema.sections.clinicals.disclaimer_reference" },
+        { "type": "image_picker", "id": "t2_c3_image", "label": "t:settings_schema.sections.clinicals.image" },
+        { "type": "text", "id": "t2_c3_connected_tab", "label": "t:settings_schema.sections.clinicals.connected_tab", "info": "t:settings_schema.sections.clinicals.connected_tab_info" },
+
+        { "type": "header", "content": "t:settings_schema.sections.clinicals.content_box_4" },
+        { "type": "number", "id": "t2_c4_percentage", "label": "t:settings_schema.sections.clinicals.percentage" },
+        { "type": "text", "id": "t2_c4_description", "label": "t:settings_schema.sections.clinicals.description", "info": "t:settings_schema.general.blue_info" },
+        { "type": "text", "id": "t2_c4_disclaimer", "label": "t:settings_schema.sections.clinicals.disclaimer_reference" },
+        { "type": "image_picker", "id": "t2_c4_image", "label": "t:settings_schema.sections.clinicals.image" },
+        { "type": "text", "id": "t2_c4_connected_tab", "label": "t:settings_schema.sections.clinicals.connected_tab", "info": "t:settings_schema.sections.clinicals.connected_tab_info" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:settings_schema.sections.clinicals.name"
+    }
+  ]
+}
+{% endschema %}

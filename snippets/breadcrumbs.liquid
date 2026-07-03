@@ -1,0 +1,112 @@
+{% unless template == 'index' %}
+  <nav class="breadcrumbs mt-4 text-caption-small pb-2.5" role="navigation" aria-label="Breadcrumb">
+    <ul class="flex gap-1" itemscope itemtype="https://schema.org/BreadcrumbList">
+      {% assign position = 1 %}
+
+      <!-- Home -->
+      <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a class="font-light" href="{{ routes.root_url }}" itemprop="item">
+          <span class="font-light" itemprop="name">{{ 'general.breadcrumbs.home' | t | default: 'Home' }}</span>
+        </a>
+        <meta itemprop="position" content="{{ position }}">
+      </li>
+
+      {% assign position = position | plus: 1 %}
+
+      {%- comment -%} Collection page (with optional tag) {%- endcomment -%}
+      {% if template contains 'collection' and collection %}
+        <span aria-hidden="true">/</span>
+        {% if paginate and paginate.current_page > 1 %}
+          {%- assign page_suffix = ' — Page ' | append: paginate.current_page -%}
+        {% endif %}
+
+        <li class="{% if current_tags or paginate.current_page > 1 %}{% else %}is-last{% endif %}" {% if current_tags or paginate.current_page > 1 %}{% else %}aria-current="page"{% endif %} itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          {% if current_tags or paginate.current_page > 1 %}
+            <a href="{{ collection.url }}" itemprop="item">
+              <span class="underline" itemprop="name">{{ collection.title }}</span>
+            </a>
+          {% else %}
+            <span class="underline" itemprop="name">{{ collection.title }}{{ page_suffix }}</span>
+          {% endif %}
+          <meta itemprop="position" content="{{ position }}">
+        </li>
+        {% assign position = position | plus: 1 %}
+
+        {% if current_tags %}
+          <span aria-hidden="true">/</span>
+          <li aria-current="page" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+            <span class="underline" itemprop="name">{{ current_tags | join: ' + ' }}</span>
+            <meta itemprop="position" content="{{ position }}">
+          </li>
+        {% elsif paginate and paginate.current_page > 1 %}
+          <span aria-hidden="true">/</span>
+          <li aria-current="page" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+            <span class="underline" itemprop="name">{{ 'general.breadcrumbs.page' | t: page: paginate.current_page }}</span>
+            <meta itemprop="position" content="{{ position }}">
+          </li>
+        {% endif %}
+
+      {%- comment -%} Product page {%- endcomment -%}
+      {% elsif template contains 'product' and product %}
+        {%- assign parent_collection = collection -%}
+        {% if parent_collection %}
+          <span aria-hidden="true">/</span>
+          <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+            <a href="{{ parent_collection.url }}" itemprop="item">
+              <span class="underline" itemprop="name">{{ parent_collection.title }}</span>
+            </a>
+            <meta itemprop="position" content="{{ position }}">
+          </li>
+          {% assign position = position | plus: 1 %}
+        {% else %}
+          <span aria-hidden="true">/</span>
+          <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+            <a href="{{ routes.all_products_collection_url }}" itemprop="item">
+              <span class="underline" itemprop="name">{{ 'general.breadcrumbs.all_products' | t | default: 'All products' }}</span>
+            </a>
+            <meta itemprop="position" content="{{ position }}">
+          </li>
+          {% assign position = position | plus: 1 %}
+        {% endif %}
+
+        <span aria-hidden="true">/</span>
+        <li aria-current="page" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <span class="underline" itemprop="name">{{ product.title }}</span>
+          <meta itemprop="position" content="{{ position }}">
+        </li>
+
+      {%- comment -%} Blog index {%- endcomment -%}
+      {% elsif template contains 'blog' and blog %}
+        <span aria-hidden="true">/</span>
+        <li aria-current="page" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <span class="underline" itemprop="name">{{ blog.title }}</span>
+          <meta itemprop="position" content="{{ position }}">
+        </li>
+
+      {%- comment -%} Article page {%- endcomment -%}
+      {% elsif template contains 'article' and article %}
+        <span aria-hidden="true">/</span>
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="{{ blog.url }}" itemprop="item">
+            <span class="underline" itemprop="name">{{ blog.title }}</span>
+          </a>
+          <meta itemprop="position" content="{{ position }}">
+        </li>
+        {% assign position = position | plus: 1 %}
+        <span aria-hidden="true">/</span>
+        <li aria-current="page" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <span class="underline" itemprop="name">{{ article.title }}</span>
+          <meta itemprop="position" content="{{ position }}">
+        </li>
+
+      {%- comment -%} Standard pages {%- endcomment -%}
+      {% elsif template contains 'page' and page %}
+        <span aria-hidden="true">/</span>
+        <li aria-current="page" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <span class="underline" itemprop="name">{{ page.title }}</span>
+          <meta itemprop="position" content="{{ position }}">
+        </li>
+      {% endif %}
+    </ul>
+  </nav>
+{% endunless %}

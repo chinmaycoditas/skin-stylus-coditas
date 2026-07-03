@@ -1,0 +1,405 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "example": {
+      "type": "example",
+      "disabled": true,
+      "settings": {}
+    },
+    "page_hero_a9WMpG": {
+      "type": "page-hero",
+      "name": "Page Hero",
+      "settings": {
+        "image": "shopify://shop_images/2025_Hf_B2B_Upcoming-Tradeshows_Email_02.jpg",
+        "image_mobile": "shopify://shop_images/2025_Hf_B2B_Upcoming-Tradeshows_Email_02.jpg",
+        "heading": "<p>Tradeshows & Events</p>",
+        "use_h1": true,
+        "heading_color": "#ffffff",
+        "body": "",
+        "cta_text": "",
+        "cta_url": "",
+        "content_position": "items-start",
+        "desktop_heading_max_w": 415,
+        "content_block_type": "pills",
+        "show_nav": false,
+        "dropdown_text": "",
+        "id_number": 1,
+        "popup_form_override": false
+      }
+    },
+    "press_features_QmDNzr": {
+      "type": "press-features",
+      "blocks": {
+        "card_6mKd7R": {
+          "type": "card",
+          "disabled": true,
+          "settings": {
+            "main_image": "shopify://shop_images/Aesthetic_next_logo.png",
+            "date": "September 4-7, 2025 | Hilton Anatole",
+            "card_heading": "Dallas, TX",
+            "card_content": "<p>Aesthetic Next 7.0</p>",
+            "link_text": "Register Now",
+            "link_url": "https://aestheticnext.com/"
+          }
+        },
+        "card_aHYeCd": {
+          "type": "card",
+          "settings": {
+            "date": "",
+            "card_heading": "",
+            "card_content": "",
+            "link_text": "",
+            "link_url": ""
+          }
+        },
+        "card_CWVR4e": {
+          "type": "card",
+          "disabled": true,
+          "settings": {
+            "main_image": "shopify://shop_images/Science_of_skin_summit_logo_9ecafa78-df09-42e7-9df6-5ee5e4af533f.png",
+            "date": "September 5-7, 2025 | Fairmont Hotel",
+            "card_heading": "Austin, TX",
+            "card_content": "<p>The Science of Skin Summit</p>",
+            "link_text": "Register Now",
+            "link_url": "https://www.scienceofskinsummit.com/"
+          }
+        },
+        "card_iddeEH": {
+          "type": "card",
+          "disabled": true,
+          "settings": {
+            "main_image": "shopify://shop_images/IECSC_65eed4ce-d508-4fe7-9a06-23e209458c8d.png",
+            "date": "September 28-29, 2025 | Palm Beach County Convention Center",
+            "card_heading": "West Palm Beach, FL",
+            "card_content": "<p>IECSC</p>",
+            "link_text": "Register Now",
+            "link_url": "https://www.iecscflorida.com/"
+          }
+        },
+        "card_BkHRrT": {
+          "type": "card",
+          "settings": {
+            "date": "",
+            "card_heading": "",
+            "card_content": "",
+            "link_text": "",
+            "link_url": ""
+          }
+        },
+        "card_waT3Yk": {
+          "type": "card",
+          "settings": {
+            "main_image": "shopify://shop_images/ICES_791e1479-896d-4bf4-9f41-f0c55cfe2071.png",
+            "date": "October 19-20, 2025 | Broward County Convention Center",
+            "card_heading": "Ft. Lauderdale, FL",
+            "card_content": "<p>ICES</p>",
+            "link_text": "Register Now",
+            "link_url": "https://fortlauderdale.skincareshows.com/"
+          }
+        },
+        "card_ibyXMV": {
+          "type": "card",
+          "settings": {
+            "main_image": "shopify://shop_images/ASDS_8a4538d1-35a4-46a1-8826-b5bd885aac44.png",
+            "date": "November 13-16, 2025  | Hyatt Regency",
+            "card_heading": "Chicago, IL",
+            "card_content": "<p>American Society for Dermatologic Surgery</p>",
+            "link_text": "Register Now",
+            "link_url": "https://www.asds.net/medical-professionals/annual-meeting"
+          }
+        },
+        "card_xrHWW4": {
+          "type": "card",
+          "settings": {
+            "main_image": "shopify://shop_images/ESI_032d08d3-1f0a-47cb-a454-1b010ed03626.png",
+            "date": "March 8-9, 2026 | Canada Place",
+            "card_heading": "Vancouver, Canada",
+            "card_content": "<p>ESI For Professionals</p>",
+            "link_text": "Register Now",
+            "link_url": "https://esishow.com/vancouver/"
+          }
+        },
+        "card_VLB3wm": {
+          "type": "card",
+          "settings": {
+            "main_image": "shopify://shop_images/IECSC_65eed4ce-d508-4fe7-9a06-23e209458c8d.png",
+            "date": "March 8-10, 2026  | Javits Convention Center",
+            "card_heading": "New York, NY",
+            "card_content": "<p>IECSC</p>",
+            "link_text": "Register Now",
+            "link_url": "https://www.iecscnewyork.com/"
+          }
+        },
+        "card_RjH3Vf": {
+          "type": "card",
+          "settings": {
+            "main_image": "shopify://shop_images/AAD_55c7ece6-0490-4ff4-bbd2-099ac87347c8.png",
+            "date": "March 27-29, 2026 | Colorado Convention Center",
+            "card_heading": "Denver, CO",
+            "card_content": "<p>American Academy of Dermatology</p>",
+            "link_text": "Register Now",
+            "link_url": "https://www.aad.org/member/meetings-education/am26"
+          }
+        },
+        "card_kREAUE": {
+          "type": "card",
+          "settings": {
+            "main_image": "shopify://shop_images/ispa_1.png",
+            "date": "March 31 - April 2, 2026 | The Venetian Hotel",
+            "card_heading": "Las Vegas, NV",
+            "card_content": "<p>iSPA</p>",
+            "link_text": "Register Now",
+            "link_url": "https://experienceispa.com/2025-conference/"
+          }
+        }
+      },
+      "block_order": [
+        "card_6mKd7R",
+        "card_aHYeCd",
+        "card_CWVR4e",
+        "card_iddeEH",
+        "card_BkHRrT",
+        "card_waT3Yk",
+        "card_ibyXMV",
+        "card_xrHWW4",
+        "card_VLB3wm",
+        "card_RjH3Vf",
+        "card_kREAUE"
+      ],
+      "name": "t:settings_schema.sections.press_features.name",
+      "settings": {
+        "heading": "Experience <|Hydrafacial|>",
+        "id_number": 1
+      }
+    },
+    "large_content_cards_M769Td": {
+      "type": "large-content-cards",
+      "blocks": {
+        "media_slide_RhgzQ4": {
+          "type": "media_slide",
+          "settings": {
+            "desktop_image": "shopify://shop_images/Rectangle_35.png",
+            "mobile_image": "shopify://shop_images/Rectangle_35.png",
+            "title": "Aesthetic Next",
+            "caption": "<|September 4-7, 2025|> Dallas, TX",
+            "card_cta_text": "Register Now",
+            "card_cta_url": "https://aestheticnext.com/"
+          }
+        },
+        "media_slide_wXhYRD": {
+          "type": "media_slide",
+          "settings": {
+            "desktop_image": "shopify://shop_images/Rectangle_35.png",
+            "mobile_image": "shopify://shop_images/Rectangle_35.png",
+            "title": "Science of Skincare",
+            "caption": "<|September 5-7, 2025|> Austin, TX",
+            "card_cta_text": "Register Now",
+            "card_cta_url": "https://www.scienceofskinsummit.com/"
+          }
+        },
+        "media_slide_JVpXBn": {
+          "type": "media_slide",
+          "settings": {
+            "desktop_image": "shopify://shop_images/Rectangle_35.png",
+            "mobile_image": "shopify://shop_images/Rectangle_35.png",
+            "title": "International Esthetics, Cosmetics & Spa Conference",
+            "caption": "<|September 28-29, 2025|> West Palm Beach, FL",
+            "card_cta_text": "Register Now",
+            "card_cta_url": "https://www.iecscflorida.com/"
+          }
+        }
+      },
+      "block_order": [
+        "media_slide_RhgzQ4",
+        "media_slide_wXhYRD",
+        "media_slide_JVpXBn"
+      ],
+      "disabled": true,
+      "name": "Large Content Cards",
+      "settings": {
+        "heading": "2025  <|Events|>",
+        "id_number": 1
+      }
+    },
+    "large_content_cards_MhxkBW": {
+      "type": "large-content-cards",
+      "blocks": {
+        "media_slide_MyGz7j": {
+          "type": "media_slide",
+          "settings": {
+            "desktop_image": "shopify://shop_images/Rectangle_35.png",
+            "mobile_image": "shopify://shop_images/Rectangle_35.png",
+            "title": "International Congress of Esthetics & Spa",
+            "caption": "<|October 19-20, 2025|> Ft. Lauderdale, FL",
+            "card_cta_text": "Register Now",
+            "card_cta_url": "https://fortlauderdale.skincareshows.com/"
+          }
+        },
+        "media_slide_dr4B3J": {
+          "type": "media_slide",
+          "settings": {
+            "desktop_image": "shopify://shop_images/Rectangle_35.png",
+            "mobile_image": "shopify://shop_images/Rectangle_35.png",
+            "title": "American Society for Dermatologic Society",
+            "caption": "<|November 13-16, 2025|> Chicago, IL",
+            "card_cta_text": "Register Now",
+            "card_cta_url": "https://www.asds.net/medical-professionals/annual-meeting"
+          }
+        }
+      },
+      "block_order": [
+        "media_slide_MyGz7j",
+        "media_slide_dr4B3J"
+      ],
+      "disabled": true,
+      "name": "Large Content Cards",
+      "settings": {
+        "heading": "",
+        "id_number": 1
+      }
+    },
+    "large_content_cards_JYwAG6": {
+      "type": "large-content-cards",
+      "blocks": {
+        "media_slide_icmjrE": {
+          "type": "media_slide",
+          "settings": {
+            "desktop_image": "shopify://shop_images/Rectangle_35.png",
+            "mobile_image": "shopify://shop_images/Rectangle_35.png",
+            "title": "ESI Vancouver",
+            "caption": "<|March 31 - April 2, 2026|> Las Vegas, NV",
+            "card_cta_text": "Register Now",
+            "card_cta_url": "https://experienceispa.com/2025-conference/"
+          }
+        },
+        "media_slide_4RHaFC": {
+          "type": "media_slide",
+          "settings": {
+            "desktop_image": "shopify://shop_images/Rectangle_35.png",
+            "mobile_image": "shopify://shop_images/Rectangle_35.png",
+            "title": "International Esthetics, Cosmetics & Spa Conference",
+            "caption": "<|March 8-10, 2026|> New York, NY",
+            "card_cta_text": "Register Now",
+            "card_cta_url": "https://www.iecscnewyork.com/"
+          }
+        },
+        "media_slide_Q7hLQm": {
+          "type": "media_slide",
+          "settings": {
+            "desktop_image": "shopify://shop_images/Rectangle_35.png",
+            "mobile_image": "shopify://shop_images/Rectangle_35.png",
+            "title": "American Academy of Dermatology",
+            "caption": "<|March 27-29, 2026|> Denver, CO",
+            "card_cta_text": "Register Now",
+            "card_cta_url": "https://www.aad.org/member/meetings-education/am26"
+          }
+        }
+      },
+      "block_order": [
+        "media_slide_icmjrE",
+        "media_slide_4RHaFC",
+        "media_slide_Q7hLQm"
+      ],
+      "disabled": true,
+      "name": "Large Content Cards",
+      "settings": {
+        "heading": "2026  <|Events|>",
+        "id_number": 1
+      }
+    },
+    "large_content_cards_d9YQpp": {
+      "type": "large-content-cards",
+      "blocks": {
+        "media_slide_8XzQC3": {
+          "type": "media_slide",
+          "settings": {
+            "desktop_image": "shopify://shop_images/Rectangle_35.png",
+            "mobile_image": "shopify://shop_images/Rectangle_35.png",
+            "title": "ESI Vancouver",
+            "caption": "<|March 31 - April 2, 2026|> Las Vegas, NV",
+            "card_cta_text": "Register Now",
+            "card_cta_url": "https://experienceispa.com/2025-conference/"
+          }
+        },
+        "media_slide_beYkWb": {
+          "type": "media_slide",
+          "settings": {
+            "title": "",
+            "caption": "",
+            "card_cta_text": "",
+            "card_cta_url": ""
+          }
+        },
+        "media_slide_3FRbTA": {
+          "type": "media_slide",
+          "disabled": true,
+          "settings": {
+            "desktop_image": "shopify://shop_images/Rectangle_35.png",
+            "mobile_image": "shopify://shop_images/Rectangle_35.png",
+            "title": "International Esthetics, Cosmetics & Spa Conference",
+            "caption": "<|March 8-10, 2026|> New York, NY",
+            "card_cta_text": "Register Now",
+            "card_cta_url": "https://www.iecscnewyork.com/"
+          }
+        },
+        "media_slide_Vxzajg": {
+          "type": "media_slide",
+          "disabled": true,
+          "settings": {
+            "desktop_image": "shopify://shop_images/Rectangle_35.png",
+            "mobile_image": "shopify://shop_images/Rectangle_35.png",
+            "title": "American Academy of Dermatology",
+            "caption": "<|March 27-29, 2026|> Denver, CO",
+            "card_cta_text": "Register Now",
+            "card_cta_url": "https://www.aad.org/member/meetings-education/am26"
+          }
+        }
+      },
+      "block_order": [
+        "media_slide_8XzQC3",
+        "media_slide_beYkWb",
+        "media_slide_3FRbTA",
+        "media_slide_Vxzajg"
+      ],
+      "disabled": true,
+      "name": "Large Content Cards",
+      "settings": {
+        "heading": "",
+        "id_number": 1
+      }
+    },
+    "text_with_cta_G9FtYT": {
+      "type": "text-with-cta",
+      "name": "Text With CTA",
+      "settings": {
+        "heading": "<p>Not able to attend a &lt;|tradeshow?|&gt;</p>",
+        "body": "<p>Get in touch with our Sales Team to learn more about how partnering with Hydrafacial will help elevate your service offerings and your bottom line. </p>",
+        "top_cta_text": "Become a Provider",
+        "top_cta_url": "shopify://pages/connect-with-sales",
+        "popup_form_override": false,
+        "wide_button_on_mobile": false,
+        "bottom_cta_text": "Connect With Sales",
+        "bottom_cta_url": "",
+        "id_number": 1
+      }
+    }
+  },
+  "order": [
+    "example",
+    "page_hero_a9WMpG",
+    "press_features_QmDNzr",
+    "large_content_cards_M769Td",
+    "large_content_cards_MhxkBW",
+    "large_content_cards_JYwAG6",
+    "large_content_cards_d9YQpp",
+    "text_with_cta_G9FtYT"
+  ]
+}

@@ -1,0 +1,70 @@
+{%- comment -%}
+
+Usage:
+  {% render 'responsive-image', 
+    image: image,
+    class: string,
+    alt_default: string,
+    no_lazy: boolean,
+    columns_desktop: number,
+    columns_mobile: number,
+    pb_hack: string,
+    height: string,
+    img_height: string,
+    auto_width: boolean,
+    cover: boolean,
+    object_fit: string,
+    position: string
+  %}
+
+{%- endcomment -%}
+
+{%- liquid 
+  assign columns_desktop = columns_desktop | default: 1
+  assign columns_mobile = columns_mobile | default: 1
+-%}
+
+{%- capture sizes -%}
+  (min-width: 1650px) {{ 1650 | divided_by: image.width | minus: 130 | divided_by: columns_desktop }}px, (min-width: 990px) calc((100vw - 130px) / {{ columns_desktop }}), (min-width: 750px) calc((100vw - 120px) / {{ columns_desktop }}), calc((100vw - 35px) / {{ columns_mobile }})
+{%- endcapture -%}
+
+{% capture srcset %}
+  {%- if image.width >= 165 -%}{{ image | image_url: width: 165 }} 165w,{%- endif -%}
+  {%- if image.width >= 360 -%}{{ image | image_url: width: 360 }} 360w,{%- endif -%}
+  {%- if image.width >= 533 -%}{{ image | image_url: width: 533 }} 533w,{%- endif -%}
+  {%- if image.width >= 720 -%}{{ image | image_url: width: 720 }} 720w,{%- endif -%}
+  {%- if image.width >= 940 -%}{{ image | image_url: width: 940 }} 940w,{%- endif -%}
+  {%- if image.width >= 1066 -%}{{ image | image_url: width: 1066 }} 1066w,{%- endif -%}
+  {{ image | image_url }} {{ image.width }}w
+{% endcapture %}
+
+{%- capture lazy -%}
+  {%- if no_lazy -%}
+    false
+  {%- else -%}
+    {%- if section.index == 1 -%}
+      false
+    {%- else -%}
+      lazy
+    {%- endif -%}
+  {%- endif -%}
+{%- endcapture -%}
+
+{%- capture style -%}
+  object-fit:{% if object_fit != blank %}{{ object_fit }}{%- elsif cover or pb_hack != blank -%}cover{%- else -%}contain{%- endif -%};
+  {% unless no_width %}
+    width:{%- if auto_width -%}{% if pb_hack != blank -%}100%{%- else -%}auto{%- endif -%}{%- else -%}100%{%- endif -%};
+  {% endunless %}
+  height: 100%;
+  {%- if auto_width -%}margin: 0 auto;{%- endif -%}
+  {%- if object_position -%}object-position: {{ object_position }};{%- endif -%}
+  {%- if pb_hack != blank -%}position: absolute;{%- endif -%}
+{%- endcapture -%}
+
+{%- if pb_hack != blank -%}
+  {%- assign class = class | append: " h-0 w-full relative" %}
+{%- endif -%}
+
+<div class="{% if absolute %}absolute{% else %}relative{% endif %} overflow-hidden {{ class }}" style="{% if height %}height: {{ height }};{% endif %}{% if pb_hack != blank %}padding-bottom:{{ pb_hack }};{% endif %}">
+  {{ image | image_url: width: nil | image_tag: sizes: sizes, srcset: srcset, preload: no_lazy, loading: lazy, style: style, class: image_class }}
+</div>

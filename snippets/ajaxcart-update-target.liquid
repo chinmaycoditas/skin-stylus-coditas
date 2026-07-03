@@ -1,0 +1,39 @@
+<div data-ajax-cart-content>
+  <ul data-cart-with-items-content>
+    {%- for item in cart.items -%}
+      <li class="flex items-stretch gap-5 p-3.5">
+        <a href="{{ item.product.url }}">
+          {%- render 'responsive-image', image: item.product.featured_image -%}
+        </a>
+
+        <div class="">
+          <a href="{{ item.product.url }}">
+            <span>{{ item.title }}</span>
+          </a>
+
+          {% if item.properties %}
+            <ul class="">
+              {%- for property in item.properties -%}
+                {%- assign first_letter = property.first | split: '' | first -%}
+                {%- unless first_letter == '_' -%}
+                  <li>
+                    {{ property.first }}: {{ property.last }}
+                  </li>
+                {%- endunless -%}
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+        </div>
+
+        <div class="flex-1 flex flex-col justify-between items-end gap-5">
+          <span>{{ item.line_price | money }}</span>
+          <div class="flex border p-1">
+            <a class="mt-[-3px]" data-ajax-cart-request-button href="{{ routes.cart_change_url }}?line={{ item_index }}&quantity={{ item.quantity | minus: 1}}">-</a>
+            <input class="w-7" name="updates[]" value="{{ item.quantity }}" type="number" />
+            <a class="mt-[-3px]" data-ajax-cart-request-button href="{{ routes.cart_change_url }}?line={{ item_index }}&quantity={{ item.quantity | plus: 1}}">+</a>
+          </div>
+        </div>
+      </li>
+    {%- endfor -%}
+  </ul>
+</div>

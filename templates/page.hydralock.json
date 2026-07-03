@@ -1,0 +1,38 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "example": {
+      "type": "example",
+      "settings": {}
+    },
+    "page_hero_hGdwPa": {
+      "type": "page-hero",
+      "name": "t:settings_schema.sections.page_hero.name",
+      "settings": {
+        "image": "shopify://shop_images/hero-7.jpg",
+        "heading": "<p>&lt;IHydralock|&gt;</p>",
+        "heading_color": "",
+        "body": "",
+        "cta_text": "",
+        "cta_url": "",
+        "content_position": "items-start",
+        "desktop_heading_max_w": 415,
+        "content_block_type": "pills",
+        "show_nav": false,
+        "dropdown_text": ""
+      }
+    }
+  },
+  "order": [
+    "example",
+    "page_hero_hGdwPa"
+  ]
+}

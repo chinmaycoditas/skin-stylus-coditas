@@ -1,0 +1,111 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "example": {
+      "type": "example",
+      "disabled": true,
+      "settings": {}
+    },
+    "featured_blogs_LRRT9H": {
+      "type": "featured-blogs",
+      "blocks": {
+        "article_E8XAjx": {
+          "type": "article",
+          "settings": {
+            "article": "press/hydrafacial-wins-new-beauty-award"
+          }
+        },
+        "article_W6zrqG": {
+          "type": "article",
+          "settings": {
+            "article": "press/pop-sugar-i-tried-a-gunk-facial-and-it-was-so-good-for-my-acne-prone-skin"
+          }
+        },
+        "article_4FrnkM": {
+          "type": "article",
+          "settings": {
+            "article": "press/newbeauty-the-top-skin-scalp-trends-from-aad"
+          }
+        }
+      },
+      "block_order": [
+        "article_E8XAjx",
+        "article_W6zrqG",
+        "article_4FrnkM"
+      ],
+      "name": "t:settings_schema.sections.featured_blogs.name",
+      "settings": {
+        "heading": "",
+        "subheading": "Hydrafacial <|In the News|>",
+        "display-filters": true,
+        "filter-title": "",
+        "title": "Featured Stories",
+        "featured-article": "press/5-minutes-with-beautyhealth-president-and-ceo-marla-beck"
+      }
+    },
+    "featured_blogs_UJxBwC": {
+      "type": "featured-blogs",
+      "blocks": {
+        "article_T4UyhY": {
+          "type": "article",
+          "settings": {
+            "article": "press/newbeauty-hydrafacial-s-2024-skintuition-report-what-s-next-in-beauty-and-skin-care"
+          }
+        },
+        "article_L3LEJf": {
+          "type": "article",
+          "settings": {
+            "article": "press/cew-minimalism-natural-skin-solutions-on-the-rise-beautyhealth-2024-skintuition-report"
+          }
+        },
+        "article_xKDCye": {
+          "type": "article",
+          "settings": {
+            "article": "press/newbeauty-the-best-facials-for-the-winter-according-to-experts"
+          }
+        }
+      },
+      "block_order": [
+        "article_T4UyhY",
+        "article_L3LEJf",
+        "article_xKDCye"
+      ],
+      "name": "t:settings_schema.sections.featured_blogs.name",
+      "settings": {
+        "heading": "",
+        "subheading": "",
+        "display-filters": false,
+        "filter-title": "",
+        "title": "",
+        "featured-article": ""
+      }
+    },
+    "text_with_cta_THBmLK": {
+      "type": "text-with-cta",
+      "name": "Text With CTA",
+      "settings": {
+        "heading": "<p>Learn More About &lt;|Hydrafacial|&gt;</p>",
+        "body": "<p>Only Hydrafacial uses Vortex-Fusion™ technology to gently but thoroughly refresh any skin type.</p>",
+        "top_cta_text": "Find a hydrafacialist",
+        "top_cta_url": "shopify://pages/find-a-hydrafacialist",
+        "wide_button_on_mobile": false,
+        "bottom_cta_text": "Become a Hydrafacialist",
+        "bottom_cta_url": "shopify://pages/connect-with-sales"
+      }
+    }
+  },
+  "order": [
+    "example",
+    "featured_blogs_LRRT9H",
+    "featured_blogs_UJxBwC",
+    "text_with_cta_THBmLK"
+  ]
+}

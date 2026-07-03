@@ -1,0 +1,171 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "divider_line_YHJTJ8": {
+      "type": "divider-line",
+      "disabled": true,
+      "name": "t:settings_schema.sections.divider_line.name",
+      "settings": {
+        "show_desktop": true,
+        "show_mobile": true,
+        "padding_left_right_desktop": 38,
+        "padding_top_desktop": 30,
+        "padding_bottom_desktop": 0,
+        "padding_left_right_mobile": 18,
+        "padding_top_mobile": 36,
+        "padding_bottom_mobile": 20,
+        "bg_color": ""
+      }
+    },
+    "publication_banner_crnhzY": {
+      "type": "publication-banner",
+      "blocks": {
+        "publication_image_iR8BUE": {
+          "type": "publication_image",
+          "settings": {
+            "image": "shopify://shop_images/nb-awardseal-2025-resized.png"
+          }
+        },
+        "publication_image_K9RTmG": {
+          "type": "publication_image",
+          "settings": {
+            "image": "shopify://shop_images/2025_HEARST_COSMOPOLITAN_RCA_HALL-OF-FAME-X3-WINNER_RGB.png"
+          }
+        },
+        "publication_image_JfKEEF": {
+          "type": "publication_image",
+          "settings": {
+            "image": "shopify://shop_images/SHP_2025_Badge_Skin.png"
+          }
+        },
+        "publication_image_iN7kph": {
+          "type": "publication_image",
+          "settings": {
+            "image": "shopify://shop_images/TransparentPBA24_Winner_ProfessionalTreatment_2.png"
+          }
+        },
+        "publication_image_mNJFkT": {
+          "type": "publication_image",
+          "settings": {
+            "image": "shopify://shop_images/2025_HEARST_ELLE_TOOLS-TREATMENTS-AWARDS_BLACK.png"
+          }
+        }
+      },
+      "block_order": [
+        "publication_image_iR8BUE",
+        "publication_image_K9RTmG",
+        "publication_image_JfKEEF",
+        "publication_image_iN7kph",
+        "publication_image_mNJFkT"
+      ],
+      "disabled": true,
+      "name": "t:settings_schema.sections.publication_banner.name",
+      "settings": {
+        "heading": "",
+        "padding_bottom": false,
+        "id_number": 1
+      }
+    },
+    "connect_w_sales_form_P793R4": {
+      "type": "connect-w-sales-form",
+      "blocks": {
+        "info_text_7MbYh7": {
+          "type": "info_text",
+          "settings": {
+            "info_text": "\"I Doubled My Revenue\" - Victoria Boyle"
+          }
+        },
+        "info_text_RJPXhE": {
+          "type": "info_text",
+          "settings": {
+            "info_text": "\"Hydrafacial Provides Real Results and Compliments My Business\""
+          }
+        },
+        "info_text_VCtXGh": {
+          "type": "info_text",
+          "settings": {
+            "info_text": "\"My #1 Booked Service Every Month\""
+          }
+        },
+        "info_text_td8EWB": {
+          "type": "info_text",
+          "settings": {
+            "info_text": "\"It's Hydrafacial or Nothing for Me\""
+          }
+        }
+      },
+      "block_order": [
+        "info_text_7MbYh7",
+        "info_text_RJPXhE",
+        "info_text_VCtXGh",
+        "info_text_td8EWB"
+      ],
+      "name": "t:settings_schema.sections.connect_w_sales_form.name",
+      "settings": {
+        "use_exit_intent": false,
+        "title": "Unlock Revenue with Hydrafacial: A Webinar",
+        "description": "",
+        "modal_heading": "",
+        "modal_subheading": "",
+        "modal_form_cta_text": "Request More Info",
+        "modal_bottom_cta_text": "Take The Quiz",
+        "modal_bottom_cta_url": "/",
+        "form_embed_code": "<script src=\"https://js.hsforms.net/forms/embed/9253844.js\" defer></script>\n<div class=\"hs-form-frame\" data-region=\"na1\" data-form-id=\"ad54bb31-d992-4c32-83ba-9f53d69611ae\" data-portal-id=\"9253844\"></div>",
+        "id_number": 1,
+        "bg_gradient": true
+      }
+    },
+    "fullscreen_video_testimonials_MhYJfE": {
+      "type": "fullscreen-video-testimonials",
+      "blocks": {
+        "testimonial_3CqnVg": {
+          "type": "testimonial",
+          "settings": {
+            "video_desktop": "shopify://files/videos/Prospecting Webinar Teaser Desktop.mp4",
+            "video_mobile": "shopify://files/videos/Victoria - prospecting webinar 2.mp4",
+            "heading": "",
+            "source_name": "",
+            "source_occupation": ""
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_3CqnVg"
+      ],
+      "name": "t:settings_schema.sections.fullscreen_video_testimonials.name",
+      "settings": {
+        "id_number": 1
+      }
+    },
+    "divider_line_Gk7wKt": {
+      "type": "divider-line",
+      "name": "t:settings_schema.sections.divider_line.name",
+      "settings": {
+        "show_desktop": true,
+        "show_mobile": true,
+        "padding_left_right_desktop": 38,
+        "padding_top_desktop": 30,
+        "padding_bottom_desktop": 0,
+        "padding_left_right_mobile": 18,
+        "padding_top_mobile": 36,
+        "padding_bottom_mobile": 20,
+        "bg_color": ""
+      }
+    }
+  },
+  "order": [
+    "divider_line_YHJTJ8",
+    "publication_banner_crnhzY",
+    "connect_w_sales_form_P793R4",
+    "fullscreen_video_testimonials_MhYJfE",
+    "divider_line_Gk7wKt"
+  ]
+}

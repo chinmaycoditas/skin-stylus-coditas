@@ -1,0 +1,163 @@
+{%- liquid
+  assign b = block.settings
+
+  assign is_video = false
+  assign is_image = false
+  
+  if b.desktop_image and b.mobile_image
+    assign is_image = true
+  endif
+
+  if b.desktop_video and b.mobile_video
+    assign is_video = true
+  endif
+
+  # pb_hack size for tabs-with-sliders section type 1 and type 2
+  assign mobile_pb_hack = "165.28%"
+  assign desktop_pb_hack = "61.56%"
+
+  if b.heading != blank
+    assign mobile_pb_hack = "71.35%"
+    assign desktop_pb_hack = "71.32%"
+  endif
+-%}
+
+{%- if is_image or is_video -%}
+  <div class="relative {% if b.heading != blank %}grid grid-rows-2 gap-[22px] lg:grid-rows-1 lg:grid-cols-3{% endif %}">
+    <div class="relative {% if b.heading != blank %}lg:col-span-2{% endif %}">
+      {%- if is_video -%}
+        {%- render 'video', 
+          video: b.desktop_video,
+          class: "rounded-image", 
+          container_class: "hidden lg:block", 
+          pb_hack: desktop_pb_hack, 
+          in_view: true, 
+          change_slide: true 
+        -%}
+        {%- render 'video', 
+          video: b.mobile_video,
+          class: "rounded-image",
+          container_class: "lg:hidden", 
+          pb_hack: mobile_pb_hack, 
+          in_view: true, 
+          change_slide: true 
+        -%}
+      {%- else if is_image -%}
+        {%- render 'responsive-image', 
+          image: b.desktop_image, 
+          class: "rounded-image hidden lg:block", 
+          pb_hack: desktop_pb_hack 
+        -%} 
+        {%- render 'responsive-image', 
+          image: b.mobile_image, 
+          class: "rounded-image lg:hidden", 
+          pb_hack: mobile_pb_hack 
+        -%}
+      {%- endif -%}
+
+      <div class="absolute w-[90%] lg:w-[50%] bottom-[3%] left-[3%] pr-5 text-white pointer-events-none">
+        <div class="flex flex-col gap-2.5 lg:gap-[22px] lg:pb-2.5">
+          <h3 class="text-h3-mob/10 lg:text-h3/[60px] font-light tracking-[-0.07px] lg:tracking-[-0.11px] {% unless settings.remove_capitalize %}capitalize{% endunless %}">{% render 'blue', text: b.img_heading %}</h3>
+          <div class="text-body-mob/[23px] tracking-[-0.032px]">{% render 'blue', text: b.img_description %}</div>
+        </div>
+      </div>
+
+      <div class="absolute bottom-3 flex justify-between items-center w-full px-6">
+        <span class="text-white text-body/[23px] tracking-[-0.032px]">{{ b.before_text }}</span>
+        <span class="text-white text-body/[23px] tracking-[-0.032px]">{{ b.after_text }}</span>
+      </div>
+    </div>
+
+    {%- if b.heading != blank -%}
+      <div class="flex flex-col justify-between lg:col-span-1 p-[18px] lg:px-[30px] lg:py-[25px] rounded-image bg-cream-cards">
+        <h3 class="text-section-3/7 font-light tracking-[-0.042px]">{% render 'blue', text: b.heading %}</h3>
+
+        <div class="flex flex-col gap-1">
+          <span class="text-body-mob/[23px] tracking-[-0.032px]">{% render 'blue', text: b.subheading %}</span>
+          <span class="text-caption-small-mob/4 font-light tracking-[-0.2px]">{% render 'blue', text: b.disclaimer %}</span>
+        </div>
+      </div>
+    {%- endif -%}
+  </div>
+{% endif %}
+
+{%  schema  %}
+  {
+    "name": "Homepage Tab Slide",
+    "class": "splide__slide",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Image/Video",
+        "info": "If a video is selected, it will show rather than the image."
+      },
+      {
+        "type": "image_picker",
+        "id": "desktop_image",
+        "label": "Desktop Image"
+      },
+      {
+        "type": "image_picker",
+        "id": "mobile_image",
+        "label": "Mobile Image"
+      },
+      {
+        "type": "video",
+        "id": "desktop_video",
+        "label": "Desktop Video"
+      },
+      {
+        "type": "video",
+        "id": "mobile_video",
+        "label": "Mobile Video"
+      },
+      {
+        "type": "text",
+        "id": "before_text",
+        "label": "Before Text"
+      },
+      {
+        "type": "text",
+        "id": "after_text",
+        "label": "After Text"
+      },
+      {
+        "type": "text",
+        "id": "img_heading",
+        "label": "Image Heading",
+        "info": "t:settings_schema.general.blue_info"
+      },
+      {
+        "type": "richtext",
+        "id": "img_description",
+        "label": "Image Description",
+        "info": "t:settings_schema.general.blue_info"
+      },
+      {
+        "type": "header",
+        "content": "Content Block"
+      },
+      {
+        "type": "richtext",
+        "id": "heading",
+        "label": "Heading",
+        "info": "t:settings_schema.general.blue_info"
+      },
+      {
+        "type": "text",
+        "id": "subheading",
+        "label": "Subheading",
+        "info": "t:settings_schema.general.blue_info"
+      },
+      {
+        "type": "text",
+        "id": "disclaimer",
+        "label": "Disclaimer",
+        "info": "t:settings_schema.general.blue_info"
+      }
+    ],
+    "presets": [
+      {"name": "Slide"}
+    ]
+  }
+{% endschema %}

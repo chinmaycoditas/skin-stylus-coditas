@@ -1,0 +1,92 @@
+{%- assign s = section.settings -%}
+
+<div
+  id="quotes-{{ s.id_number }}"
+  class="{% if s.show_gradient %}light-blue-gradient-2{% endif %}"
+>
+  <div class="px-[30px] {% if s.bring-up-next %}bring-up-next{% endif %} lg:pb-[60px] max-w-maxscreen mx-auto">
+    <div class="flex flex-col pt-[60px] lg:pb-20 text-center x-border-t border-grey-medium items-center">
+      {%- if s.upper_text -%}
+        <span class="text-body leading-[23px] tracking-[-0.032px] lg:pb-2">
+          {% render 'blue', text: s.upper_text %}
+        </span>
+      {%- endif -%}
+      {%- if s.heading -%}
+        <h3 class="text-h3-mob/10 lg:text-h4/[50px] {% unless settings.remove_capitalize %}capitalize{% endunless %} tracking-[-0.07px] font-light lg:w-full">
+          {% render 'blue', text: s.heading %}
+        </h3>
+      {%- endif -%}
+      {%- if s.bottom_text -%}
+        <span class="text-body leading-[23px] pt-10 inline-flex">
+          {%- assign text_array = s.bottom_text | split: "vp-icon" -%}
+          {% render 'blue', text: text_array[0] %}
+          {% if text_array.size > 1 %}
+            {% render 'icons', icon: 'verified-provider', class: "h-5 inline-flex", svg_class: "h-5 text-[#2e85c6] w-full translate-y-[3px]" %}
+            {% render 'blue', text: text_array[1] %}
+          {% endif %}
+        </span>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:settings_schema.sections.quotes.name",
+  "tag": "section",
+  "class": "customer-quotes no-max",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "upper_text",
+      "label": "t:settings_schema.sections.quotes.upper_text",
+      "info": "t:settings_schema.general.blue_info"
+    },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "t:settings_schema.general.heading",
+      "info": "t:settings_schema.general.blue_info"
+    },
+    {
+      "type": "richtext",
+      "id": "bottom_text",
+      "label": "t:settings_schema.sections.quotes.bottom_text",
+      "info": "t:settings_schema.sections.quotes.bottom_text_info"
+    },
+    {
+      "type": "checkbox",
+      "label": "t:settings_schema.sections.quotes.show_gradient",
+      "id": "show_gradient"
+    },
+    {
+      "type": "checkbox",
+      "label": "t:settings_schema.sections.quotes.bring_up_next",
+      "id": "bring-up-next"
+    },
+    {
+      "type": "header",
+      "content": "Unique Section ID"
+    },
+    {
+      "type": "paragraph",
+      "content": "The ID for this section will be 'quotes-#' based on the number chosen below. The default is 'quotes-1'"
+    },
+    {
+      "type": "range",
+      "id": "id_number",
+      "label": "ID Number",
+      "max": 5,
+      "min": 1,
+      "step": 1,
+      "default": 1,
+      "info": "If using this section multiple times on the same page, assign a different number to each one."
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:settings_schema.sections.quotes.name"
+    }
+  ]
+}
+{% endschema %}

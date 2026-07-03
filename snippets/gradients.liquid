@@ -1,0 +1,15 @@
+{% if template contains 'keravive' or template contains 'connect-with-sales' or page.metafields.custom.long_gradient %}
+  <div class="long-page-gradient h-[400vh] absolute top-0 left-0 w-full"></div>
+{% endif %}
+
+{% if template contains 'proven-results' %}
+  <div class="light-grey-gradient-2 h-[200vh] absolute top-0 left-0 w-full"></div>
+{% endif %}
+
+{% if template contains 'the-treatment' %}
+  <div class="light-grey-gradient-2 h-[100vh] absolute top-0 left-0 w-full"></div>
+{% endif %}
+
+{% if template == 'page' and page.handle contains 'privacy' %}
+  <div class="light-blue-gradient-2 h-[2000px] max-h-screen absolute top-0 left-0 w-full z-[-1]"></div>
+{% endif %}

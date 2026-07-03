@@ -1,0 +1,15 @@
+{%- liquid
+  # text styles
+  assign styled_text = text
+
+  case style
+    when 1
+      assign styled_text = text | replace: '<h1>', '<span class="text-h3-mob lg:text-h4 font-light">' | replace: '<h2>', '<span class="text-body">' | replace: '<h3>', '<span class="text-caption-small">' | replace: '</h1>', '</span>' | replace: '</h2>', '</span>' | replace: '</h3>', '</span>'
+    when 2
+      assign styled_text = text | replace: '<h1>', '<span class="text-h3-mob lg:text-h4 font-light">' | replace: '<h2>', '<span class="text-body font-light">' | replace: '<h3>', '<span class="text-caption-small font-light">' | replace: '</h1>', '</span>' | replace: '</h2>', '</span>' | replace: '</h3>', '</span>'
+    when 3
+      assign styled_text = text | replace: '<h1>', '<span class="text-h3-mob lg:text-h4 font-light">' | replace: '<h2>', '<span class="text-body font-light">' | replace: '<h3>', '<span class="text-caption-small">' | replace: '</h1>', '</span>' | replace: '</h2>', '</span>' | replace: '</h3>', '</span>'
+  endcase
+-%}
+
+{% render 'blue', text: styled_text %}

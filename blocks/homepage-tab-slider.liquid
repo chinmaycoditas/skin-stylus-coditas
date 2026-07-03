@@ -1,0 +1,110 @@
+{% assign s = section.settings %}
+{% assign b = block.settings %}
+
+{% capture slider_options %}
+  '{
+    "perPage": 1,
+    "pagination": false,
+    "focus": "center",
+    "gap": "18px",
+    "arrows": {% if s.dont_show_slider_arrows %}false{% else %}true{% endif %}
+  }'
+{% endcapture %}
+
+{% comment %} below replaces invisible spaces u200B {% endcomment %}
+{% assign connected_tab_cleaned = block.settings.connected_tab | replace: "​", "" %}
+
+<div data-tab-content="{{ connected_tab_cleaned }}-{{ section.id }}" class="flex flex-col pointer-events-none [&_.splide\_\_slide]:lg:min-h-[500px]">
+  <div class="splide relative group pb-[30px] pointer-events-none" data-slider={{ slider_options }}>
+    <div class="splide__track pointer-events-auto has-[.image-right-content-left]:lg:pb-[107px]">
+      <ul class="splide__list">
+        {% content_for 'blocks' %}
+      </ul>
+    </div>
+    {% comment %} Clean up standard translate rules for splide__arrow {% endcomment %}
+     <style>
+        @media (max-width: 1024px) {
+          .splide__arrow {
+            transform: translateY(0px) !important;
+          }
+        }
+     </style>
+
+  
+    <div data-tab-slider-splide-arrows class="flex {% if s.reverse_arrows %}lg:flex-row-reverse{% endif %} justify-between lg:pt-10 pointer-events-none {% if b.cta_top_border %}border-t-[1px] border-t-grey-medium{% endif %} group-[&:has(.product-with-tabs)]/homepage-tab:lg:justify-center group-[&:has(.product-with-tabs)]/homepage-tab:lg:pl-[25.8%] group-[&:has(.product-with-tabs)]/homepage-tab:lg:translate-y-[-88px]">
+      {% unless s.dont_show_slider_arrows %}
+        <div class="splide__arrows flex gap-3 pointer-events-none [&_button:not(:disabled)]:!pointer-events-auto">
+          <button class="splide__arrow splide__arrow--prev !relative !left-0 !rounded-none !h-[44px] !w-[44px] !bg-none group-has-[:only-child]:!pointer-events-none" style="background: none;">
+            {% render 'icons', icon: 'chevron-right-circle', class: "text-black block h-full w-full [&_svg]:block [&_svg]:!h-full [&_svg]:!w-full" %}
+          </button>
+          <button class="splide__arrow splide__arrow--next !relative !right-0 !rounded-none !h-[44px] !w-[44px] !bg-none group-has-[:only-child]:!pointer-events-none" style="background: none;">
+            {% render 'icons', icon: 'chevron-right-circle', class: "text-black block h-full w-full [&_svg]:block [&_svg]:!h-full [&_svg]:!w-full" %}
+          </button>
+        </div>
+      {% endunless %}
+
+      <div class=" pt-10 lg:pt-[15px] pointer-events-none">
+        {% if s.cta_url and s.cta_text %}
+          {%- assign cta_class = 'button-primary-black z-30 pointer-events-auto w-[170px]' -%}
+          {% if settings.remove_capitalize %}
+            {% assign cta_class = cta_class | append: ' !normal-case' %}
+          {% endif %}
+
+          {%- if s.popup_form_override -%}
+            {% render 'popup-input', class: cta_class, text: s.cta_text, block_id: block.id %}
+          {%- else -%}
+            <a class="{{ cta_class }}" href="{{ s.cta_url }}">{{ s.cta_text }}</a>
+          {%- endif -%}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+{% schema %}
+  {
+    "name": "Homepage Tab Slider",
+    "blocks": [
+      {"type": "full-image-video-with-overlay-content"},
+      {"type": "image-left-content-right-with-background"},
+      {"type": "full-image-video-with-pills"},
+      {"type": "image-and-video-with-content"},
+      {"type": "image-right-content-left"},
+      {"type": "product-with-tabs"},
+      {"type": "homepage-tab-slide"}
+    ],
+    "settings": [
+      {
+        "type": "text",
+        "id": "connected_tab",
+        "label": "Connected Tab"
+      },
+      {
+        "type": "header",
+        "content": "Text under Image (Desktop)"
+      },
+      {
+        "type": "text",
+        "id": "under_img_top_text",
+        "label": "Top Text",
+        "info": "t:settings_schema.general.blue_info"
+      },
+      {
+        "type": "text",
+        "id": "under_img_bottom_text",
+        "label": "Bottom Text",
+        "info": "t:settings_schema.general.blue_info"
+      },
+      {
+        "type": "checkbox",
+        "id": "cta_top_border",
+        "label": "t:settings_schema.sections.blocks.homepage_tab_slider.cta_top_border"
+      }
+    ],
+    "presets": [
+      {"name": "Homepage Tab Slider"}
+    ]
+  }
+{% endschema %}

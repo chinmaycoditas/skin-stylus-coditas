@@ -1,0 +1,105 @@
+{%- assign s = section.settings -%}
+
+<div 
+  id="faq-section-{{ s.id_number }}"
+  class="flex flex-col lg:flex-row lg:justify-between gap-[30px] lg:gap-0 pt-[60px] pb-[30px] lg:pb-[90px] px-[18px] lg:px-[38px]">
+  <div class="flex flex-col gap-[22px]">
+    <h2 class="text-h3-mob/10 lg:text-h3/[60px] font-light tracking-[-0.07px] lg:tracking-[-0.11px] {% unless settings.remove_capitalize %}capitalize{% endunless %}">
+    {% if s.accent_yellow %}
+      {% render 'yellow', text: s.heading %}
+    {% else %}
+      {% render 'blue', text: s.heading %}
+    {% endif %}
+    </h2>
+    <h3 class="text-body/[23px] font-light tracking-[-0.032px]">
+      {% if s.accent_yellow %}
+        {% render 'yellow', text: s.subheading %}
+      {% else %}
+        {% render 'blue', text: s.subheading %}
+      {% endif %}
+    </h3>
+  </div>
+
+  <ul id="accordion-root" data-hc-body-click-toggle="accordion1" class="flex flex-col gap-8 pt-[15px] lg:max-w-[799px]">
+    {% for block in section.blocks %}
+      {% assign b = block.settings %}
+      <li class="flex flex-col border-t-[1px] border-t-grey-medium">
+        <button data-hc-control="{{ block.id }}" class="group flex justify-between items-center pt-[13px] gap-2">
+          <span class="text-section-3/7 text-start tracking-[-0.042px] pt-1.5">{% render 'blue', text: b.question %}</span>
+          {% render 'icons', icon: 'chevron-down', class: '[&_svg]:h-[11px] [&_svg]:w-[22px] transition-all group-[&.is-active]:rotate-180 pt-1' %}
+        </button>
+
+        <div data-hc-content="{{ block.id }}" class="pt-[13px]">
+          <h3 class="text-body/[23px] font-light tracking-[-0.032px] text-start">{% render 'blue', text: b.answer %}</h3>
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+
+{% schema %}
+{
+  "name": "t:settings_schema.sections.faq.name",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "accent_yellow",
+      "label": "t:settings_schema.general.use_yellow_accent"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:settings_schema.general.heading",
+      "info": "t:settings_schema.general.blue_info"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "t:settings_schema.general.subheading",
+      "info": "t:settings_schema.general.blue_info"
+    },
+    {
+      "type": "header",
+      "content": "Unique Section ID"
+    },
+    {
+      "type": "paragraph",
+      "content": "The ID for this section will be 'faq-section-#' based on the number chosen below. The default is 'faq-section-1'"
+    },
+    {
+      "type": "range",
+      "id": "id_number",
+      "label": "ID Number",
+      "max": 5,
+      "min": 1,
+      "step": 1,
+      "default": 1,
+      "info": "If using this section multiple times on the same page, assign a different number to each one."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq",
+      "name": "t:settings_schema.sections.faq.faq_item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "t:settings_schema.general.faq.question"
+        },
+        {
+          "type": "text",
+          "id": "answer",
+          "label": "t:settings_schema.general.faq.answer"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:settings_schema.sections.faq.name"
+    }
+  ]
+}
+{% endschema %}

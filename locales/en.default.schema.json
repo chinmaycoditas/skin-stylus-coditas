@@ -1,0 +1,726 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin language editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "settings_schema": {
+    "defaults": {
+      "cta_label": "CTA Label",
+      "item_description": "Item Description",
+      "item_title": "Item Title",
+      "section_description": "Section Description",
+      "side_by_side_title": "Side by Side Title"
+    },
+    "design": {
+      "gradient": "Gradient"
+    },
+    "layout": {
+      "reverse_cta_arrows": "Reverse CTA Arrows",
+      "show_image_first": "Show Image First",
+      "side_by_side": "Side by Side"
+    },
+    "media": {
+      "icon": "Icon",
+      "image": "Image",
+      "image_desktop": "Image (Desktop)",
+      "image_mobile": "Image (Mobile)",
+      "video_desktop": "Video (Desktop)",
+      "video_mobile": "Video (Mobile)"
+    },
+    "general": {
+      "blue_info": "wrap text in <||> to make it blue",
+      "text": "Text",
+      "description": "Description",
+      "title": "Title",
+      "heading": "Heading",
+      "subheading": "Subheading",
+      "caption": "Caption",
+      "eyebrow": "Eyebrow",
+      "heading_color": "Heading Color",
+      "body": "Body",
+      "media": {
+        "_value": "Media",
+        "image_header": "Image/Video",
+        "image_header_info": "If all images are populated, they will be stitched together",
+        "image_caption_info": "Caption for image",
+        "image_block_name": "Image Block"
+      },
+      "image": "Image",
+      "background_image": "Background Image",
+      "background_image_desktop": "Background Image - Desktop",
+      "background_image_mobile": "Background Image - Mobile",
+      "image_mobile": "Image - Mobile",
+      "image_desktop": "Image - Desktop",
+      "image_1": "Image 1",
+      "image_2": "Image 2",
+      "image_1_text": "Image 1 Text",
+      "image_2_text": "Image 2 Text",
+      "image_1_mobile": "Image 1 - Mobile",
+      "image_1_desktop": "Image 1 - Desktop",
+      "image_2_mobile": "Image 2 - Mobile",
+      "image_2_desktop": "Image 2 - Desktop",
+      "image_1_caption": "Image 1 Caption",
+      "image_2_caption": "Image 2 Caption",
+      "video": "Video",
+      "video_mobile": "Video - Mobile",
+      "video_desktop": "Video - Desktop",
+      "label": "Label",
+      "url": "URL",
+      "cta": "CTA",
+      "cta_text": "CTA Text",
+      "cta_url": "CTA URL",
+      "cta_button_text": "CTA Button Text",
+      "cta_button_url": "CTA Button URL",
+      "badge_text": "Badge",
+      "tabs": "Tabs",
+      "comma_separated_values": "Comma-separated values",
+      "disclaimer": "Disclaimer",
+      "disclaimer_reference": "Disclaimer Reference",
+      "image_pill": "Image Pill",
+      "icon": "Icon",
+      "use_border": "Use Border",
+      "icons": {
+        "blue-check": "Blue Check",
+        "check": "Check",
+        "clock": "Clock",
+        "face": "Face",
+        "face_magic": "Face Magic",
+        "sparkle": "Sparkle"
+      },
+      "locations": {
+        "left": "Left",
+        "right": "Right",
+        "top": "Top",
+        "middle": "Middle",
+        "bottom": "Bottom",
+        "top_and_bottom": "Top and Bottom",
+        "middle_and_bottom": "Middle and Bottom",
+        "top_left": "Top Left",
+        "top_center": "Top Center",
+        "top_right": "Top Right",
+        "middle_left": "Middle Left",
+        "center": "Center",
+        "middle_right": "Middle Right",
+        "bottom_left": "Bottom Left",
+        "bottom_center": "Bottom Center",
+        "bottom_right": "Bottom Right",
+        "layout": "Layout",
+        "none": "None"
+      },
+      "blue_yellow_info": "wrap text in <||> to make it blue or <**> to make it yellow",
+      "cta_label": "CTA Label",
+      "cta_link": "CTA Link",
+      "mandatory": "Mandatory",
+      "optional": "Optional",
+      "position": {
+        "center": "Center",
+        "left": "Left",
+        "right": "Right"
+      },
+      "style": {
+        "label": "Style",
+        "options": {
+          "carousel": "Carousel",
+          "stacked": "Stacked"
+        }
+      },
+      "use_yellow_accent": "Use Yellow Accent",
+      "yellow_accent_info": "wrap text in <**> to make it yellow",
+      "gradients": {
+        "none": "None",
+        "gray_to_white": "Gray to White",
+        "white_to_transparent": "White to Transparent",
+        "light_blue": "Light Blue",
+        "gray_to_light_gray": "Gray to Light Gray"
+      },
+      "buttons": {
+        "types": {
+          "primary_black": "Primary Black",
+          "primary_blue": "Primary Blue",
+          "primary_white": "Primary White",
+          "secondary": "Secondary",
+          "tertiary": "Tertiary"
+        }
+      },
+      "faq": {
+        "question": "Question",
+        "answer": "Answer"
+      },
+      "testimonials": {
+        "quote": "Quote",
+        "author": "Author",
+        "author_details": "Author Details",
+        "source_name": "Source Name",
+        "source_occupation": "Source Occupation"
+      },
+      "components": {
+        "textbox": "Text Box",
+        "content_box": "Content Box",
+        "content_box_info": "Content Box Info",
+        "pill": "Pill",
+        "top_text": "Top Text",
+        "bottom_text": "Bottom Text"
+      },
+      "display": {
+        "show_gradient": "Show Gradient",
+        "use_gradient": "Use Gradient"
+      },
+      "navigation": {
+        "desktop_button_type": "Desktop Button Type",
+        "mobile_button_type": "Mobile Button Type",
+        "mobile_button_type_label": "Mobile Button Type",
+        "display_mobile_search": "Display Mobile Search",
+        "header_cta_buttons": "Header CTA Buttons",
+        "main_menu": "Main Menu",
+        "nav_menu_image_content": "Nav Menu Image/Content",
+        "navigation_link_title_reference": "Navigation Link Title Reference",
+        "navigation_link_title_reference_info": "This must match the menu item name in the header",
+        "region_menu": "Region Menu"
+      }
+    },
+    "sections": {
+      "header": {
+        "name": "Header",
+        "main_menu_label": "Main Menu",
+        "main_menu": "Main Menu",
+        "main_menu_alt": "Main Menu Alt",
+        "alt_menu_pages": "Alternative Menu Pages",
+        "comma_separated_handles": "Comma separated page handles (e.g. about-us, contact, services)",
+        "nav_menu_image_content_block": "Nav Menu Image/Content",
+        "nav_menu_image_content": "Nav Menu Image/Content",
+        "nav_link_title_reference_label": "Navigation Link Title Reference",
+        "nav_link_title_reference_info": "This must match the menu item name in the header",
+        "navigation_link_title_reference": "Navigation Link Title Reference",
+        "navigation_link_title_reference_info": "This must match the menu item name in the header",
+        "button_text": "Button Text",
+        "desktop_button_type_label": "Desktop Button Type",
+        "desktop_button_type": "Desktop Button Type",
+        "mobile_button_type_label": "Mobile Button Type",
+        "mobile_button_type": "Mobile Button Type",
+        "header_cta_buttons": "Header CTA Buttons",
+        "region_menu": "Region Menu",
+        "options": {
+          "primary_blue": "Primary Blue",
+          "primary_black": "Primary Black",
+          "primary_white": "Primary White",
+          "secondary": "Secondary",
+          "tertiary": "Tertiary"
+        },
+        "display_mobile_search": "Display Mobile Search Bar"
+      },
+      "footer": {
+        "name": "Footer",
+        "footer_links": "Footer Links",
+        "apple_app_store_link": "Apple App Store Link",
+        "google_play_link": "Google Play Link",
+        "copyright_text": "Copyright Text",
+        "copyright_text_label": "Copyright Text",
+        "contact_phone": "Contact Phone",
+        "contact_phone_label": "Contact Phone",
+        "contact_email": "Contact Email",
+        "contact_email_label": "Contact Email",
+        "policy_nav_link": "Policy Navigation Link",
+        "policy_nav_text": "Policy Navigation Text",
+        "policy_nav_text_label": "Policy Navigation Text",
+        "policy_nav_url": "Policy Navigation URL",
+        "policy_nav_url_label": "Policy Navigation URL"
+      },
+      "app_optimization": {
+        "name": "App Optimization",
+        "application": "Application"
+      },
+      "basic_image_slider": {
+        "name": "Basic Image Slider",
+        "image_block": "Image Block"
+      },
+      "boosters": {
+        "name": "Boosters",
+        "content_box_background": "Content Box Background",
+        "desktop_image_layout": "Desktop Image Layout",
+        "desktop_image_position": "Desktop Image Position",
+        "mobile_image_aspect_ratio": "Mobile Image Aspect Ratio",
+        "mobile_heading_position": "Mobile Heading Position",
+        "use_yellow_accent_text": "Use Yellow Accent Text",
+        "text_size": "Text Size",
+        "text_size_desktop": "Text Size Desktop",
+        "background": {
+          "light_cream": "Light Cream",
+          "transparent": "Transparent",
+          "white": "White"
+        },
+        "gradient": {
+          "gray_to_light_gray": "Gray to Light Gray",
+          "gray_to_white": "Gray to White",
+          "white_to_transparent": "White to Transparent",
+          "label": "Label",
+          "none": "None",
+          "light_blue": "Light Blue"
+        },
+        "layout": {
+          "fullscreen_background": "Fullscreen Background",
+          "side_by_side": "Side by Side"
+        },
+        "aspect_ratio": {
+          "square": "Square",
+          "portrait": "Portrait"
+        },
+        "position": {
+          "high": "High",
+          "low": "Low"
+        },
+        "desktop_image_layout_info": "Layout for desktop image display",
+        "desktop_text_align": {
+          "center": "Center",
+          "label": "Desktop Text Alignment",
+          "left": "Left",
+          "right": "Right"
+        },
+        "mobile_text_align": {
+          "center": "Center",
+          "label": "Mobile Text Alignment",
+          "left": "Left",
+          "right": "Right"
+        },
+        "text_color": {
+          "black": "Black",
+          "label": "Text Color",
+          "white": "White"
+        },
+        "use_yellow_accent_info": "Enable yellow accent for text"
+      },
+      "border_with_gradient": {
+        "name": "Border With Gradient"
+      },
+      "cards_with_icons": {
+        "name": "Cards With Icons",
+        "card": "Card",
+        "icon_boost": "Boost Icon",
+        "icon_nourish": "Nourish Icon",
+        "icon_purify": "Purify Icon"
+      },
+      "connect_w_sales_form": {
+        "name": "Connect With Sales Form",
+        "info_text": "Info Text",
+        "use_exit_modal": "Use Exit Modal",
+        "modal_content": "Modal Content"
+      },
+      "divider_line": {
+        "name": "Divider Line",
+        "visibility_header": "Visibility",
+        "show_on_desktop_label": "Show on Desktop",
+        "show_on_mobile_label": "Show on Mobile",
+        "desktop_header": "Desktop Settings",
+        "padding_left_right_desktop_label": "Padding Left/Right (Desktop)",
+        "padding_top_desktop_label": "Padding Top (Desktop)",
+        "padding_bottom_desktop_label": "Padding Bottom (Desktop)",
+        "mobile_header": "Mobile Settings",
+        "padding_left_right_mobile_label": "Padding Left/Right (Mobile)",
+        "padding_top_mobile_label": "Padding Top (Mobile)",
+        "padding_bottom_mobile_label": "Padding Bottom (Mobile)"
+      },
+      "example": {
+        "name": "Example"
+      },
+      "expandable_media_slider": {
+        "name": "Expandable Media Slider"
+      },
+      "featured_blogs": {
+        "name": "Featured Blogs",
+        "article": "Article",
+        "display_filters": "Display Filters",
+        "featured_article": "Featured Article",
+        "featured_article_settings": "Featured Article Settings",
+        "featured_blogs_settings": "Featured Blogs Settings",
+        "featured_stories": "Featured Stories",
+        "filter_title": "Filter Title"
+      },
+      "fullscreen_video_testimonials": {
+        "name": "Fullscreen Video Testimonials",
+        "quote_block": "Quote Block"
+      },
+      "help_center": {
+        "name": "Help Center"
+      },
+      "image_with_text": {
+        "name": "Image With Text",
+        "first_image_info": "First Image Info",
+        "first_image_position": "First Image Position",
+        "image_and_text": "Image And Text"
+      },
+      "machine_with_text": {
+        "name": "Machine With Text",
+        "feature_details_1": "Feature Details 1",
+        "feature_details_2": "Feature Details 2",
+        "feature_details_3": "Feature Details 3",
+        "slide": "Slide"
+      },
+      "mobile_cta_pair": {
+        "name": "Mobile CTA Pair",
+        "cta_block": "CTA Block"
+      },
+      "proven_results_slider": {
+        "name": "Proven Results Slider",
+        "slide": "Slide",
+        "image_position": "Image Position",
+        "unique_id": "Unique ID",
+        "unique_id_info": "Unique identifier for this slider instance"
+      },
+      "revenue_tracker": {
+        "name": "Revenue Tracker",
+        "card": "Card"
+      },
+      "round_carousel": {
+        "name": "Round Carousel",
+        "carousel_image": "Carousel Image",
+        "info_block": "Info Block",
+        "body": "Body",
+        "body_info": "Body text information",
+        "heading": "Heading",
+        "heading_info": "Heading text information",
+        "image": "Image",
+        "label_1": "Label 1",
+        "label_2": "Label 2",
+        "subheading": "Subheading",
+        "subheading_info": "Subheading text information"
+      },
+      "skin_concern": {
+        "name": "Skin Concern",
+        "slide": "Slide",
+        "unique_id": "Unique id",
+        "unique_id_info": "Set an ID for the section to match to its navigation button in the Page Hero",
+        "mobile_image_label": "Mobile Image",
+        "mobile_image_info": "Will default to desktop image if left blank",
+        "flip_image": "Flip Image",
+        "top_left_text": "Top Left Text",
+        "middle_left_text": "Middle Left Text",
+        "bottom_left_text_top": "Bottom Left Text Top",
+        "bottom_left_text_bottom": "Bottom Left Text Bottom",
+        "top_number": "Top Number",
+        "top_right_text": "Top Right Text",
+        "bottom_number": "Bottom Number",
+        "bottom_right_text": "Bottom Right Text",
+        "mobile_image_1": "Mobile Image 1",
+        "mobile_image_2": "Mobile Image 2",
+        "desktop_image_1": "Desktop Image 1",
+        "desktop_image_2": "Desktop Image 2",
+        "mobile_before_text": "Mobile Before Text",
+        "mobile_after_text": "Mobile After Text",
+        "desktop_before_text": "Desktop Before Text",
+        "desktop_after_text": "Desktop After Text"
+      },
+      "standalone_slider": {
+        "name": "Standalone Slider",
+        "slide": "Slide"
+      },
+      "storefront_password": {
+        "name": "Storefront Password",
+        "email_signup_title": "Email Signup Title",
+        "show_email_signup": "Show Email Signup"
+      },
+      "video_testimonials": {
+        "name": "Video Testimonials",
+        "quote_block": "Quote Block"
+      },
+      "video_with_text": {
+        "name": "Video With Text"
+      },
+      "vertical_step_slider": {
+        "name": "Vertical Step Slider",
+        "step": "Step"
+      },
+      "hero": {
+        "name": "Hero",
+        "image_video_header_content": "Images/Videos",
+        "image_video_info": "Leave videos blank to use images",
+        "image_info": "Leave blank to use desktop image",
+        "main_text_content_header": "Main Text Content",
+        "cta_main_content_header": "CTA in main content area",
+        "mobile_layout_header": "Mobile Layout",
+        "main_text_placement_label": "Placement on Image",
+        "main_text_alignment_label": "Text Alignment",
+        "card_content_header": "Card Content",
+        "card_text_alignment": "Card Text Alignment",
+        "slide": "Slide"
+      },
+      "page_hero": {
+        "name": "Page Hero"
+      },
+      "page-hero": {
+        "name": "Page Hero",
+        "content_block_type": "Content Block Type",
+        "pills": "Pills",
+        "icons_and_text": "Icons and Text",
+        "icon_and_text": "Icon and Text",
+        "content_block_name": "Content Block",
+        "content_block_select_info": "If type Icons and Text is selected in section settings",
+        "show_navigation": "Show Navigation",
+        "mobile_nav_label": "Mobile Nav Dropdown Text",
+        "desktop_content_position": "Desktop Content Position",
+        "desktop_heading_max_width": "Desktop Heading Content Max Width",
+        "mobile_image_info": "Mobile Image Info",
+        "nav_item": "Navigation Item",
+        "navigation_buttons": "Navigationigation Buttons"
+      },
+      "article": {
+        "name": "Article",
+        "connect_text": "Connect Text",
+        "featured_blogs_settings": "Featured Blogs Settings",
+        "find_near_you": "Find Near You",
+        "locations_text": "Locations Text",
+        "stay_up_to_date": "Stay Up to Date",
+        "featured_stories": "Featured Stories"
+      },
+      "quotes": {
+        "name": "Quotes",
+        "upper_text": "Upper Text",
+        "bottom_text": "Bottom Text",
+        "bring_up_next": "Bring Up Next",
+        "show_gradient": "Show Gradient"
+      },
+      "text_with_cta": {
+        "name": "Text With CTA",
+        "top_cta_text": "Top CTA Text",
+        "top_cta_url": "Top CTA URL",
+        "bottom_cta_text": "Bottom CTA Text",
+        "bottom_cta_url": "Bottom CTA URL",
+        "banner_image_desktop": "Banner Image Desktop",
+        "banner_image_mobile": "Banner Image Mobile",
+        "wide_button_on_mobile": "Wide Button On Mobile"
+      },
+      "ugc_video": {
+        "name": "UGC Video",
+        "ugc_content_block_name": "UGC Content",
+        "ugc_content": "UGC Content"
+      },
+      "text_with_slider": {
+        "name": "Text With Slider",
+        "video_image_info": "Leave video blank to show image",
+        "image_info": "Image Info",
+        "slider_image": "Slider Image"
+      },
+      "clinicals": {
+        "name": "Clinicals",
+        "percentange": "Percentage",
+        "disclaimer": "Disclaimer Reference",
+        "connected_tab_label": "Connected Tab",
+        "connected_tab_info": "Must match tab name in section settings",
+        "cta_text_1": "CTA Text 1",
+        "cta_text_2": "CTA Text 2",
+        "cta_url_1": "CTA URL 1",
+        "cta_url_2": "CTA URL 2",
+        "tab_label_1": "Tab Label 1",
+        "tab_label_2": "Tab Label 2",
+        "slide": "Slide",
+        "connected_tab": "Connected Tab",
+        "content_box_1": "Content Box 1",
+        "content_box_2": "Content Box 2",
+        "content_box_3": "Content Box 3",
+        "content_box_4": "Content Box 4",
+        "description": "Description",
+        "disclaimer_reference": "Disclaimer Reference",
+        "image": "Image",
+        "percentage": "Percentage",
+        "tab_1_content": "Tab 1 Content",
+        "tab_2_content": "Tab 2 Content"
+      },
+      "collection_grid": {
+        "name": "Collection Grid",
+        "product_card_cta_text": "Product Card CTA Text",
+        "product_card_cta_url": "Product Card CTA URL",
+        "disruptor": "Disruptor",
+        "video_overtakes_image": "Video Overtakes Image",
+        "content_card_index": "Content Card Index",
+        "mobile_content_card_index": "Mobile Content Card Index",
+        "disruptor_card_info": "Information about disruptor card placement"
+      },
+      "content_with_slider": {
+        "name": "Content With Slider",
+        "content_and_slider_header": "Content & Slider",
+        "content_and_slider": "Content & Slider",
+        "content_top_left": "Content Top Left",
+        "content_bottom_left": "Content Bottom Left",
+        "content_top_right": "Content Top Right",
+        "content_bottom_right": "Content Bottom Right",
+        "single_image": "Single Image",
+        "single_image_info": "Must have Image Option set to single for this.",
+        "media": "Media",
+        "slide": "Slide",
+        "image_1": "Image 1",
+        "image_1_text": "Image 1 Text",
+        "image_2": "Image 2",
+        "image_2_text": "Image 2 Text",
+        "image_3": "Image 3",
+        "image_3_text": "Image 3 Text",
+        "single_image_use_info": "Use single image instead of slider",
+        "stitch_images_info": "Images will be stitched together"
+      },
+      "issue_highlight": {
+        "name": "Issue Highlight",
+        "issue_block_name_label": "Issue Block Name",
+        "issue_block_name": "Issue Block Name"
+      },
+      "large_content_cards": {
+        "name": "Large Content Cards",
+        "content_card": "Content Card"
+      },
+      "side_by_side": {
+        "name": "Side By Side",
+        "content_card_1": "Content Card 1",
+        "content_card_2": "Content Card 2",
+        "image_optional_info": "Image Optional Info",
+        "side_by_side_item": "Side By Side Item",
+        "cta_header": "CTA Header",
+        "image_position_info": "Position of the image relative to content"
+      },
+      "quote_slider": {
+        "name": "Quote Slider",
+        "quote": "Quote",
+        "author": "Author",
+        "author_details": "Author Details",
+        "show_card_backgrounds": "Show Card Backgrounds",
+        "show_gradient": "Show Section Gradient",
+        "heading_max_width": "Heading Max Width",
+        "heading_max_width_info": "Heading Max Width Info",
+        "quote_block": "Quote Block",
+        "testimonials_per_page_desktop": "Testimonials Per Page Desktop",
+        "testimonials_2": "2 Testimonials per page",
+        "testimonials_3": "3 Testimonials per page"
+      },
+      "textblock_slider": {
+        "name": "Text Block Slider",
+        "show__bg_img": "Show Background Image",
+        "text_block": "Text Block"
+      },
+      "tabs_with_sliders": {
+        "name": "Tabs With Sliders",
+        "show_gradient": "Show Gradient"
+      },
+      "publication_banner": {
+        "name": "Publication Banner",
+        "padding_bottom": "Bottom Padding"
+      },
+      "navigation_for_page_hero": {
+        "name": "Navigation For Page Hero",
+        "navigation_text": "Navigation Text",
+        "navigation_link": "Navigation Link",
+        "nav_link_info": "Match ID to the section ID input you would like to navigate to"
+      },
+      "full_page_faq": {
+        "name": "Full Page FAQ",
+        "section_title": "Section Title",
+        "section_description": "Section Description",
+        "faq_item": "FAQ Item",
+        "use_yellow_accent": "Use Yellow Accent Text"
+      },
+      "disclaimer_box": {
+        "name": "Disclaimer Box",
+        "disclaimer": "Disclaimer",
+        "bottom_border": "Show Bottom Border"
+      },
+      "privacy_nav": {
+        "name": "Privacy Navigation",
+        "current_language_display": "Current Language Display",
+        "current_language_code": "Current Language Code",
+        "current_language_code_info": "Used to highlight the active language",
+        "language_block": "Language",
+        "language_code": "Language Code",
+        "language_code_info": "e.g. fr, de, es",
+        "language_name": "Language Name",
+        "language_name_info": "Display name for the language",
+        "url": "URL",
+        "url_info": "Full URL to the translated privacy policy"
+      },
+      "raw_page_content": {
+        "name": "Raw Page Content"
+      },
+      "page_content": {
+        "name": "Page Content"
+      },
+      "sales_form_2": {
+        "name": "Sales Form 2",
+        "title": "Title",
+        "form_embed_code": "Form Embed Code"
+      },
+      "faq": {
+        "name": "FAQ",
+        "question": "Question",
+        "answer": "Answer",
+        "faq_item": "FAQ Item"
+      },
+      "blocks": {
+        "homepage_tab_slider": {
+          "cta_top_border": "Border Over CTA and Arrows"
+        },
+        "image_left_content_right_with_background": {
+          "image_header": "Image/Video",
+          "image_header_info": "If all images are populated, image 1 and image 2 will stitch together into one image",
+          "image_caption_info": "Captions for stitched images only. Ex. 'Before' and 'After'"
+        },
+        "image_right_content_left": {
+          "under_img_top_text": "Top Text",
+          "under_img_bottom_text": "Bottom Text",
+          "content_block_header": "Content Block",
+          "stat_1_header": "Statistic 1",
+          "stat_2_header": "Statistic 2",
+          "stat_3_header": "Statistic 3"
+        },
+        "full_image_video_with_overlay_content": {
+          "image_header": "Image/Video",
+          "image_header_info": "If a video is selected, it will show rather than the image"
+        },
+        "pills_for_tab_slider": {
+          "margin_left": "Left Margin",
+          "margin_right": "Right Margin",
+          "pill_position": "Pill Position",
+          "pill_width": "Pill Width",
+          "icon_face_magic": "Face Magic",
+          "sparkle": "Sparkle",
+          "face": "Face",
+          "clock": "Clock",
+          "show_icon": "Show Icon"
+        },
+        "side_by_side_images_with_content": {
+          "text_content_header": "Text Content Box"
+        },
+        "publication_banner": {
+          "image_block_name": "Publication Image"
+        },
+        "boosters": {
+          "textbox": "Text Box"
+        },
+        "expandable_media_slider": {
+          "slide_name": "Media Slide",
+          "content_box": "Content Box",
+          "content_box_info": "Content Box will show when slide is expanded",
+          "icon_text_1_header": "Feature 1",
+          "icon_text_2_header": "Feature 2",
+          "icon_text_3_header": "Feature 3"
+        },
+        "video_testimonials": {
+          "source_name": "Source Name",
+          "source_occupation": "Source Occupation"
+        },
+        "proven-results-slider": {
+          "bottom_text": "Bottom Text",
+          "content_box": "Content Box",
+          "pill": "Pill",
+          "top_text": "Top Text"
+        }
+      },
+      "seven_treatments_in_1": {
+        "name": "7 Treatments in 1",
+        "treatment": "Treatment",
+        "use_gradient": "Use Gradient"
+      },
+      "seven_treatments_in_1_alt": {
+        "name": "7 Treatments in 1 Alt",
+        "treatment": "Treatment"
+      }
+    }
+  }
+}

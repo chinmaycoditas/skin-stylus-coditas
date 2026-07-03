@@ -1,0 +1,276 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "page_hero_CiqTcj": {
+      "type": "page-hero",
+      "name": "t:settings_schema.sections.page_hero.name",
+      "settings": {
+        "image": "shopify://shop_images/Untitled_design_4_1.png",
+        "image_mobile": "shopify://shop_images/Untitled_design_21.png",
+        "heading": "<p>&lt;|Real Hydrafacial Device vs. Resale or Copycat Devices|&gt;</p>",
+        "use_h1": false,
+        "heading_color": "#ffffff",
+        "body": "<p>Build trust with your clients and protect your investment by purchasing a real Hydrafacial system directly from our team.</p>",
+        "cta_text": "Connect With Sales",
+        "cta_url": "shopify://pages/connect-with-sales",
+        "content_position": "items-start",
+        "desktop_heading_max_w": 600,
+        "content_block_type": "pills",
+        "show_nav": false,
+        "dropdown_text": "",
+        "id_number": 1,
+        "popup_form_override": false
+      }
+    },
+    "side_by_side_9VHLep": {
+      "type": "side-by-side",
+      "blocks": {
+        "item_DaFXcn": {
+          "type": "item",
+          "settings": {
+            "title_1": "Why Buy Directly From Hydrafacial?",
+            "description_1": "<p>Hydrafacial is a professional-grade treatment powered by proprietary Vortex-Fusion™ technology, signature serum boosters and a brand that clients ask for by name. But the results and the reputation only come standard when you start with an authentic device sold directly by Hydrafacial.</p>",
+            "cta_label_1": "",
+            "cta_link_1": "",
+            "title_2": "When you buy from us, you get:",
+            "description_2": "<p></p><ul><li>A trademark license to legally promote your services as an authentic Hydrafacial treatment</li><li>A fully inspected device, tested and backed by the team who built it</li><li>Access to our proprietary serums, tips and boosters</li><li>Eligibility for warranty protection, ongoing training and clinical support</li><li>Rights to market your services as an official Hydrafacial treatment provider</li><li>A direct connection to our marketing tools and entry into our global provider network</li></ul>",
+            "cta_label_2": "CTA Label",
+            "cta_link_2": "",
+            "image_first": false
+          }
+        },
+        "item_7twK7K": {
+          "type": "item",
+          "settings": {
+            "title_1": "3 Devices. 3 Tiers of Features. A Glow for Every Budget.",
+            "description_1": "<p>Hydrafacial is a professional-grade treatment powered by proprietary Vortex-Fusion™ technology, signature serum boosters and a brand that clients ask for by name.  But the results and the reputation only come standard when you start with an authentic device sold directly by Hydrafacial.<br/><br/>No matter your practice size or budget, there’s a Hydrafacial system that delivers our signature results. Plus, you’ll enjoy the support and clinical backing that comes with buying direct.</p><ul><li><strong>Syndeo</strong> offers hands-free controls, smart features and lymphatic therapy for the most advanced Hydrafacial treatment experience.</li><li><strong>Elite</strong> and <strong>Allegro</strong> provide our proprietary Vortex-Fusion™ technology with a range of feature sets at lower price points.Looking to minimize upfront costs without compromising on support or quality? We also offer <strong>refurbished Hydrafacial devices</strong> that are fully licensed, inspected and backed by the same warranty as new devices.</li></ul>",
+            "cta_label_1": "Become a Provider",
+            "cta_link_1": "shopify://pages/connect-with-sales",
+            "title_2": "",
+            "description_2": "",
+            "cta_label_2": "",
+            "cta_link_2": "shopify://pages/connect-with-sales",
+            "image": "shopify://shop_images/2.png",
+            "image_first": true
+          }
+        },
+        "item_WDy8qM": {
+          "type": "item",
+          "settings": {
+            "title_1": "Why is Trademark Licensing Important?",
+            "description_1": "<p>In order to be able to promote your services as a Hydrafacial treatment and order official consumables, every provider must hold a valid trademark license from Hydrafacial LLC.</p><ul><li>When you purchase a new or certified refurbished system directly from Hydrafacial, the trademark license is included.</li><li>If you purchase a device secondhand, you must pay a separate <strong>$10,000 recertification fee</strong> in order for Hydrafacial to inspect and ensure that your device is an authentic Hydrafacial device that is still safe to use on consumers. Once the device is recertified, you will be able to obtain a trademark license and use the Hydrafacial name and purchase consumables legally. </li></ul><p></p>",
+            "cta_label_1": "Learn More About Provider Benefits",
+            "cta_link_1": "shopify://pages/professional",
+            "title_2": "Hydrafacial's Trademark Licensing:",
+            "description_2": "<ul><li>Protects Your clients</li><li>Protects Your practice  </li><li>The integrity of the Hydrafacial brand, ensuring a consistent, high-quality experience every time<br/><br/>If you have already purchased a used Hydrafacial device and weren’t aware of the recertification requirement, please reach out to our Sales Support team for help.<br/><br/></li></ul>",
+            "cta_label_2": "",
+            "cta_link_2": "",
+            "image_first": false
+          }
+        },
+        "item_CQtbY6": {
+          "type": "item",
+          "settings": {
+            "title_1": "The Cost of a “Used” Hydrafacial Machine",
+            "description_1": "<p>Third-party resale devices may look like a bargain, but they leave you without the branding, support and credibility that make your investment worthwhile.</p><p><br/>Used Hydrafacial machines often arrive with unwanted surprises like outdated firmware, missing components or wear or damage that isn’t obvious until you start using it. You may not know how the device was stored, maintained or even modified.<br/><br/>Buying your device directly from Hydrafacial is the only way to ensure you’re getting a system that meets the standards and trust that define the Hydrafacial name. </p>",
+            "cta_label_1": "CTA Label",
+            "cta_link_1": "",
+            "title_2": "",
+            "description_2": "",
+            "cta_label_2": "CTA Label",
+            "cta_link_2": "",
+            "image": "shopify://shop_images/02_EMILY_0283_copy_fa0138ca-5fe4-4a11-8124-9da29fc9f94d.png",
+            "image_first": true
+          }
+        },
+        "item_zEfQiR": {
+          "type": "item",
+          "disabled": true,
+          "settings": {
+            "title_1": "",
+            "description_1": "",
+            "cta_label_1": "",
+            "cta_link_1": "shopify://pages/connect-with-sales",
+            "title_2": "",
+            "description_2": "",
+            "cta_label_2": "CTA Label",
+            "cta_link_2": "",
+            "image_first": false
+          }
+        }
+      },
+      "block_order": [
+        "item_DaFXcn",
+        "item_7twK7K",
+        "item_WDy8qM",
+        "item_CQtbY6",
+        "item_zEfQiR"
+      ],
+      "name": "t:settings_schema.sections.side_by_side.name",
+      "settings": {
+        "title": "The Only Way to get a Real Hydrafacial Treatment",
+        "description": "When you buy direct, you’re not just purchasing a device—you’re securing authenticity. Only Hydrafacial provides trademark rights, warranty protection, proprietary serums and tips, and a direct connection to our global provider network.",
+        "id_number": 1
+      }
+    },
+    "text_with_cta_HnJRUz": {
+      "type": "text-with-cta",
+      "disabled": true,
+      "name": "t:settings_schema.sections.text_with_cta.name",
+      "settings": {
+        "heading": "<p>Ready to Bring &lt;|Hydrafacial|&gt; to Your Practice?</p>",
+        "body": "<p>Our team can help you choose the right device, explore financing options and unlock all the benefits that come with being an official Hydrafacial treatment provider.</p>",
+        "top_cta_text": "Talk to Our Sales Team",
+        "top_cta_url": "shopify://pages/connect-with-sales",
+        "popup_form_override": false,
+        "wide_button_on_mobile": false,
+        "bottom_cta_text": "",
+        "bottom_cta_url": "",
+        "id_number": 1
+      }
+    },
+    "textblock_slider_gk8yC4": {
+      "type": "textblock-slider",
+      "blocks": {
+        "text_slide_njRheV": {
+          "type": "text_slide",
+          "settings": {
+            "badge_text": "",
+            "heading": "",
+            "body": "",
+            "button_text": "",
+            "button_url": ""
+          }
+        },
+        "text_slide_qGQdX4": {
+          "type": "text_slide",
+          "settings": {
+            "badge_text": "Financing Options",
+            "heading": "Flexible Financing Options Available ",
+            "body": "Hydrafacial partners with a trusted financing provider to make ownership more accessible. Flexible monthly payment plans are available for both new and certified refurbished systems.",
+            "button_text": "Find Out More About Our Financing Options",
+            "button_url": "shopify://pages/connect-with-sales"
+          }
+        },
+        "text_slide_7LWx7D": {
+          "type": "text_slide",
+          "settings": {
+            "badge_text": "Support",
+            "heading": "Ready to Bring Hydrafacial to Your Practice?",
+            "body": "Hydrafacial partners with a trusted financing provider to make ownership more accessible. Flexible monthly payment plans are available for both new and certified refurbished systems.",
+            "button_text": "Talk to Our Sales Team",
+            "button_url": "shopify://pages/connect-with-sales"
+          }
+        }
+      },
+      "block_order": [
+        "text_slide_njRheV",
+        "text_slide_qGQdX4",
+        "text_slide_7LWx7D"
+      ],
+      "disabled": true,
+      "name": "t:settings_schema.sections.textblock_slider.name",
+      "settings": {
+        "heading": "",
+        "heading_color": "",
+        "show_bg_img": false,
+        "id_number": 1
+      }
+    },
+    "boosters_MVgcCk": {
+      "type": "boosters",
+      "blocks": {
+        "textbox_TL3bT7": {
+          "type": "textbox",
+          "settings": {
+            "icon_select": "check",
+            "heading": "Choose the right device",
+            "body": "<p>for your practice & to fit your budget</p>",
+            "content_box_background": "white",
+            "text_size": "16px",
+            "text_size_desktop": "18px"
+          }
+        },
+        "textbox_xUTVyb": {
+          "type": "textbox",
+          "settings": {
+            "icon_select": "check",
+            "heading": "Explore Financing Options",
+            "body": "<p>to help you get started</p>",
+            "content_box_background": "white",
+            "text_size": "16px",
+            "text_size_desktop": "18px"
+          }
+        },
+        "textbox_UA6F3P": {
+          "type": "textbox",
+          "settings": {
+            "icon_select": "check",
+            "heading": "Discuss all the benefits post-purchase",
+            "body": "<p>from Rep Support, Training, Marketing Materials & More</p>",
+            "content_box_background": "white",
+            "text_size": "16px",
+            "text_size_desktop": "18px"
+          }
+        }
+      },
+      "block_order": [
+        "textbox_TL3bT7",
+        "textbox_xUTVyb",
+        "textbox_UA6F3P"
+      ],
+      "name": "t:settings_schema.sections.boosters.name",
+      "settings": {
+        "gradient": "gray-to-white",
+        "image_layout": "side_by_side",
+        "image_position": "left",
+        "mobile_heading_position": "high",
+        "desktop_image": "shopify://shop_images/Syndeo_Transparent_Desktop.png",
+        "mobile_image": "shopify://shop_images/Syndeo_Transparent_Desktop.png",
+        "mobile_image_aspect": "portrait",
+        "mobile_text_align": "text-left",
+        "desktop_text_align": "lg:text-left",
+        "text_color": "text-black",
+        "text_yellow": false,
+        "heading": "Ready to Bring <|Hydrafacial|> to Your Practice?",
+        "subheading": "",
+        "body": "<p>Our Sales Team will help:</p>",
+        "cta_button_url": "shopify://pages/connect-with-sales",
+        "cta_button_text": "Become a Provider",
+        "id_number": 1,
+        "popup_form_override": false
+      }
+    },
+    "text_with_cta_BTja4d": {
+      "type": "text-with-cta",
+      "name": "t:settings_schema.sections.text_with_cta.name",
+      "settings": {
+        "heading": "<p>Flexible &lt;|Financing Options|&gt; Available </p>",
+        "body": "<p>Our team can help you choose the right device, explore financing options and unlock all the benefits that come with being an official Hydrafacial treatment provider.</p>",
+        "top_cta_text": "Become a Provider",
+        "top_cta_url": "shopify://pages/connect-with-sales",
+        "popup_form_override": false,
+        "wide_button_on_mobile": false,
+        "bottom_cta_text": "",
+        "bottom_cta_url": "",
+        "id_number": 1
+      }
+    }
+  },
+  "order": [
+    "page_hero_CiqTcj",
+    "side_by_side_9VHLep",
+    "text_with_cta_HnJRUz",
+    "textblock_slider_gk8yC4",
+    "boosters_MVgcCk",
+    "text_with_cta_BTja4d"
+  ]
+}
