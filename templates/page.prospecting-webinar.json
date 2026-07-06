@@ -129,8 +129,8 @@
         "testimonial_3CqnVg": {
           "type": "testimonial",
           "settings": {
-            "video_desktop": "shopify://files/videos/Prospecting Webinar Teaser Desktop.mp4",
-            "video_mobile": "shopify://files/videos/Victoria - prospecting webinar 2.mp4",
+            "video_desktop": "",
+            "video_mobile": "",
             "heading": "",
             "source_name": "",
             "source_occupation": ""

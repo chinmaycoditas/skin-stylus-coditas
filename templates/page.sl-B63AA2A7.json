@@ -383,8 +383,8 @@
         "testimonial_6FaKHT": {
           "type": "testimonial",
           "settings": {
-            "video_desktop": "shopify:\/\/files\/videos\/HydrafacialVideo2_V1_Option1_ALT_DeviceHero_WithAwardSealLogos_4320x2700.mp4",
-            "video_mobile": "shopify:\/\/files\/videos\/HydrafacialVideo2_V1_Option1_ALT_DeviceHero_WithAwardSealLogos_1179x2220.mp4",
+            "video_desktop": "",
+            "video_mobile": "",
             "heading": "",
             "source_name": "",
             "source_occupation": ""

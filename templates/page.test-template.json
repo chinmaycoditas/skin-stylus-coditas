@@ -46,8 +46,8 @@
       "disabled": true,
       "name": "t:settings_schema.sections.video_with_text.name",
       "settings": {
-        "video_desktop": "shopify://files/videos/Mobile 7 Steps Hero.mp4",
-        "video_mobile": "shopify://files/videos/Hydrafacial Loop v8 1089.mp4",
+        "video_desktop": "",
+        "video_mobile": "",
         "heading": "TEST",
         "subheading": "TEST TEST TEST TEST TEST TEST TEST TESTTEST TEST TEST TEST TEST TEST",
         "cta_text": "TEST",

@@ -57,8 +57,8 @@
             "main_text_alignment": "text-left",
             "show_card_desktop": true,
             "show_card_mobile": true,
-            "card_video": "shopify://files/videos/1920x1080 test hp pro video desktop.mp4",
-            "card_video_mobile": "shopify://files/videos/Hydrafacial Video 2_V1_Option 1_ALT_Device Hero_WithAwardSealLogos_1179x2220.mp4",
+            "card_video": "",
+            "card_video_mobile": "",
             "card_text": "Ready to Become a Partner?",
             "card_content_url": "shopify://pages/connect-with-sales",
             "card_content_label": "Book Your Demo Now",
@@ -75,8 +75,8 @@
           "type": "slide",
           "disabled": true,
           "settings": {
-            "video1_desktop": "shopify://files/videos/black2 background smaller desktop test.mp4",
-            "video1_mobile": "shopify://files/videos/Hydrafacial Video 2_V1_Option 1_ALT_Device Hero_WithAwardSealLogos_1179x2220.mp4",
+            "video1_desktop": "",
+            "video1_mobile": "",
             "side_by_side": false,
             "title": "",
             "use_h1": false,
@@ -206,8 +206,8 @@
         "media_slide_TeHpAA": {
           "type": "media_slide",
           "settings": {
-            "desktop_video": "shopify://files/videos/7 Steps Lymph Left Side Test.mp4",
-            "mobile_video": "shopify://files/videos/7 Steps - Lymphatic Vid Desktop - Small Placement.mp4",
+            "desktop_video": "",
+            "mobile_video": "",
             "desktop_image": "shopify://shop_images/7_Steps_Lymph_Right_Side_Test.png",
             "mobile_image": "shopify://shop_images/7_Steps_-_Lymphatic_Image_Close_up_1_Desktop.png",
             "title": "Lymphatic",
@@ -865,43 +865,43 @@
         "ugc_content_wLyGQC": {
           "type": "ugc_content",
           "settings": {
-            "video": "shopify://files/videos/Hydrafacial 11 audio.mp4"
+            "video": ""
           }
         },
         "ugc_content_E7Tbi3": {
           "type": "ugc_content",
           "settings": {
-            "video": "shopify://files/videos/Revised 9_16 (music, VO).mov"
+            "video": ""
           }
         },
         "ugc_content_HC9U93": {
           "type": "ugc_content",
           "settings": {
-            "video": "shopify://files/videos/HD December voiceover+music.MP4"
+            "video": ""
           }
         },
         "ugc_content_GYbcYF": {
           "type": "ugc_content",
           "settings": {
-            "video": "shopify://files/videos/Final 9_16.mp4"
+            "video": ""
           }
         },
         "ugc_content_6yej8X": {
           "type": "ugc_content",
           "settings": {
-            "video": "shopify://files/videos/final w_ music.mp4"
+            "video": ""
           }
         },
         "ugc_content_TLCNXn": {
           "type": "ugc_content",
           "settings": {
-            "video": "shopify://files/videos/Reel  (2).mp4"
+            "video": ""
           }
         },
         "ugc_content_kcKHUB": {
           "type": "ugc_content",
           "settings": {
-            "video": "shopify://files/videos/Hydra body Final -Boosted Revision .mp4"
+            "video": ""
           }
         },
         "ugc_content_xrbfCe": {
@@ -911,13 +911,13 @@
         "ugc_content_QVftqK": {
           "type": "ugc_content",
           "settings": {
-            "video": "shopify://files/videos/9.16 - 250512 Hydrafacial Sports Med Spa Collab [CAPTIONS].mp4"
+            "video": ""
           }
         },
         "ugc_content_9Kb66f": {
           "type": "ugc_content",
           "settings": {
-            "video": "shopify://files/videos/reel final 2.mov"
+            "video": ""
           }
         }
       },
@@ -1044,8 +1044,8 @@
           "type": "testimonial",
           "disabled": true,
           "settings": {
-            "video_desktop": "shopify://files/videos/Hydrafacial Video_HowitWorksPage_1320x717.mp4",
-            "video_mobile": "shopify://files/videos/Hydrafacial Video_HowitWorksPage_1320x717.mp4",
+            "video_desktop": "",
+            "video_mobile": "",
             "heading": "",
             "source_name": "",
             "source_occupation": ""

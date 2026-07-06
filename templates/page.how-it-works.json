@@ -175,8 +175,8 @@
         "testimonial_izLhRc": {
           "type": "testimonial",
           "settings": {
-            "video_desktop": "shopify://files/videos/HydrafacialVideo_HowitWorksPage_4320x2700_optimized.mp4",
-            "video_mobile": "shopify://files/videos/Hydrafacial Video_HowitWorksPage_1086x591 (1).mp4",
+            "video_desktop": "",
+            "video_mobile": "",
             "heading": "",
             "source_name": "",
             "source_occupation": ""
