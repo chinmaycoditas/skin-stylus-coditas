@@ -19,6 +19,7 @@ jobs:
           SHOPIFY_FLAG_STORE: ${{ secrets.SHOPIFY_STORE }}
         run: |
           shopify theme push --theme=${{ secrets.SHOPIFY_STAGING_THEME_ID }} \
+            --nodelete \
             --ignore=templates/*.json \
             --ignore=config/settings_data.json
 
