@@ -25,6 +25,50 @@ Two GitHub Actions workflows drive them:
 
 Staging and Prod never swap identities — publishing **copies content**, it does not flip which theme is live. This keeps the CI pipeline stable (see Don'ts below for why that matters).
 
+### Architecture
+
+```mermaid
+flowchart LR
+    Dev["Developer\n(code changes)"] -->|"git push / PR merge"| Main["main branch"]
+    Editor["Anyone\n(content changes)"] -->|"edit in theme editor"| Staging
+
+    Main -->|"deploy-staging.yml\n(automatic, on push)"| Staging["Skin Stylus Staging\n#154568622272 · unpublished"]
+    Staging -->|"review"| Reviewer["You / Lead\n(preview_theme_id link)"]
+    Reviewer -->|"Run workflow (manual + approval)"| Publish["publish-production.yml"]
+    Publish -->|"pull content"| Staging
+    Publish -->|"push content, --allow-live"| Prod["Skin Stylus Prod\n#154633666752 · LIVE"]
+    Publish -->|"audit snapshot"| Snapshot["content-snapshots branch"]
+
+    style Staging fill:#fff3cd,stroke:#997404
+    style Prod fill:#d1e7dd,stroke:#0f5132
+```
+
+### Step-by-step sequence
+
+```mermaid
+sequenceDiagram
+    participant Dev as Developer
+    participant GH as GitHub (main)
+    participant CI as deploy-staging.yml
+    participant Stg as Skin Stylus Staging
+    participant You as You / Reviewer
+    participant Pub as publish-production.yml
+    participant Prod as Skin Stylus Prod
+
+    Dev->>GH: Merge PR (code change)
+    GH->>CI: triggers on push
+    CI->>Stg: push code + templates/*.json
+
+    You->>Stg: edit content directly in theme editor
+    You->>Stg: open preview_theme_id link to verify
+
+    You->>Pub: Run workflow (manual)
+    Pub->>Pub: wait for production-approval
+    Pub->>Stg: pull current state
+    Pub->>Prod: push content (--allow-live)
+    Note over Stg,Prod: roles never swap —<br/>Staging stays unpublished,<br/>Prod stays live
+```
+
 ## What we fixed to get here
 
 - **CI was failing** on every push to `main` because the "staging" theme was actually the store's `[live]` theme — pushing to a live theme non-interactively triggers a confirmation prompt CI can't answer. Fixed by pointing staging deploys at a real unpublished theme, and renaming both themes to match their actual roles.
