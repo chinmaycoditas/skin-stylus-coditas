@@ -1,0 +1,27 @@
+name: Deploy to Staging
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  push-staging:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Shopify CLI
+        run: npm install -g @shopify/cli @shopify/theme
+
+      - name: Push code to Staging theme
+        env:
+          SHOPIFY_CLI_THEME_TOKEN: ${{ secrets.SHOPIFY_CLI_THEME_TOKEN }}
+          SHOPIFY_FLAG_STORE: ${{ secrets.SHOPIFY_STORE }}
+        run: |
+          shopify theme push --theme=${{ secrets.SHOPIFY_STAGING_THEME_ID }} \
+            --ignore=templates/*.json \
+            --ignore=config/settings_data.json
+
+      - name: Staging preview link
+        run: |
+          echo "Review at: https://${{ secrets.SHOPIFY_STORE }}?preview_theme_id=${{ secrets.SHOPIFY_STAGING_THEME_ID }}"
