@@ -4,7 +4,7 @@ on:
   workflow_dispatch: {}
 
 jobs:
-  pull-staging-snapshot:
+  publish-to-prod:
     runs-on: ubuntu-latest
     environment: production-approval
     permissions:
@@ -17,7 +17,7 @@ jobs:
       - name: Install Shopify CLI
         run: npm install -g @shopify/cli @shopify/theme
 
-      - name: Pull current Staging state (code + content) for audit trail
+      - name: Pull current Staging state (code + content)
         env:
           SHOPIFY_CLI_THEME_TOKEN: ${{ secrets.SHOPIFY_CLI_THEME_TOKEN }}
           SHOPIFY_FLAG_STORE: ${{ secrets.SHOPIFY_STORE }}
@@ -33,9 +33,11 @@ jobs:
           git commit -m "Pre-publish snapshot of Staging theme $(date -u +%Y-%m-%dT%H:%M:%SZ)" || echo "No changes to snapshot"
           git push origin content-snapshots --force
 
-      - name: Publish Staging to live
+      - name: Push Staging content into Production theme
         env:
           SHOPIFY_CLI_THEME_TOKEN: ${{ secrets.SHOPIFY_CLI_THEME_TOKEN }}
           SHOPIFY_FLAG_STORE: ${{ secrets.SHOPIFY_STORE }}
         run: |
-          shopify theme publish --theme=${{ secrets.SHOPIFY_STAGING_THEME_ID }} --force
+          shopify theme push --theme=${{ secrets.SHOPIFY_PROD_THEME_ID }} \
+            --allow-live \
+            --nodelete
