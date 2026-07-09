@@ -37,6 +37,7 @@
         {%  render 'blue', text: s.heading %}
       </h2>
     {%- endif -%}
+    {% if s.content != blank %}<div class="lg:w-[60%] !text-center text-body-mob/[23px] font-light tracking-[-0.032px] inline-block" style="margin-top: -30px;" >{{s.content}}</div>{% endif %}
 
     {% capture slider_options %}
       '{
@@ -82,7 +83,7 @@
                   </div>
 
                   {% if show_cta %}
-                    <a class="button-primary-black {% if settings.remove_capitalize %}!normal-case{% endif %} mt-8 lg:mt-3 w-[134px]" href="{{ b.button_url }}">
+                    <a class="button-primary-black {% if settings.remove_capitalize %}!normal-case{% endif %} mt-8 lg:mt-3 w-[144px]" href="{{ b.button_url }}">
                       <span>{{ b.button_text }}</span>
                     </a>
                   {% else %}
@@ -95,6 +96,9 @@
         </ul>
       </div>
     </div>
+    {% if section.settings.btn-text != blank %}
+      <a target="_blank" class="button-primary-black  mt-2 lg:mt-3 w-fit" href="{{section.settings.btn-url}}"><span>{{section.settings.btn-text}}</span></a>
+    {% endif %}
   </div>
 </div>
 
@@ -108,6 +112,21 @@
       "type": "text",
       "id": "heading",
       "label": "t:settings_schema.general.heading"
+    },
+    {
+      "type": "richtext",
+      "id": "content",
+      "label": "Content"
+    },
+    {
+      "type": "text",
+      "id": "btn-text",
+      "label": "Button Text"
+    },
+    {
+      "type": "url",
+      "id": "btn-url",
+      "label": "Button URL"
     },
     {
       "type": "color",
