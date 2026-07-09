@@ -1,5 +1,9 @@
 {%- assign s = section.settings -%}
 
+{% if page.metafields.custom.h1_title != blank %}
+  <h1 style="display:none;" >{{ page.metafields.custom.h1_title }}</h1>
+{% endif %}
+
 <div 
   id="page-hero-{{ s.id_number }}"
   class="px-[15px] lg:px-[38px] relative z-[97] pt-20 lg:pt-[110px] mt-4">
@@ -44,9 +48,16 @@
             {%- if s.popup_form_override -%}
               {% render 'popup-input', class: cta_class, text: s.cta_text %}
             {%- else -%}
-              <a class="button-primary-white {% if settings.remove_capitalize %}!normal-case{% endif %} w-full lg:w-fit" href="{{ s.cta_url }}">
-                <span class="{{ cta_class }}">{{ s.cta_text }}</span>
-              </a>
+              <div class="flex flex-col lg:flex-row gap-4" >
+                <a class="button-primary-white {% if settings.remove_capitalize %}!normal-case{% endif %} w-full lg:w-fit" href="{{ s.cta_url }}">
+                  <span class="{{ cta_class }}">{{ s.cta_text }}</span>
+                </a>
+                {% if s.cta_text1 != blank and s.cta_url1 != blank %}
+                  <a class="button-primary-blue {% if settings.remove_capitalize %}!normal-case{% endif %} w-full lg:w-fit" href="{{ s.cta_url1 }}">
+                    <span class="{{ cta_class }}">{{ s.cta_text1 }}</span>
+                  </a>
+                {% endif %}
+              </div>
             {%- endif -%}
           {% endif %}
         </div>
@@ -166,6 +177,16 @@
       {
         "type": "url",
         "id": "cta_url",
+        "label": "t:settings_schema.general.cta_url"
+      },
+      {
+        "type": "text",
+        "id": "cta_text1",
+        "label": "t:settings_schema.general.cta_text"
+      },
+      {
+        "type": "url",
+        "id": "cta_url1",
         "label": "t:settings_schema.general.cta_url"
       },
       {

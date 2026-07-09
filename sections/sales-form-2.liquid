@@ -3,12 +3,13 @@
 <div 
   id="sales-form-two-{{ s.id_number }}"
   class="px-[18px] lg:px-[38px] pt-5 lg:pt-[58px] {% if s.margin_top %}mt-[79px]{% endif %}">
+  <div id="contact"></div>
   <div class="light-blue-gradient-2 w-screen h-full absolute left-0 top-0 z-[-1]"></div>
 
   <div class="max-w-maxscreen mx-auto">
     <div class="flex flex-col lg:grid grid-cols-[358px_1fr] gap-8">
       <div class="max-lg:pt-5">
-        <h1 class="font-light leading-[100%] text-h2-mob lg:text-h3">{% render 'blue', text: s.title %}</h1>
+        <h2 class="font-light leading-[100%] text-h2-mob lg:text-h3">{% render 'blue', text: s.title %}</h2>
       </div>
 
       <div class="bg-white rounded-t-image [&_form]:!w-full p-8">
