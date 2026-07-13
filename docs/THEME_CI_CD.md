@@ -1,93 +1,243 @@
 # Theme CI/CD: Staging → Production
 
-## What we have
+This document explains how code and content move from development to the live
+storefront, why the pipeline is split into two independent "lanes", and the
+rules each team member must follow to keep it working.
 
-Two fixed-role Shopify themes on `iyeamb-p0.myshopify.com`:
+**Read the mental model first — everything else follows from it.**
 
-| Theme | Role | ID | Purpose |
+---
+
+## 1. The one idea everything hangs on: *source of truth*
+
+For every file in the theme, ask: **"If I want the correct, current version, where do I look?"** The answer is different for two kinds of files, and that difference is the whole design.
+
+| Kind | What it is | Who authors it | **Source of truth** |
 |---|---|---|---|
-| **Skin Stylus Staging** | `[unpublished]` | `154568622272` | Review code + content changes before they go live |
-| **Skin Stylus Prod** | `[live]` | `154633666752` | The actual storefront customers see |
+| **CODE** | `*.liquid`, `sections/`, `blocks/`, `snippets/`, `assets/`, `layout/`, `locales/`, `config/settings_schema.json`, **`config/settings_data.json`** | Developers | **git** |
+| **CONTENT** | Page templates: `templates/*.json`, `templates/customers/*.json` | Content managers | **Staging theme** (the Shopify editor) |
 
-Two GitHub Actions workflows drive them:
+Two different authors, two different homes. **Git and Shopify never sync automatically** — files only move when a workflow runs `shopify theme push` (git → Shopify) or `shopify theme pull` (Shopify → git).
 
-| Workflow | Trigger | What it does |
-|---|---|---|
-| `deploy-staging.yml` | Automatic, on every push to `main` | Pushes all theme code **and content** (`templates/*.json` included) to Skin Stylus Staging |
-| `publish-production.yml` | Manual (`Run workflow` button), gated behind `production-approval` | Snapshots Staging's current state to the `content-snapshots` branch, then pushes that same content into Skin Stylus Prod |
+> When a content manager edits a page in the Shopify editor, the change is written to `templates/<page>.json` **on Shopify's servers only**. Your git repo is not touched. That is why content is promoted *from Staging*, not from git — git doesn't have the manager's latest edits.
 
-## The flow
+---
 
-1. **Code changes** → PR → merge to `main` → auto-deployed to Staging.
-2. **Content changes** → edit directly in the Shopify theme editor on **Skin Stylus Staging** → visible immediately on Staging preview.
-3. **Review** on Staging: `https://iyeamb-p0.myshopify.com?preview_theme_id=154568622272`
-4. **Promote to prod**: run `publish-production.yml` manually from the Actions tab → approve if prompted → Staging's current content is pushed into Skin Stylus Prod.
+## 2. The two lanes
 
-Staging and Prod never swap identities — publishing **copies content**, it does not flip which theme is live. This keeps the CI pipeline stable (see Don'ts below for why that matters).
-
-### Architecture
+Production receives updates through **two independent, manually-triggered "buttons"**, each sourced from its own source of truth. Neither ever copies "the whole theme", so **nothing half-finished can ride along by accident.**
 
 ```mermaid
-flowchart LR
-    Dev["Developer\n(code changes)"] -->|"git push / PR merge"| Main["main branch"]
-    Editor["Anyone\n(content changes)"] -->|"edit in theme editor"| Staging
+flowchart TB
+    subgraph CODE["CODE lane — source of truth: git"]
+        direction LR
+        Git["main branch\n(reviewed code)"]
+        Git -->|"deploy-staging.yml\n(AUTO on merge)\nignores templates/*.json"| StgC["Staging"]
+        Git -->|"publish-code-production.yml\nBUTTON 1 (manual + approval)\nignores templates/*.json"| ProdC["Prod (LIVE)"]
+    end
 
-    Main -->|"deploy-staging.yml\n(automatic, on push)"| Staging["Skin Stylus Staging\n#154568622272 · unpublished"]
-    Staging -->|"review"| Reviewer["You / Lead\n(preview_theme_id link)"]
-    Reviewer -->|"Run workflow (manual + approval)"| Publish["publish-production.yml"]
-    Publish -->|"pull content"| Staging
-    Publish -->|"push content, --allow-live"| Prod["Skin Stylus Prod\n#154633666752 · LIVE"]
-    Publish -->|"audit snapshot"| Snapshot["content-snapshots branch"]
+    subgraph CONTENT["CONTENT lane — source of truth: Staging editor"]
+        direction LR
+        Editor["Content managers\nedit pages live"] --> StgD["Staging"]
+        StgD -->|"publish-content-production.yml\nBUTTON 2 (manual + approval)\n--only <named pages>"| ProdD["Prod (LIVE)"]
+    end
 
-    style Staging fill:#fff3cd,stroke:#997404
-    style Prod fill:#d1e7dd,stroke:#0f5132
+    style ProdC fill:#d1e7dd,stroke:#0f5132
+    style ProdD fill:#d1e7dd,stroke:#0f5132
+    style StgC fill:#fff3cd,stroke:#997404
+    style StgD fill:#fff3cd,stroke:#997404
 ```
 
-### Step-by-step sequence
+- **CODE lane** always ignores `templates/*.json`, so it can never disturb the pages content managers own. It *does* carry `settings_data.json`, re-asserting git's global settings every deploy.
+- **CONTENT lane** carries *only* the page(s) you explicitly name. Pages you don't name — including your colleagues' in-progress work — stay on Staging.
+
+**This is what removes the "wait for everyone" problem.** With three managers editing three different pages, you promote only the one that's approved; the other two are simply not named.
+
+---
+
+## 3. What you need (prerequisites)
+
+### Themes (on `iyeamb-p0.myshopify.com`)
+
+| Theme | Role | ID |
+|---|---|---|
+| **Skin Stylus Staging** | `[unpublished]` — review here | `154568622272` |
+| **Skin Stylus Prod** | `[live]` — customers see this | `154633666752` |
+
+These IDs are pinned in workflows via secrets. **Never rename or delete either theme; never `shopify theme publish` the Staging theme** (it would flip which theme is live and break the pipeline).
+
+### GitHub secrets (Repo → Settings → Secrets and variables → Actions)
+
+| Secret | Purpose |
+|---|---|
+| `SHOPIFY_CLI_THEME_TOKEN` | Theme Access app password (auth for CLI) |
+| `SHOPIFY_STORE` | `iyeamb-p0.myshopify.com` |
+| `SHOPIFY_STAGING_THEME_ID` | `154568622272` |
+| `SHOPIFY_PROD_THEME_ID` | `154633666752` |
+
+### GitHub environment
+
+- **`production-approval`** — a GitHub *Environment* with required reviewers. Both prod buttons are gated behind it, so a promotion to the live store always needs a human approval.
+
+### Access
+
+- **Developers:** write access to the repo; ability to run workflows.
+- **Content managers:** Shopify staff access with the **Themes** permission, so they can edit in the Staging theme editor. (Note: Shopify permissions are coarse — they cannot be scoped to a single page; see the rules in §6.)
+- **Local dev (optional):** [Shopify CLI](https://shopify.dev/docs/themes/tools/cli) installed — `npm install -g @shopify/cli @shopify/theme`.
+
+---
+
+## 4. The workflows
+
+| Workflow | Trigger | Lane | What it does |
+|---|---|---|---|
+| `deploy-staging.yml` | **Auto** — every push to `main` | Code | Pushes code from git → Staging, ignoring `templates/*.json`. |
+| `publish-code-production.yml` | **Manual** (Button 1) + approval | Code | Pushes code from git → **Prod** (`--allow-live`), ignoring `templates/*.json`. |
+| `publish-content-production.yml` | **Manual** (Button 2) + approval, takes a `files` input | Content | Pulls the **named** page(s) from Staging, snapshots them, pushes **only** those → **Prod** (`--allow-live`). |
+
+All three are in `.github/workflows/`. The old single `publish-production.yml` (whole-theme copy) has been removed — it caused the "wait for staging to be 100% clean" problem this design fixes.
+
+---
+
+## 5. Worked examples
+
+### Example A — Developer ships a code change
+
+1. Branch, edit a section (e.g. `sections/main-product.liquid`), open a PR.
+2. Merge to `main`. → `deploy-staging.yml` runs automatically → code is on **Staging**.
+3. Review on Staging: `https://iyeamb-p0.myshopify.com?preview_theme_id=154568622272`
+4. When happy, go to **Actions → Publish Code to Production → Run workflow**, approve when prompted. → code is live on **Prod**.
+
+Page content on Prod is untouched throughout (the code lane ignores `templates/*.json`).
+
+### Example B — Content manager updates one page while others are mid-edit
+
+Scenario: Manager A finished the **About** page. Managers B and C are still working on **Contact** and **Home**.
+
+1. Manager A edits **About** in the Staging theme editor. The change lands in `templates/page.about-us.json` on Staging.
+2. Manager A verifies About on the Staging preview link.
+3. Once approved, run **Actions → Publish Content Patch to Production → Run workflow** with:
+
+   ```
+   files: templates/page.about-us.json
+   ```
+4. Approve when prompted. → **only** About is promoted to Prod. Contact and Home (B and C's unfinished work) stay on Staging, never touched.
+
+Promoting several finished pages at once? Comma-separate them:
+
+```
+files: templates/page.about-us.json,templates/page.faqs.json
+```
+
+> The workflow refuses anything that isn't a `templates/*.json` path — you cannot accidentally promote code or `settings_data.json` through the content button.
+
+### Example C — Changing a global setting (colors, fonts, logo)
+
+Global settings live in `config/settings_data.json`, which is **git-owned**. Content managers do **not** change these in the editor.
+
+1. A developer edits `config/settings_data.json` in a PR (or edits on Staging, then pulls it into git — see §7) and merges.
+2. `deploy-staging.yml` pushes it to Staging; verify.
+3. Run **Button 1 (Publish Code to Production)** to take it live.
+
+Global settings are the one file that can't be patched per-page (it's a single global blob), which is exactly why it lives behind version control and the code lane.
+
+### Example D — New section (code) that the content team then uses (content)
+
+This is the cross-lane case: a developer builds a new section, and afterwards a content manager places it on a page and fills in the copy. It touches **both** lanes, so it takes **both** buttons — **and the order on prod matters.**
+
+**Phase 1 — Developer builds the section (CODE lane)**
+
+1. Developer creates `sections/testimonial-carousel.liquid` (with its `{% schema %}`), PRs, and merges to `main`.
+2. `deploy-staging.yml` runs automatically → the section is now on **Staging** and appears in the theme editor's **"Add section"** picker. No page uses it yet; no content has changed.
+
+**Phase 2 — Content manager uses it (CONTENT lane)**
+
+3. In the Staging editor, the content manager opens a page (e.g. About), clicks **Add section → Testimonial Carousel**, and fills in the copy/images. This writes to `templates/page.about-us.json` **on Staging**.
+4. They verify the page on the Staging preview link.
+
+**Phase 3 — Promote to prod, code FIRST, then content**
+
+5. Run **Button 1 — Publish Code to Production** so the new section's code exists on Prod.
+6. *Then* run **Button 2 — Publish Content Patch to Production** with:
+   ```
+   files: templates/page.about-us.json
+   ```
 
 ```mermaid
 sequenceDiagram
     participant Dev as Developer
-    participant GH as GitHub (main)
-    participant CI as deploy-staging.yml
-    participant Stg as Skin Stylus Staging
-    participant You as You / Reviewer
-    participant Pub as publish-production.yml
-    participant Prod as Skin Stylus Prod
+    participant CM as Content manager
+    participant Stg as Staging
+    participant Prod as Prod (LIVE)
 
-    Dev->>GH: Merge PR (code change)
-    GH->>CI: triggers on push
-    CI->>Stg: push code + templates/*.json
-
-    You->>Stg: edit content directly in theme editor
-    You->>Stg: open preview_theme_id link to verify
-
-    You->>Pub: Run workflow (manual)
-    Pub->>Pub: wait for production-approval
-    Pub->>Stg: pull current state
-    Pub->>Prod: push content (--allow-live)
-    Note over Stg,Prod: roles never swap —<br/>Staging stays unpublished,<br/>Prod stays live
+    Dev->>Stg: merge → deploy-staging.yml pushes new section (code)
+    CM->>Stg: Add section to page + fill content (editor)
+    CM->>Stg: verify on preview
+    Dev->>Prod: Button 1 — code (section) FIRST
+    CM->>Prod: Button 2 — content (page) SECOND
+    Note over Prod: page references the section,<br/>which is already there → renders correctly
 ```
 
-## What we fixed to get here
+> **Why the order?** On Staging the ordering is automatic — the section is deployed on merge, long before anyone can use it. But on **Prod**, if you promote the page (content) *before* the section (code), Prod would have a page pointing at a section that doesn't exist yet → broken render. **Always Button 1, then Button 2** for any change that adds/renames a section the new content depends on. (Deleting a section is the mirror image: promote the content that stops using it first, then remove the code.)
 
-- **CI was failing** on every push to `main` because the "staging" theme was actually the store's `[live]` theme — pushing to a live theme non-interactively triggers a confirmation prompt CI can't answer. Fixed by pointing staging deploys at a real unpublished theme, and renaming both themes to match their actual roles.
-- **Content changes silently never reached Staging** — the original workflow excluded `templates/*.json` from the push. Removed that exclusion so page/section content merged to `main` actually syncs.
-- **Publishing used to swap live status** (`theme publish` on the staging theme itself), which would re-break the staging deploy the moment someone ran it, since the staging theme ID would become live again. Rewritten to push content into a fixed Prod theme ID instead.
-- Cleaned up ~95 broken `shopify://files/videos/...` references across 13 templates that were causing local `shopify theme dev` and Staging syncs to fail entirely (unrelated pre-existing store content, not caused by code).
+---
 
-## Do's
+## 6. Do's and Don'ts
 
-- ✅ Make **content edits** (copy, images, layout) directly on the **Skin Stylus Staging** theme editor.
-- ✅ Make **code changes** (`.liquid`, sections, snippets, assets, schema) via git — PR into `main`, let `deploy-staging.yml` sync them.
-- ✅ Always verify on Staging (`preview_theme_id=154568622272`) before publishing.
-- ✅ Run `publish-production.yml` deliberately, only when Staging is in a state you want live.
-- ✅ Keep `config/settings_data.json` editor-managed — it's intentionally excluded from the code sync.
+### For Content Managers
 
-## Don'ts
+**Do**
+- ✅ Make content edits (copy, images, section arrangement) **only in the Skin Stylus Staging editor**.
+- ✅ Work on **your assigned page(s)** — one person per page at a time.
+- ✅ **Verify your page on the Staging preview** before signalling it's ready to promote.
+- ✅ Tell the team which page you're promoting so it can be named in Button 2.
 
-- ❌ Don't call `shopify theme publish` on the Staging theme directly (via CLI or elsewhere) — it flips which theme is `[live]` and breaks the CI pipeline's assumptions.
-- ❌ Don't edit content on **Skin Stylus Prod** directly — it gets overwritten by the next publish run, and your change has no git record.
-- ❌ Don't rename or delete either theme — `SHOPIFY_STAGING_THEME_ID` / `SHOPIFY_PROD_THEME_ID` are pinned to specific theme IDs, not names.
-- ❌ Don't assume merging a PR pushes anything to Prod — only `publish-production.yml`, run manually, does that.
-- ❌ Don't edit both a template in git **and** the same content in the Staging editor around the same time — whichever syncs last wins, silently overwriting the other.
+**Don't**
+- ❌ Don't touch **Theme settings (the gear)** — colors, fonts, logo. Those are git-owned; any editor change there is not version-controlled and will be **overwritten on the next code deploy**.
+- ❌ Don't edit content **directly on Prod** — it's not the source of truth, has no git record, and can be overwritten.
+- ❌ Don't add **Custom Liquid / custom CSS** in the editor — that's code and belongs in git.
+- ❌ Don't edit the **same page** someone else is editing at the same time — last save wins, silently.
+- ❌ Don't create brand-new pages/templates without a developer in the loop (a new template only exists on Staging until someone promotes/backs it up).
+
+### For Developers
+
+**Do**
+- ✅ Make all code changes (`.liquid`, `sections/`, `blocks/`, `snippets/`, `assets/`, `layout/`, `locales/`, `config/settings_*.json`) via **PR → `main`**.
+- ✅ Let `deploy-staging.yml` sync code to Staging; **verify on the preview link** before Button 1.
+- ✅ Own `config/settings_data.json` deliberately — treat global-setting changes as reviewed code changes.
+- ✅ Use **Button 1** for code, **Button 2** for content — keep the lanes separate.
+- ✅ For a change spanning both lanes (a new section the content will use), promote **code first (Button 1), then content (Button 2)** — see Example D. When *removing* a section, reverse it: content first, then code.
+- ✅ Keep git's `settings_data.json` authoritative (pull from Prod first — see §7).
+
+**Don't**
+- ❌ Don't push `templates/*.json` from git to Staging/Prod — the workflows ignore them on purpose so editor work isn't clobbered.
+- ❌ Don't `shopify theme publish` the Staging theme — it flips live status and breaks the pipeline. Publishing here means *pushing content into the fixed Prod theme ID*, never swapping roles.
+- ❌ Don't assume merging a PR touches Prod — only the two manual buttons do.
+- ❌ Don't promote content **from git** — content's source of truth is Staging; Button 2 pulls it from there.
+- ❌ Don't rename/delete either theme — the IDs are pinned in secrets.
+
+---
+
+## 7. One-time migration (do this before relying on the new model)
+
+Because `settings_data.json` flipped from editor-managed to git-owned, git's copy must be made authoritative first — otherwise the first code deploy could overwrite live global settings with a stale snapshot.
+
+```bash
+# Pull the CURRENT live global settings from Prod into git, so git is the truth.
+shopify theme pull --store=iyeamb-p0.myshopify.com \
+  --theme=154633666752 \
+  --only config/settings_data.json
+# review the diff, then commit to main
+```
+
+After this commit, the code lane will correctly carry the real global settings forward.
+
+---
+
+## 8. Known limitations & parked items
+
+- **Rollback history:** the `content-snapshots` branch is force-pushed on each content promotion, so only the **latest** patch is retained. Richer per-page rollback history is a future enhancement.
+- **Drift detection:** because Shopify can't lock the Theme-settings gear, a "scheduled `theme pull` + diff alert" would catch out-of-band edits to `settings_data.json` / structural files. Parked for later. (Note: the code lane already auto-reverts gear edits to `settings_data.json` on the next deploy.)
+- **Jira-triggered promotion:** Button 2 currently takes a hand-typed file list. Once Jira tracks content requests, the input can be driven from there without changing the promote logic.
+- **Continuous content backup:** git only holds a content snapshot from the last `pull`/promotion. A scheduled full `theme pull` would keep the repo a current, diffable backup of Staging content. Parked.
+```
