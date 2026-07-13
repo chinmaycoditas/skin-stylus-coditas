@@ -13,9 +13,10 @@
 // page list here is fully dynamic (read live from git); there is no array to
 // maintain when pages are added or removed.
 //
-// It lists only page.*.json (editor-owned CONTENT). The .liquid phase pages
-// (Microsystems, etc.) are CODE and go via "Publish Code to Production", so they
-// intentionally do NOT appear here.
+// It lists every templates/*.json (editor-owned CONTENT — Home/index.json,
+// pages, product, collection, etc.). The .liquid phase pages (Microsystems,
+// etc.) are CODE and go via "Publish Code to Production", so they intentionally
+// do NOT appear here.
 //
 // Usage:
 //   node scripts/promote-content.mjs                       # interactive multi-select
@@ -73,11 +74,11 @@ try {
   fail(`Could not list ${DIR}/ on ${REF}: ${String(e.message).split('\n')[0]}`);
 }
 const pages = entries
-  .filter((e) => e.type === 'file' && e.name.startsWith('page.') && e.name.endsWith('.json'))
+  .filter((e) => e.type === 'file' && e.name.endsWith('.json'))
   .map((e) => `${DIR}/${e.name}`)
   .sort();
 
-if (!pages.length) fail(`No page.*.json templates found in ${DIR}/ on ${REF}.`);
+if (!pages.length) fail(`No *.json content templates found in ${DIR}/ on ${REF}.`);
 
 if (LIST) {
   console.log(`\nPromotable content pages on ${REF} (${pages.length}):\n`);
