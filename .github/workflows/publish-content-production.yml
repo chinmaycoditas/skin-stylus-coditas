@@ -1,0 +1,90 @@
+name: Publish Content Patch to Production
+
+# BUTTON 2 — promote ONE OR MORE approved pages to Production.
+# Source of truth: the Staging theme (that is where content managers author).
+# You name the exact page template(s); ONLY those files are pulled from Staging
+# and pushed to Production. Every other page — including half-finished ones —
+# is left untouched. This is the "patch release" that removes the need to wait
+# for all content managers to finish before going to prod.
+
+on:
+  workflow_dispatch:
+    inputs:
+      files:
+        description: "Page template(s) to promote, comma-separated. e.g. templates/page.about-us.json,templates/page.faqs.json"
+        required: true
+
+jobs:
+  publish-content-to-prod:
+    runs-on: ubuntu-latest
+    environment: production-approval
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install Shopify CLI
+        run: npm install -g @shopify/cli @shopify/theme
+
+      # Validate the input and turn it into "--only <path>" flags.
+      # Guard rail: only templates/*.json may be promoted this way. This blocks
+      # accidentally promoting code or git-owned files (e.g. settings_data.json)
+      # out of Staging, which would violate the code/content ownership split.
+      - name: Build --only flags from input
+        id: only
+        env:
+          FILES: ${{ inputs.files }}
+        run: |
+          ONLY=""
+          IFS=',' read -ra ARR <<< "$FILES"
+          for f in "${ARR[@]}"; do
+            f="$(echo "$f" | xargs)"   # trim surrounding whitespace
+            [ -z "$f" ] && continue
+            if [[ ! "$f" =~ ^templates/[A-Za-z0-9._/-]+\.json$ ]]; then
+              echo "::error::Refusing to promote '$f' — only page templates (templates/*.json) may be promoted as content."
+              exit 1
+            fi
+            ONLY="$ONLY --only $f"
+          done
+          if [ -z "$ONLY" ]; then
+            echo "::error::No valid files provided."
+            exit 1
+          fi
+          echo "flags=$ONLY" >> "$GITHUB_OUTPUT"
+          echo "Promoting:$ONLY"
+
+      - name: Pull named content from Staging
+        env:
+          SHOPIFY_CLI_THEME_TOKEN: ${{ secrets.SHOPIFY_CLI_THEME_TOKEN }}
+          SHOPIFY_FLAG_STORE: ${{ secrets.SHOPIFY_STORE }}
+          ONLY_FLAGS: ${{ steps.only.outputs.flags }}
+        run: |
+          shopify theme pull --theme=${{ secrets.SHOPIFY_STAGING_THEME_ID }} --nodelete $ONLY_FLAGS
+
+      # Snapshot exactly what we are about to promote, for audit / rollback.
+      # NOTE: this force-pushes, so only the LATEST patch is retained. Richer
+      # rollback history is a parked enhancement.
+      - name: Snapshot promoted content
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git checkout -B content-snapshots
+          git add -A
+          git commit -m "Content patch $(date -u +%Y-%m-%dT%H:%M:%SZ): ${{ inputs.files }}" || echo "No changes to snapshot"
+          git push origin content-snapshots --force
+
+      - name: Push named content into Production theme
+        env:
+          SHOPIFY_CLI_THEME_TOKEN: ${{ secrets.SHOPIFY_CLI_THEME_TOKEN }}
+          SHOPIFY_FLAG_STORE: ${{ secrets.SHOPIFY_STORE }}
+          ONLY_FLAGS: ${{ steps.only.outputs.flags }}
+        run: |
+          shopify theme push --theme=${{ secrets.SHOPIFY_PROD_THEME_ID }} \
+            --allow-live \
+            --nodelete \
+            $ONLY_FLAGS
+
+      - name: Done
+        run: echo "Promoted to Production: ${{ inputs.files }}"

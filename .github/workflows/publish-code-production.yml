@@ -1,0 +1,34 @@
+name: Publish Code to Production
+
+# BUTTON 1 — ship developer-owned CODE to Production.
+# Source of truth: git. This pushes liquid, sections, blocks, snippets, assets,
+# layout, locales and config/*.json FROM GIT to the live Production theme.
+# It IGNORES page content (templates/*.json) so it can never disturb the pages
+# that content managers own. Run this whenever reviewed code is ready for prod.
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  publish-code-to-prod:
+    runs-on: ubuntu-latest
+    environment: production-approval
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Shopify CLI
+        run: npm install -g @shopify/cli @shopify/theme
+
+      - name: Push code from git into Production theme
+        env:
+          SHOPIFY_CLI_THEME_TOKEN: ${{ secrets.SHOPIFY_CLI_THEME_TOKEN }}
+          SHOPIFY_FLAG_STORE: ${{ secrets.SHOPIFY_STORE }}
+        run: |
+          shopify theme push --theme=${{ secrets.SHOPIFY_PROD_THEME_ID }} \
+            --allow-live \
+            --nodelete \
+            --ignore='templates/*.json' \
+            --ignore='templates/customers/*.json'
+
+      - name: Done
+        run: echo "Code deployed to Production from commit ${{ github.sha }}"

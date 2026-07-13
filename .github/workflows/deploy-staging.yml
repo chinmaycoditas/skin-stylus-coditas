@@ -13,6 +13,11 @@ jobs:
       - name: Install Shopify CLI
         run: npm install -g @shopify/cli @shopify/theme
 
+      # Push developer-owned CODE from git into Staging.
+      # We IGNORE page content (templates/*.json) so this never overwrites
+      # what content managers are editing live in the Shopify editor.
+      # settings_data.json is intentionally NOT ignored: it is git-owned, so
+      # every deploy re-asserts git's global theme settings onto Staging.
       - name: Push code to Staging theme
         env:
           SHOPIFY_CLI_THEME_TOKEN: ${{ secrets.SHOPIFY_CLI_THEME_TOKEN }}
@@ -20,7 +25,8 @@ jobs:
         run: |
           shopify theme push --theme=${{ secrets.SHOPIFY_STAGING_THEME_ID }} \
             --nodelete \
-            --ignore=config/settings_data.json
+            --ignore='templates/*.json' \
+            --ignore='templates/customers/*.json'
 
       - name: Staging preview link
         run: |
