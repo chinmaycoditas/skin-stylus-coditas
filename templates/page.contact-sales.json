@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "page_content": {
+      "type": "page-content",
+      "settings": {}
+    }
+  },
+  "order": [
+    "page_content"
+  ]
+}
