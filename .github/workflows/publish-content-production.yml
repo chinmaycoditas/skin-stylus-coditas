@@ -87,4 +87,5 @@ jobs:
             $ONLY_FLAGS
 
       - name: Done
-        run: echo "Promoted to Production: ${{ inputs.files }}"
+        run: |
+          echo "Promoted to Production: ${{ inputs.files }}"
