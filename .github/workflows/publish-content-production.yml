@@ -1,21 +1,679 @@
 name: Publish Content Patch to Production
 
-# BUTTON 2 — promote ONE OR MORE approved pages to Production.
-# Source of truth: the Staging theme (that is where content managers author).
-# You name the exact page template(s); ONLY those files are pulled from Staging
-# and pushed to Production. Every other page — including half-finished ones —
-# is left untouched. This is the "patch release" that removes the need to wait
-# for all content managers to finish before going to prod.
+# BUTTON 2 — promote up to 10 approved pages to Production in one run.
+#
+# Source of truth: the Staging theme. Pick pages from the dropdowns
+# (page_1..page_10); leave unused slots on "(none)". Only the picked pages are
+# pulled from Staging and pushed to Prod. Two jobs:
+#   collect  — validates your picks BEFORE the approval gate (typos/empty fail fast)
+#   promote  — approval-gated; pulls, snapshots, pushes only the picked pages
+#
+# The page_* dropdown option lists between the GENERATED:SLOTS markers are
+# produced from templates/*.json. Do not hand-edit them.
 
 on:
   workflow_dispatch:
     inputs:
-      files:
-        description: "Page template(s) to promote, comma-separated. e.g. templates/page.about-us.json,templates/page.faqs.json"
-        required: true
+      # === GENERATED:SLOTS:BEGIN (do not hand-edit) ===
+      page_1:
+        description: "Page 1 (leave (none) if unused)"
+        required: false
+        type: choice
+        default: "(none)"
+        options:
+          - "(none)"
+          - "templates/404.json"
+          - "templates/article.json"
+          - "templates/article.press-blog-post.json"
+          - "templates/blog.json"
+          - "templates/blog.press-page.json"
+          - "templates/cart.json"
+          - "templates/collection.device-plp.json"
+          - "templates/collection.json"
+          - "templates/index.json"
+          - "templates/index.sl-0F43004C.json"
+          - "templates/index.sl-59B14E5D.json"
+          - "templates/index.sl-6398CE11.json"
+          - "templates/index.sl-63FC72E5.json"
+          - "templates/index.sl-97C4968A.json"
+          - "templates/list-collections.json"
+          - "templates/page.about-us.json"
+          - "templates/page.careers.json"
+          - "templates/page.connect-with-sales.json"
+          - "templates/page.device-authenticity.json"
+          - "templates/page.eifu.json"
+          - "templates/page.elite-ifu.json"
+          - "templates/page.events.json"
+          - "templates/page.fah-los-angeles.json"
+          - "templates/page.faqs.json"
+          - "templates/page.hfx-registrations.json"
+          - "templates/page.how-it-works.json"
+          - "templates/page.hydralock.json"
+          - "templates/page.image-only.json"
+          - "templates/page.json"
+          - "templates/page.keravive.json"
+          - "templates/page.module-overview.json"
+          - "templates/page.patents.json"
+          - "templates/page.press-page.json"
+          - "templates/page.pro-landing.json"
+          - "templates/page.pro-proven-results.json"
+          - "templates/page.professional-resources.json"
+          - "templates/page.prospecting-webinar.json"
+          - "templates/page.proven-results.json"
+          - "templates/page.provider-authenticity.json"
+          - "templates/page.raw-page-content.json"
+          - "templates/page.referral-program.json"
+          - "templates/page.skin-concerns.json"
+          - "templates/page.skinstylus.json"
+          - "templates/page.sl-B63AA2A7.json"
+          - "templates/page.submissions.json"
+          - "templates/page.support.json"
+          - "templates/page.talk-with-sales-testing.json"
+          - "templates/page.test-template.json"
+          - "templates/page.the-device.json"
+          - "templates/page.the-treatment.json"
+          - "templates/password.json"
+          - "templates/product.device-pdp.json"
+          - "templates/product.json"
+          - "templates/search.json"
+      page_2:
+        description: "Page 2 (leave (none) if unused)"
+        required: false
+        type: choice
+        default: "(none)"
+        options:
+          - "(none)"
+          - "templates/404.json"
+          - "templates/article.json"
+          - "templates/article.press-blog-post.json"
+          - "templates/blog.json"
+          - "templates/blog.press-page.json"
+          - "templates/cart.json"
+          - "templates/collection.device-plp.json"
+          - "templates/collection.json"
+          - "templates/index.json"
+          - "templates/index.sl-0F43004C.json"
+          - "templates/index.sl-59B14E5D.json"
+          - "templates/index.sl-6398CE11.json"
+          - "templates/index.sl-63FC72E5.json"
+          - "templates/index.sl-97C4968A.json"
+          - "templates/list-collections.json"
+          - "templates/page.about-us.json"
+          - "templates/page.careers.json"
+          - "templates/page.connect-with-sales.json"
+          - "templates/page.device-authenticity.json"
+          - "templates/page.eifu.json"
+          - "templates/page.elite-ifu.json"
+          - "templates/page.events.json"
+          - "templates/page.fah-los-angeles.json"
+          - "templates/page.faqs.json"
+          - "templates/page.hfx-registrations.json"
+          - "templates/page.how-it-works.json"
+          - "templates/page.hydralock.json"
+          - "templates/page.image-only.json"
+          - "templates/page.json"
+          - "templates/page.keravive.json"
+          - "templates/page.module-overview.json"
+          - "templates/page.patents.json"
+          - "templates/page.press-page.json"
+          - "templates/page.pro-landing.json"
+          - "templates/page.pro-proven-results.json"
+          - "templates/page.professional-resources.json"
+          - "templates/page.prospecting-webinar.json"
+          - "templates/page.proven-results.json"
+          - "templates/page.provider-authenticity.json"
+          - "templates/page.raw-page-content.json"
+          - "templates/page.referral-program.json"
+          - "templates/page.skin-concerns.json"
+          - "templates/page.skinstylus.json"
+          - "templates/page.sl-B63AA2A7.json"
+          - "templates/page.submissions.json"
+          - "templates/page.support.json"
+          - "templates/page.talk-with-sales-testing.json"
+          - "templates/page.test-template.json"
+          - "templates/page.the-device.json"
+          - "templates/page.the-treatment.json"
+          - "templates/password.json"
+          - "templates/product.device-pdp.json"
+          - "templates/product.json"
+          - "templates/search.json"
+      page_3:
+        description: "Page 3 (leave (none) if unused)"
+        required: false
+        type: choice
+        default: "(none)"
+        options:
+          - "(none)"
+          - "templates/404.json"
+          - "templates/article.json"
+          - "templates/article.press-blog-post.json"
+          - "templates/blog.json"
+          - "templates/blog.press-page.json"
+          - "templates/cart.json"
+          - "templates/collection.device-plp.json"
+          - "templates/collection.json"
+          - "templates/index.json"
+          - "templates/index.sl-0F43004C.json"
+          - "templates/index.sl-59B14E5D.json"
+          - "templates/index.sl-6398CE11.json"
+          - "templates/index.sl-63FC72E5.json"
+          - "templates/index.sl-97C4968A.json"
+          - "templates/list-collections.json"
+          - "templates/page.about-us.json"
+          - "templates/page.careers.json"
+          - "templates/page.connect-with-sales.json"
+          - "templates/page.device-authenticity.json"
+          - "templates/page.eifu.json"
+          - "templates/page.elite-ifu.json"
+          - "templates/page.events.json"
+          - "templates/page.fah-los-angeles.json"
+          - "templates/page.faqs.json"
+          - "templates/page.hfx-registrations.json"
+          - "templates/page.how-it-works.json"
+          - "templates/page.hydralock.json"
+          - "templates/page.image-only.json"
+          - "templates/page.json"
+          - "templates/page.keravive.json"
+          - "templates/page.module-overview.json"
+          - "templates/page.patents.json"
+          - "templates/page.press-page.json"
+          - "templates/page.pro-landing.json"
+          - "templates/page.pro-proven-results.json"
+          - "templates/page.professional-resources.json"
+          - "templates/page.prospecting-webinar.json"
+          - "templates/page.proven-results.json"
+          - "templates/page.provider-authenticity.json"
+          - "templates/page.raw-page-content.json"
+          - "templates/page.referral-program.json"
+          - "templates/page.skin-concerns.json"
+          - "templates/page.skinstylus.json"
+          - "templates/page.sl-B63AA2A7.json"
+          - "templates/page.submissions.json"
+          - "templates/page.support.json"
+          - "templates/page.talk-with-sales-testing.json"
+          - "templates/page.test-template.json"
+          - "templates/page.the-device.json"
+          - "templates/page.the-treatment.json"
+          - "templates/password.json"
+          - "templates/product.device-pdp.json"
+          - "templates/product.json"
+          - "templates/search.json"
+      page_4:
+        description: "Page 4 (leave (none) if unused)"
+        required: false
+        type: choice
+        default: "(none)"
+        options:
+          - "(none)"
+          - "templates/404.json"
+          - "templates/article.json"
+          - "templates/article.press-blog-post.json"
+          - "templates/blog.json"
+          - "templates/blog.press-page.json"
+          - "templates/cart.json"
+          - "templates/collection.device-plp.json"
+          - "templates/collection.json"
+          - "templates/index.json"
+          - "templates/index.sl-0F43004C.json"
+          - "templates/index.sl-59B14E5D.json"
+          - "templates/index.sl-6398CE11.json"
+          - "templates/index.sl-63FC72E5.json"
+          - "templates/index.sl-97C4968A.json"
+          - "templates/list-collections.json"
+          - "templates/page.about-us.json"
+          - "templates/page.careers.json"
+          - "templates/page.connect-with-sales.json"
+          - "templates/page.device-authenticity.json"
+          - "templates/page.eifu.json"
+          - "templates/page.elite-ifu.json"
+          - "templates/page.events.json"
+          - "templates/page.fah-los-angeles.json"
+          - "templates/page.faqs.json"
+          - "templates/page.hfx-registrations.json"
+          - "templates/page.how-it-works.json"
+          - "templates/page.hydralock.json"
+          - "templates/page.image-only.json"
+          - "templates/page.json"
+          - "templates/page.keravive.json"
+          - "templates/page.module-overview.json"
+          - "templates/page.patents.json"
+          - "templates/page.press-page.json"
+          - "templates/page.pro-landing.json"
+          - "templates/page.pro-proven-results.json"
+          - "templates/page.professional-resources.json"
+          - "templates/page.prospecting-webinar.json"
+          - "templates/page.proven-results.json"
+          - "templates/page.provider-authenticity.json"
+          - "templates/page.raw-page-content.json"
+          - "templates/page.referral-program.json"
+          - "templates/page.skin-concerns.json"
+          - "templates/page.skinstylus.json"
+          - "templates/page.sl-B63AA2A7.json"
+          - "templates/page.submissions.json"
+          - "templates/page.support.json"
+          - "templates/page.talk-with-sales-testing.json"
+          - "templates/page.test-template.json"
+          - "templates/page.the-device.json"
+          - "templates/page.the-treatment.json"
+          - "templates/password.json"
+          - "templates/product.device-pdp.json"
+          - "templates/product.json"
+          - "templates/search.json"
+      page_5:
+        description: "Page 5 (leave (none) if unused)"
+        required: false
+        type: choice
+        default: "(none)"
+        options:
+          - "(none)"
+          - "templates/404.json"
+          - "templates/article.json"
+          - "templates/article.press-blog-post.json"
+          - "templates/blog.json"
+          - "templates/blog.press-page.json"
+          - "templates/cart.json"
+          - "templates/collection.device-plp.json"
+          - "templates/collection.json"
+          - "templates/index.json"
+          - "templates/index.sl-0F43004C.json"
+          - "templates/index.sl-59B14E5D.json"
+          - "templates/index.sl-6398CE11.json"
+          - "templates/index.sl-63FC72E5.json"
+          - "templates/index.sl-97C4968A.json"
+          - "templates/list-collections.json"
+          - "templates/page.about-us.json"
+          - "templates/page.careers.json"
+          - "templates/page.connect-with-sales.json"
+          - "templates/page.device-authenticity.json"
+          - "templates/page.eifu.json"
+          - "templates/page.elite-ifu.json"
+          - "templates/page.events.json"
+          - "templates/page.fah-los-angeles.json"
+          - "templates/page.faqs.json"
+          - "templates/page.hfx-registrations.json"
+          - "templates/page.how-it-works.json"
+          - "templates/page.hydralock.json"
+          - "templates/page.image-only.json"
+          - "templates/page.json"
+          - "templates/page.keravive.json"
+          - "templates/page.module-overview.json"
+          - "templates/page.patents.json"
+          - "templates/page.press-page.json"
+          - "templates/page.pro-landing.json"
+          - "templates/page.pro-proven-results.json"
+          - "templates/page.professional-resources.json"
+          - "templates/page.prospecting-webinar.json"
+          - "templates/page.proven-results.json"
+          - "templates/page.provider-authenticity.json"
+          - "templates/page.raw-page-content.json"
+          - "templates/page.referral-program.json"
+          - "templates/page.skin-concerns.json"
+          - "templates/page.skinstylus.json"
+          - "templates/page.sl-B63AA2A7.json"
+          - "templates/page.submissions.json"
+          - "templates/page.support.json"
+          - "templates/page.talk-with-sales-testing.json"
+          - "templates/page.test-template.json"
+          - "templates/page.the-device.json"
+          - "templates/page.the-treatment.json"
+          - "templates/password.json"
+          - "templates/product.device-pdp.json"
+          - "templates/product.json"
+          - "templates/search.json"
+      page_6:
+        description: "Page 6 (leave (none) if unused)"
+        required: false
+        type: choice
+        default: "(none)"
+        options:
+          - "(none)"
+          - "templates/404.json"
+          - "templates/article.json"
+          - "templates/article.press-blog-post.json"
+          - "templates/blog.json"
+          - "templates/blog.press-page.json"
+          - "templates/cart.json"
+          - "templates/collection.device-plp.json"
+          - "templates/collection.json"
+          - "templates/index.json"
+          - "templates/index.sl-0F43004C.json"
+          - "templates/index.sl-59B14E5D.json"
+          - "templates/index.sl-6398CE11.json"
+          - "templates/index.sl-63FC72E5.json"
+          - "templates/index.sl-97C4968A.json"
+          - "templates/list-collections.json"
+          - "templates/page.about-us.json"
+          - "templates/page.careers.json"
+          - "templates/page.connect-with-sales.json"
+          - "templates/page.device-authenticity.json"
+          - "templates/page.eifu.json"
+          - "templates/page.elite-ifu.json"
+          - "templates/page.events.json"
+          - "templates/page.fah-los-angeles.json"
+          - "templates/page.faqs.json"
+          - "templates/page.hfx-registrations.json"
+          - "templates/page.how-it-works.json"
+          - "templates/page.hydralock.json"
+          - "templates/page.image-only.json"
+          - "templates/page.json"
+          - "templates/page.keravive.json"
+          - "templates/page.module-overview.json"
+          - "templates/page.patents.json"
+          - "templates/page.press-page.json"
+          - "templates/page.pro-landing.json"
+          - "templates/page.pro-proven-results.json"
+          - "templates/page.professional-resources.json"
+          - "templates/page.prospecting-webinar.json"
+          - "templates/page.proven-results.json"
+          - "templates/page.provider-authenticity.json"
+          - "templates/page.raw-page-content.json"
+          - "templates/page.referral-program.json"
+          - "templates/page.skin-concerns.json"
+          - "templates/page.skinstylus.json"
+          - "templates/page.sl-B63AA2A7.json"
+          - "templates/page.submissions.json"
+          - "templates/page.support.json"
+          - "templates/page.talk-with-sales-testing.json"
+          - "templates/page.test-template.json"
+          - "templates/page.the-device.json"
+          - "templates/page.the-treatment.json"
+          - "templates/password.json"
+          - "templates/product.device-pdp.json"
+          - "templates/product.json"
+          - "templates/search.json"
+      page_7:
+        description: "Page 7 (leave (none) if unused)"
+        required: false
+        type: choice
+        default: "(none)"
+        options:
+          - "(none)"
+          - "templates/404.json"
+          - "templates/article.json"
+          - "templates/article.press-blog-post.json"
+          - "templates/blog.json"
+          - "templates/blog.press-page.json"
+          - "templates/cart.json"
+          - "templates/collection.device-plp.json"
+          - "templates/collection.json"
+          - "templates/index.json"
+          - "templates/index.sl-0F43004C.json"
+          - "templates/index.sl-59B14E5D.json"
+          - "templates/index.sl-6398CE11.json"
+          - "templates/index.sl-63FC72E5.json"
+          - "templates/index.sl-97C4968A.json"
+          - "templates/list-collections.json"
+          - "templates/page.about-us.json"
+          - "templates/page.careers.json"
+          - "templates/page.connect-with-sales.json"
+          - "templates/page.device-authenticity.json"
+          - "templates/page.eifu.json"
+          - "templates/page.elite-ifu.json"
+          - "templates/page.events.json"
+          - "templates/page.fah-los-angeles.json"
+          - "templates/page.faqs.json"
+          - "templates/page.hfx-registrations.json"
+          - "templates/page.how-it-works.json"
+          - "templates/page.hydralock.json"
+          - "templates/page.image-only.json"
+          - "templates/page.json"
+          - "templates/page.keravive.json"
+          - "templates/page.module-overview.json"
+          - "templates/page.patents.json"
+          - "templates/page.press-page.json"
+          - "templates/page.pro-landing.json"
+          - "templates/page.pro-proven-results.json"
+          - "templates/page.professional-resources.json"
+          - "templates/page.prospecting-webinar.json"
+          - "templates/page.proven-results.json"
+          - "templates/page.provider-authenticity.json"
+          - "templates/page.raw-page-content.json"
+          - "templates/page.referral-program.json"
+          - "templates/page.skin-concerns.json"
+          - "templates/page.skinstylus.json"
+          - "templates/page.sl-B63AA2A7.json"
+          - "templates/page.submissions.json"
+          - "templates/page.support.json"
+          - "templates/page.talk-with-sales-testing.json"
+          - "templates/page.test-template.json"
+          - "templates/page.the-device.json"
+          - "templates/page.the-treatment.json"
+          - "templates/password.json"
+          - "templates/product.device-pdp.json"
+          - "templates/product.json"
+          - "templates/search.json"
+      page_8:
+        description: "Page 8 (leave (none) if unused)"
+        required: false
+        type: choice
+        default: "(none)"
+        options:
+          - "(none)"
+          - "templates/404.json"
+          - "templates/article.json"
+          - "templates/article.press-blog-post.json"
+          - "templates/blog.json"
+          - "templates/blog.press-page.json"
+          - "templates/cart.json"
+          - "templates/collection.device-plp.json"
+          - "templates/collection.json"
+          - "templates/index.json"
+          - "templates/index.sl-0F43004C.json"
+          - "templates/index.sl-59B14E5D.json"
+          - "templates/index.sl-6398CE11.json"
+          - "templates/index.sl-63FC72E5.json"
+          - "templates/index.sl-97C4968A.json"
+          - "templates/list-collections.json"
+          - "templates/page.about-us.json"
+          - "templates/page.careers.json"
+          - "templates/page.connect-with-sales.json"
+          - "templates/page.device-authenticity.json"
+          - "templates/page.eifu.json"
+          - "templates/page.elite-ifu.json"
+          - "templates/page.events.json"
+          - "templates/page.fah-los-angeles.json"
+          - "templates/page.faqs.json"
+          - "templates/page.hfx-registrations.json"
+          - "templates/page.how-it-works.json"
+          - "templates/page.hydralock.json"
+          - "templates/page.image-only.json"
+          - "templates/page.json"
+          - "templates/page.keravive.json"
+          - "templates/page.module-overview.json"
+          - "templates/page.patents.json"
+          - "templates/page.press-page.json"
+          - "templates/page.pro-landing.json"
+          - "templates/page.pro-proven-results.json"
+          - "templates/page.professional-resources.json"
+          - "templates/page.prospecting-webinar.json"
+          - "templates/page.proven-results.json"
+          - "templates/page.provider-authenticity.json"
+          - "templates/page.raw-page-content.json"
+          - "templates/page.referral-program.json"
+          - "templates/page.skin-concerns.json"
+          - "templates/page.skinstylus.json"
+          - "templates/page.sl-B63AA2A7.json"
+          - "templates/page.submissions.json"
+          - "templates/page.support.json"
+          - "templates/page.talk-with-sales-testing.json"
+          - "templates/page.test-template.json"
+          - "templates/page.the-device.json"
+          - "templates/page.the-treatment.json"
+          - "templates/password.json"
+          - "templates/product.device-pdp.json"
+          - "templates/product.json"
+          - "templates/search.json"
+      page_9:
+        description: "Page 9 (leave (none) if unused)"
+        required: false
+        type: choice
+        default: "(none)"
+        options:
+          - "(none)"
+          - "templates/404.json"
+          - "templates/article.json"
+          - "templates/article.press-blog-post.json"
+          - "templates/blog.json"
+          - "templates/blog.press-page.json"
+          - "templates/cart.json"
+          - "templates/collection.device-plp.json"
+          - "templates/collection.json"
+          - "templates/index.json"
+          - "templates/index.sl-0F43004C.json"
+          - "templates/index.sl-59B14E5D.json"
+          - "templates/index.sl-6398CE11.json"
+          - "templates/index.sl-63FC72E5.json"
+          - "templates/index.sl-97C4968A.json"
+          - "templates/list-collections.json"
+          - "templates/page.about-us.json"
+          - "templates/page.careers.json"
+          - "templates/page.connect-with-sales.json"
+          - "templates/page.device-authenticity.json"
+          - "templates/page.eifu.json"
+          - "templates/page.elite-ifu.json"
+          - "templates/page.events.json"
+          - "templates/page.fah-los-angeles.json"
+          - "templates/page.faqs.json"
+          - "templates/page.hfx-registrations.json"
+          - "templates/page.how-it-works.json"
+          - "templates/page.hydralock.json"
+          - "templates/page.image-only.json"
+          - "templates/page.json"
+          - "templates/page.keravive.json"
+          - "templates/page.module-overview.json"
+          - "templates/page.patents.json"
+          - "templates/page.press-page.json"
+          - "templates/page.pro-landing.json"
+          - "templates/page.pro-proven-results.json"
+          - "templates/page.professional-resources.json"
+          - "templates/page.prospecting-webinar.json"
+          - "templates/page.proven-results.json"
+          - "templates/page.provider-authenticity.json"
+          - "templates/page.raw-page-content.json"
+          - "templates/page.referral-program.json"
+          - "templates/page.skin-concerns.json"
+          - "templates/page.skinstylus.json"
+          - "templates/page.sl-B63AA2A7.json"
+          - "templates/page.submissions.json"
+          - "templates/page.support.json"
+          - "templates/page.talk-with-sales-testing.json"
+          - "templates/page.test-template.json"
+          - "templates/page.the-device.json"
+          - "templates/page.the-treatment.json"
+          - "templates/password.json"
+          - "templates/product.device-pdp.json"
+          - "templates/product.json"
+          - "templates/search.json"
+      page_10:
+        description: "Page 10 (leave (none) if unused)"
+        required: false
+        type: choice
+        default: "(none)"
+        options:
+          - "(none)"
+          - "templates/404.json"
+          - "templates/article.json"
+          - "templates/article.press-blog-post.json"
+          - "templates/blog.json"
+          - "templates/blog.press-page.json"
+          - "templates/cart.json"
+          - "templates/collection.device-plp.json"
+          - "templates/collection.json"
+          - "templates/index.json"
+          - "templates/index.sl-0F43004C.json"
+          - "templates/index.sl-59B14E5D.json"
+          - "templates/index.sl-6398CE11.json"
+          - "templates/index.sl-63FC72E5.json"
+          - "templates/index.sl-97C4968A.json"
+          - "templates/list-collections.json"
+          - "templates/page.about-us.json"
+          - "templates/page.careers.json"
+          - "templates/page.connect-with-sales.json"
+          - "templates/page.device-authenticity.json"
+          - "templates/page.eifu.json"
+          - "templates/page.elite-ifu.json"
+          - "templates/page.events.json"
+          - "templates/page.fah-los-angeles.json"
+          - "templates/page.faqs.json"
+          - "templates/page.hfx-registrations.json"
+          - "templates/page.how-it-works.json"
+          - "templates/page.hydralock.json"
+          - "templates/page.image-only.json"
+          - "templates/page.json"
+          - "templates/page.keravive.json"
+          - "templates/page.module-overview.json"
+          - "templates/page.patents.json"
+          - "templates/page.press-page.json"
+          - "templates/page.pro-landing.json"
+          - "templates/page.pro-proven-results.json"
+          - "templates/page.professional-resources.json"
+          - "templates/page.prospecting-webinar.json"
+          - "templates/page.proven-results.json"
+          - "templates/page.provider-authenticity.json"
+          - "templates/page.raw-page-content.json"
+          - "templates/page.referral-program.json"
+          - "templates/page.skin-concerns.json"
+          - "templates/page.skinstylus.json"
+          - "templates/page.sl-B63AA2A7.json"
+          - "templates/page.submissions.json"
+          - "templates/page.support.json"
+          - "templates/page.talk-with-sales-testing.json"
+          - "templates/page.test-template.json"
+          - "templates/page.the-device.json"
+          - "templates/page.the-treatment.json"
+          - "templates/password.json"
+          - "templates/product.device-pdp.json"
+          - "templates/product.json"
+          - "templates/search.json"
+      # === GENERATED:SLOTS:END ===
 
 jobs:
-  publish-content-to-prod:
+  collect:
+    runs-on: ubuntu-latest
+    outputs:
+      files: ${{ steps.c.outputs.files }}
+      flags: ${{ steps.c.outputs.flags }}
+    steps:
+      - name: Collect & validate selected pages
+        id: c
+        env:
+          P1: ${{ inputs.page_1 }}
+          P2: ${{ inputs.page_2 }}
+          P3: ${{ inputs.page_3 }}
+          P4: ${{ inputs.page_4 }}
+          P5: ${{ inputs.page_5 }}
+          P6: ${{ inputs.page_6 }}
+          P7: ${{ inputs.page_7 }}
+          P8: ${{ inputs.page_8 }}
+          P9: ${{ inputs.page_9 }}
+          P10: ${{ inputs.page_10 }}
+        run: |
+          uniq=()
+          declare -A seen
+          for v in "$P1" "$P2" "$P3" "$P4" "$P5" "$P6" "$P7" "$P8" "$P9" "$P10"; do
+            [ -z "$v" ] && continue
+            [ "$v" = "(none)" ] && continue
+            if [[ ! "$v" =~ ^templates/[A-Za-z0-9._/-]+\.json$ ]]; then
+              echo "::error::Invalid selection '$v' — expected a templates/*.json page."
+              exit 1
+            fi
+            if [ -z "${seen[$v]:-}" ]; then seen[$v]=1; uniq+=("$v"); fi
+          done
+          if [ ${#uniq[@]} -eq 0 ]; then
+            echo "::error::No pages selected — set at least one dropdown to a page (not '(none)')."
+            exit 1
+          fi
+          ONLY=""
+          for f in "${uniq[@]}"; do ONLY="$ONLY --only $f"; done
+          files=$(IFS=,; echo "${uniq[*]}")
+          {
+            echo "files=$files"
+            echo "flags=$ONLY"
+          } >> "$GITHUB_OUTPUT"
+          echo "Selected ${#uniq[@]} page(s): $files"
+
+  promote:
+    needs: collect
     runs-on: ubuntu-latest
     environment: production-approval
     permissions:
@@ -28,58 +686,28 @@ jobs:
       - name: Install Shopify CLI
         run: npm install -g @shopify/cli @shopify/theme
 
-      # Validate the input and turn it into "--only <path>" flags.
-      # Guard rail: only templates/*.json may be promoted this way. This blocks
-      # accidentally promoting code or git-owned files (e.g. settings_data.json)
-      # out of Staging, which would violate the code/content ownership split.
-      - name: Build --only flags from input
-        id: only
-        env:
-          FILES: ${{ inputs.files }}
-        run: |
-          ONLY=""
-          IFS=',' read -ra ARR <<< "$FILES"
-          for f in "${ARR[@]}"; do
-            f="$(echo "$f" | xargs)"   # trim surrounding whitespace
-            [ -z "$f" ] && continue
-            if [[ ! "$f" =~ ^templates/[A-Za-z0-9._/-]+\.json$ ]]; then
-              echo "::error::Refusing to promote '$f' — only page templates (templates/*.json) may be promoted as content."
-              exit 1
-            fi
-            ONLY="$ONLY --only $f"
-          done
-          if [ -z "$ONLY" ]; then
-            echo "::error::No valid files provided."
-            exit 1
-          fi
-          echo "flags=$ONLY" >> "$GITHUB_OUTPUT"
-          echo "Promoting:$ONLY"
-
       - name: Pull named content from Staging
         env:
           SHOPIFY_CLI_THEME_TOKEN: ${{ secrets.SHOPIFY_CLI_THEME_TOKEN }}
           SHOPIFY_FLAG_STORE: ${{ secrets.SHOPIFY_STORE }}
-          ONLY_FLAGS: ${{ steps.only.outputs.flags }}
+          ONLY_FLAGS: ${{ needs.collect.outputs.flags }}
         run: |
           shopify theme pull --theme=${{ secrets.SHOPIFY_STAGING_THEME_ID }} --nodelete $ONLY_FLAGS
 
-      # Snapshot exactly what we are about to promote, for audit / rollback.
-      # NOTE: this force-pushes, so only the LATEST patch is retained. Richer
-      # rollback history is a parked enhancement.
       - name: Snapshot promoted content
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git checkout -B content-snapshots
           git add -A
-          git commit -m "Content patch $(date -u +%Y-%m-%dT%H:%M:%SZ): ${{ inputs.files }}" || echo "No changes to snapshot"
+          git commit -m "Content patch $(date -u +%Y-%m-%dT%H:%M:%SZ): ${{ needs.collect.outputs.files }}" || echo "No changes to snapshot"
           git push origin content-snapshots --force
 
       - name: Push named content into Production theme
         env:
           SHOPIFY_CLI_THEME_TOKEN: ${{ secrets.SHOPIFY_CLI_THEME_TOKEN }}
           SHOPIFY_FLAG_STORE: ${{ secrets.SHOPIFY_STORE }}
-          ONLY_FLAGS: ${{ steps.only.outputs.flags }}
+          ONLY_FLAGS: ${{ needs.collect.outputs.flags }}
         run: |
           shopify theme push --theme=${{ secrets.SHOPIFY_PROD_THEME_ID }} \
             --allow-live \
@@ -88,4 +716,4 @@ jobs:
 
       - name: Done
         run: |
-          echo "Promoted to Production: ${{ inputs.files }}"
+          echo "Promoted to Production: ${{ needs.collect.outputs.files }}"
