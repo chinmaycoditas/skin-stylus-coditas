@@ -1,9 +1,11 @@
 name: Promote content from issue
 
-# When the "promote" label is added to the Content promotion issue, read the
-# checked page(s) and promote them Staging -> Prod (only those files).
-#   collect  — parse checked boxes, validate (ungated, fails fast)
-#   promote  — approval-gated pull -> snapshot -> push, then report & uncheck
+run-name: "Promote content · issue #${{ github.event.issue.number }}"
+
+# When the `promote` label is added to the Content promotion issue, promote the
+# checked page(s) Staging -> Prod (only those files).
+#   collect  — parse checked boxes, show the plan, validate (ungated, fails fast)
+#   promote  — approval-gated pull -> snapshot -> push, then report & reset
 
 on:
   issues:
@@ -13,35 +15,57 @@ permissions:
   issues: write
   contents: write
 
+concurrency:
+  group: content-promote
+  cancel-in-progress: false
+
 jobs:
   collect:
     if: >-
       github.event.label.name == 'promote' &&
       contains(github.event.issue.labels.*.name, 'content-promotion')
     runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
     outputs:
       files: ${{ steps.c.outputs.files }}
       empty: ${{ steps.c.outputs.empty }}
     steps:
+      - uses: actions/checkout@v4
+
       - name: Parse checked pages
         id: c
         env:
           BODY: ${{ github.event.issue.body }}
         run: |
           files=$(printf '%s\n' "$BODY" \
-            | sed -nE 's/^[[:space:]]*- \[[xX]\] +(templates\/[A-Za-z0-9._\/-]+\.json).*/\1/p' \
+            | grep -E '^[[:space:]]*- \[[xX]\]' \
+            | grep -oE 'templates/[A-Za-z0-9._/-]+\.json' \
             | sort -u | paste -sd, -)
           echo "Checked: ${files:-<none>}"
           echo "files=$files" >> "$GITHUB_OUTPUT"
           [ -z "$files" ] && echo "empty=true" >> "$GITHUB_OUTPUT" || echo "empty=false" >> "$GITHUB_OUTPUT"
 
+      - name: Show the promotion plan
+        if: steps.c.outputs.empty == 'false'
+        env:
+          FILES: ${{ steps.c.outputs.files }}
+        run: |
+          {
+            echo "## Content promotion plan"
+            echo "Issue #${{ github.event.issue.number }} → **Production** (Skin Stylus Prod \`${{ secrets.SHOPIFY_PROD_THEME_ID }}\`)"
+            echo ""
+            echo "| Page | Template |"
+            echo "|---|---|"
+            node scripts/gen-content-list.mjs --names "$FILES"
+          } >> "$GITHUB_STEP_SUMMARY"
+
       - name: Bail if nothing checked
         if: steps.c.outputs.empty == 'true'
-        env:
-          GH_TOKEN: ${{ github.token }}
         run: |
           gh issue comment ${{ github.event.issue.number }} --body "⚠️ No pages checked — nothing to promote. Tick pages, then re-add the \`promote\` label."
           gh issue edit ${{ github.event.issue.number }} --remove-label promote
+          echo "### ⚠️ Nothing checked — nothing promoted." >> "$GITHUB_STEP_SUMMARY"
           exit 1
 
   promote:
@@ -49,6 +73,8 @@ jobs:
     if: needs.collect.outputs.empty == 'false'
     runs-on: ubuntu-latest
     environment: production-approval
+    env:
+      GH_TOKEN: ${{ github.token }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -60,16 +86,13 @@ jobs:
       - name: Build --only flags
         env:
           FILES: ${{ needs.collect.outputs.files }}
-        run: |
-          ONLY=$(printf '%s' "$FILES" | tr ',' '\n' | sed 's/^/--only /' | tr '\n' ' ')
-          echo "ONLY=$ONLY" >> "$GITHUB_ENV"
+        run: echo "ONLY=$(printf '%s' "$FILES" | tr ',' '\n' | sed 's/^/--only /' | tr '\n' ' ')" >> "$GITHUB_ENV"
 
       - name: Pull named content from Staging
         env:
           SHOPIFY_CLI_THEME_TOKEN: ${{ secrets.SHOPIFY_CLI_THEME_TOKEN }}
           SHOPIFY_FLAG_STORE: ${{ secrets.SHOPIFY_STORE }}
-        run: |
-          shopify theme pull --theme=${{ secrets.SHOPIFY_STAGING_THEME_ID }} --nodelete $ONLY
+        run: shopify theme pull --theme=${{ secrets.SHOPIFY_STAGING_THEME_ID }} --nodelete $ONLY
 
       - name: Snapshot promoted content
         run: |
@@ -87,19 +110,37 @@ jobs:
         run: |
           set -o pipefail
           shopify theme push --theme=${{ secrets.SHOPIFY_PROD_THEME_ID }} \
-            --allow-live \
-            --nodelete \
-            $ONLY 2>&1 | tee push.log
+            --allow-live --nodelete $ONLY 2>&1 | tee push.log
           if grep -qi "with errors" push.log; then
-            echo "::error::Production push reported errors — the file was NOT shipped (see log above)."
+            echo "::error::Production push reported errors — the file(s) were NOT shipped (see log above)."
             exit 1
           fi
 
-      - name: Report result and reset the checklist
+      - name: Success — comment, summarise, reset checklist
+        if: success()
         env:
-          GH_TOKEN: ${{ github.token }}
+          FILES: ${{ needs.collect.outputs.files }}
         run: |
-          gh issue comment ${{ github.event.issue.number }} --body "✅ Promoted to Production: ${{ needs.collect.outputs.files }}"
+          TABLE=$(node scripts/gen-content-list.mjs --names "$FILES")
+          {
+            echo "✅ **Promoted to Production** ($(date -u +%Y-%m-%dT%H:%M:%SZ))"
+            echo ""
+            echo "| Page | Template |"
+            echo "|---|---|"
+            echo "$TABLE"
+          } > comment.md
+          gh issue comment ${{ github.event.issue.number }} --body-file comment.md
+          {
+            echo "## ✅ Promoted to Production"
+            echo "| Page | Template |"
+            echo "|---|---|"
+            echo "$TABLE"
+          } >> "$GITHUB_STEP_SUMMARY"
           gh issue edit ${{ github.event.issue.number }} --remove-label promote
-          gh issue view ${{ github.event.issue.number }} --json body -q .body | sed -E 's/^- \[[xX]\]/- [ ]/' > reset.md
+          gh issue view ${{ github.event.issue.number }} --json body -q .body | sed -E 's/^([[:space:]]*- )\[[xX]\]/\1[ ]/' > reset.md
           gh issue edit ${{ github.event.issue.number }} --body-file reset.md
+
+      - name: Failure — comment on the issue
+        if: failure()
+        run: |
+          gh issue comment ${{ github.event.issue.number }} --body "❌ Promotion **failed** — nothing shipped. Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }} . The \`promote\` label was left on; fix the issue, then remove & re-add it to retry."

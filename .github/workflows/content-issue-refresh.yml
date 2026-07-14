@@ -1,9 +1,8 @@
 name: Refresh content promotion issue
 
-# Keeps a single "Content promotion" issue in sync with templates/*.json.
-# Runs automatically whenever templates change (and on demand). Uses the
-# default GITHUB_TOKEN — editing issues needs no PAT (unlike editing the
-# workflow-file dropdown). This is the self-maintaining page list.
+# Keeps the single "Content promotion" issue in sync with templates/*.json.
+# Triggers: on template changes, manually, OR when the `refresh` label is added
+# to the issue (which is then auto-removed). Uses GITHUB_TOKEN — no PAT.
 
 on:
   push:
@@ -11,6 +10,8 @@ on:
     paths:
       - 'templates/**.json'
   workflow_dispatch: {}
+  issues:
+    types: [labeled]
 
 permissions:
   issues: write
@@ -18,6 +19,10 @@ permissions:
 
 jobs:
   refresh:
+    if: >-
+      github.event_name != 'issues' ||
+      (github.event.label.name == 'refresh' &&
+       contains(github.event.issue.labels.*.name, 'content-promotion'))
     runs-on: ubuntu-latest
     env:
       GH_TOKEN: ${{ github.token }}
@@ -28,24 +33,12 @@ jobs:
 
       - name: Ensure labels exist
         run: |
-          gh label create "$LABEL" --color 0e8a16 --description "Auto-maintained content promotion checklist" 2>/dev/null || true
-          gh label create "promote" --color d93f0b --description "Add to promote the checked pages to Production" 2>/dev/null || true
+          gh label create "$LABEL"  --color 0e8a16 --description "Auto-maintained content promotion checklist" 2>/dev/null || true
+          gh label create "promote" --color d93f0b --description "Promote the checked pages to Production" 2>/dev/null || true
+          gh label create "refresh" --color 1d76db --description "Rebuild the content list (auto-removed)" 2>/dev/null || true
 
       - name: Build checklist body
-        run: |
-          {
-            echo "Tick the page template(s) to promote to **Production**, then add the **\`promote\`** label."
-            echo "A workflow pulls them from Staging and pushes to Prod (with approval), then unchecks the boxes."
-            echo ""
-            echo "_Auto-generated from \`templates/*.json\` — do not edit the list by hand._"
-            echo ""
-            echo "<!-- CONTENT-LIST:START -->"
-            for f in $(ls templates/*.json | sort); do
-              echo "- [ ] $f"
-            done
-            echo "<!-- CONTENT-LIST:END -->"
-          } > body.md
-          echo "Built list with $(grep -c '^- \[ \]' body.md) templates."
+        run: node scripts/gen-content-list.mjs > body.md
 
       - name: Upsert the issue
         run: |
@@ -56,3 +49,9 @@ jobs:
             gh issue edit "$NUM" --body-file body.md
             echo "Updated issue #$NUM"
           fi
+
+      - name: Remove the refresh label (when triggered by it)
+        if: github.event_name == 'issues'
+        run: |
+          gh issue edit ${{ github.event.issue.number }} --remove-label refresh
+          gh issue comment ${{ github.event.issue.number }} --body "🔄 Page list refreshed from \`templates/*.json\`. (All ticks were reset.)"
