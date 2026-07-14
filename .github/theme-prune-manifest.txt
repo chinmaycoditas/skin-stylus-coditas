@@ -61,3 +61,6 @@ templates/page.talk-with-sales-testing.json
 templates/page.test-template.json
 templates/page.the-device.json
 templates/page.the-treatment.json
+templates/page.microsystems.liquid
+templates/page.customer-support.liquid
+templates/page.contact-sales.liquid
