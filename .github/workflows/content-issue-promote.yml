@@ -85,10 +85,15 @@ jobs:
           SHOPIFY_CLI_THEME_TOKEN: ${{ secrets.SHOPIFY_CLI_THEME_TOKEN }}
           SHOPIFY_FLAG_STORE: ${{ secrets.SHOPIFY_STORE }}
         run: |
+          set -o pipefail
           shopify theme push --theme=${{ secrets.SHOPIFY_PROD_THEME_ID }} \
             --allow-live \
             --nodelete \
-            $ONLY
+            $ONLY 2>&1 | tee push.log
+          if grep -qi "with errors" push.log; then
+            echo "::error::Production push reported errors — the file was NOT shipped (see log above)."
+            exit 1
+          fi
 
       - name: Report result and reset the checklist
         env:

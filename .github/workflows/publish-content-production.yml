@@ -244,10 +244,15 @@ jobs:
           SHOPIFY_FLAG_STORE: ${{ secrets.SHOPIFY_STORE }}
           ONLY_FLAGS: ${{ needs.collect.outputs.flags }}
         run: |
+          set -o pipefail
           shopify theme push --theme=${{ secrets.SHOPIFY_PROD_THEME_ID }} \
             --allow-live \
             --nodelete \
-            $ONLY_FLAGS
+            $ONLY_FLAGS 2>&1 | tee push.log
+          if grep -qi "with errors" push.log; then
+            echo "::error::Production push reported errors — the file was NOT shipped (see log above)."
+            exit 1
+          fi
 
       - name: Done
         run: |
