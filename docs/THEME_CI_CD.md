@@ -25,7 +25,7 @@ Two different authors, two different homes. **Git and Shopify never sync automat
 
 ## 2. The two lanes
 
-Production receives updates through **two independent, manually-triggered "buttons"**, each sourced from its own source of truth. Neither ever copies "the whole theme", so **nothing half-finished can ride along by accident.**
+Production receives updates through **two independent, manually-triggered paths** — a **workflow button** for code and a **tick-box issue** for content — each sourced from its own source of truth. Neither ever copies "the whole theme", so **nothing half-finished can ride along by accident.**
 
 ```mermaid
 flowchart TB
@@ -39,7 +39,7 @@ flowchart TB
     subgraph CONTENT["CONTENT lane — source of truth: Staging editor"]
         direction LR
         Editor["Content managers\nedit pages live"] --> StgD["Staging"]
-        StgD -->|"publish-content-production.yml\nBUTTON 2 (manual + approval)\n--only <named pages>"| ProdD["Prod (LIVE)"]
+        StgD -->|"tick pages in issue + 'promote' label\ncontent-issue-promote.yml (approval)\n--only <ticked pages>"| ProdD["Prod (LIVE)"]
     end
 
     style ProdC fill:#d1e7dd,stroke:#0f5132
@@ -92,10 +92,12 @@ These IDs are pinned in workflows via secrets. **Never rename or delete either t
 | Workflow | Trigger | Lane | What it does |
 |---|---|---|---|
 | `deploy-staging.yml` | **Auto** — every push to `main` | Code | Pushes code from git → Staging, ignoring `templates/*.json`. |
-| `publish-code-production.yml` | **Manual** (Button 1) + approval | Code | Pushes code from git → **Prod** (`--allow-live`), ignoring `templates/*.json`. |
-| `publish-content-production.yml` | **Manual** (Button 2) + approval, takes a `files` input | Content | Pulls the **named** page(s) from Staging, snapshots them, pushes **only** those → **Prod** (`--allow-live`). |
+| `publish-code-production.yml` | **Manual** (Button 1) + approval | Code | Pushes code from git → **Prod** (`--allow-live`), ignoring `templates/*.json`. Fails loudly if the push reports errors. |
+| `content-issue-refresh.yml` | **Auto** — on `templates/*.json` change (+ manual) | Content | Keeps the **"Content promotion" issue** checklist in sync with the templates in git. Uses `GITHUB_TOKEN` (editing an issue needs no PAT). |
+| `content-issue-promote.yml` | **On `promote` label** added to that issue + approval | Content | Reads the **ticked** page(s), pulls them from Staging, snapshots, pushes **only** those → **Prod** (`--allow-live`), then comments the result and unchecks the boxes. Fails loudly if the push reports errors. |
+| `theme-prune.yml` | **Manual** (dry-run / delete, per target) + approval | Ops | Deletes files listed in `.github/theme-prune-manifest.txt` from a theme, to reconcile the live themes with a git cleanup (see §9). |
 
-All three are in `.github/workflows/`. The old single `publish-production.yml` (whole-theme copy) has been removed — it caused the "wait for staging to be 100% clean" problem this design fixes.
+All are in `.github/workflows/`. Removed over time: `publish-production.yml` (whole-theme copy — caused the "wait for a 100%-clean staging" problem) and `publish-content-production.yml` (the dropdown promoter — superseded by the self-maintaining issue flow above).
 
 ---
 
@@ -116,20 +118,10 @@ Scenario: Manager A finished the **About** page. Managers B and C are still work
 
 1. Manager A edits **About** in the Staging theme editor. The change lands in `templates/page.about-us.json` on Staging.
 2. Manager A verifies About on the Staging preview link.
-3. Once approved, run **Actions → Publish Content Patch to Production → Run workflow** with:
+3. Open the **"Content promotion" issue** (auto-maintained; it has a checkbox per template). **Tick** `templates/page.about-us.json` (tick more than one to promote several at once), then add the **`promote`** label.
+4. `content-issue-promote.yml` runs → **approve** when prompted → **only** the ticked page(s) are promoted to Prod. Contact and Home (B and C's unfinished work) stay on Staging, never touched. The workflow then comments the result and unchecks the boxes.
 
-   ```
-   files: templates/page.about-us.json
-   ```
-4. Approve when prompted. → **only** About is promoted to Prod. Contact and Home (B and C's unfinished work) stay on Staging, never touched.
-
-Promoting several finished pages at once? Comma-separate them:
-
-```
-files: templates/page.about-us.json,templates/page.faqs.json
-```
-
-> The workflow refuses anything that isn't a `templates/*.json` path — you cannot accidentally promote code or `settings_data.json` through the content button.
+> The workflow refuses anything that isn't a `templates/*.json` path, so you cannot accidentally promote code or `settings_data.json` this way. If you add the label with nothing ticked, it comments "nothing checked" and removes the label — no wasted approval.
 
 ### Example C — Changing a global setting (colors, fonts, logo)
 
@@ -158,10 +150,7 @@ This is the cross-lane case: a developer builds a new section, and afterwards a 
 **Phase 3 — Promote to prod, code FIRST, then content**
 
 5. Run **Button 1 — Publish Code to Production** so the new section's code exists on Prod.
-6. *Then* run **Button 2 — Publish Content Patch to Production** with:
-   ```
-   files: templates/page.about-us.json
-   ```
+6. *Then* promote the page via the **Content promotion issue** — tick `templates/page.about-us.json`, add the `promote` label, approve.
 
 ```mermaid
 sequenceDiagram
@@ -174,11 +163,11 @@ sequenceDiagram
     CM->>Stg: Add section to page + fill content (editor)
     CM->>Stg: verify on preview
     Dev->>Prod: Button 1 — code (section) FIRST
-    CM->>Prod: Button 2 — content (page) SECOND
+    CM->>Prod: Content issue — page (content) SECOND
     Note over Prod: page references the section,<br/>which is already there → renders correctly
 ```
 
-> **Why the order?** On Staging the ordering is automatic — the section is deployed on merge, long before anyone can use it. But on **Prod**, if you promote the page (content) *before* the section (code), Prod would have a page pointing at a section that doesn't exist yet → broken render. **Always Button 1, then Button 2** for any change that adds/renames a section the new content depends on. (Deleting a section is the mirror image: promote the content that stops using it first, then remove the code.)
+> **Why the order?** On Staging the ordering is automatic — the section is deployed on merge, long before anyone can use it. But on **Prod**, if you promote the page (content) *before* the section (code), Prod would have a page pointing at a section that doesn't exist yet → broken render. **Always code first (Button 1), then content (promote the page)** for any change that adds/renames a section the new content depends on. (Deleting a section is the mirror image: promote the content that stops using it first, then remove the code.)
 
 ---
 
@@ -190,7 +179,8 @@ sequenceDiagram
 - ✅ Make content edits (copy, images, section arrangement) **only in the Skin Stylus Staging editor**.
 - ✅ Work on **your assigned page(s)** — one person per page at a time.
 - ✅ **Verify your page on the Staging preview** before signalling it's ready to promote.
-- ✅ Tell the team which page you're promoting so it can be named in Button 2.
+- ✅ Promote by **ticking your page in the "Content promotion" issue and adding the `promote` label** — don't hand-edit theme files.
+- ✅ For a **brand-new page**, create it as a **JSON template in the editor** (Online Store → Themes → Edit code → *Add a new template* → page → JSON), *not* as a `.liquid` file. Only JSON templates support "Add section" in the editor.
 
 **Don't**
 - ❌ Don't touch **Theme settings (the gear)** — colors, fonts, logo. Those are git-owned; any editor change there is not version-controlled and will be **overwritten on the next code deploy**.
@@ -205,15 +195,15 @@ sequenceDiagram
 - ✅ Make all code changes (`.liquid`, `sections/`, `blocks/`, `snippets/`, `assets/`, `layout/`, `locales/`, `config/settings_*.json`) via **PR → `main`**.
 - ✅ Let `deploy-staging.yml` sync code to Staging; **verify on the preview link** before Button 1.
 - ✅ Own `config/settings_data.json` deliberately — treat global-setting changes as reviewed code changes.
-- ✅ Use **Button 1** for code, **Button 2** for content — keep the lanes separate.
-- ✅ For a change spanning both lanes (a new section the content will use), promote **code first (Button 1), then content (Button 2)** — see Example D. When *removing* a section, reverse it: content first, then code.
+- ✅ Use **Button 1** for code, the **Content promotion issue** for content — keep the lanes separate.
+- ✅ For a change spanning both lanes (a new section the content will use), promote **code first (Button 1), then content (the issue)** — see Example D. When *removing* a section, reverse it: content first, then code.
 - ✅ Keep git's `settings_data.json` authoritative (pull from Prod first — see §7).
 
 **Don't**
 - ❌ Don't push `templates/*.json` from git to Staging/Prod — the workflows ignore them on purpose so editor work isn't clobbered.
 - ❌ Don't `shopify theme publish` the Staging theme — it flips live status and breaks the pipeline. Publishing here means *pushing content into the fixed Prod theme ID*, never swapping roles.
-- ❌ Don't assume merging a PR touches Prod — only the two manual buttons do.
-- ❌ Don't promote content **from git** — content's source of truth is Staging; Button 2 pulls it from there.
+- ❌ Don't assume merging a PR touches Prod — only Button 1 and the content-promotion issue do.
+- ❌ Don't promote content **from git** — content's source of truth is Staging; the promote workflow pulls it from there.
 - ❌ Don't rename/delete either theme — the IDs are pinned in secrets.
 
 ---
@@ -238,6 +228,21 @@ After this commit, the code lane will correctly carry the real global settings f
 
 - **Rollback history:** the `content-snapshots` branch is force-pushed on each content promotion, so only the **latest** patch is retained. Richer per-page rollback history is a future enhancement.
 - **Drift detection:** because Shopify can't lock the Theme-settings gear, a "scheduled `theme pull` + diff alert" would catch out-of-band edits to `settings_data.json` / structural files. Parked for later. (Note: the code lane already auto-reverts gear edits to `settings_data.json` on the next deploy.)
-- **Jira-triggered promotion:** Button 2 currently takes a hand-typed file list. Once Jira tracks content requests, the input can be driven from there without changing the promote logic.
+- **Jira-triggered promotion:** promotion is triggered today by ticking the issue + adding the `promote` label. Once Jira tracks content requests, a Jira automation can tick/label via the GitHub API — the promote logic doesn't change.
 - **Continuous content backup:** git only holds a content snapshot from the last `pull`/promotion. A scheduled full `theme pull` would keep the repo a current, diffable backup of Staging content. Parked.
+
+---
+
+## 9. Reconciling the live themes with git (theme-prune)
+
+The deploy pipeline runs `--nodelete` **and** the code lane ignores `templates/*.json`. That protects content — but it also means **deletions in git never propagate to the themes.** If you remove templates/sections/snippets from git and want them gone from the live themes too, the themes need a deliberate prune.
+
+`theme-prune.yml` does this: it deletes the files listed in `.github/theme-prune-manifest.txt` from a theme using the Shopify CLI (a scoped push), and **fails loudly** if the push reports errors.
+
+**Always run it in this order:**
+1. `mode=dry-run`, `target=staging` — lists what would be deleted and confirms CLI/theme access. Deletes nothing.
+2. `mode=delete`, `target=staging` — delete on the draft theme; verify.
+3. `mode=delete`, `target=prod` — only after Staging is clean.
+
+> Note the `.liquid`-vs-`.json` gotcha: a theme can't hold both `page.x.liquid` and `page.x.json` (same template name). If a page won't take sections in the editor or a content push is rejected with *"already exists with liquid extension"*, a stale `.liquid` is on the theme — prune it (or delete it in Edit code).
 ```
