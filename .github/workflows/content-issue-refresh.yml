@@ -45,8 +45,11 @@ jobs:
           SHOPIFY_CLI_THEME_TOKEN: ${{ secrets.SHOPIFY_CLI_THEME_TOKEN }}
           SHOPIFY_FLAG_STORE: ${{ secrets.SHOPIFY_STORE }}
         run: |
+          mkdir -p ./_stg
           shopify theme pull --theme=${{ secrets.SHOPIFY_STAGING_THEME_ID }} \
             --path ./_stg --nodelete --only 'templates/page*.json'
+          echo "Pulled page templates:"
+          ls -1 ./_stg/templates 2>/dev/null || echo "(none)"
 
       - name: Build checklist body (pages on Staging)
         run: node scripts/gen-content-list.mjs --dir ./_stg/templates > body.md
