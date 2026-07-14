@@ -34,20 +34,24 @@ if (namesArg !== -1) {
   process.exit(0);
 }
 
-// full body mode
-const paths = fs.readdirSync('templates').filter((f) => f.endsWith('.json')).map((f) => `templates/${f}`);
-const rows = paths.map((p) => ({ p, name: friendly(p) })).sort((a, b) => a.name.localeCompare(b.name));
-const isPage = (p) => p === 'templates/page.json' || p.startsWith('templates/page.');
-const pages = rows.filter((r) => isPage(r.p));
-const others = rows.filter((r) => !isPage(r.p));
+// full body mode — lists PAGE templates only, read from --dir (default: templates)
+const dirArg = process.argv.indexOf('--dir');
+const dir = dirArg !== -1 ? process.argv[dirArg + 1] : 'templates';
+const isPageFile = (f) => /^page(\..+)?\.json$/.test(f); // page.json and page.<suffix>.json only
+
+let files = [];
+try {
+  files = fs.readdirSync(dir).filter(isPageFile).map((f) => `templates/${f}`);
+} catch { /* dir may not exist if the pull found nothing */ }
+
+const rows = files.map((p) => ({ p, name: friendly(p) })).sort((a, b) => a.name.localeCompare(b.name));
 const line = (r) => `- [ ] ${r.name} — \`${r.p}\``;
 
 let out = '';
 out += 'Tick the page(s) to promote to **Production**, then add the **`promote`** label.\n';
-out += 'The list needs refreshing? Add the **`refresh`** label (it rebuilds this list, then removes itself).\n\n';
-out += '_Auto-generated from `templates/*.json`. Do not edit the list by hand. Refreshing resets all ticks._\n\n';
+out += 'List out of date? Add the **`refresh`** label — it rebuilds from the Staging theme, then removes itself.\n\n';
+out += '_Auto-generated from the **Staging** theme\'s page templates. Do not edit the list by hand. Refreshing resets all ticks._\n\n';
 out += '<!-- CONTENT-LIST:START -->\n';
-out += '### Pages\n' + (pages.length ? pages.map(line).join('\n') : '_none_') + '\n\n';
-out += '### Other templates\n' + (others.length ? others.map(line).join('\n') : '_none_') + '\n';
+out += '### Pages\n' + (rows.length ? rows.map(line).join('\n') : '_no page templates found on Staging_') + '\n';
 out += '<!-- CONTENT-LIST:END -->\n';
 process.stdout.write(out);
