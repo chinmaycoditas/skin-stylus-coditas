@@ -17,6 +17,7 @@ managers should do (and why).
 8. [Ordering rules](#8-ordering-rules)
 9. [Troubleshooting & gotchas](#9-troubleshooting--gotchas)
 10. [Reference](#10-reference)
+11. [Bootstrapping a new brand/theme](#11-bootstrapping-a-new-brandtheme)
 
 ---
 
@@ -282,3 +283,29 @@ By design — the pipeline runs `--nodelete` (protects content). Deletions don't
 - **Drift detection:** no alert if someone edits the Theme-settings gear on a theme; the code lane auto-reverts `settings_data.json` on the next deploy, but out-of-band edits between deploys aren't flagged. A scheduled `theme pull` + diff would catch it.
 - **Jira-triggered promotion:** today you tick the issue + add `promote`. A Jira automation could tick/label via the GitHub API later — the promote logic wouldn't change.
 - **Continuous content backup:** git only holds content from the last pull/promotion. A scheduled full `theme pull` would keep the repo a diffable backup of Staging content.
+
+---
+
+## 11. Bootstrapping a new brand/theme
+
+Because the workflows reference everything through **secrets**, this whole setup is portable. A new brand repo (started from the shared base theme) already carries the workflows, `scripts/`, and this doc — so standing up a new theme is mostly wiring, done by one script.
+
+**`scripts/bootstrap-theme-ops.sh`** does the theme-specific parts in one run:
+1. Creates an **unpublished Staging theme** (pushes the base theme code) and resolves its ID.
+2. Sets the 4 GitHub **secrets** (`SHOPIFY_STORE`, `SHOPIFY_STAGING_THEME_ID`, `SHOPIFY_PROD_THEME_ID`, `SHOPIFY_CLI_THEME_TOKEN`).
+3. Creates the **`production-approval`** environment + a required reviewer.
+4. Creates the **labels** (`content-promotion`, `promote`, `refresh`).
+5. **Generalises** brand-specific bits (blanks the seed default; rewrites store/theme IDs in this doc).
+6. Triggers the **refresh** to create the Content promotion issue.
+
+```bash
+export SHOPIFY_CLI_THEME_TOKEN=shptka_xxx          # you create this in Shopify; never committed
+scripts/bootstrap-theme-ops.sh \
+  --repo owner/new-brand \
+  --store new-brand.myshopify.com \
+  --prod-theme-id <live-theme-id> \
+  --reviewer <github-login> \
+  [--staging-name "Brand Staging"] [--dry-run]
+```
+
+**Stays manual (by design):** creating the Shopify **Theme Access token** (you export it; it's piped to the secret, never logged), choosing/publishing which theme is **Prod**, and the first code deploy. Run with **`--dry-run`** first — it prints every step and changes nothing.
