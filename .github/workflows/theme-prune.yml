@@ -1,0 +1,68 @@
+name: Theme Prune (delete unused files)
+
+# DESTRUCTIVE. Deletes the files listed in .github/theme-prune-manifest.txt
+# from a theme via the Theme Access API proxy, to reconcile the live themes
+# with the git cleanup (the normal deploy runs --nodelete and never deletes).
+#
+# Safety: run mode=dry-run FIRST (checks presence only, deletes nothing), on
+# target=staging FIRST. Only run mode=delete on prod after staging is verified.
+
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        description: "Which theme to prune"
+        type: choice
+        options: [staging, prod]
+        default: staging
+      mode:
+        description: "dry-run = check only (no deletion); delete = actually remove"
+        type: choice
+        options: [dry-run, delete]
+        default: dry-run
+
+jobs:
+  prune:
+    runs-on: ubuntu-latest
+    environment: production-approval
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Prune theme files
+        env:
+          TOKEN: ${{ secrets.SHOPIFY_CLI_THEME_TOKEN }}
+          STORE: ${{ secrets.SHOPIFY_STORE }}
+          STAGING_ID: ${{ secrets.SHOPIFY_STAGING_THEME_ID }}
+          PROD_ID: ${{ secrets.SHOPIFY_PROD_THEME_ID }}
+          TARGET: ${{ inputs.target }}
+          MODE: ${{ inputs.mode }}
+        run: |
+          set -u
+          if [ "$TARGET" = "prod" ]; then THEME="$PROD_ID"; else THEME="$STAGING_ID"; fi
+          BASE="https://theme-kit-access.shopifyapps.com/cli/admin/api/2024-10/themes/$THEME/assets.json"
+          echo "Target=$TARGET (theme $THEME)  Mode=$MODE  Store=$STORE"
+          echo "-----------------------------------------------------------"
+          ok=0; absent=0; err=0; total=0
+          while IFS= read -r f; do
+            [ -z "$f" ] && continue
+            total=$((total+1))
+            if [ "$MODE" = "delete" ]; then
+              code=$(curl -s -o /tmp/r.txt -w "%{http_code}" -X DELETE \
+                "$BASE?asset%5Bkey%5D=$f" \
+                -H "X-Shopify-Access-Token: $TOKEN" \
+                -H "X-Shopify-Shop-Domain: $STORE")
+            else
+              code=$(curl -s -o /tmp/r.txt -w "%{http_code}" \
+                "$BASE?asset%5Bkey%5D=$f" \
+                -H "X-Shopify-Access-Token: $TOKEN" \
+                -H "X-Shopify-Shop-Domain: $STORE")
+            fi
+            case "$code" in
+              200) echo "  [present/ok $code] $f"; ok=$((ok+1)) ;;
+              404|406) echo "  [absent $code]     $f"; absent=$((absent+1)) ;;
+              *) echo "  [ERROR $code]      $f -- $(head -c 160 /tmp/r.txt | tr -d '\n')"; err=$((err+1)) ;;
+            esac
+          done < .github/theme-prune-manifest.txt
+          echo "-----------------------------------------------------------"
+          echo "Summary ($MODE / $TARGET): ok=$ok  absent=$absent  errors=$err  total=$total"
+          if [ "$err" -gt 0 ]; then echo "::warning::$err file(s) returned unexpected status — check the log before proceeding."; fi
