@@ -1,0 +1,100 @@
+name: Promote content from issue
+
+# When the "promote" label is added to the Content promotion issue, read the
+# checked page(s) and promote them Staging -> Prod (only those files).
+#   collect  — parse checked boxes, validate (ungated, fails fast)
+#   promote  — approval-gated pull -> snapshot -> push, then report & uncheck
+
+on:
+  issues:
+    types: [labeled]
+
+permissions:
+  issues: write
+  contents: write
+
+jobs:
+  collect:
+    if: >-
+      github.event.label.name == 'promote' &&
+      contains(github.event.issue.labels.*.name, 'content-promotion')
+    runs-on: ubuntu-latest
+    outputs:
+      files: ${{ steps.c.outputs.files }}
+      empty: ${{ steps.c.outputs.empty }}
+    steps:
+      - name: Parse checked pages
+        id: c
+        env:
+          BODY: ${{ github.event.issue.body }}
+        run: |
+          files=$(printf '%s\n' "$BODY" \
+            | sed -nE 's/^[[:space:]]*- \[[xX]\] +(templates\/[A-Za-z0-9._\/-]+\.json).*/\1/p' \
+            | sort -u | paste -sd, -)
+          echo "Checked: ${files:-<none>}"
+          echo "files=$files" >> "$GITHUB_OUTPUT"
+          [ -z "$files" ] && echo "empty=true" >> "$GITHUB_OUTPUT" || echo "empty=false" >> "$GITHUB_OUTPUT"
+
+      - name: Bail if nothing checked
+        if: steps.c.outputs.empty == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue comment ${{ github.event.issue.number }} --body "⚠️ No pages checked — nothing to promote. Tick pages, then re-add the \`promote\` label."
+          gh issue edit ${{ github.event.issue.number }} --remove-label promote
+          exit 1
+
+  promote:
+    needs: collect
+    if: needs.collect.outputs.empty == 'false'
+    runs-on: ubuntu-latest
+    environment: production-approval
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install Shopify CLI
+        run: npm install -g @shopify/cli @shopify/theme
+
+      - name: Build --only flags
+        env:
+          FILES: ${{ needs.collect.outputs.files }}
+        run: |
+          ONLY=$(printf '%s' "$FILES" | tr ',' '\n' | sed 's/^/--only /' | tr '\n' ' ')
+          echo "ONLY=$ONLY" >> "$GITHUB_ENV"
+
+      - name: Pull named content from Staging
+        env:
+          SHOPIFY_CLI_THEME_TOKEN: ${{ secrets.SHOPIFY_CLI_THEME_TOKEN }}
+          SHOPIFY_FLAG_STORE: ${{ secrets.SHOPIFY_STORE }}
+        run: |
+          shopify theme pull --theme=${{ secrets.SHOPIFY_STAGING_THEME_ID }} --nodelete $ONLY
+
+      - name: Snapshot promoted content
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git checkout -B content-snapshots
+          git add -A
+          git commit -m "Content patch (issue #${{ github.event.issue.number }}) $(date -u +%Y-%m-%dT%H:%M:%SZ): ${{ needs.collect.outputs.files }}" || echo "No changes to snapshot"
+          git push origin content-snapshots --force
+
+      - name: Push named content into Production theme
+        env:
+          SHOPIFY_CLI_THEME_TOKEN: ${{ secrets.SHOPIFY_CLI_THEME_TOKEN }}
+          SHOPIFY_FLAG_STORE: ${{ secrets.SHOPIFY_STORE }}
+        run: |
+          shopify theme push --theme=${{ secrets.SHOPIFY_PROD_THEME_ID }} \
+            --allow-live \
+            --nodelete \
+            $ONLY
+
+      - name: Report result and reset the checklist
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue comment ${{ github.event.issue.number }} --body "✅ Promoted to Production: ${{ needs.collect.outputs.files }}"
+          gh issue edit ${{ github.event.issue.number }} --remove-label promote
+          gh issue view ${{ github.event.issue.number }} --json body -q .body | sed -E 's/^- \[[xX]\]/- [ ]/' > reset.md
+          gh issue edit ${{ github.event.issue.number }} --body-file reset.md

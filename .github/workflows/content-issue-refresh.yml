@@ -1,0 +1,58 @@
+name: Refresh content promotion issue
+
+# Keeps a single "Content promotion" issue in sync with templates/*.json.
+# Runs automatically whenever templates change (and on demand). Uses the
+# default GITHUB_TOKEN — editing issues needs no PAT (unlike editing the
+# workflow-file dropdown). This is the self-maintaining page list.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'templates/**.json'
+  workflow_dispatch: {}
+
+permissions:
+  issues: write
+  contents: read
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      TITLE: "Content promotion"
+      LABEL: content-promotion
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Ensure labels exist
+        run: |
+          gh label create "$LABEL" --color 0e8a16 --description "Auto-maintained content promotion checklist" 2>/dev/null || true
+          gh label create "promote" --color d93f0b --description "Add to promote the checked pages to Production" 2>/dev/null || true
+
+      - name: Build checklist body
+        run: |
+          {
+            echo "Tick the page template(s) to promote to **Production**, then add the **\`promote\`** label."
+            echo "A workflow pulls them from Staging and pushes to Prod (with approval), then unchecks the boxes."
+            echo ""
+            echo "_Auto-generated from \`templates/*.json\` — do not edit the list by hand._"
+            echo ""
+            echo "<!-- CONTENT-LIST:START -->"
+            for f in $(ls templates/*.json | sort); do
+              echo "- [ ] $f"
+            done
+            echo "<!-- CONTENT-LIST:END -->"
+          } > body.md
+          echo "Built list with $(grep -c '^- \[ \]' body.md) templates."
+
+      - name: Upsert the issue
+        run: |
+          NUM=$(gh issue list --label "$LABEL" --state open --json number -q '.[0].number')
+          if [ -z "$NUM" ]; then
+            gh issue create --title "$TITLE" --label "$LABEL" --body-file body.md
+          else
+            gh issue edit "$NUM" --body-file body.md
+            echo "Updated issue #$NUM"
+          fi
