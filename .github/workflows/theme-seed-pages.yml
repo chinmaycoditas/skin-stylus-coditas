@@ -1,0 +1,78 @@
+name: Seed page templates onto a theme
+
+# One-off/bootstrap: puts git's page template scaffolds onto a theme, and
+# removes the stale .liquid twin of each (which would otherwise conflict:
+# a theme can't hold both page.x.liquid and page.x.json).
+#
+# For each `templates/page.<x>.json` in `pages`:
+#   step 1 — scoped push of page.<x>.liquid (absent in git) => deletes it
+#   step 2 — scoped push of page.<x>.json  (present in git) => uploads it
+#
+# Use for NEW/empty pages only. It pushes git's version, so running it on a
+# page a content manager has already built on that theme would overwrite their
+# work. Staging first.
+
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        description: "Which theme"
+        type: choice
+        options: [staging, prod]
+        default: staging
+      pages:
+        description: "Comma-separated page templates (git paths)"
+        required: true
+        default: "templates/page.microsystems.json,templates/page.contact-sales.json,templates/page.customer-support.json"
+
+jobs:
+  seed:
+    runs-on: ubuntu-latest
+    environment: production-approval
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Shopify CLI
+        run: npm install -g @shopify/cli @shopify/theme
+
+      - name: Seed
+        env:
+          SHOPIFY_CLI_THEME_TOKEN: ${{ secrets.SHOPIFY_CLI_THEME_TOKEN }}
+          SHOPIFY_FLAG_STORE: ${{ secrets.SHOPIFY_STORE }}
+          STAGING_ID: ${{ secrets.SHOPIFY_STAGING_THEME_ID }}
+          PROD_ID: ${{ secrets.SHOPIFY_PROD_THEME_ID }}
+          TARGET: ${{ inputs.target }}
+          PAGES: ${{ inputs.pages }}
+        run: |
+          set -o pipefail
+          if [ "$TARGET" = "prod" ]; then THEME="$PROD_ID"; ALLOW="--allow-live"; else THEME="$STAGING_ID"; ALLOW=""; fi
+
+          norm=$(printf '%s' "$PAGES" | tr ',' '\n' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' | sed '/^$/d')
+          # validate: only templates/page.*.json
+          while IFS= read -r f; do
+            case "$f" in
+              templates/page.*.json) ;;
+              *) echo "::error::Refusing '$f' — only templates/page.*.json may be seeded."; exit 1 ;;
+            esac
+          done <<< "$norm"
+
+          JSON=$(printf '%s\n' "$norm" | sed 's/^/--only /' | tr '\n' ' ')
+          LIQ=$(printf '%s\n' "$norm" | sed 's/\.json$/.liquid/' | sed 's/^/--only /' | tr '\n' ' ')
+
+          echo "Target=$TARGET (theme $THEME)"
+          echo "== git scaffolds to verify exist locally =="
+          missing=0
+          while IFS= read -r f; do
+            if [ -f "$f" ]; then echo "  ok  $f"; else echo "  MISSING $f"; missing=1; fi
+          done <<< "$norm"
+          [ "$missing" = 0 ] || { echo "::error::one or more scaffolds missing in git"; exit 1; }
+
+          echo "== step 1: remove stale .liquid twins =="
+          shopify theme push --theme="$THEME" $ALLOW $LIQ 2>&1 | tee del.log
+          grep -qiE "with errors|^\s*│\s*error" del.log && { echo "::error::liquid-removal push reported errors"; exit 1; } || true
+
+          echo "== step 2: upload git .json scaffolds =="
+          shopify theme push --theme="$THEME" $ALLOW --nodelete $JSON 2>&1 | tee push.log
+          grep -qiE "with errors|^\s*│\s*error" push.log && { echo "::error::json push reported errors"; exit 1; } || true
+
+          echo "Seed complete on $TARGET."
