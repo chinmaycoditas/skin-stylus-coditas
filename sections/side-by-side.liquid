@@ -14,7 +14,9 @@
       <li class="pb-12 mb-12 border-b border-dark-grey">
         <div class="flex flex-col gap-4 lg:grid {% if b.image %}{% if b.image_first %}lg:grid-cols-[8fr_10fr]{% else %}lg:grid-cols-[10fr_8fr]{% endif %}{% else %}grid-cols-2{% endif %}">
           {% if b.image != blank %}
-            {% render 'responsive-image', image: b.image, class: "rounded-image overflow-hidden", cover: true %}
+            <div class="side-by-side-media">
+              {% render 'responsive-image', image: b.image, class: "rounded-image overflow-hidden", cover: true %}
+            </div>
           {% endif %}
 
           {%- if b.image != blank %}
