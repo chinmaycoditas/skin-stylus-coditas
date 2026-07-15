@@ -7172,6 +7172,10 @@
     background: currentColor;
     border-radius: 50%;
   }
+  .side-by-side-media {
+    display: flex;
+    align-items: center;
+  }
   .shopify-section:has(#bullseye_iframe) {
     margin-top: 90px;
   }
