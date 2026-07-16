@@ -1,0 +1,83 @@
+name: Show content diff (Staging vs Prod)
+
+run-name: "Show diff · issue #${{ github.event.issue.number }}"
+
+# Add the `show-diff` label to the Content promotion issue to see which page
+# templates differ between Staging and Prod (i.e. what's changed but not yet
+# promoted). Read-only (pulls both themes, diffs, comments), then removes the
+# label. No approval gate.
+
+on:
+  issues:
+    types: [labeled]
+
+permissions:
+  issues: write
+  contents: read
+
+concurrency:
+  group: content-diff
+  cancel-in-progress: true
+
+jobs:
+  diff:
+    if: >-
+      github.event.label.name == 'show-diff' &&
+      contains(github.event.issue.labels.*.name, 'content-promotion')
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Shopify CLI
+        run: npm install -g @shopify/cli @shopify/theme
+
+      - name: Pull page templates from Staging and Prod
+        env:
+          SHOPIFY_CLI_THEME_TOKEN: ${{ secrets.SHOPIFY_CLI_THEME_TOKEN }}
+          SHOPIFY_FLAG_STORE: ${{ secrets.SHOPIFY_STORE }}
+        run: |
+          mkdir -p _stg _prod
+          shopify theme pull --theme=${{ secrets.SHOPIFY_STAGING_THEME_ID }} --path ./_stg  --nodelete --only 'templates/page*.json'
+          shopify theme pull --theme=${{ secrets.SHOPIFY_PROD_THEME_ID }}    --path ./_prod --nodelete --only 'templates/page*.json'
+
+      - name: Compute diff and comment on the issue
+        run: |
+          STG=_stg/templates; PROD=_prod/templates
+          differ=""; stgonly=""; prodonly=""; insync=0
+          for f in "$STG"/page*.json; do
+            [ -e "$f" ] || continue
+            b=$(basename "$f")
+            if [ -f "$PROD/$b" ]; then
+              if diff -q "$f" "$PROD/$b" >/dev/null 2>&1; then insync=$((insync+1)); else differ="$differ,templates/$b"; fi
+            else
+              stgonly="$stgonly,templates/$b"
+            fi
+          done
+          for f in "$PROD"/page*.json; do
+            [ -e "$f" ] || continue
+            b=$(basename "$f")
+            [ -f "$STG/$b" ] || prodonly="$prodonly,templates/$b"
+          done
+          differ="${differ#,}"; stgonly="${stgonly#,}"; prodonly="${prodonly#,}"
+
+          section() {  # $1=title  $2=csv-of-paths
+            [ -z "$2" ] && return
+            printf '\n**%s**\n\n| Page | Template |\n|---|---|\n' "$1"
+            node scripts/gen-content-list.mjs --names "$2"
+          }
+
+          {
+            echo "🔍 **Staging ↔ Prod content diff** ($(date -u +%Y-%m-%dT%H:%M:%SZ))"
+            if [ -z "$differ$stgonly$prodonly" ]; then
+              printf '\n✅ All page templates are in sync between Staging and Prod.\n'
+            fi
+            section "✏️ Changed on Staging — not yet promoted" "$differ"
+            section "🆕 New on Staging — not on Prod" "$stgonly"
+            section "⚠️ Only on Prod — missing from Staging" "$prodonly"
+            printf '\n_%s page(s) already in sync._\n' "$insync"
+          } > comment.md
+
+          gh issue comment ${{ github.event.issue.number }} --body-file comment.md
+          gh issue edit ${{ github.event.issue.number }} --remove-label show-diff

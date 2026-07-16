@@ -34,8 +34,9 @@ jobs:
       - name: Ensure labels exist
         run: |
           gh label create "$LABEL"  --color 0e8a16 --description "Auto-maintained content promotion checklist" 2>/dev/null || true
-          gh label create "promote" --color d93f0b --description "Promote the checked pages to Production" 2>/dev/null || true
-          gh label create "refresh" --color 1d76db --description "Rebuild the content list (auto-removed)" 2>/dev/null || true
+          gh label create "promote"   --color d93f0b --description "Promote the checked pages to Production" 2>/dev/null || true
+          gh label create "refresh"   --color 1d76db --description "Rebuild the content list (auto-removed)" 2>/dev/null || true
+          gh label create "show-diff" --color fbca04 --description "Report which pages differ between Staging and Prod (auto-removed)" 2>/dev/null || true
 
       - name: Install Shopify CLI
         run: npm install -g @shopify/cli @shopify/theme
