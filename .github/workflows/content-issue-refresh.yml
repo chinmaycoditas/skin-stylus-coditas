@@ -17,6 +17,10 @@ permissions:
   issues: write
   contents: read
 
+concurrency:
+  group: content-refresh
+  cancel-in-progress: false
+
 jobs:
   refresh:
     if: >-

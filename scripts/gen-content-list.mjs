@@ -35,6 +35,7 @@ if (namesArg !== -1) {
 }
 
 // full body mode — lists PAGE templates only, read from --dir (default: templates)
+// Staging is git-connected, so this repo IS Staging's content — no theme pull needed.
 const dirArg = process.argv.indexOf('--dir');
 const dir = dirArg !== -1 ? process.argv[dirArg + 1] : 'templates';
 const isPageFile = (f) => /^page(\..+)?\.json$/.test(f); // page.json and page.<suffix>.json only
@@ -42,16 +43,16 @@ const isPageFile = (f) => /^page(\..+)?\.json$/.test(f); // page.json and page.<
 let files = [];
 try {
   files = fs.readdirSync(dir).filter(isPageFile).map((f) => `templates/${f}`);
-} catch { /* dir may not exist if the pull found nothing */ }
+} catch { /* dir may not exist */ }
 
 const rows = files.map((p) => ({ p, name: friendly(p) })).sort((a, b) => a.name.localeCompare(b.name));
 const line = (r) => `- [ ] ${r.name} — \`${r.p}\``;
 
 let out = '';
 out += 'Tick the page(s) to promote to **Production**, then add the **`promote`** label.\n';
-out += 'List out of date? Add the **`refresh`** label — it rebuilds from the Staging theme, then removes itself.\n\n';
-out += '_Auto-generated from the **Staging** theme\'s page templates. Do not edit the list by hand. Refreshing resets all ticks._\n\n';
+out += 'List out of date? Add the **`refresh`** label — it rebuilds from the repo, then removes itself.\n\n';
+out += '_Auto-generated from this repo\'s page templates (Staging is git-connected, so this **is** Staging\'s content). Do not edit the list by hand. Refreshing resets all ticks._\n\n';
 out += '<!-- CONTENT-LIST:START -->\n';
-out += '### Pages\n' + (rows.length ? rows.map(line).join('\n') : '_no page templates found on Staging_') + '\n';
+out += '### Pages\n' + (rows.length ? rows.map(line).join('\n') : '_no page templates found in the repo_') + '\n';
 out += '<!-- CONTENT-LIST:END -->\n';
 process.stdout.write(out);

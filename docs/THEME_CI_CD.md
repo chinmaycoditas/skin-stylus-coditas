@@ -130,11 +130,11 @@ All in `.github/workflows/`.
 |---|---|---|---|
 | **`deploy-staging.yml`** | Auto — push to `main` | Code | Push code git → Staging, ignoring `templates/*.json`. Also carries git's `settings_data.json`. |
 | **`publish-code-production.yml`** | Manual (**Button 1**) + approval | Code | Push code git → **Prod** (`--allow-live`), ignoring `templates/*.json`. Fail-loud. |
-| **`content-issue-refresh.yml`** | Auto on `templates/**.json` change · manual · **`refresh` label** | Content | Rebuild the "Content promotion" issue checklist from the **Staging** theme's page templates. Auto-removes the `refresh` label. Uses `GITHUB_TOKEN` (no PAT). |
+| **`content-issue-refresh.yml`** | Auto on `templates/**.json` change · manual · **`refresh` label** | Content | Rebuild the "Content promotion" issue checklist directly from **this repo's** page templates (Staging is git-connected — the repo *is* Staging's content now). Auto-removes the `refresh` label. Uses `GITHUB_TOKEN` (no PAT). Concurrency-guarded (`content-refresh` group) to avoid two triggers racing on the same issue. |
 | **`content-issue-promote.yml`** | **`promote` label** on the issue + approval | Content | Promote the **ticked** page(s): pull from Staging → snapshot → push only those to **Prod**. Plan/result tables, fail-loud, comments + unchecks on success, keeps label + comments on failure. Concurrency-guarded. |
 | **`theme-seed-pages.yml`** | Manual + approval | Ops | Bootstrap new/empty page templates onto a theme: remove the stale `page.<x>.liquid` twin, then upload git's `page.<x>.json`. Staging-first. |
 
-> Retired: `publish-production.yml` (whole-theme copy) and `publish-content-production.yml` (dropdown promoter) — both superseded. `theme-prune.yml` (one-off theme/git reconciliation) was removed after use; recover from git history if a future cleanup needs it.
+> Retired: `publish-production.yml` (whole-theme copy) and `publish-content-production.yml` (dropdown promoter) — both superseded. `theme-prune.yml` (one-off theme/git reconciliation) was removed after use; recover from git history if a future cleanup needs it. `create-store-page.yml` (Admin API page creator, see old §12) was removed after its `SHOPIFY_ADMIN_API_TOKEN` secret became invalid and a working token couldn't be re-issued — recover from git history if this gets revisited; until then, create pages manually (Online Store → Pages → Add page; Edit code → Add a new template).
 
 ---
 
@@ -217,15 +217,13 @@ Lane: **Both.** Order matters (§8).
 3. **Button 1 first** (ship the section to Prod), **then** promote the page via the issue. (Otherwise Prod has a page referencing a section that isn't there → broken.)
 
 ### F. Brand-new page
-Lane: **Both / setup.** Recommended flow (avoids the Edit-code "Add a new template" UI, which has proven fiddly):
-1. **Page record + template file:** run **Create Store Page (Admin API)** — see §12. It creates the Page (store-wide) and can set `template_suffix` in one call.
-2. **Template scaffold on Staging:** if the page needs its own layout, get an empty `templates/page.<slug>.json` onto **Staging** via **`theme-seed-pages`** (no Edit-code clicking).
-3. **Build without waiting on the dropdown:** preview and add sections using the `?view=<slug>&preview_theme_id=<staging>` URL override (works immediately, independent of the page's assigned template — see §12's "why this trick matters").
-4. Add the **`refresh`** label to the issue → the template appears in the checklist once it exists on Staging.
+Lane: **Both / setup.** The Admin API page-creator workflow (`create-store-page.yml`) is retired (see §4) — create the page manually:
+1. **Page record:** Online Store → Pages → Add page. Set the title/handle; assign a custom template later once it exists on a theme (the dropdown only lists templates on the **published** theme — see step 3).
+2. **Template scaffold on Staging:** if the page needs its own layout, get an empty `templates/page.<slug>.json` onto **Staging** via **`theme-seed-pages`**, or add it directly in the Staging editor (Edit code → Add a new template → page → JSON) — either way it syncs back to git automatically since Staging is git-connected.
+3. **Build without waiting on the dropdown:** preview and add sections using the `?view=<slug>&preview_theme_id=<staging>` URL override (works immediately, independent of the page's assigned template).
+4. Add the **`refresh`** label to the issue → the template appears in the checklist once it exists in the repo.
 5. **Promote to Prod:** tick + `promote`. For a genuinely new page there's no `.liquid` legacy, so this should go straight through. (If a stale `page.<x>.liquid` exists — e.g. a bootstrapped placeholder — clear it first via `theme-seed-pages`.)
-6. Only **after** the template is on Prod does the page's "Theme template" dropdown offer it — confirm the assignment there (or it was already set in step 1 via the API).
-
-*(Manual alternative, if you'd rather not use the Admin API workflow: Online Store → Pages → Add page; then Edit code → Add a new template → page → JSON.)*
+6. Only **after** the template is on Prod does the page's "Theme template" dropdown offer it — go back and confirm the assignment there.
 
 ### G. Body-only page (Terms, Privacy, simple text)
 Lane: **None (store-level).**
@@ -318,40 +316,15 @@ scripts/bootstrap-theme-ops.sh \
 
 ---
 
-## 12. Creating a page (Admin API)
+## 12. Creating a page
 
-Manually creating a page in Shopify admin and assigning it a custom template through the "Theme template" dropdown has proven fiddly (the create/assign steps silently failed to stick more than once). **`create-store-page.yml`** does both in one call via the Shopify Admin GraphQL API.
-
-### Why this needs a different secret
-`SHOPIFY_CLI_THEME_TOKEN` (Theme Access) is scoped to **theme files only** — it cannot create a Page (a store content record). This workflow needs a **separate** secret:
-
-- **`SHOPIFY_ADMIN_API_TOKEN`** — an Admin API access token with `write_content` (+ `read_content`) scope.
-- Create it yourself: Shopify admin → **Settings → Apps and sales channels → Develop apps → Create an app** → Configuration → Admin API scopes → check `write_content`/`read_content` → **Install** → reveal the token **once**.
-- Store it yourself: `gh secret set SHOPIFY_ADMIN_API_TOKEN` (paste the token at the prompt) — **never paste the token value into chat/AI**.
-
-### Usage
-**Actions → Create Store Page (Admin API) → Run workflow:**
-
-| Input | Meaning |
-|---|---|
-| `title` | Page title (required) |
-| `handle` | URL slug (optional — auto-generated from title if blank) |
-| `template_suffix` | Custom template name, e.g. `our-recommendation` for `templates/page.our-recommendation.json` (blank = Default page) |
-| `body_html` | Initial body content (optional — skip if the page will be fully section-built) |
-| `published` | Publish immediately (default true) |
-
-It's **idempotent** — if a page with that handle already exists, it reports the existing page instead of creating a duplicate. No `production-approval` gate (page records are store content, the same category of action a content manager already does freely in admin — not a theme/code change).
-
-### Why this removes the dropdown pain
-**`templateSuffix` is set directly in the same API call that creates the page** — no separate "open the page, find the dropdown, select, remember to click Save" step that can silently fail to persist.
+**`create-store-page.yml`** (Admin API page creator) is **retired** — its `SHOPIFY_ADMIN_API_TOKEN` secret became invalid and a working replacement token couldn't be re-issued. Recover the workflow from git history if this gets revisited. Until then, create pages manually: Online Store → Pages → Add page, then assign a custom template via Edit code → Add a new template → page → JSON (see §7.F for the full new-page flow).
 
 ### The `?view=` preview trick (build without waiting)
 The page's "Theme template" dropdown only lists templates that exist on the **published (Prod)** theme. That means a template you've only pushed to **Staging** won't appear there yet — normally forcing you to wait. Instead, preview **any** theme + template combination directly by URL, independent of the page's stored assignment:
 
 ```
-https://iyeamb-p0.myshopify.com/pages/<handle>?view=<template-suffix>&preview_theme_id=154568622272
+https://iyeamb-p0.myshopify.com/pages/<handle>?view=<template-suffix>&preview_theme_id=155006927040
 ```
 
-This lets a content manager build and verify sections on **Staging** immediately after `theme-seed-pages` pushes the scaffold there — no dropdown, no waiting for Prod. Once the template is promoted to Prod and the page's `templateSuffix` is set (via this workflow or the dropdown), the live URL renders it normally.
-
-<!-- test: verifying deploy-staging targets Staging 2.0 (2026-07-20T07:18:01Z) -->
+This lets a content manager build and verify sections on **Staging** immediately after `theme-seed-pages` pushes the scaffold there — no dropdown, no waiting for Prod. Once the template is promoted to Prod and the page's `templateSuffix` is set via the dropdown, the live URL renders it normally.
