@@ -353,3 +353,5 @@ https://iyeamb-p0.myshopify.com/pages/<handle>?view=<template-suffix>&preview_th
 ```
 
 This lets a content manager build and verify sections on **Staging** immediately after `theme-seed-pages` pushes the scaffold there — no dropdown, no waiting for Prod. Once the template is promoted to Prod and the page's `templateSuffix` is set (via this workflow or the dropdown), the live URL renders it normally.
+
+<!-- test: verifying deploy-staging targets Staging 2.0 (2026-07-20T07:18:01Z) -->
