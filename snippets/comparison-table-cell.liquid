@@ -6,11 +6,11 @@
 {%- endcomment -%}
 {%- case value -%}
   {%- when 'check' -%}
-    <span class="flex justify-center text-green-600">{% render 'icons', icon: 'check' %}</span>
+    <span class="flex justify-center" style="color:#16a34a;">{% render 'icons', icon: 'check' %}</span>
   {%- when 'question' -%}
-    <span class="flex justify-center text-red-500">{% render 'icons', icon: 'question' %}</span>
+    <span class="flex justify-center" style="color:#ef4444;">{% render 'icons', icon: 'question' %}</span>
   {%- when 'cross' -%}
-    <span class="flex justify-center text-red-500">{% render 'icons', icon: 'circle-cross' %}</span>
+    <span class="flex justify-center" style="color:#ef4444;">{% render 'icons', icon: 'circle-cross' %}</span>
   {%- when 'none' or blank -%}
     <span class="flex justify-center text-grey-medium">&mdash;</span>
   {%- else -%}
