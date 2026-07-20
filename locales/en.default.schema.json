@@ -303,6 +303,15 @@
         "icon_nourish": "Nourish Icon",
         "icon_purify": "Purify Icon"
       },
+      "comparison_table": {
+        "name": "Comparison Table",
+        "column": "Column",
+        "column_label": "Column Header",
+        "row": "Row",
+        "feature": "Row Label",
+        "cells": "Cell Values",
+        "cells_info": "One value per column, separated by \"|\", in the same order as your columns. Use check / question / cross / none for icons, or type any other text for plain content. Example: check|question|30 mins|$45"
+      },
       "connect_w_sales_form": {
         "name": "Connect With Sales Form",
         "info_text": "Info Text",

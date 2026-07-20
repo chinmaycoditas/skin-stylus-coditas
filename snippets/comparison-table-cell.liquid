@@ -1,0 +1,18 @@
+{%- comment -%}
+  Renders one comparison-table cell. Recognized keywords render an icon;
+  anything else renders as plain text, so cells can hold free-form content.
+  Usage: {% render 'comparison-table-cell', value: 'check' %}
+  value: 'check' | 'question' | 'cross' | 'none' | <any other text>
+{%- endcomment -%}
+{%- case value -%}
+  {%- when 'check' -%}
+    <span class="flex justify-center" style="color:#16a34a;">{% render 'icons', icon: 'check' %}</span>
+  {%- when 'question' -%}
+    <span class="flex justify-center" style="color:#ef4444;">{% render 'icons', icon: 'question' %}</span>
+  {%- when 'cross' -%}
+    <span class="flex justify-center" style="color:#ef4444;">{% render 'icons', icon: 'circle-cross' %}</span>
+  {%- when 'none' or blank -%}
+    <span class="flex justify-center text-grey-medium">&mdash;</span>
+  {%- else -%}
+    <span class="flex justify-center text-center">{{ value }}</span>
+{%- endcase -%}

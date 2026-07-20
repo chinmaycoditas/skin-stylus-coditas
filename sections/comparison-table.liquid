@@ -1,0 +1,125 @@
+{%- assign s = section.settings -%}
+{%- assign columns = section.blocks | where: 'type', 'column' -%}
+{%- assign rows = section.blocks | where: 'type', 'row' -%}
+
+<div
+  id="comparison-table-{{ s.id_number }}"
+  class="flex flex-col items-center pt-10 lg:pt-[0] px-[18px]"
+>
+  <h2 class="text-center p-4 text-h1-mob/[50px] lg:text-h2/[70px] {% unless settings.remove_capitalize %}capitalize{% endunless %} tracking-[-0.09px] lg:tracking-[-0.13px] lg:max-w-[810px]">
+    {% if s.text_yellow %}
+      {% render 'yellow', text: s.heading %}
+    {% else %}
+      {% render 'blue', text: s.heading %}
+    {% endif %}
+  </h2>
+
+  {% if columns.size > 0 and rows.size > 0 %}
+    <div class="w-full max-w-[1200px] overflow-x-auto pb-[60px]">
+      <table class="w-full min-w-[640px] border-collapse">
+        <thead>
+          <tr>
+            <th class="border border-grey-medium bg-white p-4"></th>
+            {% for column in columns %}
+              <th class="border border-grey-medium bg-white p-4 text-center font-semibold" {{ column.shopify_attributes }}>
+                {{ column.settings.label }}
+              </th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in rows %}
+            {% assign cells = row.settings.cells | split: '|' %}
+            <tr {{ row.shopify_attributes }}>
+              <td class="border border-grey-medium p-4 text-left">{{ row.settings.feature }}</td>
+              {% for column in columns %}
+                {% assign cell_index = forloop.index0 %}
+                {% assign cell_value = cells[cell_index] | strip %}
+                <td class="border border-grey-medium p-4">{% render 'comparison-table-cell', value: cell_value %}</td>
+              {% endfor %}
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "t:settings_schema.sections.comparison_table.name",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:settings_schema.general.heading",
+      "default": "Upgrade To SkinStylus®",
+      "info": "t:settings_schema.general.blue_info"
+    },
+    {
+      "type": "checkbox",
+      "id": "text_yellow",
+      "label": "t:settings_schema.general.use_yellow_accent",
+      "info": "t:settings_schema.general.yellow_accent_info"
+    },
+    {
+      "type": "header",
+      "content": "Unique Section ID"
+    },
+    {
+      "type": "paragraph",
+      "content": "The ID for this section will be 'comparison-table-#' based on the number chosen below. The default is 'comparison-table-1'"
+    },
+    {
+      "type": "range",
+      "id": "id_number",
+      "label": "ID Number",
+      "max": 5,
+      "min": 1,
+      "step": 1,
+      "default": 1,
+      "info": "If using this section multiple times on the same page, assign a different number to each one."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "column",
+      "name": "t:settings_schema.sections.comparison_table.column",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "t:settings_schema.sections.comparison_table.column_label"
+        }
+      ]
+    },
+    {
+      "type": "row",
+      "name": "t:settings_schema.sections.comparison_table.row",
+      "settings": [
+        {
+          "type": "text",
+          "id": "feature",
+          "label": "t:settings_schema.sections.comparison_table.feature"
+        },
+        {
+          "type": "text",
+          "id": "cells",
+          "label": "t:settings_schema.sections.comparison_table.cells",
+          "info": "t:settings_schema.sections.comparison_table.cells_info"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:settings_schema.sections.comparison_table.name",
+      "blocks": [
+        { "type": "column" },
+        { "type": "column" }
+      ]
+    }
+  ]
+}
+{% endschema %}
