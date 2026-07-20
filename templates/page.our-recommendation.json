@@ -17,9 +17,32 @@
         "description": "Our Recommendation Page",
         "id_number": 1
       }
+    },
+    "comparison_table_1": {
+      "type": "comparison-table",
+      "name": "t:settings_schema.sections.comparison_table.name",
+      "settings": {
+        "heading": "Upgrade To SkinStylus®",
+        "id_number": 1
+      },
+      "blocks": {
+        "col_1": { "type": "column", "settings": { "label": "SkinStylus®" } },
+        "col_2": { "type": "column", "settings": { "label": "SkinPen®" } },
+        "col_3": { "type": "column", "settings": { "label": "RejuvaPen NXT®" } },
+        "col_4": { "type": "column", "settings": { "label": "Exceed®" } },
+        "row_1": { "type": "row", "settings": { "feature": "FDA cleared to 2.5 mm", "cells": "check|question|question|question" } },
+        "row_2": { "type": "row", "settings": { "feature": "12 pin, 36 pin, and 36 pin HiLo technology", "cells": "check|question|question|question" } },
+        "row_3": { "type": "row", "settings": { "feature": "Can either be intermediate disinfected or autoclave reprocessed without need for sheath", "cells": "check|question|question|question" } },
+        "row_4": { "type": "row", "settings": { "feature": "FDA cleared with both battery (cordless) and corded power options", "cells": "check|question|question|question" } },
+        "row_5": { "type": "row", "settings": { "feature": "FDA cleared with a TWO YEAR Warranty", "cells": "check|question|question|question" } },
+        "row_6": { "type": "row", "settings": { "feature": "Patented Seven Step Safety System that prevents cross-contamination", "cells": "check|question|question|question" } },
+        "row_7": { "type": "row", "settings": { "feature": "Replacement Cartridges less than $45", "cells": "check|question|question|question" } }
+      },
+      "block_order": ["col_1", "col_2", "col_3", "col_4", "row_1", "row_2", "row_3", "row_4", "row_5", "row_6", "row_7"]
     }
   },
   "order": [
-    "side_by_side_bgqByJ"
+    "side_by_side_bgqByJ",
+    "comparison_table_1"
   ]
 }
