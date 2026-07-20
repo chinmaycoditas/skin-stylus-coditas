@@ -33,18 +33,17 @@ jobs:
       - name: Install Shopify CLI
         run: npm install -g @shopify/cli @shopify/theme
 
-      - name: Pull page templates from Staging and Prod
+      - name: Pull page templates from Prod (Staging is git-connected — repo is the source of truth)
         env:
           SHOPIFY_CLI_THEME_TOKEN: ${{ secrets.SHOPIFY_CLI_THEME_TOKEN }}
           SHOPIFY_FLAG_STORE: ${{ secrets.SHOPIFY_STORE }}
         run: |
-          mkdir -p _stg _prod
-          shopify theme pull --theme=${{ secrets.SHOPIFY_STAGING_THEME_ID }} --path ./_stg  --nodelete --only 'templates/page*.json'
-          shopify theme pull --theme=${{ secrets.SHOPIFY_PROD_THEME_ID }}    --path ./_prod --nodelete --only 'templates/page*.json'
+          mkdir -p _prod
+          shopify theme pull --theme=${{ secrets.SHOPIFY_PROD_THEME_ID }} --path ./_prod --nodelete --only 'templates/page*.json'
 
       - name: Compute diff and comment on the issue
         run: |
-          STG=_stg/templates; PROD=_prod/templates
+          STG=templates; PROD=_prod/templates
           differ=""; stgonly=""; prodonly=""; insync=0
           for f in "$STG"/page*.json; do
             [ -e "$f" ] || continue

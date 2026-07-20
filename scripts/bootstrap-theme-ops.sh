@@ -109,7 +109,7 @@ mklabel refresh           1d76db "Rebuild the content list (auto-removed)"
 step "Generalising brand-specific files"
 do_run sed -i 's#^\(        default:\).*#\1 ""#' .github/workflows/theme-seed-pages.yml || true
 # doc store/theme IDs (mechanical bits only — review the doc for brand copy)
-do_run sed -i "s/iyeamb-p0.myshopify.com/$STORE/g; s/154568622272/$STAGING_ID/g; s/154633666752/$PROD_ID/g" docs/THEME_CI_CD.md || true
+do_run sed -i "s/iyeamb-p0.myshopify.com/$STORE/g; s/155006927040/$STAGING_ID/g; s/154633666752/$PROD_ID/g" docs/THEME_CI_CD.md || true
 echo "  NOTE: review docs/THEME_CI_CD.md for remaining brand-specific text."
 
 # --- 6. bootstrap the promotion issue --------------------------------------

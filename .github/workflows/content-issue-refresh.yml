@@ -38,22 +38,13 @@ jobs:
           gh label create "refresh"   --color 1d76db --description "Rebuild the content list (auto-removed)" 2>/dev/null || true
           gh label create "show-diff" --color fbca04 --description "Report which pages differ between Staging and Prod (auto-removed)" 2>/dev/null || true
 
-      - name: Install Shopify CLI
-        run: npm install -g @shopify/cli @shopify/theme
-
-      - name: Pull page templates from Staging (source of truth for content)
-        env:
-          SHOPIFY_CLI_THEME_TOKEN: ${{ secrets.SHOPIFY_CLI_THEME_TOKEN }}
-          SHOPIFY_FLAG_STORE: ${{ secrets.SHOPIFY_STORE }}
+      - name: List page templates (Staging is git-connected — repo is the source of truth)
         run: |
-          mkdir -p ./_stg
-          shopify theme pull --theme=${{ secrets.SHOPIFY_STAGING_THEME_ID }} \
-            --path ./_stg --nodelete --only 'templates/page*.json'
-          echo "Pulled page templates:"
-          ls -1 ./_stg/templates 2>/dev/null || echo "(none)"
+          echo "Page templates in repo:"
+          ls -1 ./templates/page*.json 2>/dev/null || echo "(none)"
 
       - name: Build checklist body (pages on Staging)
-        run: node scripts/gen-content-list.mjs --dir ./_stg/templates > body.md
+        run: node scripts/gen-content-list.mjs --dir ./templates > body.md
 
       - name: Upsert the issue
         run: |

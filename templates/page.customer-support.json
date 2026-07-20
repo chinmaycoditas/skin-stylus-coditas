@@ -1,11 +1,25 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
-    "page_content": {
-      "type": "page-content",
-      "settings": {}
+    "side_by_side_mFMAMf": {
+      "type": "side-by-side",
+      "name": "t:settings_schema.sections.side_by_side.name",
+      "settings": {
+        "title": "Customer Support Changed",
+        "description": "Customer Support Description",
+        "id_number": 1
+      }
     }
   },
   "order": [
-    "page_content"
+    "side_by_side_mFMAMf"
   ]
 }

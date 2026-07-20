@@ -98,17 +98,19 @@ That's why a template must exist **on each theme** where the page should render,
 ### Themes (store `iyeamb-p0.myshopify.com`)
 | Theme | Role | ID |
 |---|---|---|
-| **Skin Stylus Staging** | `[unpublished]` — review here | `154568622272` |
+| **Staging 2.0** (git-connected to `main`) | `[unpublished]` — review here; content auto-syncs from/to this repo | `155006927040` |
 | **Skin Stylus Prod** | `[live]` — customers see this | `154633666752` |
 
 Roles never swap. **Never `shopify theme publish` the Staging theme** (it would flip which theme is live and break every workflow), and never rename/delete either (IDs are pinned in secrets).
+
+> **Note:** Staging is now connected directly to this repo's `main` branch via Shopify's native GitHub integration — editor changes on Staging auto-commit to `main`, and pushes to `main` auto-update Staging. The old **Skin Stylus Staging** theme (`154568622272`) is retired/superseded by **Staging 2.0** — decide whether to unpublish or delete it in the admin.
 
 ### GitHub secrets (Settings → Secrets and variables → Actions)
 | Secret | Value / purpose |
 |---|---|
 | `SHOPIFY_CLI_THEME_TOKEN` | Theme Access token (CLI auth) |
 | `SHOPIFY_STORE` | `iyeamb-p0.myshopify.com` |
-| `SHOPIFY_STAGING_THEME_ID` | `154568622272` |
+| `SHOPIFY_STAGING_THEME_ID` | `155006927040` |
 | `SHOPIFY_PROD_THEME_ID` | `154633666752` |
 
 ### GitHub environment

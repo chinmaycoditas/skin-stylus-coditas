@@ -1,11 +1,124 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
-    "page_content": {
-      "type": "page-content",
-      "settings": {}
+    "side_by_side_dagGXK": {
+      "type": "side-by-side",
+      "blocks": {
+        "item_g7xnJj": {
+          "type": "item",
+          "settings": {
+            "title_1": "",
+            "description_1": "<ul><li>Cordless and corded power options</li><li>Security for sterilizing to your standards</li><li>Three cartridge options</li><li>A two year system warranty</li></ul>",
+            "cta_label_1": "CTA Label",
+            "cta_link_1": "",
+            "title_2": "",
+            "description_2": "",
+            "cta_label_2": "CTA Label",
+            "cta_link_2": "",
+            "image": "shopify://shop_images/3-steps-option-3.png",
+            "image_first": false
+          }
+        }
+      },
+      "block_order": [
+        "item_g7xnJj"
+      ],
+      "name": "t:settings_schema.sections.side_by_side.name",
+      "settings": {
+        "title": "SkinStylus: Designed by Skincare Professionals",
+        "description": "",
+        "id_number": 1
+      }
+    },
+    "side_by_side_9GFcPT": {
+      "type": "side-by-side",
+      "blocks": {
+        "item_9a4bd8": {
+          "type": "item",
+          "settings": {
+            "title_1": "SkinStylus SteriLock®",
+            "description_1": "<p>SkinStylus® cartridges have a unique, patented, seven-step safety system designed to stop any fluids from getting through the cartridge and into the device. The SteriLock® cartridge is also gamma ray sterilized to ensure client safety.<br/><br/>Redundant Safety Systems: SkinStylus® practitioners can rest assured that even in the unlikely event that fluids were somehow able to exit the SteriLock® cartridge, the SkinStylus® nosecone can be reprocessed in an autoclave after each use further minimizing the risk of cross-contamination.<br/><br/></p>",
+            "cta_label_1": "Talk with Sales",
+            "cta_link_1": "shopify://pages/contact-sales",
+            "title_2": "",
+            "description_2": "",
+            "cta_label_2": "",
+            "cta_link_2": "",
+            "image": "shopify://shop_images/cart-interface.png",
+            "image_first": true
+          }
+        }
+      },
+      "block_order": [
+        "item_9a4bd8"
+      ],
+      "name": "t:settings_schema.sections.side_by_side.name",
+      "settings": {
+        "title": "Choose the right system for your business",
+        "description": "",
+        "id_number": 1
+      }
+    },
+    "side_by_side_UYkGUj": {
+      "type": "side-by-side",
+      "blocks": {
+        "item_neLW9K": {
+          "type": "item",
+          "settings": {
+            "title_1": "",
+            "description_1": "<p>• 1 SteriLock Device – corded and cordless options<br/>• 1 motor<br/>• 2 nosecones<br/>• Abs case<br/>• Corded speed head controller<br/>• 9’ power cord and AC block<br/>• 3’ charging cord and AC block<br/>• 2 Li-on modular batteries<br/>• Acrylic stand<br/>• 3 cartridges (12 pin, 36 pin, 36 pin HiLo)<br/>• 2-YEAR WARRANTY<br/><br/></p>",
+            "cta_label_1": "BECOME A PROVIDER",
+            "cta_link_1": "shopify://pages/contact-sales",
+            "title_2": "",
+            "description_2": "",
+            "cta_label_2": "CTA Label",
+            "cta_link_2": "",
+            "image": "shopify://shop_images/DSC_5070-768x510.jpg",
+            "image_first": false
+          }
+        }
+      },
+      "block_order": [
+        "item_neLW9K"
+      ],
+      "name": "t:settings_schema.sections.side_by_side.name",
+      "settings": {
+        "title": "SteriLock® Quick Start",
+        "description": "",
+        "id_number": 1
+      }
+    },
+    "side_by_side_dEFT9K": {
+      "type": "side-by-side",
+      "name": "t:settings_schema.sections.side_by_side.name",
+      "settings": {
+        "title": "",
+        "description": "Purchasers and users of any SkinStylus® System are strongly urged to comply with any federal, state or local restrictions for its use. SkinStylus® does not purport to furnish legal or medical advice. Additionally, the content of this website is for informational purposes only.",
+        "id_number": 3
+      }
+    },
+    "disclaimer_box_aamdX4": {
+      "type": "disclaimer-box",
+      "name": "t:settings_schema.sections.disclaimer_box.name",
+      "settings": {
+        "bottom_border": false,
+        "id_number": 1
+      }
     }
   },
   "order": [
-    "page_content"
+    "side_by_side_dagGXK",
+    "side_by_side_9GFcPT",
+    "side_by_side_UYkGUj",
+    "side_by_side_dEFT9K",
+    "disclaimer_box_aamdX4"
   ]
 }
