@@ -103,7 +103,7 @@ That's why a template must exist **on each theme** where the page should render,
 
 Roles never swap. **Never `shopify theme publish` the Staging theme** (it would flip which theme is live and break every workflow), and never rename/delete either (IDs are pinned in secrets).
 
-> **Note:** Staging is now connected directly to this repo's `main` branch via Shopify's native GitHub integration — editor changes on Staging auto-commit to `main`, and pushes to `main` auto-update Staging. The old **Skin Stylus Staging** theme (`154568622272`) is retired/superseded by **Staging 2.0** — decide whether to unpublish or delete it in the admin.
+> **Note:** Staging is now connected directly to this repo's `main` branch via Shopify's native GitHub integration — editor changes on Staging auto-commit to `main`, and pushes to `main` auto-update Staging. The old **Skin Stylus Staging** theme (`154568622272`) is retired/superseded by **Staging 2.0** — decide whether to unpublish or delete it in the admin. **See §9 for a known gotcha:** a `shopify theme push` to Staging can trigger a Shopify auto-commit echo back to `main` shortly after, which may reject your next `git push` as non-fast-forward.
 
 ### GitHub secrets (Settings → Secrets and variables → Actions)
 | Secret | Value / purpose |
@@ -273,6 +273,12 @@ By design — the pipeline runs `--nodelete` (protects content). Deletions don't
 
 **A promote failed.**
 `content-issue-promote` is fail-loud — it comments the failure on the issue and keeps the `promote` label. Fix the cause, then remove & re-add the label to retry.
+
+**"`git push` to `main` was rejected as non-fast-forward, and I didn't make that commit."**
+Staging is git-connected (§3), and Shopify appears to auto-commit an "Update from Shopify for theme ..." echo back to `main` shortly after a `shopify theme push` lands on it (observed ~35s after `deploy-staging` ran, on 2026-07-20). Two things to know:
+- **Scope:** this auto-commit isn't limited to content — Shopify's GitHub connection mirrors the *entire* repo tree as the theme's stored files, so `.github/workflows/`, `docs/`, and `scripts/` are all in scope, not just `templates/`/`config/settings_data.json`. A stale echo can therefore reintroduce old workflow files or doc/script edits you already fixed locally, not just old content.
+- **Fix:** don't blindly `git pull`/force-push. `git fetch origin`, then `git diff HEAD origin/main --stat` to see what actually changed. If it's purely a stale echo of a pre-fix state (i.e. it only reverts things you already intentionally changed, with no genuine new content), merge with your local side preferred: `git merge origin/main -X ours -m "..."`, verify the merged tree still has your fixes, then push. If the incoming commit has genuine new content changes mixed in, resolve file-by-file instead of blanket `-X ours`.
+- This is a **known possibility, not confirmed to fire on every push** — it happened once after a test push; treat every rejected push here as "inspect first," not "assume it's safe to overwrite."
 
 ---
 
