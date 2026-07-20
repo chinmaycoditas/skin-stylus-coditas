@@ -13,7 +13,7 @@
       "type": "side-by-side",
       "name": "t:settings_schema.sections.side_by_side.name",
       "settings": {
-        "title": "Customer Support Changed",
+        "title": "Customer Support to test",
         "description": "Customer Support Description",
         "id_number": 1
       }
