@@ -1,8 +1,9 @@
 {%- assign s = section.settings -%}
 
-<div 
+<div
   id="side-by-side-{{ s.id_number }}"
-  class="w-full max-w-screen lg:max-w-maxscreen px-4 lg:px-12 pt-20 lg:pt-[110px]"
+  class="w-full max-w-screen lg:max-w-maxscreen px-4 lg:px-12"
+  style="padding-top: var(--header-height, 110px);"
 >
   {% if s.title != blank %}<h1 class="text-h4 font-light">{{ s.title }}</h1>{% endif %}
   {% if s.description != blank %}<p class="font-light">{{ s.description }}</p>{% endif %}
