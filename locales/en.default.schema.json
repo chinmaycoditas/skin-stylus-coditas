@@ -32,6 +32,17 @@
       "video_desktop": "Video (Desktop)",
       "video_mobile": "Video (Mobile)"
     },
+    "global_theme_settings": {
+      "logo": {
+        "name": "Logo",
+        "copyright": "Copyright",
+        "trademark": "Trademark",
+        "logo_type": "Logo Type",
+        "logo_image": "Logo Image",
+        "logo_image_info": "Upload a logo image to replace the built-in SVG logo. Leave blank to keep using the built-in logo.",
+        "logo_image_max_width": "Logo Image Max Width"
+      }
+    },
     "general": {
       "blue_info": "wrap text in <||> to make it blue",
       "text": "Text",
