@@ -12,6 +12,7 @@
     "social_facebook_url": "https://www.facebook.com/hydrafacial/",
     "social_instagram_url": "https://www.instagram.com/hydrafacial/?hl=en",
     "favicon": "shopify://shop_images/Group_847.png",
+    "logo_image": "shopify://shop_images/SkinStylus_logo_white.png",
     "sections": {
       "header": {
         "type": "header",
@@ -20,7 +21,6 @@
             "type": "nav_menu_img_content",
             "settings": {
               "link_title_ref": "skin concerns",
-              "image": "shopify://shop_images/ec2319052f0a683bceff4f4ee15aa0dc862cfb59.jpg",
               "title": "<|Discover|> The Treatment",
               "description": "Seven personalized skin treatments in one.",
               "button_text": "Learn More",
@@ -49,7 +49,6 @@
             "type": "nav_menu_img_content",
             "settings": {
               "link_title_ref": "for professionals",
-              "image": "shopify://shop_images/LHP_Hydrafacial_Syndeo_Screen_Upward_03-FNL-Silo_1.jpg",
               "title": "",
               "description": "",
               "button_text": "Become A Provider",
@@ -65,7 +64,7 @@
         ],
         "settings": {
           "main_menu": "main-menu",
-          "region_menu": "regions",
+          "region_menu": "",
           "show_search_bar": false,
           "id_number": 1
         }
@@ -102,13 +101,18 @@
         ],
         "settings": {
           "footer_links": "footer",
+          "hide-app-download": false,
           "app_store_link": "https://apps.apple.com/us/app/mybeautyhealth/id6463192431",
           "google_play_link": "https://play.google.com/store/apps/details?id=com.mybeautyhealth.app&hl=en_US",
           "copyright_text": "Copyright © 2025. Hydrafacial LLC. All Rights Reserved",
           "contact_phone": "1-800-603-4996",
           "contact_email": "orders@hydrafacial.com",
           "form_embed_script": "<div class=\"hubspot-form\">\n<script>\n  const hsScript = document.createElement(\"script\");\n  hsScript.src = \"//js.hsforms.net/forms/embed/v2.js\";\n  hsScript.charset = \"utf-8\";\n  hsScript.onload = function () {\n    hbspt.forms.create({\n      portalId: \"9253844\",\n      formId: \"a95f37a3-b4b1-469a-9971-25a50e1be515\",\n      region: \"na1\",\n      onFormReady: function ($form) {\n        const style = $form.ownerDocument.createElement(\"style\");\n        style.textContent = `\n          .hs-richtext.hs-main-font-element h5 span {\n            font-size: 16px;\n            line-height: 23px;\n          }\n          .hs-richtext.hs-main-font-element p span * {\n            font-size: 16px !important;\n            line-height: 23px;\n            font-weight: 300;\n            margin-bottom: 4px;\n          }\n          .hs-richtext.hs-main-font-element p {\n            margin-top: 4px;\n          }\n          .hs-richtext.hs-main-font-element h5 {\n            margin-bottom: 0px;\n          }\n          div.hs-customer_or_provider label:first-of-type:has(.hs-form-required) {\n            display: none;\n          }\n          div.hs-customer_or_provider .input ul {\n            display: flex;\n            align-items: center;\n            gap: 25px;\n            height: 30px;\n          }\n          .hs-form-radio label.hs-form-radio-display {\n            display: flex;\n            align-items: center;\n          }\n          li.hs-form-radio {\n            width: fit-content;\n          }\n          .input .hs-input {\n            color: white;\n            border-radius: 4px;\n            border: 0.5px solid #C6C6C6;\n            background-color: #73737333;\n            height: 51px;\n          }\n          .input .hs-input::placeholder {\n            color: #f5f5f5;\n            font-size: 14px;\n            line-height: 18px;\n          } \n        `;\n        $form.ownerDocument.head.appendChild(style);\n      }\n    });\n  };\n  document.querySelector('.hubspot-form').appendChild(hsScript);\n</script>\n</div>",
-          "id_number": 1
+          "id_number": 1,
+          "logo_width": 100,
+          "add_extra_padding_desktop": false,
+          "padding_bottom": 0,
+          "padding_right": 0
         }
       },
       "app-optimization": {
