@@ -4,7 +4,8 @@
 
 <div
   id="comparison-table-{{ s.id_number }}"
-  class="flex flex-col items-center pt-10 lg:pt-[0] px-[18px]"
+  class="flex flex-col items-center px-[18px]"
+  style="padding-top: var(--header-height, 110px);"
 >
   <h2 class="text-center p-4 text-h1-mob/[50px] lg:text-h2/[70px] {% unless settings.remove_capitalize %}capitalize{% endunless %} tracking-[-0.09px] lg:tracking-[-0.13px] lg:max-w-[810px]">
     {% if s.text_yellow %}

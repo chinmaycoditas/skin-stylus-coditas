@@ -8,9 +8,10 @@
 
 {% if s.bg_gradient %}<div class="long-page-gradient max-w-[unset]">{% endif %}
   <div class="max-w-maxscreen mx-auto z-10">
-    <div 
+    <div
       id="sales-form-{{ s.id_number }}"
-      class="relative flex flex-col pb-7 lg:pb-0 lg:px-[38px] pt-20 lg:pt-[110px]"
+      class="relative flex flex-col pb-7 lg:pb-0 lg:px-[38px]"
+      style="padding-top: var(--header-height, 110px);"
     >
       {% if s.use_exit_intent %}
         <div 

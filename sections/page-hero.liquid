@@ -4,9 +4,10 @@
   <h1 style="display:none;" >{{ page.metafields.custom.h1_title }}</h1>
 {% endif %}
 
-<div 
+<div
   id="page-hero-{{ s.id_number }}"
-  class="px-[15px] lg:px-[38px] relative z-[97] pt-20 lg:pt-[110px] mt-4">
+  class="px-[15px] lg:px-[38px] relative z-[97] mt-4"
+  style="padding-top: var(--header-height, 110px);">
   <div class="relative w-full">
     {%- if s.image_mobile -%}
       {% render 'responsive-image', 
