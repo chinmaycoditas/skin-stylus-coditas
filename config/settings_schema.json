@@ -112,7 +112,23 @@
           }
         ],
         "default": "trademark",
-        "label": "t:settings_schema.global_theme_settings.logo.logo_type",
+        "label": "t:settings_schema.global_theme_settings.logo.logo_type"
+      },
+      {
+        "type": "image_picker",
+        "id": "logo_image",
+        "label": "t:settings_schema.global_theme_settings.logo.logo_image",
+        "info": "t:settings_schema.global_theme_settings.logo.logo_image_info"
+      },
+      {
+        "type": "range",
+        "id": "logo_image_max_width",
+        "label": "t:settings_schema.global_theme_settings.logo.logo_image_max_width",
+        "min": 80,
+        "max": 400,
+        "step": 10,
+        "unit": "px",
+        "default": 220
       }
     ]
   }
