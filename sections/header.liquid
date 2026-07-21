@@ -76,6 +76,22 @@
 
 {% render 'mobile-menu' %}
 
+<script>
+  (function () {
+    var header = document.querySelector('[data-sticky-header]');
+    if (!header) return;
+    var setHeaderHeightVar = function () {
+      document.documentElement.style.setProperty('--header-height', header.offsetHeight + 'px');
+    };
+    setHeaderHeightVar();
+    if (window.ResizeObserver) {
+      new ResizeObserver(setHeaderHeightVar).observe(header);
+    } else {
+      window.addEventListener('resize', setHeaderHeightVar);
+    }
+  })();
+</script>
+
 {% schema %}
 {
   "name": "t:settings_schema.sections.header.name",
