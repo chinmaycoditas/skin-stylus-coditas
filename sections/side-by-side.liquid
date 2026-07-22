@@ -5,7 +5,7 @@
   class="w-full max-w-screen lg:max-w-maxscreen px-4 lg:px-12"
   style="padding-top: var(--header-height, 110px);"
 >
-  {% if s.title != blank %}<h1 class="text-h4 font-light">{{ s.title }}</h1>{% endif %}
+  {% if s.title != blank %}<h1 class="text-h4 font-light text-{{ s.title_alignment | default: 'left' }}">{{ s.title }}</h1>{% endif %}
   {% if s.description != blank %}<p class="font-light">{{ s.description }}</p>{% endif %}
 
   <ul class="mt-8 lg:mt-16">
@@ -111,6 +111,17 @@
       "id": "title",
       "label": "t:settings_schema.general.title",
       "default": "t:settings_schema.defaults.side_by_side_title"
+    },
+    {
+      "type": "select",
+      "id": "title_alignment",
+      "label": "t:settings_schema.sections.side_by_side.title_alignment.label",
+      "default": "left",
+      "options": [
+        { "value": "left", "label": "t:settings_schema.sections.side_by_side.title_alignment.left" },
+        { "value": "center", "label": "t:settings_schema.sections.side_by_side.title_alignment.center" },
+        { "value": "right", "label": "t:settings_schema.sections.side_by_side.title_alignment.right" }
+      ]
     },
     {
       "type": "textarea",

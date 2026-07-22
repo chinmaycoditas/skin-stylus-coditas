@@ -595,7 +595,13 @@
         "image_optional_info": "Image Optional Info",
         "side_by_side_item": "Side By Side Item",
         "cta_header": "CTA Header",
-        "image_position_info": "Position of the image relative to content"
+        "image_position_info": "Position of the image relative to content",
+        "title_alignment": {
+          "label": "Title Alignment",
+          "left": "Left",
+          "center": "Center",
+          "right": "Right"
+        }
       },
       "quote_slider": {
         "name": "Quote Slider",
