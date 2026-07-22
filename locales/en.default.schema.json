@@ -467,6 +467,14 @@
         "card_text_alignment": "Card Text Alignment",
         "slide": "Slide"
       },
+      "numbered_feature_list": {
+        "name": "Numbered Feature List",
+        "diagram_image": "Diagram Image",
+        "diagram_image_info": "An illustration with its own numbered callouts baked in (e.g. a labeled product diagram)",
+        "feature": "Feature",
+        "number": "Number",
+        "number_info": "Should match the corresponding callout number on the diagram image"
+      },
       "page_hero": {
         "name": "Page Hero"
       },
