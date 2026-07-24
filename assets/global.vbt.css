@@ -102,7 +102,7 @@
     --radius-image-inner: 12px;
     --radius-image: 20px;
     --radius-header-menu: 30px;
-    --eyebrow-height: 42px;
+    --eyebrow-height: 40px;
   }
 }
 @layer base {
@@ -7550,13 +7550,19 @@
   }
 }
 
+/* ------------- eyebrow navigation css ------------- */
 .eyebrow-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
   height: var(--eyebrow-height);
   background: #000;
   display: flex;
   align-items: center;
   justify-content: center;
   border-bottom: 1px solid rgba(255,255,255,.08);
+  z-index: 1000;
 }
 
 .eyebrow-nav .page-width {
@@ -7564,7 +7570,6 @@
   display: flex;
   align-items: center;
   gap: 40px;
-
   padding-left: 44px;
 }
 
@@ -7573,15 +7578,18 @@
   text-decoration: none;
   font-size: 13px;
   font-weight: 500;
-  line-height: 1;
-  transition: color .2s ease;
 }
 
+.eyebrow-nav a.active,
 .eyebrow-nav a:hover {
   color: #fff;
 }
 
-.eyebrow-nav a.active {
-  color: #fff;
-  font-weight: 700;
+#shopify-section-header {
+  top: var(--eyebrow-height);
 }
+
+#MainContent {
+  padding-top: var(--eyebrow-height);
+}
+/* ------------- eyebrow navigation css ------------- */

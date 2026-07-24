@@ -1,17 +1,15 @@
+{% assign eyebrow_menu = linklists['eyebrow-navigation'] %}
+
+{% if eyebrow_menu.links.size > 0 %}
 <div class="eyebrow-nav">
   <div class="page-width">
-
-    <a
-      href="{{ settings.eyebrow_brand_1_url }}"
-      class="{% if request.host == settings.eyebrow_brand_1_host %}active{% endif %}">
-      {{ settings.eyebrow_brand_1_name }}
-    </a>
-
-    <a
-      href="{{ settings.eyebrow_brand_2_url }}"
-      class="{% if request.host == settings.eyebrow_brand_2_host %}active{% endif %}">
-      {{ settings.eyebrow_brand_2_name }}
-    </a>
-
+    {% for link in eyebrow_menu.links %}
+      <a
+        href="{{ link.url }}"
+        class="{% if request.host contains link.url | remove: 'https://' | remove: 'http://' | split: '/' | first %}active{% endif %}">
+        {{ link.title }}
+      </a>
+    {% endfor %}
   </div>
 </div>
+{% endif %}
