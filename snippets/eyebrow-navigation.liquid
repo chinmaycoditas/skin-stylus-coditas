@@ -1,0 +1,17 @@
+<div class="eyebrow-nav">
+  <div class="page-width">
+
+    <a
+      href="{{ settings.eyebrow_brand_1_url }}"
+      class="{% if request.host == settings.eyebrow_brand_1_host %}active{% endif %}">
+      {{ settings.eyebrow_brand_1_name }}
+    </a>
+
+    <a
+      href="{{ settings.eyebrow_brand_2_url }}"
+      class="{% if request.host == settings.eyebrow_brand_2_host %}active{% endif %}">
+      {{ settings.eyebrow_brand_2_name }}
+    </a>
+
+  </div>
+</div>

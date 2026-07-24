@@ -68,6 +68,8 @@
         {% endform %}
       </div>
     {% else %}  
+      {% render 'eyebrow-navigation' %}
+
       {% if page.metafields.custom.use_alt_header or collection.metafields.custom.use_alt_header or product.metafields.custom.use_alt_header %}
         {% section 'header-alt' %}
       {% else %}

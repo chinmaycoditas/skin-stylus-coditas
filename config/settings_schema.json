@@ -131,5 +131,44 @@
         "default": 220
       }
     ]
+  },
+  {
+    "name": "Eyebrow Navigation",
+    "settings": [
+      {
+        "type": "text",
+        "id": "eyebrow_brand_1_name",
+        "label": "Brand 1 Name",
+        "default": "SkinStylus"
+      },
+      {
+        "type": "url",
+        "id": "eyebrow_brand_1_url",
+        "label": "Brand 1 URL"
+      },
+      {
+        "type": "text",
+        "id": "eyebrow_brand_1_host",
+        "label": "Brand 1 Host",
+        "default": "skinstylus.com"
+      },
+      {
+        "type": "text",
+        "id": "eyebrow_brand_2_name",
+        "label": "Brand 2 Name",
+        "default": "HydraFacial"
+      },
+      {
+        "type": "url",
+        "id": "eyebrow_brand_2_url",
+        "label": "Brand 2 URL"
+      },
+      {
+        "type": "text",
+        "id": "eyebrow_brand_2_host",
+        "label": "Brand 2 Host",
+        "default": "hydrafacial.com"
+      }
+    ]
   }
 ]
